@@ -16,6 +16,7 @@ open class ViewController: UIViewController, MaskedTextFieldDelegateListener {
     @IBOutlet weak var field: UITextField!
     
     open override func viewDidLoad() {
+        super.viewDidLoad()
         listener.put(text: "+7123", into: field)
     }
     

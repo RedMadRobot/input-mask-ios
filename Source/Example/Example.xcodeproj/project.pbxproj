@@ -10,7 +10,7 @@
 		146D405720E8DA121E9B08ED /* Pods_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B014B33448F36396F5BF0D48 /* Pods_Example.framework */; };
 		8A01855E1D64C1AA007B5EBD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A01855D1D64C1AA007B5EBD /* AppDelegate.swift */; };
 		8A0185601D64C1AA007B5EBD /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A01855F1D64C1AA007B5EBD /* ViewController.swift */; };
-		8A0185631D64C1AA007B5EBD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8A0185611D64C1AA007B5EBD /* Main.storyboard */; };
+		8A0185631D64C1AA007B5EBD /* Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8A0185611D64C1AA007B5EBD /* Storyboard.storyboard */; };
 		8A0185651D64C1AA007B5EBD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8A0185641D64C1AA007B5EBD /* Assets.xcassets */; };
 		8A0185681D64C1AA007B5EBD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8A0185661D64C1AA007B5EBD /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
@@ -20,7 +20,7 @@
 		8A01855A1D64C1AA007B5EBD /* Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8A01855D1D64C1AA007B5EBD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8A01855F1D64C1AA007B5EBD /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		8A0185621D64C1AA007B5EBD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		8A0185621D64C1AA007B5EBD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Storyboard.storyboard; sourceTree = "<group>"; };
 		8A0185641D64C1AA007B5EBD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8A0185671D64C1AA007B5EBD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8A0185691D64C1AA007B5EBD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -63,7 +63,7 @@
 			children = (
 				8A01855D1D64C1AA007B5EBD /* AppDelegate.swift */,
 				8A01855F1D64C1AA007B5EBD /* ViewController.swift */,
-				8A0185611D64C1AA007B5EBD /* Main.storyboard */,
+				8A0185611D64C1AA007B5EBD /* Storyboard.storyboard */,
 				8A0185641D64C1AA007B5EBD /* Assets.xcassets */,
 				8A0185661D64C1AA007B5EBD /* LaunchScreen.storyboard */,
 				8A0185691D64C1AA007B5EBD /* Info.plist */,
@@ -152,7 +152,7 @@
 			files = (
 				8A0185681D64C1AA007B5EBD /* LaunchScreen.storyboard in Resources */,
 				8A0185651D64C1AA007B5EBD /* Assets.xcassets in Resources */,
-				8A0185631D64C1AA007B5EBD /* Main.storyboard in Resources */,
+				8A0185631D64C1AA007B5EBD /* Storyboard.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -201,7 +201,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -219,12 +219,12 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		8A0185611D64C1AA007B5EBD /* Main.storyboard */ = {
+		8A0185611D64C1AA007B5EBD /* Storyboard.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
 				8A0185621D64C1AA007B5EBD /* Base */,
 			);
-			name = Main.storyboard;
+			name = Storyboard.storyboard;
 			sourceTree = "<group>";
 		};
 		8A0185661D64C1AA007B5EBD /* LaunchScreen.storyboard */ = {

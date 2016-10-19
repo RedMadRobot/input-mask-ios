@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
@@ -22,31 +22,36 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                                 <connections>
-                                    <outlet property="delegate" destination="uYF-o3-vp0" id="kdM-Ry-yoh"/>
+                                    <outlet property="delegate" destination="Jf8-Lb-6rq" id="XZq-t7-7gU"/>
                                 </connections>
                             </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sample" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nHp-6r-sbR">
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="MtV-1y-GNI" secondAttribute="trailing" constant="20" symbolic="YES" id="EBM-nu-6Fk"/>
+                            <constraint firstItem="nHp-6r-sbR" firstAttribute="centerX" secondItem="MtV-1y-GNI" secondAttribute="centerX" id="PBs-TK-i7n"/>
                             <constraint firstItem="MtV-1y-GNI" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="Pd3-bb-D6T"/>
+                            <constraint firstItem="MtV-1y-GNI" firstAttribute="top" secondItem="nHp-6r-sbR" secondAttribute="bottom" constant="8.5" id="W0p-pE-tpP"/>
                             <constraint firstItem="MtV-1y-GNI" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="20" symbolic="YES" id="yEn-VD-eMt"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="field" destination="MtV-1y-GNI" id="mbq-9s-r85"/>
-                        <outlet property="listener" destination="uYF-o3-vp0" id="Lla-Ga-3iT"/>
+                        <outlet property="field" destination="MtV-1y-GNI" id="jrd-2g-Iuq"/>
+                        <outlet property="listener" destination="Jf8-Lb-6rq" id="kcQ-xH-c30"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
-                <customObject id="uYF-o3-vp0" customClass="MaskedTextFieldDelegate" customModule="InputMask">
+                <customObject id="Jf8-Lb-6rq" customClass="MaskedTextFieldDelegate" customModule="InputMask">
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="string" keyPath="maskFormat" value="+7 ([000]) [000] [00] [00]"/>
-                        <userDefinedRuntimeAttribute type="boolean" keyPath="autocomplete" value="YES"/>
-                        <userDefinedRuntimeAttribute type="boolean" keyPath="autocompleteOnFocus" value="YES"/>
                     </userDefinedRuntimeAttributes>
                     <connections>
-                        <outlet property="delegate" destination="BYZ-38-t0r" id="rTq-ax-OUi"/>
+                        <outlet property="delegate" destination="BYZ-38-t0r" id="kNe-qw-Sri"/>
                     </connections>
                 </customObject>
             </objects>
