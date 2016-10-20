@@ -233,6 +233,12 @@ private extension MaskedTextFieldDelegate {
     }
     
     func caretPosition(inField field: UITextField) -> Int {
+        // Workaround for non-optional `field.beginningOfDocument`, which could actually be nil if field doesn't have focus
+        guard field.isFirstResponder
+        else {
+            return field.text?.characters.count ?? 0
+        }
+        
         if let range: UITextRange = field.selectedTextRange {
             let selectedTextLocation: UITextPosition = range.start
             return field.offset(from: field.beginningOfDocument, to: selectedTextLocation)
@@ -242,6 +248,12 @@ private extension MaskedTextFieldDelegate {
     }
     
     func setCaretPosition(_ position: Int, inField field: UITextField) {
+        // Workaround for non-optional `field.beginningOfDocument`, which could actually be nil if field doesn't have focus
+        guard field.isFirstResponder
+        else {
+            return
+        }
+
         if position > field.text!.characters.count {
             return
         }
