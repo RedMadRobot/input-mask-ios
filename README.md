@@ -1,6 +1,6 @@
 # InputMask
 
-![Preview](https://raw.githubusercontent.com/RedMadRobot/input-mask-ios/assets/Assets/phone_input_crop.gif "Preview")
+![Preview](https://raw.githubusercontent.com/RedMadRobot/input-mask-ios/assets/Assets/phone_input_cropped.gif "Preview")
 
 ## Description
 The library allows to format user input on the fly according to the provided mask and to extract valueable characters.  
