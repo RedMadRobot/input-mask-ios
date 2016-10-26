@@ -47,6 +47,26 @@ class PhoneCase: MaskTestCase {
         XCTAssertEqual(placeholder, "+7 (000) 000 00 00")
     }
     
+    func testAcceptableTextLength_allSet_returnsCorrectCount() {
+        let acceptableTextLength: Int = try! self.mask().acceptableTextLength()
+        XCTAssertEqual(acceptableTextLength, 18)
+    }
+    
+    func testTotalTextLength_allSet_returnsCorrectCount() {
+        let totalTextLength: Int = try! self.mask().totalTextLength()
+        XCTAssertEqual(totalTextLength, 18)
+    }
+    
+    func testAcceptableValueLength_allSet_returnsCorrectCount() {
+        let acceptableValueLength: Int = try! self.mask().acceptableValueLength()
+        XCTAssertEqual(acceptableValueLength, 10)
+    }
+    
+    func testTotalValueLength_allSet_returnsCorrectCount() {
+        let totalValueLength: Int = try! self.mask().totalValueLength()
+        XCTAssertEqual(totalValueLength, 10)
+    }
+    
     func testApply_plus_return_plus() {
         let inputString: String         = "+"
         let inputCaret:  String.Index   = inputString.endIndex

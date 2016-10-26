@@ -46,6 +46,26 @@ class MonthYearCase: MaskTestCase {
         XCTAssertEqual(placeholder, "00/0000")
     }
     
+    func testAcceptableTextLength_allSet_returnsCorrectCount() {
+        let acceptableTextLength: Int = try! self.mask().acceptableTextLength()
+        XCTAssertEqual(acceptableTextLength, 7)
+    }
+    
+    func testTotalTextLength_allSet_returnsCorrectCount() {
+        let totalTextLength: Int = try! self.mask().totalTextLength()
+        XCTAssertEqual(totalTextLength, 7)
+    }
+    
+    func testAcceptableValueLength_allSet_returnsCorrectCount() {
+        let acceptableValueLength: Int = try! self.mask().acceptableValueLength()
+        XCTAssertEqual(acceptableValueLength, 7)
+    }
+    
+    func testTotalValueLength_allSet_returnsCorrectCount() {
+        let totalValueLength: Int = try! self.mask().totalValueLength()
+        XCTAssertEqual(totalValueLength, 7)
+    }
+    
     func testApply_1_returns_1() {
         let inputString: String         = "1"
         let inputCaret:  String.Index   = inputString.endIndex

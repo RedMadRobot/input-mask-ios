@@ -19,7 +19,15 @@ import UIKit
  */
 @objc public protocol MaskedTextFieldDelegateListener: UITextFieldDelegate {
     
+    /**
+     Callback to return extracted value.
+     */
     @objc optional func textField(_ textField: UITextField, didExtractValue value: String)
+    
+    /**
+     Callback to signal whether the user has complete input.
+     */
+    @objc optional func textField(_ textField: UITextField, didFillMandatoryCharacters complete: Bool)
     
 }
 
@@ -99,8 +107,56 @@ open class MaskedTextFieldDelegate: NSObject, UITextFieldDelegate {
         let position: Int =
             result.formattedText.string.distance(from: result.formattedText.string.startIndex, to: result.formattedText.caretPosition)
         
+        let complete: Bool = result.extractedValue.characters.count >= self.acceptableValueLength()
+        
         self.setCaretPosition(position, inField: field)
         self.listener?.textField?(field, didExtractValue: result.extractedValue)
+        self.listener?.textField?(field, didFillMandatoryCharacters: complete)
+    }
+    
+    /**
+     Maximal length of the text inside the field.
+     
+     - returns: Total available count of mandatory and optional characters inside the text field.
+     */
+    open func placeholder() -> String {
+        return self.mask.placeholder()
+    }
+    
+    /**
+     Minimal length of the text inside the field to fill all mandatory characters in the mask.
+     
+     - returns: Minimal satisfying count of characters inside the text field.
+     */
+    open func acceptableTextLength() -> Int {
+        return self.mask.acceptableTextLength()
+    }
+    
+    /**
+     Maximal length of the text inside the field.
+     
+     - returns: Total available count of mandatory and optional characters inside the text field.
+     */
+    open func totalTextLength() -> Int {
+        return self.mask.totalTextLength()
+    }
+    
+    /**
+     Minimal length of the extracted value with all mandatory characters filled.
+     
+     - returns: Minimal satisfying count of characters in extracted value.
+     */
+    open func acceptableValueLength() -> Int {
+        return self.mask.acceptableValueLength()
+    }
+    
+    /**
+     Maximal length of the extracted value.
+     
+     - returns: Total available count of mandatory and optional characters for extracted value.
+     */
+    open func totalValueLength() -> Int {
+        return self.mask.totalValueLength()
     }
     
     // MARK: - UITextFieldDelegate
@@ -121,7 +177,10 @@ open class MaskedTextFieldDelegate: NSObject, UITextFieldDelegate {
             extractedValue = self.modifyText(inRange: range, inField: textField, withText: string)
         }
         
+        let complete: Bool = extractedValue.characters.count >= self.acceptableValueLength()
+        
         self.listener?.textField?(textField, didExtractValue: extractedValue)
+        self.listener?.textField?(textField, didFillMandatoryCharacters: complete)
         let _ = self.listener?.textField?(textField, shouldChangeCharactersIn: range, replacementString: string)
         return false
     }

@@ -133,6 +133,78 @@ public class Mask {
         return self.appendPlaceholder(withState: self.initialState, placeholder: "")
     }
     
+    /**
+     Minimal length of the text inside the field to fill all mandatory characters in the mask.
+     
+     - returns: Minimal satisfying count of characters inside the text field.
+     */
+    public func acceptableTextLength() -> Int {
+        var state: State? = self.initialState
+        var length: Int = 0
+        while let s: State = state, !(state is EOLState) {
+            if s is FixedState || s is FreeState || s is ValueState {
+                length += 1
+            }
+            state = s.child
+        }
+        
+        return length
+    }
+    
+    /**
+     Maximal length of the text inside the field.
+     
+     - returns: Total available count of mandatory and optional characters inside the text field.
+     */
+    public func totalTextLength() -> Int {
+        var state: State? = self.initialState
+        var length: Int = 0
+        while let s: State = state, !(state is EOLState) {
+            if s is FixedState || s is FreeState || s is ValueState || s is OptionalValueState {
+                length += 1
+            }
+            state = s.child
+        }
+        
+        return length
+    }
+    
+    /**
+     Minimal length of the extracted value with all mandatory characters filled.
+     
+     - returns: Minimal satisfying count of characters in extracted value.
+     */
+    public func acceptableValueLength() -> Int {
+        var state: State? = self.initialState
+        var length: Int = 0
+        while let s: State = state, !(state is EOLState) {
+            if s is FixedState || s is ValueState {
+                length += 1
+            }
+            state = s.child
+        }
+        
+        return length
+    }
+    
+    /**
+     Maximal length of the extracted value.
+     
+     - returns: Total available count of mandatory and optional characters for extracted value.
+     */
+    public func totalValueLength() -> Int {
+        var state: State? = self.initialState
+        var length: Int = 0
+        while let s: State = state, !(state is EOLState) {
+            if s is FixedState || s is ValueState || s is OptionalValueState {
+                length += 1
+            }
+            state = s.child
+        }
+        
+        return length
+    }
+    
 }
 
 private extension Mask {
