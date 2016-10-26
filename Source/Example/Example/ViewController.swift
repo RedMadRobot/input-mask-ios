@@ -24,5 +24,9 @@ open class ViewController: UIViewController, MaskedTextFieldDelegateListener {
         print(value)
     }
     
+    public func textField(_ textField: UITextField, didFillMandatoryCharacters complete: Bool) {
+        print(complete)
+    }
+    
 }
 
