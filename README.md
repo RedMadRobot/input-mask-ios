@@ -53,7 +53,9 @@ Mask format examples:
 # Installation
 ## CocoaPods
 
-`pod 'InputMask'`
+```ruby
+pod 'InputMask'
+```
 
 # Usage
 ## Simple UITextField for the phone numbers
@@ -74,7 +76,7 @@ the client `UITextField` are forwarded to the `MaskedTextFieldDelegateListener` 
 
 ![Interface Builder](https://raw.githubusercontent.com/RedMadRobot/input-mask-ios/assets/Assets/shot.png "Interface Builder")
 
-```
+```swift
 class ViewController: UIViewController, MaskedTextFieldDelegateListener {
     
     var maskedDelegate: MaskedTextFieldDelegate!
