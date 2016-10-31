@@ -1,4 +1,5 @@
 # InputMask
+![Version Badge](https://img.shields.io/cocoapods/v/InputMask.svg)
 
 ![Preview](https://raw.githubusercontent.com/RedMadRobot/input-mask-ios/assets/Assets/phone_input_cropped.gif "Preview")
 
