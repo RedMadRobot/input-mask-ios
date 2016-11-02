@@ -96,6 +96,24 @@ class ViewController: UIViewController, MaskedTextFieldDelegateListener {
 
 Sample project might be found under `Source/Example`
 
+## String formatting without views
+
+In case you want to format a `String` somewhere in your applicaiton's code, `Mask` is the class you are looking for.
+Instantiate a `Mask` instance and feed it with your string, mocking the cursor position:
+
+```swift
+let mask: Mask = try! Mask(format: "+7 ([000]) [000] [00] [00]")
+let input: String = "+71234567890"
+let result: Mask.Result = mask.apply(
+    toText: CaretString(
+        string: input,
+        caretPosition: input.endIndex
+    ),
+    autocomplete: true // you may consider disabling autocompletion for your case
+)
+let output: String = result.formattedText.string
+```
+
 # License
 
 The library is distributed under the MIT [LICENSE](https://opensource.org/licenses/MIT).
