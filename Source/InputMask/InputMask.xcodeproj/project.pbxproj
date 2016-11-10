@@ -22,6 +22,7 @@
 		8A1E3C5E1D648A0F00589799 /* DayMonthYearShortCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A1E3C5C1D648A0F00589799 /* DayMonthYearShortCase.swift */; };
 		8A1E3C601D648C9E00589799 /* FormatSanitizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A1E3C5F1D648C9E00589799 /* FormatSanitizer.swift */; };
 		8A1E3C611D648C9E00589799 /* FormatSanitizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A1E3C5F1D648C9E00589799 /* FormatSanitizer.swift */; };
+		8A485DDA1DD4735A009351FB /* PolyMaskTextFieldDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A485DD91DD4735A009351FB /* PolyMaskTextFieldDelegate.swift */; };
 		8A808ED61D5B0FEC00A75B9C /* InputMask.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A808ECB1D5B0FEC00A75B9C /* InputMask.framework */; };
 		8A808EFB1D5B110300A75B9C /* InputMask.h in Headers */ = {isa = PBXBuildFile; fileRef = 8A808EFA1D5B110300A75B9C /* InputMask.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8A808F091D5B1A8E00A75B9C /* MaskTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A808F081D5B1A8E00A75B9C /* MaskTestCase.swift */; };
@@ -70,6 +71,7 @@
 		8A1E3C561D64847D00589799 /* OptionalValueState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OptionalValueState.swift; sourceTree = "<group>"; };
 		8A1E3C5C1D648A0F00589799 /* DayMonthYearShortCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DayMonthYearShortCase.swift; sourceTree = "<group>"; };
 		8A1E3C5F1D648C9E00589799 /* FormatSanitizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormatSanitizer.swift; sourceTree = "<group>"; };
+		8A485DD91DD4735A009351FB /* PolyMaskTextFieldDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PolyMaskTextFieldDelegate.swift; sourceTree = "<group>"; };
 		8A808ECB1D5B0FEC00A75B9C /* InputMask.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = InputMask.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8A808ED51D5B0FEC00A75B9C /* InputMaskTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = InputMaskTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8A808EED1D5B104A00A75B9C /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -113,6 +115,7 @@
 			children = (
 				8A01854C1D64ABCC007B5EBD /* MaskedTextFieldDelegate.swift */,
 				8ACF16E71D65B9A4004F3374 /* InterfaceBuilderSupport.swift */,
+				8A485DD91DD4735A009351FB /* PolyMaskTextFieldDelegate.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -357,6 +360,7 @@
 				8A1E3C4D1D64649200589799 /* CaretStringIterator.swift in Sources */,
 				8AB1E8891D63753E00892C3B /* Compiler.swift in Sources */,
 				8AB1E8931D63773400892C3B /* Next.swift in Sources */,
+				8A485DDA1DD4735A009351FB /* PolyMaskTextFieldDelegate.swift in Sources */,
 				8AB1E8861D63746400892C3B /* CaretString.swift in Sources */,
 				8A83CCB01D5B579800C0184F /* NSCharacterSet.swift in Sources */,
 				8A0185471D6498F9007B5EBD /* FreeState.swift in Sources */,

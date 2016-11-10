@@ -42,13 +42,13 @@ import UIKit
 @IBDesignable
 open class MaskedTextFieldDelegate: NSObject, UITextFieldDelegate {
     
-    fileprivate var _maskFormat:            String
-    fileprivate var _autocomplete:          Bool
-    fileprivate var _autocompleteOnFocus:   Bool
+    private var _maskFormat:            String
+    private var _autocomplete:          Bool
+    private var _autocompleteOnFocus:   Bool
     
     public var mask: Mask
     
-    @IBInspectable open var maskFormat: String {
+    @IBInspectable public var maskFormat: String {
         get {
             return self._maskFormat
         }
@@ -59,7 +59,7 @@ open class MaskedTextFieldDelegate: NSObject, UITextFieldDelegate {
         }
     }
     
-    @IBInspectable open var autocomplete: Bool {
+    @IBInspectable public var autocomplete: Bool {
         get {
             return self._autocomplete
         }
@@ -69,7 +69,7 @@ open class MaskedTextFieldDelegate: NSObject, UITextFieldDelegate {
         }
     }
     
-    @IBInspectable open var autocompleteOnFocus: Bool {
+    @IBInspectable public var autocompleteOnFocus: Bool {
         get {
             return self._autocompleteOnFocus
         }
@@ -218,7 +218,7 @@ open class MaskedTextFieldDelegate: NSObject, UITextFieldDelegate {
     
 }
 
-private extension MaskedTextFieldDelegate {
+internal extension MaskedTextFieldDelegate {
     
     func isDeletion(inRange range: NSRange, string: String) -> Bool {
         return 0 < range.length && 0 == string.characters.count
@@ -264,7 +264,7 @@ private extension MaskedTextFieldDelegate {
                 string: updatedText,
                 caretPosition: updatedText.index(updatedText.startIndex, offsetBy: self.caretPosition(inField: field) + text.characters.count)
             ),
-            autocomplete: self._autocomplete
+            autocomplete: self.autocomplete
         )
         
         field.text = result.formattedText.string
