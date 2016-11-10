@@ -1,13 +1,13 @@
 source 'https://github.com/CocoaPods/Specs.git'
 
-platform :ios, '9.3'
+platform :ios, '9.0'
 inhibit_all_warnings!
 use_frameworks!
 
 
-xcodeproj 'Example.xcodeproj'
+xcodeproj 'Sample.xcodeproj'
 
 
-target :Example do
+target :Sample do
     pod 'InputMask'
 end

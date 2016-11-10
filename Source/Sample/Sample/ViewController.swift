@@ -1,6 +1,6 @@
 //
 //  ViewController.swift
-//  Example
+//  Sample
 //
 //  Created by Egor Taflanidi on 17.08.28.
 //  Copyright © 28 Heisei Egor Taflanidi. All rights reserved.
