@@ -28,6 +28,7 @@ public class Mask {
     public struct Result {
         public let formattedText:  CaretString
         public let extractedValue: String
+        public let affinity: Int
     }
     
     private let initialState: State
@@ -75,14 +76,15 @@ public class Mask {
     public func apply(toText text: CaretString, autocomplete: Bool = false) -> Result {
         let iterator: CaretStringIterator = CaretStringIterator(caretString: text)
         
+        var affinity:               Int     = 0
         var extractedValue:         String  = ""
         var modifiedString:         String  = ""
         var modifiedCaretPosition:  Int     =
             text.string.distance(from: text.string.startIndex, to: text.caretPosition) 
         
-        var state: State = self.initialState
-        var beforeCaret: Bool = iterator.beforeCaret()
-        var character: Character? = iterator.next()
+        var state:       State      = self.initialState
+        var beforeCaret: Bool       = iterator.beforeCaret()
+        var character:   Character? = iterator.next()
         
         while let char: Character = character {
             if let next: Next = state.accept(character: char) {
@@ -92,10 +94,12 @@ public class Mask {
                 if next.pass {
                     beforeCaret = iterator.beforeCaret()
                     character   = iterator.next()
+                    affinity   += 1
                 } else {
                     if beforeCaret && nil != next.insert {
                         modifiedCaretPosition += 1
                     }
+                    affinity -= 1
                 }
             } else {
                 if iterator.beforeCaret() {
@@ -103,6 +107,7 @@ public class Mask {
                 }
                 beforeCaret = iterator.beforeCaret()
                 character   = iterator.next()
+                affinity   -= 1
             }
         }
         
@@ -120,7 +125,8 @@ public class Mask {
                 string: modifiedString,
                 caretPosition: modifiedString.index(modifiedString.startIndex, offsetBy: modifiedCaretPosition)
             ),
-            extractedValue: extractedValue
+            extractedValue: extractedValue,
+            affinity: affinity
         )
     }
     
