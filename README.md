@@ -1,6 +1,7 @@
 # InputMask
 ![Version Badge](https://img.shields.io/cocoapods/v/InputMask.svg)
 [![license](https://img.shields.io/github/license/mashape/apistatus.svg)]()
+[![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 
 ![Preview](https://raw.githubusercontent.com/RedMadRobot/input-mask-ios/assets/Assets/phone_input_cropped.gif "Preview")
 
@@ -50,6 +51,12 @@ Mask format examples:
 
 ```ruby
 pod 'InputMask'
+```
+
+## Carthage
+
+```ruby
+git "https://github.com/RedMadRobot/input-mask-ios.git"
 ```
 
 # Usage
