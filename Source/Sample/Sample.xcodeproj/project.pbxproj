@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		146D405720E8DA121E9B08ED /* Pods_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B014B33448F36396F5BF0D48 /* Pods_Example.framework */; };
 		5735600AC9B1FE05E6FBEF66 /* Pods_Sample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D1352098CE255004F3340151 /* Pods_Sample.framework */; };
 		8A01855E1D64C1AA007B5EBD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A01855D1D64C1AA007B5EBD /* AppDelegate.swift */; };
 		8A0185601D64C1AA007B5EBD /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A01855F1D64C1AA007B5EBD /* ViewController.swift */; };
@@ -27,7 +26,6 @@
 		8A0185671D64C1AA007B5EBD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8A0185691D64C1AA007B5EBD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		98F73F3CE14775099BE1C4EE /* Pods-Sample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sample.release.xcconfig"; path = "Pods/Target Support Files/Pods-Sample/Pods-Sample.release.xcconfig"; sourceTree = "<group>"; };
-		B014B33448F36396F5BF0D48 /* Pods_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D1352098CE255004F3340151 /* Pods_Sample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Sample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F90D9697E4D86F11558B633E /* Pods-Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Example/Pods-Example.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -37,7 +35,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				146D405720E8DA121E9B08ED /* Pods_Example.framework in Frameworks */,
 				5735600AC9B1FE05E6FBEF66 /* Pods_Sample.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -90,7 +87,6 @@
 		F25FAB9563A8C78CB7FC4CC9 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				B014B33448F36396F5BF0D48 /* Pods_Example.framework */,
 				D1352098CE255004F3340151 /* Pods_Sample.framework */,
 			);
 			name = Frameworks;

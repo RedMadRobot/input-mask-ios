@@ -170,3 +170,7 @@ Pods
 # xccheckout ignoring 
 # ref. http://stackoverflow.com/questions/18340453/should-xccheckout-files-in-xcode5-be-ignored-under-vcs
 *.xccheckout
+
+####
+# Carthage
+Source/Sample/Carthage
