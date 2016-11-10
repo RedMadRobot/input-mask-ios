@@ -101,7 +101,7 @@ class ViewController: UIViewController, MaskedTextFieldDelegateListener {
 }
 ```
 
-Sample project might be found under `Source/Example`
+Sample project might be found under `Source/Sample`
 
 ## String formatting without views
 
@@ -119,6 +119,38 @@ let result: Mask.Result = mask.apply(
     autocomplete: true // you may consider disabling autocompletion for your case
 )
 let output: String = result.formattedText.string
+```
+
+## Affine masks
+
+An experimental feature. While transforming the text, `Mask` calculates `affinity` index, which is basically an `Int` that shows the absolute rate of similarity between the text and the mask pattern.
+
+This index might be used to choose the most suitable pattern between predefined, and then applied to format the text.
+
+For the implementation, look for the `PolyMaskTextFieldDelegate` class, which inherits logic from `PolyMaskTextFieldDelegate`. It has its primary mask pattern and corresponding list of affine formats.
+
+``` swift
+open class ViewController: UIViewController, MaskedTextFieldDelegateListener {
+    
+    @IBOutlet weak var listener: PolyMaskTextFieldDelegate!
+    @IBOutlet weak var field: UITextField!
+    
+    open override func viewDidLoad() {
+        super.viewDidLoad()
+        listener.affineFormats = [
+            "8 ([000]) [000] [00] [00]"
+        ]
+    }
+    
+    open func textField(_ textField: UITextField, didExtractValue value: String) {
+        print(value)
+    }
+    
+    public func textField(_ textField: UITextField, didFillMandatoryCharacters complete: Bool) {
+        print(complete)
+    }
+    
+}
 ```
 
 # License
