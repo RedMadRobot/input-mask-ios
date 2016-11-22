@@ -127,7 +127,7 @@ An experimental feature. While transforming the text, `Mask` calculates `affinit
 
 This index might be used to choose the most suitable pattern between predefined, and then applied to format the text.
 
-For the implementation, look for the `PolyMaskTextFieldDelegate` class, which inherits logic from `PolyMaskTextFieldDelegate`. It has its primary mask pattern and corresponding list of affine formats.
+For the implementation, look for the `PolyMaskTextFieldDelegate` class, which inherits logic from `MaskedTextFieldDelegate`. It has its primary mask pattern and corresponding list of affine formats.
 
 ``` swift
 open class ViewController: UIViewController, MaskedTextFieldDelegateListener {
