@@ -85,6 +85,8 @@ class PhoneCase: MaskTestCase {
         XCTAssertEqual(expectedString, result.formattedText.string)
         XCTAssertEqual(expectedCaret, result.formattedText.caretPosition)
         XCTAssertEqual(expectedValue, result.extractedValue)
+        
+        XCTAssertEqual(false, result.complete)
     }
     
     func testApply_plus7_return_plus7() {
@@ -105,6 +107,8 @@ class PhoneCase: MaskTestCase {
         XCTAssertEqual(expectedString, result.formattedText.string)
         XCTAssertEqual(expectedCaret, result.formattedText.caretPosition)
         XCTAssertEqual(expectedValue, result.extractedValue)
+        
+        XCTAssertEqual(false, result.complete)
     }
     
     func testApply_plus7space_return_plus7space() {
@@ -125,6 +129,8 @@ class PhoneCase: MaskTestCase {
         XCTAssertEqual(expectedString, result.formattedText.string)
         XCTAssertEqual(expectedCaret, result.formattedText.caretPosition)
         XCTAssertEqual(expectedValue, result.extractedValue)
+        
+        XCTAssertEqual(false, result.complete)
     }
     
     func testApply_plus7spaceBrace_return_plus7spaceBrace() {
@@ -145,6 +151,8 @@ class PhoneCase: MaskTestCase {
         XCTAssertEqual(expectedString, result.formattedText.string)
         XCTAssertEqual(expectedCaret, result.formattedText.caretPosition)
         XCTAssertEqual(expectedValue, result.extractedValue)
+        
+        XCTAssertEqual(false, result.complete)
     }
     
     func testApply_plus7spaceBrace1_return_plus7spaceBrace1() {
@@ -165,6 +173,8 @@ class PhoneCase: MaskTestCase {
         XCTAssertEqual(expectedString, result.formattedText.string)
         XCTAssertEqual(expectedCaret, result.formattedText.caretPosition)
         XCTAssertEqual(expectedValue, result.extractedValue)
+        
+        XCTAssertEqual(false, result.complete)
     }
     
     func testApply_plus7spaceBrace12_return_plus7spaceBrace12() {
@@ -185,6 +195,8 @@ class PhoneCase: MaskTestCase {
         XCTAssertEqual(expectedString, result.formattedText.string)
         XCTAssertEqual(expectedCaret, result.formattedText.caretPosition)
         XCTAssertEqual(expectedValue, result.extractedValue)
+        
+        XCTAssertEqual(false, result.complete)
     }
     
     func testApply_plus7spaceBrace123_return_plus7spaceBrace123() {
@@ -205,6 +217,8 @@ class PhoneCase: MaskTestCase {
         XCTAssertEqual(expectedString, result.formattedText.string)
         XCTAssertEqual(expectedCaret, result.formattedText.caretPosition)
         XCTAssertEqual(expectedValue, result.extractedValue)
+        
+        XCTAssertEqual(false, result.complete)
     }
     
     func testApply_plus7spaceBrace123brace_return_plus7spaceBrace123brace() {
@@ -225,6 +239,8 @@ class PhoneCase: MaskTestCase {
         XCTAssertEqual(expectedString, result.formattedText.string)
         XCTAssertEqual(expectedCaret, result.formattedText.caretPosition)
         XCTAssertEqual(expectedValue, result.extractedValue)
+        
+        XCTAssertEqual(false, result.complete)
     }
     
     func testApply_plus7spaceBrace123braceSpace_return_plus7spaceBrace123braceSpace() {
@@ -245,6 +261,8 @@ class PhoneCase: MaskTestCase {
         XCTAssertEqual(expectedString, result.formattedText.string)
         XCTAssertEqual(expectedCaret, result.formattedText.caretPosition)
         XCTAssertEqual(expectedValue, result.extractedValue)
+        
+        XCTAssertEqual(false, result.complete)
     }
     
     func testApply_plus7spaceBrace123braceSpace4_return_plus7spaceBrace123braceSpace4() {
@@ -265,6 +283,8 @@ class PhoneCase: MaskTestCase {
         XCTAssertEqual(expectedString, result.formattedText.string)
         XCTAssertEqual(expectedCaret, result.formattedText.caretPosition)
         XCTAssertEqual(expectedValue, result.extractedValue)
+        
+        XCTAssertEqual(false, result.complete)
     }
     
     func testApply_plus7spaceBrace123braceSpace45_return_plus7spaceBrace123braceSpace45() {
@@ -285,6 +305,8 @@ class PhoneCase: MaskTestCase {
         XCTAssertEqual(expectedString, result.formattedText.string)
         XCTAssertEqual(expectedCaret, result.formattedText.caretPosition)
         XCTAssertEqual(expectedValue, result.extractedValue)
+        
+        XCTAssertEqual(false, result.complete)
     }
     
     func testApply_plus7spaceBrace123braceSpace456_return_plus7spaceBrace123braceSpace456() {
@@ -305,6 +327,8 @@ class PhoneCase: MaskTestCase {
         XCTAssertEqual(expectedString, result.formattedText.string)
         XCTAssertEqual(expectedCaret, result.formattedText.caretPosition)
         XCTAssertEqual(expectedValue, result.extractedValue)
+        
+        XCTAssertEqual(false, result.complete)
     }
     
     func testApply_plus7spaceBrace123braceSpace456space_return_plus7spaceBrace123braceSpace456space() {
@@ -325,6 +349,8 @@ class PhoneCase: MaskTestCase {
         XCTAssertEqual(expectedString, result.formattedText.string)
         XCTAssertEqual(expectedCaret, result.formattedText.caretPosition)
         XCTAssertEqual(expectedValue, result.extractedValue)
+        
+        XCTAssertEqual(false, result.complete)
     }
     
     func testApply_plus7spaceBrace123braceSpace456space7_return_plus7spaceBrace123braceSpace456space7() {
@@ -345,6 +371,8 @@ class PhoneCase: MaskTestCase {
         XCTAssertEqual(expectedString, result.formattedText.string)
         XCTAssertEqual(expectedCaret, result.formattedText.caretPosition)
         XCTAssertEqual(expectedValue, result.extractedValue)
+        
+        XCTAssertEqual(false, result.complete)
     }
     
     func testApply_plus7spaceBrace123braceSpace456space78_return_plus7spaceBrace123braceSpace456space78() {
@@ -365,6 +393,8 @@ class PhoneCase: MaskTestCase {
         XCTAssertEqual(expectedString, result.formattedText.string)
         XCTAssertEqual(expectedCaret, result.formattedText.caretPosition)
         XCTAssertEqual(expectedValue, result.extractedValue)
+        
+        XCTAssertEqual(false, result.complete)
     }
     
     func testApply_plus7spaceBrace123braceSpace456space78space_return_plus7spaceBrace123braceSpace456space78space() {
@@ -385,6 +415,8 @@ class PhoneCase: MaskTestCase {
         XCTAssertEqual(expectedString, result.formattedText.string)
         XCTAssertEqual(expectedCaret, result.formattedText.caretPosition)
         XCTAssertEqual(expectedValue, result.extractedValue)
+        
+        XCTAssertEqual(false, result.complete)
     }
     
     func testApply_plus7spaceBrace123braceSpace456space78space9_return_plus7spaceBrace123braceSpace456space78space9() {
@@ -405,6 +437,8 @@ class PhoneCase: MaskTestCase {
         XCTAssertEqual(expectedString, result.formattedText.string)
         XCTAssertEqual(expectedCaret, result.formattedText.caretPosition)
         XCTAssertEqual(expectedValue, result.extractedValue)
+        
+        XCTAssertEqual(false, result.complete)
     }
     
     func testApply_plus7spaceBrace123braceSpace456space78space90_return_plus7spaceBrace123braceSpace456space78space90() {
@@ -425,6 +459,8 @@ class PhoneCase: MaskTestCase {
         XCTAssertEqual(expectedString, result.formattedText.string)
         XCTAssertEqual(expectedCaret, result.formattedText.caretPosition)
         XCTAssertEqual(expectedValue, result.extractedValue)
+        
+        XCTAssertEqual(true, result.complete)
     }
     
     func testApply_7_return_plus7() {
@@ -445,6 +481,8 @@ class PhoneCase: MaskTestCase {
         XCTAssertEqual(expectedString, result.formattedText.string)
         XCTAssertEqual(expectedCaret, result.formattedText.caretPosition)
         XCTAssertEqual(expectedValue, result.extractedValue)
+        
+        XCTAssertEqual(false, result.complete)
     }
     
     func testApply_9_return_plus7spaceBrace9() {
@@ -465,6 +503,8 @@ class PhoneCase: MaskTestCase {
         XCTAssertEqual(expectedString, result.formattedText.string)
         XCTAssertEqual(expectedCaret, result.formattedText.caretPosition)
         XCTAssertEqual(expectedValue, result.extractedValue)
+        
+        XCTAssertEqual(false, result.complete)
     }
     
     func testApply_1234567890_return_plus7spaceBrace123braceSpace456space78space90() {
@@ -485,6 +525,8 @@ class PhoneCase: MaskTestCase {
         XCTAssertEqual(expectedString, result.formattedText.string)
         XCTAssertEqual(expectedCaret, result.formattedText.caretPosition)
         XCTAssertEqual(expectedValue, result.extractedValue)
+        
+        XCTAssertEqual(true, result.complete)
     }
     
     func testApply_12345678901_return_plus7spaceBrace123braceSpace456space78space90() {
@@ -505,6 +547,8 @@ class PhoneCase: MaskTestCase {
         XCTAssertEqual(expectedString, result.formattedText.string)
         XCTAssertEqual(expectedCaret, result.formattedText.caretPosition)
         XCTAssertEqual(expectedValue, result.extractedValue)
+        
+        XCTAssertEqual(true, result.complete)
     }
     
     func testApply_plus1234567890_return_plus7spaceBrace123braceSpace456space78space90() {
@@ -525,6 +569,8 @@ class PhoneCase: MaskTestCase {
         XCTAssertEqual(expectedString, result.formattedText.string)
         XCTAssertEqual(expectedCaret, result.formattedText.caretPosition)
         XCTAssertEqual(expectedValue, result.extractedValue)
+        
+        XCTAssertEqual(true, result.complete)
     }
     
     func testApply_plusBrace123brace456dash78dash90_return_plus7spaceBrace123braceSpace456space78space90() {
@@ -545,6 +591,8 @@ class PhoneCase: MaskTestCase {
         XCTAssertEqual(expectedString, result.formattedText.string)
         XCTAssertEqual(expectedCaret, result.formattedText.caretPosition)
         XCTAssertEqual(expectedValue, result.extractedValue)
+        
+        XCTAssertEqual(true, result.complete)
     }
     
     func testApplyAutocomplete_empty_return_plus7spaceBrace() {
@@ -566,6 +614,8 @@ class PhoneCase: MaskTestCase {
         XCTAssertEqual(expectedString, result.formattedText.string)
         XCTAssertEqual(expectedCaret, result.formattedText.caretPosition)
         XCTAssertEqual(expectedValue, result.extractedValue)
+        
+        XCTAssertEqual(false, result.complete)
     }
     
     func testApplyAutocomplete_plus_return_plus7spaceBrace() {
@@ -587,6 +637,8 @@ class PhoneCase: MaskTestCase {
         XCTAssertEqual(expectedString, result.formattedText.string)
         XCTAssertEqual(expectedCaret, result.formattedText.caretPosition)
         XCTAssertEqual(expectedValue, result.extractedValue)
+        
+        XCTAssertEqual(false, result.complete)
     }
     
     func testApplyAutocomplete_plus7_return_plus7spaceBrace() {
@@ -608,6 +660,8 @@ class PhoneCase: MaskTestCase {
         XCTAssertEqual(expectedString, result.formattedText.string)
         XCTAssertEqual(expectedCaret, result.formattedText.caretPosition)
         XCTAssertEqual(expectedValue, result.extractedValue)
+        
+        XCTAssertEqual(false, result.complete)
     }
     
     func testApplyAutocomplete_plus7space_return_plus7spaceBrace() {
@@ -629,6 +683,8 @@ class PhoneCase: MaskTestCase {
         XCTAssertEqual(expectedString, result.formattedText.string)
         XCTAssertEqual(expectedCaret, result.formattedText.caretPosition)
         XCTAssertEqual(expectedValue, result.extractedValue)
+        
+        XCTAssertEqual(false, result.complete)
     }
     
     func testApplyAutocomplete_plus7spaceBrace_return_plus7spaceBrace() {
@@ -650,6 +706,8 @@ class PhoneCase: MaskTestCase {
         XCTAssertEqual(expectedString, result.formattedText.string)
         XCTAssertEqual(expectedCaret, result.formattedText.caretPosition)
         XCTAssertEqual(expectedValue, result.extractedValue)
+        
+        XCTAssertEqual(false, result.complete)
     }
     
     func testApplyAutocomplete_a_return_plus7spaceBrace() {
@@ -671,6 +729,8 @@ class PhoneCase: MaskTestCase {
         XCTAssertEqual(expectedString, result.formattedText.string)
         XCTAssertEqual(expectedCaret, result.formattedText.caretPosition)
         XCTAssertEqual(expectedValue, result.extractedValue)
+        
+        XCTAssertEqual(false, result.complete)
     }
     
     func testApplyAutocomplete_aPlus7spaceBrace_return_plus7spaceBrace() {
@@ -692,6 +752,8 @@ class PhoneCase: MaskTestCase {
         XCTAssertEqual(expectedString, result.formattedText.string)
         XCTAssertEqual(expectedCaret, result.formattedText.caretPosition)
         XCTAssertEqual(expectedValue, result.extractedValue)
+        
+        XCTAssertEqual(false, result.complete)
     }
     
     func testApplyAutocomplete_7space_return_plus7spaceBrace() {
@@ -713,6 +775,8 @@ class PhoneCase: MaskTestCase {
         XCTAssertEqual(expectedString, result.formattedText.string)
         XCTAssertEqual(expectedCaret, result.formattedText.caretPosition)
         XCTAssertEqual(expectedValue, result.extractedValue)
+        
+        XCTAssertEqual(false, result.complete)
     }
     
 }

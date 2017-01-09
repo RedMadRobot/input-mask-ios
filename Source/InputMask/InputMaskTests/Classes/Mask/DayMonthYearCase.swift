@@ -84,6 +84,8 @@ class DayMonthYearCase: MaskTestCase {
         XCTAssertEqual(expectedString, result.formattedText.string)
         XCTAssertEqual(expectedCaret, result.formattedText.caretPosition)
         XCTAssertEqual(expectedValue, result.extractedValue)
+        
+        XCTAssertEqual(false, result.complete)
     }
     
     func testApply_11_returns_11() {
@@ -104,6 +106,8 @@ class DayMonthYearCase: MaskTestCase {
         XCTAssertEqual(expectedString, result.formattedText.string)
         XCTAssertEqual(expectedCaret, result.formattedText.caretPosition)
         XCTAssertEqual(expectedValue, result.extractedValue)
+        
+        XCTAssertEqual(false, result.complete)
     }
     
     func testApply_111_returns_11dot1() {
@@ -124,6 +128,8 @@ class DayMonthYearCase: MaskTestCase {
         XCTAssertEqual(expectedString, result.formattedText.string)
         XCTAssertEqual(expectedCaret, result.formattedText.caretPosition)
         XCTAssertEqual(expectedValue, result.extractedValue)
+        
+        XCTAssertEqual(false, result.complete)
     }
     
     func testApply_1111_returns_11dot11() {
@@ -144,6 +150,8 @@ class DayMonthYearCase: MaskTestCase {
         XCTAssertEqual(expectedString, result.formattedText.string)
         XCTAssertEqual(expectedCaret, result.formattedText.caretPosition)
         XCTAssertEqual(expectedValue, result.extractedValue)
+        
+        XCTAssertEqual(false, result.complete)
     }
     
     func testApply_123456_returns_12dot34dot56() {
@@ -164,6 +172,8 @@ class DayMonthYearCase: MaskTestCase {
         XCTAssertEqual(expectedString, result.formattedText.string)
         XCTAssertEqual(expectedCaret, result.formattedText.caretPosition)
         XCTAssertEqual(expectedValue, result.extractedValue)
+        
+        XCTAssertEqual(false, result.complete)
     }
     
     func testApply_12dot3_returns_12dot3() {
@@ -184,6 +194,8 @@ class DayMonthYearCase: MaskTestCase {
         XCTAssertEqual(expectedString, result.formattedText.string)
         XCTAssertEqual(expectedCaret, result.formattedText.caretPosition)
         XCTAssertEqual(expectedValue, result.extractedValue)
+        
+        XCTAssertEqual(false, result.complete)
     }
     
     func testApply_12dot34_returns_12dot34() {
@@ -204,6 +216,8 @@ class DayMonthYearCase: MaskTestCase {
         XCTAssertEqual(expectedString, result.formattedText.string)
         XCTAssertEqual(expectedCaret, result.formattedText.caretPosition)
         XCTAssertEqual(expectedValue, result.extractedValue)
+        
+        XCTAssertEqual(false, result.complete)
     }
     
     func testApply_12dot34dot5_returns_12dot34dot5() {
@@ -224,6 +238,8 @@ class DayMonthYearCase: MaskTestCase {
         XCTAssertEqual(expectedString, result.formattedText.string)
         XCTAssertEqual(expectedCaret, result.formattedText.caretPosition)
         XCTAssertEqual(expectedValue, result.extractedValue)
+        
+        XCTAssertEqual(false, result.complete)
     }
     
     func testApply_12dot34dot56_returns_12dot34dot56() {
@@ -244,6 +260,8 @@ class DayMonthYearCase: MaskTestCase {
         XCTAssertEqual(expectedString, result.formattedText.string)
         XCTAssertEqual(expectedCaret, result.formattedText.caretPosition)
         XCTAssertEqual(expectedValue, result.extractedValue)
+        
+        XCTAssertEqual(false, result.complete)
     }
     
     func testApply_1234567_returns_12dot34dot567() {
@@ -264,6 +282,8 @@ class DayMonthYearCase: MaskTestCase {
         XCTAssertEqual(expectedString, result.formattedText.string)
         XCTAssertEqual(expectedCaret, result.formattedText.caretPosition)
         XCTAssertEqual(expectedValue, result.extractedValue)
+        
+        XCTAssertEqual(false, result.complete)
     }
     
     func testApply_12345678_returns_12dot34dot5678() {
@@ -284,6 +304,8 @@ class DayMonthYearCase: MaskTestCase {
         XCTAssertEqual(expectedString, result.formattedText.string)
         XCTAssertEqual(expectedCaret, result.formattedText.caretPosition)
         XCTAssertEqual(expectedValue, result.extractedValue)
+        
+        XCTAssertEqual(true, result.complete)
     }
     
     func testApply_1111_StartIndex_returns_11dot11_StartIndex() {
@@ -304,6 +326,8 @@ class DayMonthYearCase: MaskTestCase {
         XCTAssertEqual(expectedString, result.formattedText.string)
         XCTAssertEqual(expectedCaret, result.formattedText.caretPosition)
         XCTAssertEqual(expectedValue, result.extractedValue)
+        
+        XCTAssertEqual(false, result.complete)
     }
     
     func testApply_1111_ThirdIndex_returns_11dot11_FourthIndex() {
@@ -324,6 +348,8 @@ class DayMonthYearCase: MaskTestCase {
         XCTAssertEqual(expectedString, result.formattedText.string)
         XCTAssertEqual(expectedCaret, result.formattedText.caretPosition)
         XCTAssertEqual(expectedValue, result.extractedValue)
+        
+        XCTAssertEqual(false, result.complete)
     }
 
     func testApply_abc1111_returns_11dot11() {
@@ -344,6 +370,8 @@ class DayMonthYearCase: MaskTestCase {
         XCTAssertEqual(expectedString, result.formattedText.string)
         XCTAssertEqual(expectedCaret, result.formattedText.caretPosition)
         XCTAssertEqual(expectedValue, result.extractedValue)
+        
+        XCTAssertEqual(false, result.complete)
     }
     
     func testApply_abc1de111_returns_11dot11() {
@@ -364,6 +392,8 @@ class DayMonthYearCase: MaskTestCase {
         XCTAssertEqual(expectedString, result.formattedText.string)
         XCTAssertEqual(expectedCaret, result.formattedText.caretPosition)
         XCTAssertEqual(expectedValue, result.extractedValue)
+        
+        XCTAssertEqual(false, result.complete)
     }
     
     func testApply_abc1de1fg11_returns_11dot11() {
@@ -384,6 +414,8 @@ class DayMonthYearCase: MaskTestCase {
         XCTAssertEqual(expectedString, result.formattedText.string)
         XCTAssertEqual(expectedCaret, result.formattedText.caretPosition)
         XCTAssertEqual(expectedValue, result.extractedValue)
+        
+        XCTAssertEqual(false, result.complete)
     }
     
     func testApplyAutocomplete_empty_returns_empty() {
@@ -405,6 +437,8 @@ class DayMonthYearCase: MaskTestCase {
         XCTAssertEqual(expectedString, result.formattedText.string)
         XCTAssertEqual(expectedCaret, result.formattedText.caretPosition)
         XCTAssertEqual(expectedValue, result.extractedValue)
+        
+        XCTAssertEqual(false, result.complete)
     }
     
     func testApplyAutocomplete_1_returns_1() {
@@ -426,6 +460,8 @@ class DayMonthYearCase: MaskTestCase {
         XCTAssertEqual(expectedString, result.formattedText.string)
         XCTAssertEqual(expectedCaret, result.formattedText.caretPosition)
         XCTAssertEqual(expectedValue, result.extractedValue)
+        
+        XCTAssertEqual(false, result.complete)
     }
     
     func testApplyAutocomplete_11_returns_11dot() {
@@ -447,6 +483,8 @@ class DayMonthYearCase: MaskTestCase {
         XCTAssertEqual(expectedString, result.formattedText.string)
         XCTAssertEqual(expectedCaret, result.formattedText.caretPosition)
         XCTAssertEqual(expectedValue, result.extractedValue)
+        
+        XCTAssertEqual(false, result.complete)
     }
     
     func testApplyAutocomplete_111_returns_11dot1() {
@@ -468,6 +506,8 @@ class DayMonthYearCase: MaskTestCase {
         XCTAssertEqual(expectedString, result.formattedText.string)
         XCTAssertEqual(expectedCaret, result.formattedText.caretPosition)
         XCTAssertEqual(expectedValue, result.extractedValue)
+        
+        XCTAssertEqual(false, result.complete)
     }
     
     func testApplyAutocomplete_1111_returns_11dot11dot() {
@@ -489,6 +529,8 @@ class DayMonthYearCase: MaskTestCase {
         XCTAssertEqual(expectedString, result.formattedText.string)
         XCTAssertEqual(expectedCaret, result.formattedText.caretPosition)
         XCTAssertEqual(expectedValue, result.extractedValue)
+        
+        XCTAssertEqual(false, result.complete)
     }
     
     func testApplyAutocomplete_11111_returns_11dot11dot1() {
@@ -510,6 +552,8 @@ class DayMonthYearCase: MaskTestCase {
         XCTAssertEqual(expectedString, result.formattedText.string)
         XCTAssertEqual(expectedCaret, result.formattedText.caretPosition)
         XCTAssertEqual(expectedValue, result.extractedValue)
+        
+        XCTAssertEqual(false, result.complete)
     }
     
     func testApplyAutocomplete_111111_returns_11dot11dot11() {
@@ -531,6 +575,8 @@ class DayMonthYearCase: MaskTestCase {
         XCTAssertEqual(expectedString, result.formattedText.string)
         XCTAssertEqual(expectedCaret, result.formattedText.caretPosition)
         XCTAssertEqual(expectedValue, result.extractedValue)
+        
+        XCTAssertEqual(false, result.complete)
     }
     
     func testApplyAutocomplete_1111111_returns_11dot11dot111() {
@@ -552,6 +598,8 @@ class DayMonthYearCase: MaskTestCase {
         XCTAssertEqual(expectedString, result.formattedText.string)
         XCTAssertEqual(expectedCaret, result.formattedText.caretPosition)
         XCTAssertEqual(expectedValue, result.extractedValue)
+        
+        XCTAssertEqual(false, result.complete)
     }
     
     func testApplyAutocomplete_11111111_returns_11dot11dot1111() {
@@ -573,6 +621,8 @@ class DayMonthYearCase: MaskTestCase {
         XCTAssertEqual(expectedString, result.formattedText.string)
         XCTAssertEqual(expectedCaret, result.formattedText.caretPosition)
         XCTAssertEqual(expectedValue, result.extractedValue)
+        
+        XCTAssertEqual(true, result.complete)
     }
     
     func testApplyAutocomplete_111111111_returns_11dot11dot1111() {
@@ -594,6 +644,8 @@ class DayMonthYearCase: MaskTestCase {
         XCTAssertEqual(expectedString, result.formattedText.string)
         XCTAssertEqual(expectedCaret, result.formattedText.caretPosition)
         XCTAssertEqual(expectedValue, result.extractedValue)
+        
+        XCTAssertEqual(true, result.complete)
     }
     
 }

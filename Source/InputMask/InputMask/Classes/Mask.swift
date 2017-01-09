@@ -26,9 +26,26 @@ public class Mask {
      The end result of mask application to the user input string.
      */
     public struct Result {
-        public let formattedText:  CaretString
+        
+        /**
+         Formatted text with updated caret position.
+         */
+        public let formattedText: CaretString
+        
+        /**
+         Value, extracted from formatted text according to mask format.
+         */
         public let extractedValue: String
+        
+        /**
+         Calculated absolute affinity value between the mask format and input text.
+         */
         public let affinity: Int
+        
+        /**
+         User input is complete.
+         */
+        public let complete: Bool
     }
     
     private let initialState: State
@@ -126,7 +143,8 @@ public class Mask {
                 caretPosition: modifiedString.index(modifiedString.startIndex, offsetBy: modifiedCaretPosition)
             ),
             extractedValue: extractedValue,
-            affinity: affinity
+            affinity: affinity,
+            complete: state is EOLState
         )
     }
     

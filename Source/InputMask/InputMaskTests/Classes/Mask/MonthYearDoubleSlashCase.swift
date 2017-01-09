@@ -84,6 +84,8 @@ class MonthYearDoubledoubleShashCase: MaskTestCase {
         XCTAssertEqual(expectedString, result.formattedText.string)
         XCTAssertEqual(expectedCaret, result.formattedText.caretPosition)
         XCTAssertEqual(expectedValue, result.extractedValue)
+        
+        XCTAssertEqual(false, result.complete)
     }
     
     func testApply_11_returns_11() {
@@ -104,6 +106,8 @@ class MonthYearDoubledoubleShashCase: MaskTestCase {
         XCTAssertEqual(expectedString, result.formattedText.string)
         XCTAssertEqual(expectedCaret, result.formattedText.caretPosition)
         XCTAssertEqual(expectedValue, result.extractedValue)
+        
+        XCTAssertEqual(false, result.complete)
     }
     
     func testApply_111_returns_11doubleShash1() {
@@ -124,6 +128,8 @@ class MonthYearDoubledoubleShashCase: MaskTestCase {
         XCTAssertEqual(expectedString, result.formattedText.string)
         XCTAssertEqual(expectedCaret, result.formattedText.caretPosition)
         XCTAssertEqual(expectedValue, result.extractedValue)
+        
+        XCTAssertEqual(false, result.complete)
     }
     
     func testApply_1111_returns_11doubleShash11() {
@@ -144,6 +150,8 @@ class MonthYearDoubledoubleShashCase: MaskTestCase {
         XCTAssertEqual(expectedString, result.formattedText.string)
         XCTAssertEqual(expectedCaret, result.formattedText.caretPosition)
         XCTAssertEqual(expectedValue, result.extractedValue)
+        
+        XCTAssertEqual(false, result.complete)
     }
     
     func testApply_123456_returns_12doubleShash3456() {
@@ -164,6 +172,8 @@ class MonthYearDoubledoubleShashCase: MaskTestCase {
         XCTAssertEqual(expectedString, result.formattedText.string)
         XCTAssertEqual(expectedCaret, result.formattedText.caretPosition)
         XCTAssertEqual(expectedValue, result.extractedValue)
+        
+        XCTAssertEqual(true, result.complete)
     }
     
     func testApply_12shash3_returns_12doubleShash3() {
@@ -184,6 +194,8 @@ class MonthYearDoubledoubleShashCase: MaskTestCase {
         XCTAssertEqual(expectedString, result.formattedText.string)
         XCTAssertEqual(expectedCaret, result.formattedText.caretPosition)
         XCTAssertEqual(expectedValue, result.extractedValue)
+        
+        XCTAssertEqual(false, result.complete)
     }
     
     func testApply_12doubleShash3_returns_12doubleShash3() {
@@ -204,6 +216,8 @@ class MonthYearDoubledoubleShashCase: MaskTestCase {
         XCTAssertEqual(expectedString, result.formattedText.string)
         XCTAssertEqual(expectedCaret, result.formattedText.caretPosition)
         XCTAssertEqual(expectedValue, result.extractedValue)
+        
+        XCTAssertEqual(false, result.complete)
     }
     
     func testApply_12shash34_returns_12doubleShash34() {
@@ -224,6 +238,8 @@ class MonthYearDoubledoubleShashCase: MaskTestCase {
         XCTAssertEqual(expectedString, result.formattedText.string)
         XCTAssertEqual(expectedCaret, result.formattedText.caretPosition)
         XCTAssertEqual(expectedValue, result.extractedValue)
+        
+        XCTAssertEqual(false, result.complete)
     }
     
     func testApply_12doubleShash34_returns_12doubleShash34() {
@@ -244,6 +260,8 @@ class MonthYearDoubledoubleShashCase: MaskTestCase {
         XCTAssertEqual(expectedString, result.formattedText.string)
         XCTAssertEqual(expectedCaret, result.formattedText.caretPosition)
         XCTAssertEqual(expectedValue, result.extractedValue)
+        
+        XCTAssertEqual(false, result.complete)
     }
     
     func testApply_12doubleShash345_returns_12doubleShash345() {
@@ -264,6 +282,8 @@ class MonthYearDoubledoubleShashCase: MaskTestCase {
         XCTAssertEqual(expectedString, result.formattedText.string)
         XCTAssertEqual(expectedCaret, result.formattedText.caretPosition)
         XCTAssertEqual(expectedValue, result.extractedValue)
+        
+        XCTAssertEqual(false, result.complete)
     }
     
     func testApply_12doubleShash3456_returns_12doubleShash3456() {
@@ -284,6 +304,8 @@ class MonthYearDoubledoubleShashCase: MaskTestCase {
         XCTAssertEqual(expectedString, result.formattedText.string)
         XCTAssertEqual(expectedCaret, result.formattedText.caretPosition)
         XCTAssertEqual(expectedValue, result.extractedValue)
+        
+        XCTAssertEqual(true, result.complete)
     }
     
     func testApply_1234567_returns_12doubleShash3456() {
@@ -304,6 +326,8 @@ class MonthYearDoubledoubleShashCase: MaskTestCase {
         XCTAssertEqual(expectedString, result.formattedText.string)
         XCTAssertEqual(expectedCaret, result.formattedText.caretPosition)
         XCTAssertEqual(expectedValue, result.extractedValue)
+        
+        XCTAssertEqual(true, result.complete)
     }
     
     func testApply_12345678_returns_12doubleShash3456() {
@@ -324,6 +348,8 @@ class MonthYearDoubledoubleShashCase: MaskTestCase {
         XCTAssertEqual(expectedString, result.formattedText.string)
         XCTAssertEqual(expectedCaret, result.formattedText.caretPosition)
         XCTAssertEqual(expectedValue, result.extractedValue)
+        
+        XCTAssertEqual(true, result.complete)
     }
     
     func testApply_1111_StartIndex_returns_11doubleShash11_StartIndex() {
@@ -344,6 +370,8 @@ class MonthYearDoubledoubleShashCase: MaskTestCase {
         XCTAssertEqual(expectedString, result.formattedText.string)
         XCTAssertEqual(expectedCaret, result.formattedText.caretPosition)
         XCTAssertEqual(expectedValue, result.extractedValue)
+        
+        XCTAssertEqual(false, result.complete)
     }
     
     func testApply_1111_ThirdIndex_returns_11doubleShash11_FourthIndex() {
@@ -364,6 +392,8 @@ class MonthYearDoubledoubleShashCase: MaskTestCase {
         XCTAssertEqual(expectedString, result.formattedText.string)
         XCTAssertEqual(expectedCaret, result.formattedText.caretPosition)
         XCTAssertEqual(expectedValue, result.extractedValue)
+        
+        XCTAssertEqual(false, result.complete)
     }
 
     func testApply_abc1111_returns_11doubleShash11() {
@@ -384,6 +414,8 @@ class MonthYearDoubledoubleShashCase: MaskTestCase {
         XCTAssertEqual(expectedString, result.formattedText.string)
         XCTAssertEqual(expectedCaret, result.formattedText.caretPosition)
         XCTAssertEqual(expectedValue, result.extractedValue)
+        
+        XCTAssertEqual(false, result.complete)
     }
     
     func testApply_abc1de111_returns_11doubleShash11() {
@@ -404,6 +436,8 @@ class MonthYearDoubledoubleShashCase: MaskTestCase {
         XCTAssertEqual(expectedString, result.formattedText.string)
         XCTAssertEqual(expectedCaret, result.formattedText.caretPosition)
         XCTAssertEqual(expectedValue, result.extractedValue)
+        
+        XCTAssertEqual(false, result.complete)
     }
     
     func testApply_abc1de1fg11_returns_11doubleShash11() {
@@ -424,6 +458,8 @@ class MonthYearDoubledoubleShashCase: MaskTestCase {
         XCTAssertEqual(expectedString, result.formattedText.string)
         XCTAssertEqual(expectedCaret, result.formattedText.caretPosition)
         XCTAssertEqual(expectedValue, result.extractedValue)
+        
+        XCTAssertEqual(false, result.complete)
     }
     
 }

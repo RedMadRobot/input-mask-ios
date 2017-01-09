@@ -106,12 +106,10 @@ open class MaskedTextFieldDelegate: NSObject, UITextFieldDelegate {
         let position: Int =
             result.formattedText.string.distance(from: result.formattedText.string.startIndex, to: result.formattedText.caretPosition)
         
-        let complete: Bool = result.extractedValue.characters.count >= self.acceptableValueLength()
-        
         self.setCaretPosition(position, inField: field)
         self.listener?.textField?(
             field,
-            didFillMandatoryCharacters: complete,
+            didFillMandatoryCharacters: result.complete,
             didExtractValue: result.extractedValue
         )
     }
@@ -169,17 +167,16 @@ open class MaskedTextFieldDelegate: NSObject, UITextFieldDelegate {
         replacementString string: String) -> Bool {
         
         let extractedValue: String
+        let complete:       Bool
         
         if isDeletion(
             inRange: range,
             string: string
         ) {
-            extractedValue = self.deleteText(inRange: range, inField: textField)
+            (extractedValue, complete) = self.deleteText(inRange: range, inField: textField)
         } else {
-            extractedValue = self.modifyText(inRange: range, inField: textField, withText: string)
+            (extractedValue, complete) = self.modifyText(inRange: range, inField: textField, withText: string)
         }
-        
-        let complete: Bool = extractedValue.characters.count >= self.acceptableValueLength()
         
         self.listener?.textField?(
             textField,
@@ -188,6 +185,57 @@ open class MaskedTextFieldDelegate: NSObject, UITextFieldDelegate {
         )
         let _ = self.listener?.textField?(textField, shouldChangeCharactersIn: range, replacementString: string)
         return false
+    }
+    
+    open func deleteText(
+        inRange range: NSRange,
+        inField field: UITextField
+    ) -> (String, Bool) {
+        let text: String = self.replaceCharacters(
+            inText: field.text,
+            range: range,
+            withCharacters: ""
+        )
+        
+        let result: Mask.Result = self.mask.apply(
+            toText: CaretString(
+                string: text,
+                caretPosition: text.index(text.startIndex, offsetBy: range.location)
+            ),
+            autocomplete: false
+        )
+        
+        field.text = result.formattedText.string
+        self.setCaretPosition(range.location, inField: field)
+        
+        return (result.extractedValue, result.complete)
+    }
+    
+    open func modifyText(
+        inRange range: NSRange,
+        inField field: UITextField,
+        withText text: String
+    ) -> (String, Bool) {
+        let updatedText: String = self.replaceCharacters(
+            inText: field.text,
+            range: range,
+            withCharacters: text
+        )
+        
+        let result: Mask.Result = self.mask.apply(
+            toText: CaretString(
+                string: updatedText,
+                caretPosition: updatedText.index(updatedText.startIndex, offsetBy: self.caretPosition(inField: field) + text.characters.count)
+            ),
+            autocomplete: self.autocomplete
+        )
+        
+        field.text = result.formattedText.string
+        let position: Int =
+            result.formattedText.string.distance(from: result.formattedText.string.startIndex, to: result.formattedText.caretPosition)
+        self.setCaretPosition(position, inField: field)
+        
+        return (result.extractedValue, result.complete)
     }
     
     open func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
@@ -227,57 +275,6 @@ internal extension MaskedTextFieldDelegate {
     
     func isDeletion(inRange range: NSRange, string: String) -> Bool {
         return 0 < range.length && 0 == string.characters.count
-    }
-    
-    func deleteText(
-        inRange range: NSRange,
-        inField field: UITextField
-    ) -> String {
-        let text: String = self.replaceCharacters(
-            inText: field.text,
-            range: range,
-            withCharacters: ""
-        )
-        
-        let result: Mask.Result = self.mask.apply(
-            toText: CaretString(
-                string: text,
-                caretPosition: text.index(text.startIndex, offsetBy: range.location)
-            ),
-            autocomplete: false
-        )
-        
-        field.text = result.formattedText.string
-        self.setCaretPosition(range.location, inField: field)
-        
-        return result.extractedValue
-    }
-    
-    func modifyText(
-        inRange range: NSRange,
-        inField field: UITextField,
-        withText text: String
-    ) -> String {
-        let updatedText: String = self.replaceCharacters(
-            inText: field.text,
-            range: range,
-            withCharacters: text
-        )
-        
-        let result: Mask.Result = self.mask.apply(
-            toText: CaretString(
-                string: updatedText,
-                caretPosition: updatedText.index(updatedText.startIndex, offsetBy: self.caretPosition(inField: field) + text.characters.count)
-            ),
-            autocomplete: self.autocomplete
-        )
-        
-        field.text = result.formattedText.string
-        let position: Int =
-            result.formattedText.string.distance(from: result.formattedText.string.startIndex, to: result.formattedText.caretPosition)
-        self.setCaretPosition(position, inField: field)
-        
-        return result.extractedValue
     }
     
     func replaceCharacters(inText text: String?, range: NSRange, withCharacters newText: String) -> String {

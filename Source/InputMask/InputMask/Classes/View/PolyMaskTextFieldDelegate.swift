@@ -62,24 +62,18 @@ open class PolyMaskTextFieldDelegate: MaskedTextFieldDelegate {
         let position: Int =
             result.formattedText.string.distance(from: result.formattedText.string.startIndex, to: result.formattedText.caretPosition)
         
-        let complete: Bool = result.extractedValue.characters.count >= self.acceptableValueLength()
-        
         self.setCaretPosition(position, inField: field)
         self.listener?.textField?(
             field,
-            didFillMandatoryCharacters: complete,
+            didFillMandatoryCharacters: result.complete,
             didExtractValue: result.extractedValue
         )
     }
     
-}
-
-internal extension PolyMaskTextFieldDelegate {
-    
-    override func deleteText(
+    override open func deleteText(
         inRange range: NSRange,
         inField field: UITextField
-    ) -> String {
+    ) -> (String, Bool) {
         let text: String = self.replaceCharacters(
             inText: field.text,
             range: range,
@@ -103,14 +97,14 @@ internal extension PolyMaskTextFieldDelegate {
         field.text = result.formattedText.string
         self.setCaretPosition(range.location, inField: field)
         
-        return result.extractedValue
+        return (result.extractedValue, result.complete)
     }
     
-    override func modifyText(
+    override open func modifyText(
         inRange range: NSRange,
         inField field: UITextField,
         withText text: String
-    ) -> String {
+    ) -> (String, Bool) {
         let updatedText: String = self.replaceCharacters(
             inText: field.text,
             range: range,
@@ -136,8 +130,12 @@ internal extension PolyMaskTextFieldDelegate {
             result.formattedText.string.distance(from: result.formattedText.string.startIndex, to: result.formattedText.caretPosition)
         self.setCaretPosition(position, inField: field)
         
-        return result.extractedValue
+        return (result.extractedValue, result.complete)
     }
+    
+}
+
+internal extension PolyMaskTextFieldDelegate {
     
     func pickMask(
         forText text: String,
