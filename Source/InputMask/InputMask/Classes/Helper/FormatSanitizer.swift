@@ -116,6 +116,10 @@ private extension FormatSanitizer {
             }
         }
         
+        if !currentBlock.isEmpty {
+            blocks.append(currentBlock)
+        }
+        
         return blocks
     }
     
