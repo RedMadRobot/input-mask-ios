@@ -22,13 +22,12 @@ open class ViewController: UIViewController, MaskedTextFieldDelegateListener {
         ]
     }
     
-    open func textField(_ textField: UITextField, didExtractValue value: String) {
+    open func textField(
+        _ textField: UITextField,
+        didFillMandatoryCharacters complete: Bool,
+        didExtractValue value: String
+    ) {
         print(value)
     }
     
-    public func textField(_ textField: UITextField, didFillMandatoryCharacters complete: Bool) {
-        print(complete)
-    }
-    
 }
-
