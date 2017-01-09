@@ -65,8 +65,11 @@ open class PolyMaskTextFieldDelegate: MaskedTextFieldDelegate {
         let complete: Bool = result.extractedValue.characters.count >= self.acceptableValueLength()
         
         self.setCaretPosition(position, inField: field)
-        self.listener?.textField?(field, didExtractValue: result.extractedValue)
-        self.listener?.textField?(field, didFillMandatoryCharacters: complete)
+        self.listener?.textField?(
+            field,
+            didFillMandatoryCharacters: complete,
+            didExtractValue: result.extractedValue
+        )
     }
     
 }

@@ -20,14 +20,13 @@ import UIKit
 @objc public protocol MaskedTextFieldDelegateListener: UITextFieldDelegate {
     
     /**
-     Callback to return extracted value.
+     Callback to return extracted value and to signal whether the user has complete input.
      */
-    @objc optional func textField(_ textField: UITextField, didExtractValue value: String)
-    
-    /**
-     Callback to signal whether the user has complete input.
-     */
-    @objc optional func textField(_ textField: UITextField, didFillMandatoryCharacters complete: Bool)
+    @objc optional func textField(
+        _ textField: UITextField,
+        didFillMandatoryCharacters complete: Bool,
+        didExtractValue value: String
+    )
     
 }
 
@@ -110,8 +109,11 @@ open class MaskedTextFieldDelegate: NSObject, UITextFieldDelegate {
         let complete: Bool = result.extractedValue.characters.count >= self.acceptableValueLength()
         
         self.setCaretPosition(position, inField: field)
-        self.listener?.textField?(field, didExtractValue: result.extractedValue)
-        self.listener?.textField?(field, didFillMandatoryCharacters: complete)
+        self.listener?.textField?(
+            field,
+            didFillMandatoryCharacters: complete,
+            didExtractValue: result.extractedValue
+        )
     }
     
     /**
@@ -179,8 +181,11 @@ open class MaskedTextFieldDelegate: NSObject, UITextFieldDelegate {
         
         let complete: Bool = extractedValue.characters.count >= self.acceptableValueLength()
         
-        self.listener?.textField?(textField, didExtractValue: extractedValue)
-        self.listener?.textField?(textField, didFillMandatoryCharacters: complete)
+        self.listener?.textField?(
+            textField,
+            didFillMandatoryCharacters: complete,
+            didExtractValue: extractedValue
+        )
         let _ = self.listener?.textField?(textField, shouldChangeCharactersIn: range, replacementString: string)
         return false
     }

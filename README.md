@@ -72,7 +72,7 @@ The object might be instantiated via code or might be dropped on the Interface B
 wired with the corresponding `UITextField`.
 
 `MaskedTextFieldDelegate` has his own listener `MaskedTextFieldDelegateListener`, which extends `UITextFieldDelegate` protocol
-with a `textField(textField: UITextField, didExtractValue value: String)` method. All the `UITextFieldDelegate` calls from
+with a callback providing actual extracted value. All the `UITextFieldDelegate` calls from
 the client `UITextField` are forwarded to the `MaskedTextFieldDelegateListener` object, yet it doesn't allow to override
 `textField(textField:shouldChangeCharactersIn:replacementString:)` result, always returning `false`.
 
@@ -94,7 +94,11 @@ class ViewController: UIViewController, MaskedTextFieldDelegateListener {
         maskedDelegate.put(text: "+7 123", into: field)
     }
     
-    open func textField(_ textField: UITextField, didExtractValue value: String) {
+    open func textField(
+        _ textField: UITextField, 
+        didFillMandatoryCharacters complete: Bool,
+        didExtractValue value: String
+    ) {
         print(value)
     }
     
@@ -142,16 +146,21 @@ open class ViewController: UIViewController, MaskedTextFieldDelegateListener {
         ]
     }
     
-    open func textField(_ textField: UITextField, didExtractValue value: String) {
+    open func textField(
+        _ textField: UITextField, 
+        didFillMandatoryCharacters complete: Bool,
+        didExtractValue value: String
+    ) {
+        print(complete)
         print(value)
     }
-    
-    public func textField(_ textField: UITextField, didFillMandatoryCharacters complete: Bool) {
-        print(complete)
-    }
-    
+        
 }
 ```
+
+# Compatibility with 1.3.1 and above
+
+In 2.0.0 version separate `MaskedTextFieldDelegateListener` callbacks have been merged into a single method providing an extracted `value` and input `complete` flag.
 
 # License
 
