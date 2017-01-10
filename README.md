@@ -21,8 +21,11 @@ Square brackets block may contain any number of special symbols:
 5. `_` — mandatory symbol (digit or letter).
 6. `-` — optional symbol (digit or letter).
 
-Blocks cannot contain mixed types of symbols; such that, `[000AA]` will cause a mask initialization error.
-Instead, the block should be divided: `[000][AA]`.
+Other symbols inside square brackets will cause a mask initialization error.
+
+Blocks may contain mixed types of symbols; such that, `[000AA]` will end up being divided in two groups: `[000][AA]` (this happens automatically).
+
+Blocks must not contain nested brackets. `[[00]000]` format will cause a mask initialization error.
 
 Symbols outside the square brackets will take a place in the output.
 For instance, `+7 ([000]) [000]-[0000]` mask will format the input field to the form of `+7 (123) 456-7890`. 

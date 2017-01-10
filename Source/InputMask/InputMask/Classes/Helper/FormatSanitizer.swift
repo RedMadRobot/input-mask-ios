@@ -17,8 +17,9 @@ import Foundation
  ```n = formatString.characters.count```
 
  - requires: Format string to contain only flat groups of symbols in ```[]``` and ```{}``` brackets without nested
- brackets, like ```[[000]99]```. Square bracket ```[]``` groups cannot contain mixed types of symbols ("0" and "9" with 
- "A" and "a" or "_" and "-").
+ brackets, like ```[[000]99]```. Square bracket ```[]``` groups may contain mixed types of symbols ("0" and "9" with
+ "A" and "a" or "_" and "-"), which sanitizer will divide into separate groups. Such that, ```[0000Aa]``` group will 
+ be divided in two groups: ```[0000]``` and ```[Aa]```.
 
  ```FormatSanitizer``` is used by ```Compiler``` before format string compilation.
  */
@@ -42,8 +43,9 @@ class FormatSanitizer {
      ```n = formatString.characters.count```
      
      - requires: Format string to contain only flat groups of symbols in ```[]``` and ```{}``` brackets without nested
-     brackets, like ```[[000]99]```. Square bracket ```[]``` groups cannot contain mixed types of symbols ("0" and "9" 
-     with "A" and "a" or "_" and "-").
+     brackets, like ```[[000]99]```. Square bracket ```[]``` groups may contain mixed types of symbols ("0" and "9" with
+     "A" and "a" or "_" and "-"), which sanitizer will divide into separate groups. Such that, ```[0000Aa]``` group will
+     be divided in two groups: ```[0000]``` and ```[Aa]```.
      
      - parameter formatString: mask format string.
      
@@ -53,10 +55,7 @@ class FormatSanitizer {
      */
     func sanitize(formatString string: String) throws -> String {
         try self.checkOpenBraces(string)
-        
-        let blocks: [String] = self.getFormatBlocks(string)
-        try self.checkFormatBlocks(blocks)
-        
+        let blocks: [String] = self.divideBlocksWithMixedCharacters(self.getFormatBlocks(string))
         return self.sortFormatBlocks(blocks).joined(separator: "")
     }
     
@@ -123,46 +122,72 @@ private extension FormatSanitizer {
         return blocks
     }
     
-    func checkFormatBlocks(_ blocks: [String]) throws {
+    func divideBlocksWithMixedCharacters(_ blocks: [String]) -> [String] {
+        var resultingBlocks: [String] = []
+        
         for block in blocks {
             if block.hasPrefix("[") {
-                if block.contains("0")
-                || block.contains("9") {
-                    if block.contains("A")
-                    || block.contains("a") {
-                        throw Compiler.CompilerError.WrongFormat
+                var blockBuffer: String = ""
+                for blockCharacter in block.characters {
+                    if blockCharacter == "[" {
+                        blockBuffer += String(blockCharacter)
+                        continue
                     }
-                    if block.contains("-")
-                    || block.contains("_") {
-                        throw Compiler.CompilerError.WrongFormat
+                    
+                    if blockCharacter == "]" {
+                        blockBuffer += String(blockCharacter)
+                        resultingBlocks.append(blockBuffer)
+                        break
                     }
+                    
+                    if blockCharacter == "0"
+                    || blockCharacter == "9" {
+                        if blockBuffer.contains("A")
+                        || blockBuffer.contains("a")
+                        || blockBuffer.contains("-")
+                        || blockBuffer.contains("_") {
+                            blockBuffer += "]"
+                            resultingBlocks.append(blockBuffer)
+                            blockBuffer = "[" + String(blockCharacter)
+                            continue
+                        }
+                    }
+                    
+                    if blockCharacter == "A"
+                    || blockCharacter == "a" {
+                        if blockBuffer.contains("0")
+                        || blockBuffer.contains("9")
+                        || blockBuffer.contains("-")
+                        || blockBuffer.contains("_") {
+                            blockBuffer += "]"
+                            resultingBlocks.append(blockBuffer)
+                            blockBuffer = "[" + String(blockCharacter)
+                            continue
+                        }
+                    }
+                    
+                    if blockCharacter == "-"
+                    || blockCharacter == "_" {
+                        if blockBuffer.contains("0")
+                        || blockBuffer.contains("9")
+                        || blockBuffer.contains("A")
+                        || blockBuffer.contains("a") {
+                            blockBuffer += "]"
+                            resultingBlocks.append(blockBuffer)
+                            blockBuffer = "[" + String(blockCharacter)
+                            continue
+                        }
+                    }
+                    
+                    blockBuffer += String(blockCharacter)
                 }
-                
-                if block.contains("a")
-                || block.contains("A") {
-                    if block.contains("0")
-                    || block.contains("9") {
-                        throw Compiler.CompilerError.WrongFormat
-                    }
-                    if block.contains("-")
-                    || block.contains("_") {
-                        throw Compiler.CompilerError.WrongFormat
-                    }
-                }
-                
-                if block.contains("-")
-                || block.contains("_") {
-                    if block.contains("A")
-                    || block.contains("a") {
-                        throw Compiler.CompilerError.WrongFormat
-                    }
-                    if block.contains("9")
-                    || block.contains("0") {
-                        throw Compiler.CompilerError.WrongFormat
-                    }
-                }
+            } else {
+                resultingBlocks.append(block)
             }
+            
         }
+        
+        return resultingBlocks
     }
     
     func sortFormatBlocks(_ blocks: [String]) -> [String] {
@@ -173,24 +198,10 @@ private extension FormatSanitizer {
             if block.hasPrefix("[") {
                 if block.contains("0")
                 || block.contains("9") {
-                    sortedBlock =
-                        "["
-                        + String(block
-                                  .replacingOccurrences(of: "[", with: "")
-                                  .replacingOccurrences(of: "]", with: "")
-                                  .characters.sorted()
-                          )
-                        + "]"
+                    sortedBlock = self.sortBlock(block: block)
                 } else if block.contains("a")
                        || block.contains("A") {
-                            sortedBlock =
-                                "["
-                                + String(block
-                                          .replacingOccurrences(of: "[", with: "")
-                                          .replacingOccurrences(of: "]", with: "")
-                                          .characters.sorted()
-                                  )
-                                + "]"
+                            sortedBlock = self.sortBlock(block: block)
                 } else {
                     sortedBlock =
                         "["
@@ -214,6 +225,17 @@ private extension FormatSanitizer {
         }
         
         return sortedBlocks
+    }
+    
+    private func sortBlock(block: String) -> String {
+        return
+            "["
+            + String(block
+                .replacingOccurrences(of: "[", with: "")
+                .replacingOccurrences(of: "]", with: "")
+                .characters.sorted()
+            )
+            + "]"
     }
     
 }
