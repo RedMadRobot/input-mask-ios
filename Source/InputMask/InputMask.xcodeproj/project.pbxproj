@@ -49,6 +49,7 @@
 		8ACF16E81D65B9A4004F3374 /* InterfaceBuilderSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ACF16E71D65B9A4004F3374 /* InterfaceBuilderSupport.swift */; };
 		8ACF16E91D65CFB6004F3374 /* MaskedTextFieldDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A01854C1D64ABCC007B5EBD /* MaskedTextFieldDelegate.swift */; };
 		8ACF16EA1D65CFB8004F3374 /* InterfaceBuilderSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ACF16E71D65B9A4004F3374 /* InterfaceBuilderSupport.swift */; };
+		8AE8CA091E4489B400EDC9C4 /* YearCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE8CA081E4489B400EDC9C4 /* YearCase.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -91,6 +92,7 @@
 		8AB1E8951D6378D400892C3B /* ValueState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ValueState.swift; sourceTree = "<group>"; };
 		8AB1E8981D637BFD00892C3B /* FixedState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FixedState.swift; sourceTree = "<group>"; };
 		8ACF16E71D65B9A4004F3374 /* InterfaceBuilderSupport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InterfaceBuilderSupport.swift; sourceTree = "<group>"; };
+		8AE8CA081E4489B400EDC9C4 /* YearCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YearCase.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -227,6 +229,7 @@
 				8A1E3C511D647E1700589799 /* MonthYearDoubleSlashCase.swift */,
 				8A0185491D649BC9007B5EBD /* PhoneCase.swift */,
 				8A75D98C1E2392B300F7D244 /* YearACCase.swift */,
+				8AE8CA081E4489B400EDC9C4 /* YearCase.swift */,
 			);
 			path = Mask;
 			sourceTree = "<group>";
@@ -383,6 +386,7 @@
 				8AB1E8941D63773400892C3B /* Next.swift in Sources */,
 				8A808F0B1D5B1CDD00A75B9C /* MonthYearCase.swift in Sources */,
 				8A01854A1D649BC9007B5EBD /* PhoneCase.swift in Sources */,
+				8AE8CA091E4489B400EDC9C4 /* YearCase.swift in Sources */,
 				8AB1E89A1D637BFD00892C3B /* FixedState.swift in Sources */,
 				8A75D98D1E2392B300F7D244 /* YearACCase.swift in Sources */,
 				8A83CCB11D5B579800C0184F /* NSCharacterSet.swift in Sources */,

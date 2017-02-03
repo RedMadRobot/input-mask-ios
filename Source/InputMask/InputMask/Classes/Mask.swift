@@ -144,7 +144,7 @@ public class Mask {
             ),
             extractedValue: extractedValue,
             affinity: affinity,
-            complete: state is EOLState
+            complete: self.noMandatoryCharactersLeftAfterState(state)
         )
     }
     
@@ -276,6 +276,18 @@ private extension Mask {
         }
         
         return placeholder
+    }
+    
+    func noMandatoryCharactersLeftAfterState(_ state: State) -> Bool {
+        if (state is EOLState) {
+            return true
+        } else if (state is FixedState
+                || state is FreeState
+                || state is ValueState) {
+            return false
+        } else {
+            return self.noMandatoryCharactersLeftAfterState(state.nextState())
+        }
     }
     
 }
