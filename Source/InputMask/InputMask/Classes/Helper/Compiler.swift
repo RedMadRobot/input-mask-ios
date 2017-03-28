@@ -196,7 +196,7 @@ private extension Compiler {
                         valueable: true,
                         fixed: false
                     ),
-                    type: OptionalValueState.StateType.Literal
+                    type: OptionalValueState.StateType.AlphaNumeric
                 )
             }
             
