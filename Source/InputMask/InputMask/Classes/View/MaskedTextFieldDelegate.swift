@@ -262,7 +262,22 @@ open class MaskedTextFieldDelegate: NSObject, UITextFieldDelegate {
     }
     
     open func textFieldShouldClear(_ textField: UITextField) -> Bool {
-        return self.listener?.textFieldShouldClear?(textField) ?? true
+        let shouldClear: Bool = self.listener?.textFieldShouldClear?(textField) ?? true
+        if shouldClear {
+            let result: Mask.Result = self.mask.apply(
+                toText: CaretString(
+                    string: "",
+                    caretPosition: "".endIndex
+                ),
+                autocomplete: self.autocomplete
+            )
+            self.listener?.textField?(
+                textField,
+                didFillMandatoryCharacters: result.complete,
+                didExtractValue: result.extractedValue
+            )
+        }
+        return shouldClear
     }
     
     open func textFieldShouldReturn(_ textField: UITextField) -> Bool {
