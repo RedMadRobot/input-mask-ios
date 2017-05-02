@@ -133,6 +133,14 @@ open class PolyMaskTextFieldDelegate: MaskedTextFieldDelegate {
         return (result.extractedValue, result.complete)
     }
     
+    open override var debugDescription: String {
+        get {
+            return self._affineFormats.reduce(self.mask.debugDescription) { (debugDescription: String, affineFormat: String) -> String in
+                return try! debugDescription + "\n" + Mask.getOrCreate(withFormat: affineFormat).debugDescription
+            }
+        }
+    }
+    
 }
 
 internal extension PolyMaskTextFieldDelegate {

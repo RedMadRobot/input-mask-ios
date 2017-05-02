@@ -284,6 +284,18 @@ open class MaskedTextFieldDelegate: NSObject, UITextFieldDelegate {
         return self.listener?.textFieldShouldReturn?(textField) ?? true
     }
     
+    open override var debugDescription: String {
+        get {
+            return self.mask.debugDescription
+        }
+    }
+    
+    open override var description: String {
+        get {
+            return self.debugDescription
+        }
+    }
+    
 }
 
 internal extension MaskedTextFieldDelegate {

@@ -18,14 +18,14 @@ import Foundation
  
  - seealso: ```Compiler```, ```State``` and ```CaretString``` classes.
  */
-public class Mask {
+public class Mask: CustomDebugStringConvertible, CustomStringConvertible {
     
     /**
      ### Result
      
      The end result of mask application to the user input string.
      */
-    public struct Result {
+    public struct Result: CustomDebugStringConvertible, CustomStringConvertible {
         
         /**
          Formatted text with updated caret position.
@@ -46,6 +46,18 @@ public class Mask {
          User input is complete.
          */
         public let complete: Bool
+        
+        public var debugDescription: String {
+            get {
+                return "FORMATTED TEXT: \(self.formattedText)\nEXTRACTED VALUE: \(self.extractedValue)\nAFFINITY: \(self.affinity)\nCOMPLETE: \(self.complete)"
+            }
+        }
+        
+        public var description: String {
+            get {
+                return self.debugDescription
+            }
+        }
     }
     
     private let initialState: State
@@ -227,6 +239,18 @@ public class Mask {
         }
         
         return length
+    }
+    
+    public var debugDescription: String {
+        get {
+            return self.initialState.debugDescription
+        }
+    }
+    
+    public var description: String {
+        get {
+            return self.debugDescription
+        }
     }
     
 }

@@ -63,6 +63,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5147936F1EB89544009CD671 /* InputMask.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = InputMask.podspec; path = ../../../../InputMask.podspec; sourceTree = "<group>"; };
 		8A0185461D6498F9007B5EBD /* FreeState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FreeState.swift; sourceTree = "<group>"; };
 		8A0185491D649BC9007B5EBD /* PhoneCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhoneCase.swift; sourceTree = "<group>"; };
 		8A01854C1D64ABCC007B5EBD /* MaskedTextFieldDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaskedTextFieldDelegate.swift; sourceTree = "<group>"; };
@@ -166,6 +167,7 @@
 		8A808EEC1D5B104A00A75B9C /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				5147936F1EB89544009CD671 /* InputMask.podspec */,
 				8A808EED1D5B104A00A75B9C /* Info.plist */,
 			);
 			path = "Supporting Files";

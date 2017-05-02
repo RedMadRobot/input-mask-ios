@@ -13,7 +13,7 @@ import Foundation
  
  Model object that represents string with current cursor position.
  */
-public struct CaretString {
+public struct CaretString: CustomDebugStringConvertible, CustomStringConvertible {
     
     /**
      Text from the user.
@@ -35,4 +35,17 @@ public struct CaretString {
         self.string = string
         self.caretPosition = caretPosition
     }
+    
+    public var debugDescription: String {
+        get {
+            return "STRING: \(self.string)\nCARET POSITION: \(self.caretPosition)"
+        }
+    }
+    
+    public var description: String {
+        get {
+            return self.debugDescription
+        }
+    }
+    
 }
