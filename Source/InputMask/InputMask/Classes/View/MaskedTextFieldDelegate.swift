@@ -78,7 +78,7 @@ open class MaskedTextFieldDelegate: NSObject, UITextFieldDelegate {
         }
     }
     
-    open var listener: MaskedTextFieldDelegateListener?
+    open weak var listener: MaskedTextFieldDelegateListener?
     
     public init(format: String) {
         self._maskFormat = format
