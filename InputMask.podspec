@@ -7,7 +7,7 @@ Pod::Spec.new do |spec|
   spec.license          = "MIT"
   spec.author           = { "Egor Taflanidi" => "et@redmadrobot.com" }
   spec.source           = { :git => "https://github.com/RedMadRobot/input-mask-ios.git", :tag => spec.version.to_s }
-  spec.platform         = :ios, "9.0"
+  spec.platform         = :ios, "8.0"
   spec.requires_arc     = true
   spec.source_files     = "Source/InputMask/InputMask/Classes/**/*"
 end
