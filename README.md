@@ -1,4 +1,5 @@
 # InputMask
+[![Awesome](https://cdn.rawgit.com/sindresorhus/awesome/d7305f38d29fed78fa85652e3a63e154dd8e8829/media/badge.svg)](https://github.com/sindresorhus/awesome)
 ![Version Badge](https://img.shields.io/cocoapods/v/InputMask.svg)
 [![license](https://img.shields.io/github/license/mashape/apistatus.svg)]()
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
