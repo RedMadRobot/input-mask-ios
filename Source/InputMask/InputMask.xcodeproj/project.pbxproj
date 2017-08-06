@@ -7,21 +7,31 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		518F8AB11F36A98400065733 /* InputMaskMac.h in Headers */ = {isa = PBXBuildFile; fileRef = 518F8AAF1F36A98400065733 /* InputMaskMac.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		518F8AB81F36AAA100065733 /* CaretStringIterator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A1E3C4C1D64649200589799 /* CaretStringIterator.swift */; };
+		518F8AB91F36AAA100065733 /* Compiler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB1E8881D63753E00892C3B /* Compiler.swift */; };
+		518F8ABA1F36AAA100065733 /* FormatSanitizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A1E3C5F1D648C9E00589799 /* FormatSanitizer.swift */; };
+		518F8ABB1F36AAA100065733 /* NSCharacterSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A83CCAF1D5B579800C0184F /* NSCharacterSet.swift */; };
+		518F8ABC1F36AAA100065733 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A83CCB21D5B5E1F00C0184F /* String.swift */; };
+		518F8ABD1F36AAA500065733 /* EOLState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB1E88F1D6375FC00892C3B /* EOLState.swift */; };
+		518F8ABE1F36AAA500065733 /* FixedState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB1E8981D637BFD00892C3B /* FixedState.swift */; };
+		518F8ABF1F36AAA500065733 /* FreeState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0185461D6498F9007B5EBD /* FreeState.swift */; };
+		518F8AC01F36AAA500065733 /* OptionalValueState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A1E3C561D64847D00589799 /* OptionalValueState.swift */; };
+		518F8AC11F36AAA500065733 /* ValueState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB1E8951D6378D400892C3B /* ValueState.swift */; };
+		518F8AC21F36AAA900065733 /* CaretString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB1E8851D63746400892C3B /* CaretString.swift */; };
+		518F8AC31F36AAA900065733 /* Next.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB1E8921D63773400892C3B /* Next.swift */; };
+		518F8AC41F36AAA900065733 /* State.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB1E88B1D63755300892C3B /* State.swift */; };
+		518F8AC51F36AAB000065733 /* Mask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A1E3C531D64807800589799 /* Mask.swift */; };
 		8A0185471D6498F9007B5EBD /* FreeState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0185461D6498F9007B5EBD /* FreeState.swift */; };
-		8A0185481D6498F9007B5EBD /* FreeState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0185461D6498F9007B5EBD /* FreeState.swift */; };
 		8A01854A1D649BC9007B5EBD /* PhoneCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0185491D649BC9007B5EBD /* PhoneCase.swift */; };
 		8A01854D1D64ABCC007B5EBD /* MaskedTextFieldDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A01854C1D64ABCC007B5EBD /* MaskedTextFieldDelegate.swift */; };
 		8A1E3C4D1D64649200589799 /* CaretStringIterator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A1E3C4C1D64649200589799 /* CaretStringIterator.swift */; };
-		8A1E3C4E1D64649500589799 /* CaretStringIterator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A1E3C4C1D64649200589799 /* CaretStringIterator.swift */; };
 		8A1E3C501D647BA800589799 /* DayMonthYearCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A1E3C4F1D647BA800589799 /* DayMonthYearCase.swift */; };
 		8A1E3C521D647E1700589799 /* MonthYearDoubleSlashCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A1E3C511D647E1700589799 /* MonthYearDoubleSlashCase.swift */; };
 		8A1E3C541D64807800589799 /* Mask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A1E3C531D64807800589799 /* Mask.swift */; };
-		8A1E3C551D64809900589799 /* Mask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A1E3C531D64807800589799 /* Mask.swift */; };
 		8A1E3C571D64847D00589799 /* OptionalValueState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A1E3C561D64847D00589799 /* OptionalValueState.swift */; };
-		8A1E3C581D64847F00589799 /* OptionalValueState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A1E3C561D64847D00589799 /* OptionalValueState.swift */; };
 		8A1E3C5E1D648A0F00589799 /* DayMonthYearShortCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A1E3C5C1D648A0F00589799 /* DayMonthYearShortCase.swift */; };
 		8A1E3C601D648C9E00589799 /* FormatSanitizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A1E3C5F1D648C9E00589799 /* FormatSanitizer.swift */; };
-		8A1E3C611D648C9E00589799 /* FormatSanitizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A1E3C5F1D648C9E00589799 /* FormatSanitizer.swift */; };
 		8A485DDA1DD4735A009351FB /* PolyMaskTextFieldDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A485DD91DD4735A009351FB /* PolyMaskTextFieldDelegate.swift */; };
 		8A75D98D1E2392B300F7D244 /* YearACCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A75D98C1E2392B300F7D244 /* YearACCase.swift */; };
 		8A808ED61D5B0FEC00A75B9C /* InputMask.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A808ECB1D5B0FEC00A75B9C /* InputMask.framework */; };
@@ -29,26 +39,15 @@
 		8A808F091D5B1A8E00A75B9C /* MaskTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A808F081D5B1A8E00A75B9C /* MaskTestCase.swift */; };
 		8A808F0B1D5B1CDD00A75B9C /* MonthYearCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A808F0A1D5B1CDD00A75B9C /* MonthYearCase.swift */; };
 		8A83CCB01D5B579800C0184F /* NSCharacterSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A83CCAF1D5B579800C0184F /* NSCharacterSet.swift */; };
-		8A83CCB11D5B579800C0184F /* NSCharacterSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A83CCAF1D5B579800C0184F /* NSCharacterSet.swift */; };
 		8A83CCB31D5B5E1F00C0184F /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A83CCB21D5B5E1F00C0184F /* String.swift */; };
-		8A83CCB41D5B5E1F00C0184F /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A83CCB21D5B5E1F00C0184F /* String.swift */; };
 		8AB1E8861D63746400892C3B /* CaretString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB1E8851D63746400892C3B /* CaretString.swift */; };
-		8AB1E8871D63746400892C3B /* CaretString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB1E8851D63746400892C3B /* CaretString.swift */; };
 		8AB1E8891D63753E00892C3B /* Compiler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB1E8881D63753E00892C3B /* Compiler.swift */; };
-		8AB1E88A1D63753E00892C3B /* Compiler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB1E8881D63753E00892C3B /* Compiler.swift */; };
 		8AB1E88C1D63755300892C3B /* State.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB1E88B1D63755300892C3B /* State.swift */; };
-		8AB1E88D1D63755300892C3B /* State.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB1E88B1D63755300892C3B /* State.swift */; };
 		8AB1E8901D6375FC00892C3B /* EOLState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB1E88F1D6375FC00892C3B /* EOLState.swift */; };
-		8AB1E8911D6375FC00892C3B /* EOLState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB1E88F1D6375FC00892C3B /* EOLState.swift */; };
 		8AB1E8931D63773400892C3B /* Next.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB1E8921D63773400892C3B /* Next.swift */; };
-		8AB1E8941D63773400892C3B /* Next.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB1E8921D63773400892C3B /* Next.swift */; };
 		8AB1E8961D6378D400892C3B /* ValueState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB1E8951D6378D400892C3B /* ValueState.swift */; };
-		8AB1E8971D6378D400892C3B /* ValueState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB1E8951D6378D400892C3B /* ValueState.swift */; };
 		8AB1E8991D637BFD00892C3B /* FixedState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB1E8981D637BFD00892C3B /* FixedState.swift */; };
-		8AB1E89A1D637BFD00892C3B /* FixedState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB1E8981D637BFD00892C3B /* FixedState.swift */; };
 		8ACF16E81D65B9A4004F3374 /* InterfaceBuilderSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ACF16E71D65B9A4004F3374 /* InterfaceBuilderSupport.swift */; };
-		8ACF16E91D65CFB6004F3374 /* MaskedTextFieldDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A01854C1D64ABCC007B5EBD /* MaskedTextFieldDelegate.swift */; };
-		8ACF16EA1D65CFB8004F3374 /* InterfaceBuilderSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ACF16E71D65B9A4004F3374 /* InterfaceBuilderSupport.swift */; };
 		8AE8CA091E4489B400EDC9C4 /* YearCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE8CA081E4489B400EDC9C4 /* YearCase.swift */; };
 /* End PBXBuildFile section */
 
@@ -64,6 +63,9 @@
 
 /* Begin PBXFileReference section */
 		5147936F1EB89544009CD671 /* InputMask.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = InputMask.podspec; path = ../../../../InputMask.podspec; sourceTree = "<group>"; };
+		518F8AAD1F36A98400065733 /* InputMaskMac.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = InputMaskMac.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		518F8AAF1F36A98400065733 /* InputMaskMac.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InputMaskMac.h; sourceTree = "<group>"; };
+		518F8AB61F36A9B300065733 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8A0185461D6498F9007B5EBD /* FreeState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FreeState.swift; sourceTree = "<group>"; };
 		8A0185491D649BC9007B5EBD /* PhoneCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhoneCase.swift; sourceTree = "<group>"; };
 		8A01854C1D64ABCC007B5EBD /* MaskedTextFieldDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaskedTextFieldDelegate.swift; sourceTree = "<group>"; };
@@ -97,6 +99,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		518F8AA91F36A98400065733 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8A808EC71D5B0FEC00A75B9C /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -115,6 +124,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		518F8AAE1F36A98400065733 /* InputMaskMac */ = {
+			isa = PBXGroup;
+			children = (
+				518F8AB51F36A9B300065733 /* Supporting Files */,
+				518F8AAF1F36A98400065733 /* InputMaskMac.h */,
+			);
+			path = InputMaskMac;
+			sourceTree = "<group>";
+		};
+		518F8AB51F36A9B300065733 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				518F8AB61F36A9B300065733 /* Info.plist */,
+			);
+			path = "Supporting Files";
+			sourceTree = "<group>";
+		};
 		8A01854B1D64AB9B007B5EBD /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -130,6 +156,7 @@
 			children = (
 				8A808EE91D5B104A00A75B9C /* InputMask */,
 				8A808EEE1D5B104A00A75B9C /* InputMaskTests */,
+				518F8AAE1F36A98400065733 /* InputMaskMac */,
 				8A808ECC1D5B0FEC00A75B9C /* Products */,
 			);
 			sourceTree = "<group>";
@@ -139,6 +166,7 @@
 			children = (
 				8A808ECB1D5B0FEC00A75B9C /* InputMask.framework */,
 				8A808ED51D5B0FEC00A75B9C /* InputMaskTests.xctest */,
+				518F8AAD1F36A98400065733 /* InputMaskMac.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -251,6 +279,14 @@
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
+		518F8AAA1F36A98400065733 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				518F8AB11F36A98400065733 /* InputMaskMac.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8A808EC81D5B0FEC00A75B9C /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -262,6 +298,24 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		518F8AAC1F36A98400065733 /* InputMaskMac */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 518F8AB41F36A98400065733 /* Build configuration list for PBXNativeTarget "InputMaskMac" */;
+			buildPhases = (
+				518F8AA81F36A98400065733 /* Sources */,
+				518F8AA91F36A98400065733 /* Frameworks */,
+				518F8AAA1F36A98400065733 /* Headers */,
+				518F8AAB1F36A98400065733 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = InputMaskMac;
+			productName = InputMaskMac;
+			productReference = 518F8AAD1F36A98400065733 /* InputMaskMac.framework */;
+			productType = "com.apple.product-type.framework";
+		};
 		8A808ECA1D5B0FEC00A75B9C /* InputMask */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8A808EDF1D5B0FEC00A75B9C /* Build configuration list for PBXNativeTarget "InputMask" */;
@@ -308,6 +362,10 @@
 				LastUpgradeCheck = 0900;
 				ORGANIZATIONNAME = "Egor Taflanidi";
 				TargetAttributes = {
+					518F8AAC1F36A98400065733 = {
+						CreatedOnToolsVersion = 9.0;
+						DevelopmentTeam = 42LRQS6X44;
+					};
 					8A808ECA1D5B0FEC00A75B9C = {
 						CreatedOnToolsVersion = 7.3.1;
 						LastSwiftMigration = 0900;
@@ -331,12 +389,20 @@
 			projectRoot = "";
 			targets = (
 				8A808ECA1D5B0FEC00A75B9C /* InputMask */,
+				518F8AAC1F36A98400065733 /* InputMaskMac */,
 				8A808ED41D5B0FEC00A75B9C /* InputMaskTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		518F8AAB1F36A98400065733 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8A808EC91D5B0FEC00A75B9C /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -354,6 +420,27 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		518F8AA81F36A98400065733 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				518F8AC31F36AAA900065733 /* Next.swift in Sources */,
+				518F8ABA1F36AAA100065733 /* FormatSanitizer.swift in Sources */,
+				518F8ABB1F36AAA100065733 /* NSCharacterSet.swift in Sources */,
+				518F8ABD1F36AAA500065733 /* EOLState.swift in Sources */,
+				518F8ABC1F36AAA100065733 /* String.swift in Sources */,
+				518F8AB91F36AAA100065733 /* Compiler.swift in Sources */,
+				518F8AC21F36AAA900065733 /* CaretString.swift in Sources */,
+				518F8ABF1F36AAA500065733 /* FreeState.swift in Sources */,
+				518F8AC01F36AAA500065733 /* OptionalValueState.swift in Sources */,
+				518F8AC51F36AAB000065733 /* Mask.swift in Sources */,
+				518F8AC41F36AAA900065733 /* State.swift in Sources */,
+				518F8AB81F36AAA100065733 /* CaretStringIterator.swift in Sources */,
+				518F8ABE1F36AAA500065733 /* FixedState.swift in Sources */,
+				518F8AC11F36AAA500065733 /* ValueState.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8A808EC61D5B0FEC00A75B9C /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -382,29 +469,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8ACF16E91D65CFB6004F3374 /* MaskedTextFieldDelegate.swift in Sources */,
-				8A1E3C611D648C9E00589799 /* FormatSanitizer.swift in Sources */,
 				8A1E3C501D647BA800589799 /* DayMonthYearCase.swift in Sources */,
-				8AB1E8941D63773400892C3B /* Next.swift in Sources */,
 				8A808F0B1D5B1CDD00A75B9C /* MonthYearCase.swift in Sources */,
 				8A01854A1D649BC9007B5EBD /* PhoneCase.swift in Sources */,
 				8AE8CA091E4489B400EDC9C4 /* YearCase.swift in Sources */,
-				8AB1E89A1D637BFD00892C3B /* FixedState.swift in Sources */,
 				8A75D98D1E2392B300F7D244 /* YearACCase.swift in Sources */,
-				8A83CCB11D5B579800C0184F /* NSCharacterSet.swift in Sources */,
-				8A1E3C4E1D64649500589799 /* CaretStringIterator.swift in Sources */,
 				8A1E3C521D647E1700589799 /* MonthYearDoubleSlashCase.swift in Sources */,
-				8A1E3C581D64847F00589799 /* OptionalValueState.swift in Sources */,
-				8ACF16EA1D65CFB8004F3374 /* InterfaceBuilderSupport.swift in Sources */,
-				8AB1E88A1D63753E00892C3B /* Compiler.swift in Sources */,
-				8AB1E88D1D63755300892C3B /* State.swift in Sources */,
-				8A0185481D6498F9007B5EBD /* FreeState.swift in Sources */,
-				8AB1E8911D6375FC00892C3B /* EOLState.swift in Sources */,
-				8A83CCB41D5B5E1F00C0184F /* String.swift in Sources */,
-				8AB1E8971D6378D400892C3B /* ValueState.swift in Sources */,
 				8A808F091D5B1A8E00A75B9C /* MaskTestCase.swift in Sources */,
-				8AB1E8871D63746400892C3B /* CaretString.swift in Sources */,
-				8A1E3C551D64809900589799 /* Mask.swift in Sources */,
 				8A1E3C5E1D648A0F00589799 /* DayMonthYearShortCase.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -420,6 +491,64 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		518F8AB21F36A98400065733 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				COMBINE_HIDPI_IMAGES = YES;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = 42LRQS6X44;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_VERSION = A;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = "$(SRCROOT)/InputMaskMac/Supporting Files/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				PRODUCT_BUNDLE_IDENTIFIER = com.redmadrobot.InputMaskMac;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_VERSION = 4.0;
+			};
+			name = Debug;
+		};
+		518F8AB31F36A98400065733 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				COMBINE_HIDPI_IMAGES = YES;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = 42LRQS6X44;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_VERSION = A;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = "$(SRCROOT)/InputMaskMac/Supporting Files/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				PRODUCT_BUNDLE_IDENTIFIER = com.redmadrobot.InputMaskMac;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 4.0;
+			};
+			name = Release;
+		};
 		8A808EDD1D5B0FEC00A75B9C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -601,6 +730,14 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		518F8AB41F36A98400065733 /* Build configuration list for PBXNativeTarget "InputMaskMac" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				518F8AB21F36A98400065733 /* Debug */,
+				518F8AB31F36A98400065733 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
 		8A808EC51D5B0FEC00A75B9C /* Build configuration list for PBXProject "InputMask" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
