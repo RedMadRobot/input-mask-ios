@@ -1,7 +1,10 @@
 # InputMask
+[![Awesome](https://cdn.rawgit.com/sindresorhus/awesome/d7305f38d29fed78fa85652e3a63e154dd8e8829/media/badge.svg)](https://github.com/sindresorhus/awesome)
 ![Version Badge](https://img.shields.io/cocoapods/v/InputMask.svg)
 [![license](https://img.shields.io/github/license/mashape/apistatus.svg)]()
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
+[![Travis](https://img.shields.io/travis/rust-lang/rust.svg)](https://travis-ci.org/RedMadRobot/input-mask-ios)
+[![Platform](https://cdn.rawgit.com/RedMadRobot/input-mask-ios/assets/Assets/shields/platform.svg)]()[![Android](https://cdn.rawgit.com/RedMadRobot/input-mask-ios/assets/Assets/shields/android.svg)](https://github.com/RedMadRobot/input-mask-android)[![iOS](https://cdn.rawgit.com/RedMadRobot/input-mask-ios/assets/Assets/shields/ios.svg)](https://github.com/RedMadRobot/input-mask-ios)
 
 ![Preview](https://raw.githubusercontent.com/RedMadRobot/input-mask-ios/assets/Assets/phone_input_cropped.gif "Preview")
 
