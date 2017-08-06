@@ -67,6 +67,14 @@ pod 'InputMask'
 git "https://github.com/RedMadRobot/input-mask-ios.git"
 ```
 
+## Swift Package Manager
+
+```swift
+dependencies: [
+    .Package(url: "https://github.com/RedMadRobot/input-mask-ios", majorVersion: 2)
+]
+```
+
 # Usage
 ## Simple UITextField for the phone numbers
 
