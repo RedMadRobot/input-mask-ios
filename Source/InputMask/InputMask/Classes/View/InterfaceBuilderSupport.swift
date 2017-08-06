@@ -1,10 +1,10 @@
 //
-//  InterfaceBuilderSupport.swift
 //  InputMask
 //
 //  Created by Egor Taflanidi on 18.08.28.
 //  Copyright © 28 Heisei Egor Taflanidi. All rights reserved.
 //
+
 
 import Foundation
 

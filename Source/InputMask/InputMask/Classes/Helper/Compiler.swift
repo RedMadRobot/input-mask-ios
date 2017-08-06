@@ -5,6 +5,7 @@
 //  Copyright © 28 Heisei Egor Taflanidi. All rights reserved.
 //
 
+
 import Foundation
 
 
@@ -218,7 +219,8 @@ private extension Compiler {
             child: try self.compile(
                 string.truncateFirst(),
                 valueable: false,
-                fixed: false),
+                fixed: false
+            ),
             ownCharacter: char
         )
     }

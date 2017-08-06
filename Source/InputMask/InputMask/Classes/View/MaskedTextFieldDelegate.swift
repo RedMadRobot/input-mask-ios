@@ -1,10 +1,10 @@
 //
-//  MaskedTextFieldDelegate.swift
 //  InputMask
 //
 //  Created by Egor Taflanidi on 17.08.28.
 //  Copyright © 28 Heisei Egor Taflanidi. All rights reserved.
 //
+
 
 import Foundation
 import UIKit
@@ -164,7 +164,8 @@ open class MaskedTextFieldDelegate: NSObject, UITextFieldDelegate {
     open func textField(
         _ textField: UITextField,
         shouldChangeCharactersIn range: NSRange,
-        replacementString string: String) -> Bool {
+        replacementString string: String
+    ) -> Bool {
         
         let extractedValue: String
         let complete:       Bool
