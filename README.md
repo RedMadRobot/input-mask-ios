@@ -164,6 +164,34 @@ open class ViewController: UIViewController, MaskedTextFieldDelegateListener {
 }
 ```
 
+## Known Issues
+
+Sometimes you need to know when `text` property of `UITextField` was changed by user. For example, you may want to use `NotificationCenter` with notification `UITextFieldTextDidChange`, or `func addTarget(_ target: Any?, action: Selector, for controlEvents: UIControlEvents)` with event `editingChanged`. These events are emitting by iOS only if `text` property was changed by user. But the `MaskedTextFieldDelegate`, implemented in `input-mask` always returns `false` inside method `open func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool`, and programmatically modifies `text` property independently. `return false` inside this method, suppresses triggering of these events by iOS.
+
+Possible workaround:
+
+```swift
+class NotifyingMaskedTextFieldDelegate: MaskedTextFieldDelegate {
+    weak var editingListener: NotifyingMaskedTextFieldDelegateListener?
+    
+    override func textField(
+        _ textField: UITextField,
+        shouldChangeCharactersIn range: NSRange,
+        replacementString string: String
+    ) -> Bool {
+        defer {
+            self.editingListener?.onEditingChanged(inTextField: textField)
+        }
+        return super.textField(textField, shouldChangeCharactersIn: range, replacementString: string)
+    }
+}
+
+
+protocol NotifyingMaskedTextFieldDelegateListener: class {
+    func onEditingChanged(inTextField: UITextField)
+}
+```
+
 # Compatibility with 1.3.1 and above
 
 In 2.0.0 version separate `MaskedTextFieldDelegateListener` callbacks have been merged into a single method providing an extracted `value` and input `complete` flag.
