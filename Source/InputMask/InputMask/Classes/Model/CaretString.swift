@@ -14,7 +14,7 @@ import Foundation
  
  Model object that represents string with current cursor position.
  */
-public struct CaretString: CustomDebugStringConvertible, CustomStringConvertible {
+public struct CaretString: CustomDebugStringConvertible, CustomStringConvertible, Equatable {
     
     /**
      Text from the user.
@@ -49,4 +49,10 @@ public struct CaretString: CustomDebugStringConvertible, CustomStringConvertible
         }
     }
     
+}
+
+
+public func ==(left: CaretString, right: CaretString) -> Bool {
+    return left.caretPosition == right.caretPosition
+        && left.string        == right.string
 }
