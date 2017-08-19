@@ -71,7 +71,7 @@ git "https://github.com/RedMadRobot/input-mask-ios.git"
 
 ```swift
 dependencies: [
-    .Package(url: "https://github.com/RedMadRobot/input-mask-ios", majorVersion: 2)
+    .Package(url: "https://github.com/RedMadRobot/input-mask-ios", majorVersion: 3)
 ]
 ```
 
