@@ -5,6 +5,7 @@
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 [![license](https://img.shields.io/github/license/mashape/apistatus.svg)](#license)
 [![Travis](https://img.shields.io/travis/rust-lang/rust.svg)](https://travis-ci.org/RedMadRobot/input-mask-ios)
+[![codebeat badge](https://codebeat.co/badges/d753a2f1-173d-4c13-a97a-1680164e7bcf)](https://codebeat.co/projects/github-com-redmadrobot-input-mask-ios-master)
 
 [![Platform](https://cdn.rawgit.com/RedMadRobot/input-mask-ios/assets/Assets/shields/platform.svg)]()[![Android](https://cdn.rawgit.com/RedMadRobot/input-mask-ios/assets/Assets/shields/android.svg)](https://github.com/RedMadRobot/input-mask-android)[![iOS](https://cdn.rawgit.com/RedMadRobot/input-mask-ios/assets/Assets/shields/ios_rect.svg)](https://github.com/RedMadRobot/input-mask-ios)[![macOS](https://cdn.rawgit.com/RedMadRobot/input-mask-ios/assets/Assets/shields/macos.svg)](https://github.com/RedMadRobot/input-mask-ios)
 
