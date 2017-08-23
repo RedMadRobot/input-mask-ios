@@ -85,7 +85,7 @@ open class PolyMaskTextFieldDelegate: MaskedTextFieldDelegate {
             autocomplete: self.autocomplete
         )
         
-        guard let field = cell.viewWithTag(0) as? UITextField else { return }
+        guard let field = cell.viewWithTag(100) as? UITextField else { return }
         
         field.text = result.formattedText.string
         

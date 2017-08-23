@@ -50,6 +50,7 @@ open class MaskedTextFieldDelegate: NSObject, UITextFieldDelegate {
     private var _maskFormat:            String
     private var _autocomplete:          Bool
     private var _autocompleteOnFocus:   Bool
+    private var cell: UITableViewCell?
     
     public var mask: Mask
     
@@ -121,6 +122,8 @@ open class MaskedTextFieldDelegate: NSObject, UITextFieldDelegate {
     }
     
     open func put(text: String, on cell: UITableViewCell) {
+        self.cell = cell
+
         let result: Mask.Result = self.mask.apply(
             toText: CaretString(
                 string: text,
@@ -129,7 +132,7 @@ open class MaskedTextFieldDelegate: NSObject, UITextFieldDelegate {
             autocomplete: self._autocomplete
         )
         
-        guard let textField = cell.viewWithTag(0) as? UITextField else { return }
+        guard let textField = cell.viewWithTag(100) as? UITextField else { return }
         
         textField.text = result.formattedText.string
         
@@ -208,11 +211,20 @@ open class MaskedTextFieldDelegate: NSObject, UITextFieldDelegate {
             (extractedValue, complete) = self.modifyText(inRange: range, inField: textField, withText: string)
         }
         
-        self.listener?.textField?(
-            textField,
-            didFillMandatoryCharacters: complete,
-            didExtractValue: extractedValue
-        )
+        if let cell = self.cell {
+            self.listener?.textField?(
+                on: cell,
+                didFillMandatoryCharacters: complete,
+                didExtractValue: extractedValue)
+        } else {
+            self.listener?.textField?(
+                textField,
+                didFillMandatoryCharacters: complete,
+                didExtractValue: extractedValue
+            )
+        }
+        
+        
         let _ = self.listener?.textField?(textField, shouldChangeCharactersIn: range, replacementString: string)
         return false
     }
