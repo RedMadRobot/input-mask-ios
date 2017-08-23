@@ -94,7 +94,7 @@ open class PolyMaskTextFieldDelegate: MaskedTextFieldDelegate {
         
         self.setCaretPosition(position, inField: field)
         self.listener?.textField?(
-            cell,
+            on: cell,
             didFillMandatoryCharacters: result.complete,
             didExtractValue: result.extractedValue
         )

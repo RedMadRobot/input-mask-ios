@@ -29,7 +29,7 @@ import UIKit
     )
     
     @objc optional func textField(
-        _ cell: UITableViewCell,
+        on cell: UITableViewCell,
         didFillMandatoryCharacters complete: Bool,
         didExtractValue value: String
     )
@@ -138,7 +138,7 @@ open class MaskedTextFieldDelegate: NSObject, UITextFieldDelegate {
         
         self.setCaretPosition(position, inField: textField)
         self.listener?.textField?(
-            cell,
+            on: cell,
             didFillMandatoryCharacters: result.complete,
             didExtractValue: result.extractedValue
         )
