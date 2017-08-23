@@ -34,6 +34,9 @@ import UIKit
         didExtractValue value: String
     )
     
+    @objc optional func textFieldDidEndEditing(_ textField: UITextField,
+                                               on cell: UITableViewCell)
+    
 }
 
 
@@ -121,6 +124,7 @@ open class MaskedTextFieldDelegate: NSObject, UITextFieldDelegate {
         )
     }
     
+    ///textfield inside a view must have tag 100.
     open func put(text: String, on cell: UITableViewCell) {
         self.cell = cell
 
@@ -300,7 +304,11 @@ open class MaskedTextFieldDelegate: NSObject, UITextFieldDelegate {
     }
     
     open func textFieldDidEndEditing(_ textField: UITextField) {
-        self.listener?.textFieldDidEndEditing?(textField)
+        if let cell = self.cell {
+            self.listener?.textFieldDidEndEditing?(textField, on: cell)
+        } else {
+            self.listener?.textFieldDidEndEditing?(textField)
+        }
     }
     
     open func textFieldShouldClear(_ textField: UITextField) -> Bool {

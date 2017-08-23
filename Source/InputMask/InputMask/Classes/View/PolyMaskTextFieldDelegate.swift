@@ -70,6 +70,7 @@ open class PolyMaskTextFieldDelegate: MaskedTextFieldDelegate {
         )
     }
     
+    ///textfield inside a view must have tag 100.
     open override func put(text: String, on cell: UITableViewCell) {
         let mask: Mask = self.pickMask(
             forText: text,
