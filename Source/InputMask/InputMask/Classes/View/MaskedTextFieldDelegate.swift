@@ -28,6 +28,12 @@ import UIKit
         didExtractValue value: String
     )
     
+    @objc optional func textField(
+        _ cell: UITableViewCell,
+        didFillMandatoryCharacters complete: Bool,
+        didExtractValue value: String
+    )
+    
 }
 
 
@@ -109,6 +115,30 @@ open class MaskedTextFieldDelegate: NSObject, UITextFieldDelegate {
         self.setCaretPosition(position, inField: field)
         self.listener?.textField?(
             field,
+            didFillMandatoryCharacters: result.complete,
+            didExtractValue: result.extractedValue
+        )
+    }
+    
+    open func put(text: String, on cell: UITableViewCell) {
+        let result: Mask.Result = self.mask.apply(
+            toText: CaretString(
+                string: text,
+                caretPosition: text.endIndex
+            ),
+            autocomplete: self._autocomplete
+        )
+        
+        guard let textField = cell.viewWithTag(0) as? UITextField else { return }
+        
+        textField.text = result.formattedText.string
+        
+        let position: Int =
+            result.formattedText.string.distance(from: result.formattedText.string.startIndex, to: result.formattedText.caretPosition)
+        
+        self.setCaretPosition(position, inField: textField)
+        self.listener?.textField?(
+            cell,
             didFillMandatoryCharacters: result.complete,
             didExtractValue: result.extractedValue
         )

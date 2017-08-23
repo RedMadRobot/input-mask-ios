@@ -70,6 +70,36 @@ open class PolyMaskTextFieldDelegate: MaskedTextFieldDelegate {
         )
     }
     
+    open override func put(text: String, on cell: UITableViewCell) {
+        let mask: Mask = self.pickMask(
+            forText: text,
+            caretPosition: text.endIndex,
+            autocomplete: self.autocomplete
+        )
+        
+        let result: Mask.Result = mask.apply(
+            toText: CaretString(
+                string: text,
+                caretPosition: text.endIndex
+            ),
+            autocomplete: self.autocomplete
+        )
+        
+        guard let field = cell.viewWithTag(0) as? UITextField else { return }
+        
+        field.text = result.formattedText.string
+        
+        let position: Int =
+            result.formattedText.string.distance(from: result.formattedText.string.startIndex, to: result.formattedText.caretPosition)
+        
+        self.setCaretPosition(position, inField: field)
+        self.listener?.textField?(
+            cell,
+            didFillMandatoryCharacters: result.complete,
+            didExtractValue: result.extractedValue
+        )
+    }
+    
     override open func deleteText(
         inRange range: NSRange,
         inField field: UITextField
