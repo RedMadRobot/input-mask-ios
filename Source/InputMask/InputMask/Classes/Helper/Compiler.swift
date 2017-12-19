@@ -97,7 +97,7 @@ private extension Compiler {
     
     func compile(_ string: String, valueable: Bool, fixed: Bool) throws -> State {
         guard
-            let char: Character = string.characters.first
+            let char: Character = string.first
         else {
             return EOLState()
         }
