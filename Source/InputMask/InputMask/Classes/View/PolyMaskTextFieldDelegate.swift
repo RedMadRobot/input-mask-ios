@@ -70,37 +70,6 @@ open class PolyMaskTextFieldDelegate: MaskedTextFieldDelegate {
         )
     }
     
-    ///textfield inside a view must have tag 100.
-    open override func put(text: String, on cell: UITableViewCell) {
-        let mask: Mask = self.pickMask(
-            forText: text,
-            caretPosition: text.endIndex,
-            autocomplete: self.autocomplete
-        )
-        
-        let result: Mask.Result = mask.apply(
-            toText: CaretString(
-                string: text,
-                caretPosition: text.endIndex
-            ),
-            autocomplete: self.autocomplete
-        )
-        
-        guard let field = cell.viewWithTag(100) as? UITextField else { return }
-        
-        field.text = result.formattedText.string
-        
-        let position: Int =
-            result.formattedText.string.distance(from: result.formattedText.string.startIndex, to: result.formattedText.caretPosition)
-        
-        self.setCaretPosition(position, inField: field)
-        self.listener?.textField?(
-            on: cell,
-            didFillMandatoryCharacters: result.complete,
-            didExtractValue: result.extractedValue
-        )
-    }
-    
     override open func deleteText(
         inRange range: NSRange,
         inField field: UITextField
@@ -144,14 +113,14 @@ open class PolyMaskTextFieldDelegate: MaskedTextFieldDelegate {
         
         let mask: Mask = self.pickMask(
             forText: updatedText,
-            caretPosition: updatedText.index(updatedText.startIndex, offsetBy: self.caretPosition(inField: field) + text.characters.count),
+            caretPosition: updatedText.index(updatedText.startIndex, offsetBy: self.caretPosition(inField: field) + text.count),
             autocomplete: self.autocomplete
         )
         
         let result: Mask.Result = mask.apply(
             toText: CaretString(
                 string: updatedText,
-                caretPosition: updatedText.index(updatedText.startIndex, offsetBy: self.caretPosition(inField: field) + text.characters.count)
+                caretPosition: updatedText.index(updatedText.startIndex, offsetBy: self.caretPosition(inField: field) + text.count)
             ),
             autocomplete: self.autocomplete
         )

@@ -28,15 +28,6 @@ import UIKit
         didExtractValue value: String
     )
     
-    @objc optional func textField(
-        on cell: UITableViewCell,
-        didFillMandatoryCharacters complete: Bool,
-        didExtractValue value: String
-    )
-    
-    @objc optional func textFieldDidEndEditing(_ textField: UITextField,
-                                               on cell: UITableViewCell)
-    
 }
 
 
@@ -53,7 +44,6 @@ open class MaskedTextFieldDelegate: NSObject, UITextFieldDelegate {
     private var _maskFormat:            String
     private var _autocomplete:          Bool
     private var _autocompleteOnFocus:   Bool
-    private var cell: UITableViewCell?
     
     public var mask: Mask
     
@@ -124,33 +114,6 @@ open class MaskedTextFieldDelegate: NSObject, UITextFieldDelegate {
         )
     }
     
-    ///textfield inside a view must have tag 100.
-    open func put(text: String, on cell: UITableViewCell) {
-        self.cell = cell
-
-        let result: Mask.Result = self.mask.apply(
-            toText: CaretString(
-                string: text,
-                caretPosition: text.endIndex
-            ),
-            autocomplete: self._autocomplete
-        )
-        
-        guard let textField = cell.viewWithTag(100) as? UITextField else { return }
-        
-        textField.text = result.formattedText.string
-        
-        let position: Int =
-            result.formattedText.string.distance(from: result.formattedText.string.startIndex, to: result.formattedText.caretPosition)
-        
-        self.setCaretPosition(position, inField: textField)
-        self.listener?.textField?(
-            on: cell,
-            didFillMandatoryCharacters: result.complete,
-            didExtractValue: result.extractedValue
-        )
-    }
-    
     /**
      Maximal length of the text inside the field.
      
@@ -215,20 +178,11 @@ open class MaskedTextFieldDelegate: NSObject, UITextFieldDelegate {
             (extractedValue, complete) = self.modifyText(inRange: range, inField: textField, withText: string)
         }
         
-        if let cell = self.cell {
-            self.listener?.textField?(
-                on: cell,
-                didFillMandatoryCharacters: complete,
-                didExtractValue: extractedValue)
-        } else {
-            self.listener?.textField?(
-                textField,
-                didFillMandatoryCharacters: complete,
-                didExtractValue: extractedValue
-            )
-        }
-        
-        
+        self.listener?.textField?(
+            textField,
+            didFillMandatoryCharacters: complete,
+            didExtractValue: extractedValue
+        )
         let _ = self.listener?.textField?(textField, shouldChangeCharactersIn: range, replacementString: string)
         return false
     }
@@ -271,7 +225,7 @@ open class MaskedTextFieldDelegate: NSObject, UITextFieldDelegate {
         let result: Mask.Result = self.mask.apply(
             toText: CaretString(
                 string: updatedText,
-                caretPosition: updatedText.index(updatedText.startIndex, offsetBy: self.caretPosition(inField: field) + text.characters.count)
+                caretPosition: updatedText.index(updatedText.startIndex, offsetBy: self.caretPosition(inField: field) + text.count)
             ),
             autocomplete: self.autocomplete
         )
@@ -304,11 +258,7 @@ open class MaskedTextFieldDelegate: NSObject, UITextFieldDelegate {
     }
     
     open func textFieldDidEndEditing(_ textField: UITextField) {
-        if let cell = self.cell {
-            self.listener?.textFieldDidEndEditing?(textField, on: cell)
-        } else {
-            self.listener?.textFieldDidEndEditing?(textField)
-        }
+        self.listener?.textFieldDidEndEditing?(textField)
     }
     
     open func textFieldShouldClear(_ textField: UITextField) -> Bool {
@@ -351,7 +301,7 @@ open class MaskedTextFieldDelegate: NSObject, UITextFieldDelegate {
 internal extension MaskedTextFieldDelegate {
     
     func isDeletion(inRange range: NSRange, string: String) -> Bool {
-        return 0 < range.length && 0 == string.characters.count
+        return 0 < range.length && 0 == string.count
     }
     
     func replaceCharacters(inText text: String?, range: NSRange, withCharacters newText: String) -> String {
@@ -374,7 +324,7 @@ internal extension MaskedTextFieldDelegate {
         // Workaround for non-optional `field.beginningOfDocument`, which could actually be nil if field doesn't have focus
         guard field.isFirstResponder
         else {
-            return field.text?.characters.count ?? 0
+            return field.text?.count ?? 0
         }
         
         if let range: UITextRange = field.selectedTextRange {
@@ -392,7 +342,7 @@ internal extension MaskedTextFieldDelegate {
             return
         }
 
-        if position > field.text!.characters.count {
+        if position > field.text?.count ?? 0 {
             return
         }
         
