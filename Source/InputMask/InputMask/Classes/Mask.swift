@@ -61,7 +61,7 @@ public class Mask: CustomDebugStringConvertible, CustomStringConvertible {
         }
     }
     
-    private let initialState: State
+    fileprivate let initialState: State
     private static var cache: [String : Mask] = [:]
     
     /**
