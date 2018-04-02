@@ -9,5 +9,5 @@ xcodeproj 'Sample.xcodeproj'
 
 
 target :Sample do
-    pod 'InputMask'
+    pod 'InputMask', :path => '../../'
 end
