@@ -1,9 +1,8 @@
 //
-//  InputMask
+// Project «InputMask»
+// Created by Jeorge Taflanidi
 //
-//  Created by Egor Taflanidi on 10.08.28.
-//  Copyright © 28 Heisei Egor Taflanidi. All rights reserved.
-//
+
 
 import Foundation
 
@@ -21,7 +20,7 @@ extension String {
      - throws: EXC_BAD_INSTRUCTION for empty strings.
      */
     func truncateFirst() -> String {
-        return self.substring(from: self.index(after: self.startIndex))
+        return String(self[self.index(after: self.startIndex)...])
     }
     
 }

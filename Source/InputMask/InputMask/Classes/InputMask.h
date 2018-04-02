@@ -1,8 +1,6 @@
 //
-//  InputMask
-//
-//  Created by Egor Taflanidi on 10.08.28.
-//  Copyright © 28 Heisei Egor Taflanidi. All rights reserved.
+// Project «InputMask»
+// Created by Jeorge Taflanidi
 //
 
 #import <UIKit/UIKit.h>

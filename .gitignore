@@ -174,3 +174,7 @@ Pods
 ####
 # Carthage
 Source/Sample/Carthage
+
+####
+# intelliJ IDEA
+.idea

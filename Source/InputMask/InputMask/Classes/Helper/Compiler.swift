@@ -1,9 +1,8 @@
 //
-//  InputMask
+// Project «InputMask»
+// Created by Jeorge Taflanidi
 //
-//  Created by Egor Taflanidi on 16.08.28.
-//  Copyright © 28 Heisei Egor Taflanidi. All rights reserved.
-//
+
 
 import Foundation
 
@@ -15,7 +14,7 @@ import Foundation
  
  - seealso: ```State``` class.
  
- - complexity: ```O(formatString.characters.count)``` plus ```FormatSanitizer``` complexity.
+ - complexity: ```O(formatString.count)``` plus ```FormatSanitizer``` complexity.
  
  - requires: Format string to contain only flat groups of symbols in ```[]``` and ```{}``` brackets without nested
  brackets, like ```[[000]99]```. Also, ```[…]``` groups may contain only the specified characters ("0", "9", "A", "a", 
@@ -70,7 +69,7 @@ public class Compiler {
      
      - seealso: ```State``` class.
      
-     - complexity: ```O(formatString.characters.count)``` plus ```FormatSanitizer``` complexity.
+     - complexity: ```O(formatString.count)``` plus ```FormatSanitizer``` complexity.
      
      - requires: Format string to contain only flat groups of symbols in ```[]``` and ```{}``` brackets without nested
      brackets, like ```[[000]99]```. Also, ```[…]``` groups may contain only the specified characters ("0", "9", "A", "a",
@@ -96,7 +95,7 @@ private extension Compiler {
     
     func compile(_ string: String, valueable: Bool, fixed: Bool) throws -> State {
         guard
-            let char: Character = string.characters.first
+            let char: Character = string.first
         else {
             return EOLState()
         }
@@ -218,7 +217,8 @@ private extension Compiler {
             child: try self.compile(
                 string.truncateFirst(),
                 valueable: false,
-                fixed: false),
+                fixed: false
+            ),
             ownCharacter: char
         )
     }

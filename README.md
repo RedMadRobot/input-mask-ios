@@ -1,12 +1,16 @@
-# InputMask
-[![Awesome](https://cdn.rawgit.com/sindresorhus/awesome/d7305f38d29fed78fa85652e3a63e154dd8e8829/media/badge.svg)](https://github.com/sindresorhus/awesome)
-![Version Badge](https://img.shields.io/cocoapods/v/InputMask.svg)
-[![license](https://img.shields.io/github/license/mashape/apistatus.svg)]()
-[![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
-[![Travis](https://img.shields.io/travis/rust-lang/rust.svg)](https://travis-ci.org/RedMadRobot/input-mask-ios)
-[![Platform](https://cdn.rawgit.com/RedMadRobot/input-mask-ios/assets/Assets/shields/platform.svg)]()[![Android](https://cdn.rawgit.com/RedMadRobot/input-mask-ios/assets/Assets/shields/android.svg)](https://github.com/RedMadRobot/input-mask-android)[![iOS](https://cdn.rawgit.com/RedMadRobot/input-mask-ios/assets/Assets/shields/ios.svg)](https://github.com/RedMadRobot/input-mask-ios)
+<img src="https://raw.githubusercontent.com/RedMadRobot/input-mask-ios/assets/Assets/input-mask-cursor.gif" alt="Input Mask" height="40" />
 
-![Preview](https://raw.githubusercontent.com/RedMadRobot/input-mask-ios/assets/Assets/phone_input_cropped.gif "Preview")
+[![Awesome](https://cdn.rawgit.com/sindresorhus/awesome/d7305f38d29fed78fa85652e3a63e154dd8e8829/media/badge.svg)](https://github.com/sindresorhus/awesome)
+[![Version Badge](https://img.shields.io/cocoapods/v/InputMask.svg)](https://cocoapods.org/pods/InputMask)
+[![SPM compatible](https://img.shields.io/badge/SPM-compatible-4BC51D.svg?style=flat)](https://swift.org/package-manager)
+[![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
+[![license](https://img.shields.io/github/license/mashape/apistatus.svg)](#license)
+[![Build Status](https://travis-ci.org/RedMadRobot/input-mask-ios.svg?branch=master)](https://travis-ci.org/RedMadRobot/input-mask-ios)
+[![codebeat badge](https://codebeat.co/badges/d753a2f1-173d-4c13-a97a-1680164e7bcf)](https://codebeat.co/projects/github-com-redmadrobot-input-mask-ios-master)
+
+[![Platform](https://cdn.rawgit.com/RedMadRobot/input-mask-ios/assets/Assets/shields/platform.svg)]()[![Android](https://cdn.rawgit.com/RedMadRobot/input-mask-ios/assets/Assets/shields/android.svg)](https://github.com/RedMadRobot/input-mask-android)[![iOS](https://cdn.rawgit.com/RedMadRobot/input-mask-ios/assets/Assets/shields/ios_rect.svg)](https://github.com/RedMadRobot/input-mask-ios)[![macOS](https://cdn.rawgit.com/RedMadRobot/input-mask-ios/assets/Assets/shields/macos.svg)](https://github.com/RedMadRobot/input-mask-ios)
+
+<img src="https://raw.githubusercontent.com/RedMadRobot/input-mask-ios/assets/Assets/phone_input.gif" alt="Input Mask" width="640" />
 
 ## Description
 The library allows to format user input on the fly according to the provided mask and to extract valueable characters.  
@@ -63,6 +67,14 @@ pod 'InputMask'
 
 ```ruby
 git "https://github.com/RedMadRobot/input-mask-ios.git"
+```
+
+## Swift Package Manager
+
+```swift
+dependencies: [
+    .Package(url: "https://github.com/RedMadRobot/input-mask-ios", majorVersion: 3)
+]
 ```
 
 # Usage
@@ -164,11 +176,13 @@ open class ViewController: UIViewController, MaskedTextFieldDelegateListener {
 }
 ```
 
-## Known Issues
+# Known issues
 
-Sometimes you need to know when `text` property of `UITextField` was changed by user. For example, you may want to use `NotificationCenter` with notification `UITextFieldTextDidChange`, or `func addTarget(_ target: Any?, action: Selector, for controlEvents: UIControlEvents)` with event `editingChanged`. These events are emitting by iOS only if `text` property was changed by user. But the `MaskedTextFieldDelegate`, implemented in `input-mask` always returns `false` inside method `open func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool`, and programmatically modifies `text` property independently. `return false` inside this method, suppresses triggering of these events by iOS.
+## `UITextFieldTextDidChange` notification and target-action `editingChanged` event
 
-Possible workaround:
+`UITextField` with assigned `MaskedTextFieldDelegate` or `PolyMaskTextFieldDelegate` object won't issue `UITextFieldTextDidChange` notifications and `editingChanged` control events. This happens due to the `textField(_:shouldChangeCharactersIn:replacementString:)` method implementation, which always returns `false`.
+
+Consider using following workaround in case if you do really need to catch editing events:
 
 ```swift
 class NotifyingMaskedTextFieldDelegate: MaskedTextFieldDelegate {
@@ -192,9 +206,7 @@ protocol NotifyingMaskedTextFieldDelegateListener: class {
 }
 ```
 
-# Compatibility with 1.3.1 and above
-
-In 2.0.0 version separate `MaskedTextFieldDelegateListener` callbacks have been merged into a single method providing an extracted `value` and input `complete` flag.
+Please, avoid at all costs sending SDK events and notifications manually.
 
 # License
 

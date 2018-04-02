@@ -1,9 +1,8 @@
 //
-//  InputMask
+// Project «InputMask»
+// Created by Jeorge Taflanidi
 //
-//  Created by Egor Taflanidi on 10.08.28.
-//  Copyright © 28 Heisei Egor Taflanidi. All rights reserved.
-//
+
 
 import Foundation
 
@@ -175,16 +174,7 @@ public class Mask: CustomDebugStringConvertible, CustomStringConvertible {
      - returns: Minimal satisfying count of characters inside the text field.
      */
     public func acceptableTextLength() -> Int {
-        var state: State? = self.initialState
-        var length: Int = 0
-        while let s: State = state, !(state is EOLState) {
-            if s is FixedState || s is FreeState || s is ValueState {
-                length += 1
-            }
-            state = s.child
-        }
-        
-        return length
+        return self.countStates(ofTypes: [FixedState.self, FreeState.self, ValueState.self])
     }
     
     /**
@@ -193,16 +183,7 @@ public class Mask: CustomDebugStringConvertible, CustomStringConvertible {
      - returns: Total available count of mandatory and optional characters inside the text field.
      */
     public func totalTextLength() -> Int {
-        var state: State? = self.initialState
-        var length: Int = 0
-        while let s: State = state, !(state is EOLState) {
-            if s is FixedState || s is FreeState || s is ValueState || s is OptionalValueState {
-                length += 1
-            }
-            state = s.child
-        }
-        
-        return length
+        return self.countStates(ofTypes: [FixedState.self, FreeState.self, ValueState.self, OptionalValueState.self])
     }
     
     /**
@@ -312,6 +293,26 @@ private extension Mask {
         } else {
             return self.noMandatoryCharactersLeftAfterState(state.nextState())
         }
+    }
+    
+}
+
+
+private extension Mask {
+    
+    func countStates(ofTypes stateTypes: [State.Type]) -> Int {
+        var state: State? = self.initialState
+        var length: Int = 0
+        while let s: State = state, !(state is EOLState) {
+            for stateType in stateTypes {
+                if type(of: s) == stateType {
+                    length += 1
+                }
+            }
+            state = s.child
+        }
+        
+        return length
     }
     
 }

@@ -1,9 +1,8 @@
 //
-//  InputMask
+// Project «InputMask»
+// Created by Jeorge Taflanidi
 //
-//  Created by Egor Taflanidi on 17.08.28.
-//  Copyright © 28 Heisei Egor Taflanidi. All rights reserved.
-//
+
 
 import Foundation
 
@@ -84,7 +83,7 @@ class CaretStringIterator {
             return nil
         }
         
-        let character: Character = self.caretString.string.characters[self.currentIndex]
+        let character: Character = self.caretString.string[self.currentIndex]
         self.currentIndex = self.caretString.string.index(after: self.currentIndex)
         return character
     }
