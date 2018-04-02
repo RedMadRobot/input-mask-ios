@@ -20,7 +20,7 @@ extension String {
      - throws: EXC_BAD_INSTRUCTION for empty strings.
      */
     func truncateFirst() -> String {
-        return self.substring(from: self.index(after: self.startIndex))
+        return String(self[self.index(after: self.startIndex)...])
     }
     
 }
