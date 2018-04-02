@@ -1,4 +1,4 @@
-// swift-tools-version:4.0
+// swift-tools-version:4.1
 
 import PackageDescription
 
@@ -15,9 +15,9 @@ let package = Package(
         .target(
             name: "InputMask",
             dependencies: [],
-            path: "Source/InputMask",
-            exclude: ["InputMask/Classes/View"],
-            sources: ["InputMask/Classes"]
+            path: "Source/InputMask/InputMask",
+            exclude: ["Classes/View"],
+            sources: ["Classes"]
         ),
         .testTarget(
             name: "InputMaskTests",
