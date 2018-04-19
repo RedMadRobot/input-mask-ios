@@ -118,7 +118,7 @@ open class MaskedTextFieldDelegate: NSObject, UITextFieldDelegate {
      - returns: Total available count of mandatory and optional characters inside the text field.
      */
     open func placeholder() -> String {
-        return self.mask.placeholder()
+        return self.mask.placeholder
     }
     
     /**
@@ -127,7 +127,7 @@ open class MaskedTextFieldDelegate: NSObject, UITextFieldDelegate {
      - returns: Minimal satisfying count of characters inside the text field.
      */
     open func acceptableTextLength() -> Int {
-        return self.mask.acceptableTextLength()
+        return self.mask.acceptableTextLength
     }
     
     /**
@@ -136,7 +136,7 @@ open class MaskedTextFieldDelegate: NSObject, UITextFieldDelegate {
      - returns: Total available count of mandatory and optional characters inside the text field.
      */
     open func totalTextLength() -> Int {
-        return self.mask.totalTextLength()
+        return self.mask.totalTextLength
     }
     
     /**
@@ -145,7 +145,7 @@ open class MaskedTextFieldDelegate: NSObject, UITextFieldDelegate {
      - returns: Minimal satisfying count of characters in extracted value.
      */
     open func acceptableValueLength() -> Int {
-        return self.mask.acceptableValueLength()
+        return self.mask.acceptableValueLength
     }
     
     /**
@@ -154,7 +154,7 @@ open class MaskedTextFieldDelegate: NSObject, UITextFieldDelegate {
      - returns: Total available count of mandatory and optional characters for extracted value.
      */
     open func totalValueLength() -> Int {
-        return self.mask.totalValueLength()
+        return self.mask.totalValueLength
     }
     
     // MARK: - UITextFieldDelegate

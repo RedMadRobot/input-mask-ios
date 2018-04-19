@@ -164,7 +164,7 @@ public class Mask: CustomDebugStringConvertible, CustomStringConvertible {
      
      - returns: Placeholder string.
      */
-    public func placeholder() -> String {
+    public var placeholder: String {
         return self.appendPlaceholder(withState: self.initialState, placeholder: "")
     }
     
@@ -173,7 +173,7 @@ public class Mask: CustomDebugStringConvertible, CustomStringConvertible {
      
      - returns: Minimal satisfying count of characters inside the text field.
      */
-    public func acceptableTextLength() -> Int {
+    public var acceptableTextLength: Int {
         return self.countStates(ofTypes: [FixedState.self, FreeState.self, ValueState.self])
     }
     
@@ -182,7 +182,7 @@ public class Mask: CustomDebugStringConvertible, CustomStringConvertible {
      
      - returns: Total available count of mandatory and optional characters inside the text field.
      */
-    public func totalTextLength() -> Int {
+    public var totalTextLength: Int {
         return self.countStates(ofTypes: [FixedState.self, FreeState.self, ValueState.self, OptionalValueState.self])
     }
     
@@ -191,7 +191,7 @@ public class Mask: CustomDebugStringConvertible, CustomStringConvertible {
      
      - returns: Minimal satisfying count of characters in extracted value.
      */
-    public func acceptableValueLength() -> Int {
+    public var acceptableValueLength: Int {
         var state: State? = self.initialState
         var length: Int = 0
         while let s: State = state, !(state is EOLState) {
@@ -209,7 +209,7 @@ public class Mask: CustomDebugStringConvertible, CustomStringConvertible {
      
      - returns: Total available count of mandatory and optional characters for extracted value.
      */
-    public func totalValueLength() -> Int {
+    public var totalValueLength: Int {
         var state: State? = self.initialState
         var length: Int = 0
         while let s: State = state, !(state is EOLState) {
@@ -235,6 +235,7 @@ public class Mask: CustomDebugStringConvertible, CustomStringConvertible {
     }
     
 }
+
 
 private extension Mask {
     
@@ -269,13 +270,13 @@ private extension Mask {
         
         if let state = state as? ValueState {
             switch state.type {
-                case .AlphaNumeric:
+                case .alphaNumeric:
                     return self.appendPlaceholder(withState: state.child, placeholder: placeholder + "-")
                     
-                case .Literal:
+                case .literal:
                     return self.appendPlaceholder(withState: state.child, placeholder: placeholder + "a")
                     
-                case .Numeric:
+                case .numeric:
                     return self.appendPlaceholder(withState: state.child, placeholder: placeholder + "0")
             }
         }
@@ -294,12 +295,7 @@ private extension Mask {
             return self.noMandatoryCharactersLeftAfterState(state.nextState())
         }
     }
-    
-}
-
-
-private extension Mask {
-    
+        
     func countStates(ofTypes stateTypes: [State.Type]) -> Int {
         var state: State? = self.initialState
         var length: Int = 0

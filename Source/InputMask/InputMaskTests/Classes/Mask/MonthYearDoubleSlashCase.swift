@@ -1,8 +1,6 @@
 //
-//  InputMask
-//
-//  Created by Egor Taflanidi on 10.08.28.
-//  Copyright © 28 Heisei Egor Taflanidi. All rights reserved.
+// Project «InputMask»
+// Created by Jeorge Taflanidi
 //
 
 
@@ -43,27 +41,27 @@ class MonthYearDoubledoubleShashCase: MaskTestCase {
     }
     
     func testGetPlaceholder_allSet_returnsCorrectPlaceholder() {
-        let placeholder: String = try! self.mask().placeholder()
+        let placeholder: String = try! self.mask().placeholder
         XCTAssertEqual(placeholder, "00//0000")
     }
     
     func testAcceptableTextLength_allSet_returnsCorrectCount() {
-        let acceptableTextLength: Int = try! self.mask().acceptableTextLength()
+        let acceptableTextLength: Int = try! self.mask().acceptableTextLength
         XCTAssertEqual(acceptableTextLength, 8)
     }
     
     func testTotalTextLength_allSet_returnsCorrectCount() {
-        let totalTextLength: Int = try! self.mask().totalTextLength()
+        let totalTextLength: Int = try! self.mask().totalTextLength
         XCTAssertEqual(totalTextLength, 8)
     }
     
     func testAcceptableValueLength_allSet_returnsCorrectCount() {
-        let acceptableValueLength: Int = try! self.mask().acceptableValueLength()
+        let acceptableValueLength: Int = try! self.mask().acceptableValueLength
         XCTAssertEqual(acceptableValueLength, 8)
     }
     
     func testTotalValueLength_allSet_returnsCorrectCount() {
-        let totalValueLength: Int = try! self.mask().totalValueLength()
+        let totalValueLength: Int = try! self.mask().totalValueLength
         XCTAssertEqual(totalValueLength, 8)
     }
     

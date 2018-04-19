@@ -77,21 +77,19 @@ class OptionalValueState: State {
     init(
         child: State,
         type: StateType
-        ) {
+    ) {
         self.type = type
         super.init(child: child)
     }
     
     override var debugDescription: String {
-        get {
-            switch self.type {
-                case .Literal:
-                    return "[a] -> " + (nil != self.child ? self.child!.debugDescription : "nil")
-                case .Numeric:
-                    return "[9] -> " + (nil != self.child ? self.child!.debugDescription : "nil")
-                case .AlphaNumeric:
-                    return "[-] -> " + (nil != self.child ? self.child!.debugDescription : "nil")
-            }
+        switch self.type {
+            case .Literal:
+                return "[a] -> " + (nil != self.child ? self.child!.debugDescription : "nil")
+            case .Numeric:
+                return "[9] -> " + (nil != self.child ? self.child!.debugDescription : "nil")
+            case .AlphaNumeric:
+                return "[-] -> " + (nil != self.child ? self.child!.debugDescription : "nil")
         }
     }
     

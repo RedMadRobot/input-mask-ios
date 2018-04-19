@@ -34,9 +34,7 @@ class EOLState: State {
     }
     
     override var debugDescription: String {
-        get {
-            return "EOL"
-        }
+        return "EOL"
     }
     
 }

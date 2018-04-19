@@ -15,7 +15,7 @@ import Foundation
  Accepts every character but does not put it into the result string, unless the character equals the one from the mask
  format. If it's not, inserts the symbol from the mask format into the result.
  
- Always returns self as an extracted value.
+ Always returns self (own character) as an extracted value.
  */
 class FixedState: State {
     
@@ -65,9 +65,7 @@ class FixedState: State {
     }
     
     override var debugDescription: String {
-        get {
-            return "{\(self.ownCharacter)} -> " + (nil != self.child ? self.child!.debugDescription : "nil")
-        }
+        return "{\(self.ownCharacter)} -> " + (nil != self.child ? self.child!.debugDescription : "nil")
     }
     
 }

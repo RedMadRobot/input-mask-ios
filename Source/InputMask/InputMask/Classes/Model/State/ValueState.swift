@@ -23,27 +23,29 @@ class ValueState: State {
     /**
      ### StateType
      
-     * ```Numeric``` stands for [9] characters
-     * ```Literal``` stands for [a] characters
-     * ```AlphaNumeric``` stands for [-] characters
+     * ```numeric``` stands for [9] characters
+     * ```literal``` stands for [a] characters
+     * ```alphaNumeric``` stands for [-] characters
      */
     enum StateType {
-        case Numeric
-        case Literal
-        case AlphaNumeric
+        case numeric
+        case literal
+        case alphaNumeric
+        var characterSet: CharacterSet {
+            switch self {
+                case .numeric: return CharacterSet.decimalDigits
+                case .literal: return CharacterSet.letters
+                case .alphaNumeric: return CharacterSet.alphanumerics
+            }
+        }
     }
     
     let type: StateType
     
-    func accepts(character char: Character) -> Bool {
-        switch self.type {
-            case .Numeric:
-                return CharacterSet.decimalDigits.isMember(character: char)
-            case .Literal:
-                return CharacterSet.letters.isMember(character: char)
-            case .AlphaNumeric:
-                return CharacterSet.alphanumerics.isMember(character: char)
         }
+    
+    func accepts(character char: Character) -> Bool {
+        return self.type.characterSet.isMember(character: char)
     }
     
     override func accept(character char: Character) -> Next? {
@@ -78,15 +80,15 @@ class ValueState: State {
     }
     
     override var debugDescription: String {
-        get {
-            switch self.type {
-                case .Literal:
-                    return "[A] -> " + (nil != self.child ? self.child!.debugDescription : "nil")
-                case .Numeric:
-                    return "[0] -> " + (nil != self.child ? self.child!.debugDescription : "nil")
-                case .AlphaNumeric:
-                    return "[_] -> " + (nil != self.child ? self.child!.debugDescription : "nil")
-            }
+        switch self.type {
+            case .literal:
+                return "[A] -> " + (nil != self.child ? self.child!.debugDescription : "nil")
+            case .numeric:
+                return "[0] -> " + (nil != self.child ? self.child!.debugDescription : "nil")
+            case .alphaNumeric:
+                return "[_] -> " + (nil != self.child ? self.child!.debugDescription : "nil")
+            case .ellipsis:
+                return "[…] -> " + (nil != self.child ? self.child!.debugDescription : "nil")
         }
     }
     

@@ -36,15 +36,11 @@ public struct CaretString: CustomDebugStringConvertible, CustomStringConvertible
     }
     
     public var debugDescription: String {
-        get {
-            return "STRING: \(self.string)\nCARET POSITION: \(self.caretPosition)"
-        }
+        return "STRING: \(self.string)\nCARET POSITION: \(self.caretPosition)"
     }
     
     public var description: String {
-        get {
-            return self.debugDescription
-        }
+        return self.debugDescription
     }
     
 }

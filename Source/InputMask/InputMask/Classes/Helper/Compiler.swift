@@ -36,7 +36,7 @@ public class Compiler {
      ```CompilerError``` is used by the ```Compiler``` and ```FormatSanitizer``` classes.
      */
     public enum CompilerError: Error {
-        case WrongFormat
+        case wrongFormat
     }
     
     /**
@@ -53,16 +53,16 @@ public class Compiler {
      ```
      is converted to sequence:
      ```
-     0. ValueState.Numeric          [0]
+     0. ValueState.numeric          [0]
      1. OptionalValueState.Numeric  [9]
      2. FixedState                  {.}
-     3. ValueState.Numeric          [0]
+     3. ValueState.numeric          [0]
      4. OptionalValueState.Numeric  [9]
      5. FixedState                  {.}
      6. FreeState                    1
      7. FreeState                    9
-     8. ValueState.Numeric          [0]
-     9. ValueState.Numeric          [0]
+     8. ValueState.numeric          [0]
+     9. ValueState.numeric          [0]
      ```
      
      - parameter formatString: string with a mask format.
@@ -85,7 +85,8 @@ public class Compiler {
         return try self.compile(
             sanitizedFormat,
             valueable: false,
-            fixed: false
+            fixed: false,
+            lastCharacter: nil
         )
     }
     
@@ -93,113 +94,124 @@ public class Compiler {
 
 private extension Compiler {
     
-    func compile(_ string: String, valueable: Bool, fixed: Bool) throws -> State {
+    func compile(
+        _ string: String,
+        valueable: Bool,
+        fixed: Bool,
+        lastCharacter: Character?
+    ) throws -> State {
         guard
             let char: Character = string.first
         else {
             return EOLState()
         }
         
-        if "[" == char {
-            return try self.compile(
-                string.truncateFirst(),
-                valueable: true,
-                fixed: false
-            )
-        }
-        
-        if "{" == char {
-            return try self.compile(
-                string.truncateFirst(),
-                valueable: false,
-                fixed: true
-            )
-        }
-        
-        if "]" == char {
-            return try self.compile(
-                string.truncateFirst(),
-                valueable: false,
-                fixed: false
-            )
-        }
-        
-        if "}" == char {
-            return try self.compile(
-                string.truncateFirst(),
-                valueable: false,
-                fixed: false
-            )
+        switch char {
+            case "[":
+                return try self.compile(
+                    string.truncateFirst(),
+                    valueable: true,
+                    fixed: false,
+                    lastCharacter: char
+                )
+            
+            case "{":
+                return try self.compile(
+                    string.truncateFirst(),
+                    valueable: false,
+                    fixed: true,
+                    lastCharacter: char
+                )
+            
+            case "]":
+                return try self.compile(
+                    string.truncateFirst(),
+                    valueable: false,
+                    fixed: false,
+                    lastCharacter: char
+                )
+            
+            case "}":
+                return try self.compile(
+                    string.truncateFirst(),
+                    valueable: false,
+                    fixed: false,
+                    lastCharacter: char
+                )
+            
+            default: break
         }
         
         if valueable {
-            if "0" == char {
-                return ValueState(
-                    child: try self.compile(
-                        string.truncateFirst(),
-                        valueable: true,
-                        fixed: false
-                    ),
-                    type: ValueState.StateType.Numeric
-                )
+            switch char {
+                case "0":
+                    return ValueState(
+                        child: try self.compile(
+                            string.truncateFirst(),
+                            valueable: true,
+                            fixed: false,
+                            lastCharacter: char
+                        ),
+                        type: ValueState.StateType.numeric
+                    )
+                
+                case "A":
+                    return ValueState(
+                        child: try self.compile(
+                            string.truncateFirst(),
+                            valueable: true,
+                            fixed: false,
+                            lastCharacter: char
+                        ),
+                        type: ValueState.StateType.literal
+                    )
+                
+                case "_":
+                    return ValueState(
+                        child: try self.compile(
+                            string.truncateFirst(),
+                            valueable: true,
+                            fixed: false,
+                            lastCharacter: char
+                        ),
+                        type: ValueState.StateType.alphaNumeric
+                    )
+                
+                case "9":
+                    return OptionalValueState(
+                        child: try self.compile(
+                            string.truncateFirst(),
+                            valueable: true,
+                            fixed: false,
+                            lastCharacter: char
+                        ),
+                        type: OptionalValueState.StateType.Numeric
+                    )
+                
+                case "a":
+                    return OptionalValueState(
+                        child: try self.compile(
+                            string.truncateFirst(),
+                            valueable: true,
+                            fixed: false,
+                            lastCharacter: char
+                        ),
+                        type: OptionalValueState.StateType.Literal
+                    )
+                
+                case "-":
+                    return OptionalValueState(
+                        child: try self.compile(
+                            string.truncateFirst(),
+                            valueable: true,
+                            fixed: false,
+                            lastCharacter: char
+                        ),
+                        type: OptionalValueState.StateType.AlphaNumeric
+                    )
+                
+                default: throw CompilerError.wrongFormat
             }
-            
-            if "A" == char {
-                return ValueState(
-                    child: try self.compile(
-                        string.truncateFirst(),
-                        valueable: true,
-                        fixed: false
-                    ),
-                    type: ValueState.StateType.Literal
-                )
-            }
-            
-            if "_" == char {
-                return ValueState(
-                    child: try self.compile(
-                        string.truncateFirst(),
-                        valueable: true,
-                        fixed: false
-                    ),
-                    type: ValueState.StateType.AlphaNumeric
-                )
-            }
-            
-            if "9" == char {
-                return OptionalValueState(
-                    child: try self.compile(
-                        string.truncateFirst(),
-                        valueable: true,
-                        fixed: false
-                    ),
-                    type: OptionalValueState.StateType.Numeric
-                )
-            }
-            
-            if "a" == char {
-                return OptionalValueState(
-                    child: try self.compile(
-                        string.truncateFirst(),
-                        valueable: true,
-                        fixed: false
-                    ),
-                    type: OptionalValueState.StateType.Literal
-                )
-            }
-            
-            if "-" == char {
-                return OptionalValueState(
-                    child: try self.compile(
-                        string.truncateFirst(),
-                        valueable: true,
-                        fixed: false
-                    ),
-                    type: OptionalValueState.StateType.AlphaNumeric
-                )
-            }
-            
-            throw CompilerError.WrongFormat
         }
         
         if fixed {
@@ -207,7 +219,8 @@ private extension Compiler {
                 child: try self.compile(
                     string.truncateFirst(),
                     valueable: false,
-                    fixed: true
+                    fixed: true,
+                    lastCharacter: char
                 ),
                 ownCharacter: char
             )
@@ -217,7 +230,8 @@ private extension Compiler {
             child: try self.compile(
                 string.truncateFirst(),
                 valueable: false,
-                fixed: false
+                fixed: false,
+                lastCharacter: char
             ),
             ownCharacter: char
         )

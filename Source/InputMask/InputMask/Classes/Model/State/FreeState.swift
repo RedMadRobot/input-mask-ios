@@ -65,9 +65,7 @@ class FreeState: State {
     }
     
     override var debugDescription: String {
-        get {
-            return "\(self.ownCharacter) -> " + (nil != self.child ? self.child!.debugDescription : "nil")
-        }
+        return "\(self.ownCharacter) -> " + (nil != self.child ? self.child!.debugDescription : "nil")
     }
     
 }

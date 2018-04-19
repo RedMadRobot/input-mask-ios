@@ -69,7 +69,7 @@ private extension FormatSanitizer {
         for char in string {
             if "[" == char {
                 if squareBraceOpen {
-                    throw Compiler.CompilerError.WrongFormat
+                    throw Compiler.CompilerError.wrongFormat
                 }
                 squareBraceOpen = true
             }
@@ -80,7 +80,7 @@ private extension FormatSanitizer {
             
             if "{" == char {
                 if curlyBraceOpen {
-                    throw Compiler.CompilerError.WrongFormat
+                    throw Compiler.CompilerError.wrongFormat
                 }
                 curlyBraceOpen = true
             }
