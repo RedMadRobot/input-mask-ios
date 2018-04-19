@@ -166,78 +166,7 @@ private extension Compiler {
         }
         
         if valueable {
-            switch char {
-                case "0":
-                    return ValueState(
-                        child: try self.compile(
-                            string.truncateFirst(),
-                            valueable: true,
-                            fixed: false,
-                            lastCharacter: char
-                        ),
-                        type: ValueState.StateType.numeric
-                    )
-                
-                case "A":
-                    return ValueState(
-                        child: try self.compile(
-                            string.truncateFirst(),
-                            valueable: true,
-                            fixed: false,
-                            lastCharacter: char
-                        ),
-                        type: ValueState.StateType.literal
-                    )
-                
-                case "_":
-                    return ValueState(
-                        child: try self.compile(
-                            string.truncateFirst(),
-                            valueable: true,
-                            fixed: false,
-                            lastCharacter: char
-                        ),
-                        type: ValueState.StateType.alphaNumeric
-                    )
-                
-                case "…":
-                    return ValueState(inheritedType: try self.determineInheritedType(forLastCharacter: lastCharacter))
-                
-                case "9":
-                    return OptionalValueState(
-                        child: try self.compile(
-                            string.truncateFirst(),
-                            valueable: true,
-                            fixed: false,
-                            lastCharacter: char
-                        ),
-                        type: OptionalValueState.StateType.Numeric
-                    )
-                
-                case "a":
-                    return OptionalValueState(
-                        child: try self.compile(
-                            string.truncateFirst(),
-                            valueable: true,
-                            fixed: false,
-                            lastCharacter: char
-                        ),
-                        type: OptionalValueState.StateType.Literal
-                    )
-                
-                case "-":
-                    return OptionalValueState(
-                        child: try self.compile(
-                            string.truncateFirst(),
-                            valueable: true,
-                            fixed: false,
-                            lastCharacter: char
-                        ),
-                        type: OptionalValueState.StateType.AlphaNumeric
-                    )
-                
-                default: throw CompilerError.wrongFormat
-            }
+            return try compileValueable(char, string: string, lastCharacter: lastCharacter)
         }
         
         if fixed {
@@ -261,6 +190,81 @@ private extension Compiler {
             ),
             ownCharacter: char
         )
+    }
+    
+    func compileValueable(_ char: Character, string: String, lastCharacter: Character?) throws -> State {
+        switch char {
+            case "0":
+                return ValueState(
+                    child: try self.compile(
+                        string.truncateFirst(),
+                        valueable: true,
+                        fixed: false,
+                        lastCharacter: char
+                    ),
+                    type: ValueState.StateType.numeric
+                )
+            
+            case "A":
+                return ValueState(
+                    child: try self.compile(
+                        string.truncateFirst(),
+                        valueable: true,
+                        fixed: false,
+                        lastCharacter: char
+                    ),
+                    type: ValueState.StateType.literal
+                )
+            
+            case "_":
+                return ValueState(
+                    child: try self.compile(
+                        string.truncateFirst(),
+                        valueable: true,
+                        fixed: false,
+                        lastCharacter: char
+                    ),
+                    type: ValueState.StateType.alphaNumeric
+                )
+            
+            case "…":
+                return ValueState(inheritedType: try self.determineInheritedType(forLastCharacter: lastCharacter))
+            
+            case "9":
+                return OptionalValueState(
+                    child: try self.compile(
+                        string.truncateFirst(),
+                        valueable: true,
+                        fixed: false,
+                        lastCharacter: char
+                    ),
+                    type: OptionalValueState.StateType.Numeric
+                )
+            
+            case "a":
+                return OptionalValueState(
+                    child: try self.compile(
+                        string.truncateFirst(),
+                        valueable: true,
+                        fixed: false,
+                        lastCharacter: char
+                    ),
+                    type: OptionalValueState.StateType.Literal
+                )
+            
+            case "-":
+                return OptionalValueState(
+                    child: try self.compile(
+                        string.truncateFirst(),
+                        valueable: true,
+                        fixed: false,
+                        lastCharacter: char
+                    ),
+                    type: OptionalValueState.StateType.AlphaNumeric
+                )
+            
+            default: throw CompilerError.wrongFormat
+        }
     }
     
     func determineInheritedType(forLastCharacter character: Character?) throws -> ValueState.StateType {
