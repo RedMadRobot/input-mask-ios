@@ -26,23 +26,32 @@ class ValueState: State {
      * ```numeric``` stands for [9] characters
      * ```literal``` stands for [a] characters
      * ```alphaNumeric``` stands for [-] characters
+     * ```ellipsis``` stands for […] characters
      */
-    enum StateType {
+    indirect enum StateType {
         case numeric
         case literal
         case alphaNumeric
+        case ellipsis(inheritedType: StateType)
+        
         var characterSet: CharacterSet {
             switch self {
                 case .numeric: return CharacterSet.decimalDigits
                 case .literal: return CharacterSet.letters
                 case .alphaNumeric: return CharacterSet.alphanumerics
+                case .ellipsis(let inheritedType): return inheritedType.characterSet
             }
         }
     }
     
     let type: StateType
     
+    var isElliptical: Bool {
+        if case StateType.ellipsis = self.type {
+            return true
         }
+        return false
+    }
     
     func accepts(character char: Character) -> Bool {
         return self.type.characterSet.isMember(character: char)
@@ -61,6 +70,13 @@ class ValueState: State {
         )
     }
     
+    override func nextState() -> State {
+        if case StateType.ellipsis = self.type {
+            return self
+        }
+        return super.nextState()
+    }
+    
     /**
      Constructor.
      
@@ -77,6 +93,14 @@ class ValueState: State {
     ) {
         self.type = type
         super.init(child: child)
+    }
+    
+    /**
+     Constructor for elliptical ```ValueState```
+     */
+    init(inheritedType: StateType) {
+        self.type = StateType.ellipsis(inheritedType: inheritedType)
+        super.init(child: nil)
     }
     
     override var debugDescription: String {

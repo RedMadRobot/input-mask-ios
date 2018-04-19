@@ -17,9 +17,9 @@ import Foundation
  - complexity: ```O(formatString.count)``` plus ```FormatSanitizer``` complexity.
  
  - requires: Format string to contain only flat groups of symbols in ```[]``` and ```{}``` brackets without nested
- brackets, like ```[[000]99]```. Also, ```[…]``` groups may contain only the specified characters ("0", "9", "A", "a", 
- "_" and "-"). Square bracket ```[]``` groups cannot contain mixed types of symbols ("0" and "9" with "A" and "a" or
- "_" and "-").
+ brackets, like ```[[000]99]```. Also, ```[]``` groups may contain only the specified characters ("0", "9", "A", "a",
+ "_", "-" and "…"). Square bracket ```[]``` groups cannot contain mixed types of symbols ("0" and "9" with "A" and "a"
+ or "_" and "-").
 
  ```Compiler``` object is initialized and ```Compiler.compile(formatString:)``` is called during the ```Mask``` instance
  initialization.
@@ -72,8 +72,8 @@ public class Compiler {
      - complexity: ```O(formatString.count)``` plus ```FormatSanitizer``` complexity.
      
      - requires: Format string to contain only flat groups of symbols in ```[]``` and ```{}``` brackets without nested
-     brackets, like ```[[000]99]```. Also, ```[…]``` groups may contain only the specified characters ("0", "9", "A", "a",
-     "_" and "-").
+     brackets, like ```[[000]99]```. Also, ```[]``` groups may contain only the specified characters ("0", "9", "A", "a",
+     "_", "-" and "…").
      
      - returns: Initialized ```State``` object with assigned ```State.child``` chain.
      
@@ -177,6 +177,9 @@ private extension Compiler {
                         type: ValueState.StateType.alphaNumeric
                     )
                 
+                case "…":
+                    return ValueState(inheritedType: try self.determineInheritedType(forLastCharacter: lastCharacter))
+                
                 case "9":
                     return OptionalValueState(
                         child: try self.compile(
@@ -235,6 +238,34 @@ private extension Compiler {
             ),
             ownCharacter: char
         )
+    }
+    
+    func determineInheritedType(forLastCharacter character: Character?) throws -> ValueState.StateType {
+        guard
+            let character: Character = character,
+            String(character) != ""
+        else {
+            throw CompilerError.wrongFormat
+        }
+        
+        switch character {
+            case "0", "9":
+                return ValueState.StateType.numeric
+            
+            case "A", "a":
+                return ValueState.StateType.literal
+            
+            case "_", "-":
+                return ValueState.StateType.alphaNumeric
+            
+            case "…":
+                return ValueState.StateType.alphaNumeric
+            
+            case "[":
+                return ValueState.StateType.alphaNumeric
+            
+            default: throw CompilerError.wrongFormat
+        }
     }
     
 }

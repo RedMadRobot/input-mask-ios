@@ -278,6 +278,9 @@ private extension Mask {
                     
                 case .numeric:
                     return self.appendPlaceholder(withState: state.child, placeholder: placeholder + "0")
+                
+                case .ellipsis:
+                    return placeholder
             }
         }
         
@@ -287,9 +290,9 @@ private extension Mask {
     func noMandatoryCharactersLeftAfterState(_ state: State) -> Bool {
         if (state is EOLState) {
             return true
-        } else if (state is FixedState
-                || state is FreeState
-                || state is ValueState) {
+        } else if let valueState = state as? ValueState {
+            return valueState.isElliptical
+        } else if (state is FixedState || state is FreeState) {
             return false
         } else {
             return self.noMandatoryCharactersLeftAfterState(state.nextState())
