@@ -65,18 +65,24 @@ class FormatSanitizer {
 private extension FormatSanitizer {
     
     func checkOpenBraces(_ string: String) throws {
+        var escape:          Bool = false
         var squareBraceOpen: Bool = false
         var curlyBraceOpen:  Bool = false
         
         for char in string {
+            if "\\" == char {
+                escape = !escape
+                continue
+            }
+            
             if "[" == char {
                 if squareBraceOpen {
                     throw Compiler.CompilerError.wrongFormat
                 }
-                squareBraceOpen = true
+                squareBraceOpen = true && !escape
             }
             
-            if "]" == char {
+            if "]" == char && !escape {
                 squareBraceOpen = false
             }
             
@@ -84,22 +90,32 @@ private extension FormatSanitizer {
                 if curlyBraceOpen {
                     throw Compiler.CompilerError.wrongFormat
                 }
-                curlyBraceOpen = true
+                curlyBraceOpen = true && !escape
             }
             
-            if "}" == char {
+            if "}" == char && !escape {
                 curlyBraceOpen = false
             }
+            
+            escape = false
         }
     }
     
     func getFormatBlocks(_ string: String) -> [String] {
-        var blocks: [String] = []
-        var currentBlock: String = ""
+        var blocks:       [String] = []
+        var currentBlock: String   = ""
+        var escape:       Bool     = false
         
         for char in string {
-            if "[" == char
-            || "{" == char {
+            if "\\" == char {
+                if !escape {
+                    escape = true
+                    currentBlock += String(char)
+                    continue
+                }
+            }
+            
+            if ("[" == char || "{" == char) && !escape {
                 if 0 < currentBlock.count {
                     blocks.append(currentBlock)
                 }
@@ -109,11 +125,12 @@ private extension FormatSanitizer {
             
             currentBlock += String(char)
             
-            if "]" == char
-            || "}" == char {
+            if ("]" == char || "}" == char) && !escape {
                 blocks.append(currentBlock)
                 currentBlock = ""
             }
+            
+            escape = false
         }
         
         if !currentBlock.isEmpty {

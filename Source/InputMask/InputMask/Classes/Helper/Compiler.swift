@@ -108,6 +108,9 @@ private extension Compiler {
         
         switch char {
             case "[":
+                if "\\" == lastCharacter { // escaped [
+                    break
+                }
                 return try self.compile(
                     string.truncateFirst(),
                     valueable: true,
@@ -116,6 +119,9 @@ private extension Compiler {
                 )
             
             case "{":
+                if "\\" == lastCharacter { // escaped {
+                    break
+                }
                 return try self.compile(
                     string.truncateFirst(),
                     valueable: false,
@@ -124,6 +130,9 @@ private extension Compiler {
                 )
             
             case "]":
+                if "\\" == lastCharacter { // escaped ]
+                    break
+                }
                 return try self.compile(
                     string.truncateFirst(),
                     valueable: false,
@@ -132,10 +141,24 @@ private extension Compiler {
                 )
             
             case "}":
+                if "\\" == lastCharacter { // escaped }
+                    break
+                }
                 return try self.compile(
                     string.truncateFirst(),
                     valueable: false,
                     fixed: false,
+                    lastCharacter: char
+                )
+            
+            case "\\": // the escapting character
+                if "\\" == lastCharacter { // escaped «\» character
+                    break
+                }
+                return try self.compile(
+                    string.truncateFirst(),
+                    valueable: valueable,
+                    fixed: fixed,
                     lastCharacter: char
                 )
             
