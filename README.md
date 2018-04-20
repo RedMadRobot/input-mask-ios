@@ -251,6 +251,27 @@ In case you are using our library as a Carthage-built dynamic framework, be awar
 
 Also, consider filing a radar to Apple, like [this one](https://openradar.appspot.com/23114017).
 
+## Cut action doesn't put text into the pasteboard
+
+When you cut text, characters get deleted yet you won't be able to paste them somewhere as they aren't actually in your pasteboard.
+
+iOS hardwires `UIMenuController`'s cut action to the `UITextFieldDelegate`'s `textField(_:shouldChangeCharactersIn:replacementString:)` return value. This means "Cut" behaviour actually depends on the ability to edit the text.
+
+Bad news are, our library returns `false` in `textField(_:shouldChangeCharactersIn:replacementString:)`, and heavily depends on this `false`. It would require us to rewrite a lot of logic in order to change this design, and there's no guarantee we'll be able to do so.
+
+Essentially, there's no distinct way to differentiate "Cut selection" and "Delete selection" actions on the `UITextFieldDelegate` side. However, you may consider using a workaround, which will require you to subclass `UITextField` overriding its `cut(sender:)` method like this:
+
+```swift
+class UITextFieldMonkeyPatch: UITextField {
+    override func cut(_ sender: Any?) {
+        copy(sender)
+        super.cut(sender)
+    }
+}
+```
+
+From our library perspective, this looks like a highly invasive solution. Thus, in the long term, we are going to investigate a "costly" method to bring the behaviour matching the iOS SDK logic. Yet, here "long term" might mean months.
+
 # License
 
 The library is distributed under the MIT [LICENSE](https://opensource.org/licenses/MIT).
