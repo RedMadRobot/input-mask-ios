@@ -243,6 +243,14 @@ protocol NotifyingMaskedTextFieldDelegateListener: class {
 
 Please, avoid at all costs sending SDK events and notifications manually.
 
+## Carthage vs. IBDesignables, IBInspectables, views and their outlets
+
+Interface Builder struggles to support modules imported in a form of a dynamic framework. For instance, custom views annotated as IBDesignable, containing IBInspectable and IBOutlet fields aren't recognized properly from the drag'n'dropped \*.framework.
+
+In case you are using our library as a Carthage-built dynamic framework, be aware you won't be able to easily wire your `MaskedTextFieldDelegate` objects and their listeners from storyboards in your project. There is a couple of workarounds described in [the corresponding discussion](https://github.com/Carthage/Carthage/issues/335), though.
+
+Also, consider filing a radar to Apple, like [this one](https://openradar.appspot.com/23114017).
+
 # License
 
 The library is distributed under the MIT [LICENSE](https://opensource.org/licenses/MIT).
