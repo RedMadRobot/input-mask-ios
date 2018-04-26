@@ -164,7 +164,6 @@ open class MaskedTextFieldDelegate: NSObject, UITextFieldDelegate {
         shouldChangeCharactersIn range: NSRange,
         replacementString string: String
     ) -> Bool {
-        
         let extractedValue: String
         let complete:       Bool
         
@@ -347,7 +346,18 @@ internal extension MaskedTextFieldDelegate {
         
         let from: UITextPosition = field.position(from: field.beginningOfDocument, offset: position)!
         let to:   UITextPosition = field.position(from: from, offset: 0)!
-        field.selectedTextRange = field.textRange(from: from, to: to)
+        
+        /**
+         Shortly after new text is being pasted from the clipboard, UITextField receives a new value for its
+         `selectedTextRange` property from the system. This new range is not consistent to the formatted text and
+         calculated caret position most of the time, yet it's being assigned just after setCaretPosition call.
+         
+         To insure correct caret position is set, `selectedTextRange` is assigned asynchronously.
+         (presumably after a vanishingly small delay)
+         */
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()) {
+            field.selectedTextRange = field.textRange(from: from, to: to)
+        }
     }
     
 }
