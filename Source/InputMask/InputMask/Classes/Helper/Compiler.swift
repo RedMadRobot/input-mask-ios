@@ -29,6 +29,13 @@ import Foundation
 public class Compiler {
     
     /**
+     A list of custom rules to compile square bracket ```[]``` groups of format symbols.
+     
+     - seealso: ```Notation``` class.
+     */
+    private let customNotations: [Notation]
+    
+    /**
      ### CompilerError
      
      Compiler error exception type, thrown when ```formatString``` contains inappropriate character sequences.
@@ -37,6 +44,17 @@ public class Compiler {
      */
     public enum CompilerError: Error {
         case wrongFormat
+    }
+    
+    /**
+     Constructor.
+     
+     - Parameter customNotations: a list of custom rules to compile square bracket ```[]``` groups of format symbols.
+     
+     - seealso: ```Notation``` class.
+     */
+    init(customNotations: [Notation]) {
+        self.customNotations = customNotations
     }
     
     /**
@@ -54,10 +72,10 @@ public class Compiler {
      is converted to sequence:
      ```
      0. ValueState.numeric          [0]
-     1. OptionalValueState.Numeric  [9]
+     1. OptionalValueState.numeric  [9]
      2. FixedState                  {.}
      3. ValueState.numeric          [0]
-     4. OptionalValueState.Numeric  [9]
+     4. OptionalValueState.numeric  [9]
      5. FixedState                  {.}
      6. FreeState                    1
      7. FreeState                    9
@@ -238,7 +256,7 @@ private extension Compiler {
                         fixed: false,
                         lastCharacter: char
                     ),
-                    type: OptionalValueState.StateType.Numeric
+                    type: OptionalValueState.StateType.numeric
                 )
             
             case "a":
@@ -249,7 +267,7 @@ private extension Compiler {
                         fixed: false,
                         lastCharacter: char
                     ),
-                    type: OptionalValueState.StateType.Literal
+                    type: OptionalValueState.StateType.literal
                 )
             
             case "-":
@@ -260,10 +278,10 @@ private extension Compiler {
                         fixed: false,
                         lastCharacter: char
                     ),
-                    type: OptionalValueState.StateType.AlphaNumeric
+                    type: OptionalValueState.StateType.alphaNumeric
                 )
             
-            default: throw CompilerError.wrongFormat
+            default: return try self.compileWithCustomNotations(char, string: string)
         }
     }
     
@@ -293,6 +311,35 @@ private extension Compiler {
             
             default: throw CompilerError.wrongFormat
         }
+    }
+    
+    func compileWithCustomNotations(_ char: Character, string: String) throws -> State {
+        for notation in self.customNotations {
+            if notation.character == char {
+                if notation.isOptional {
+                    return OptionalValueState(
+                        child: try self.compile(
+                            string.truncateFirst(),
+                            valueable: true,
+                            fixed: false,
+                            lastCharacter: char
+                        ),
+                        type: OptionalValueState.StateType.custom(char: char, characterSet: notation.characterSet)
+                    )
+                } else {
+                    return ValueState(
+                        child: try self.compile(
+                            string.truncateFirst(),
+                            valueable: true,
+                            fixed: false,
+                            lastCharacter: char
+                        ),
+                        type: ValueState.StateType.custom(char: char, characterSet: notation.characterSet)
+                    )
+                }
+            }
+        }
+        throw CompilerError.wrongFormat
     }
     
 }

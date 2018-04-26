@@ -43,7 +43,11 @@ open class MaskedTextFieldDelegate: NSObject, UITextFieldDelegate {
     private var _autocomplete:          Bool
     private var _autocompleteOnFocus:   Bool
     
-    public var mask: Mask
+    public var customNotations: [Notation]
+    
+    public var mask: Mask {
+        return try! Mask.getOrCreate(withFormat: _maskFormat, customNotations: customNotations)
+    }
     
     @IBInspectable public var maskFormat: String {
         get {
@@ -52,7 +56,6 @@ open class MaskedTextFieldDelegate: NSObject, UITextFieldDelegate {
         
         set(newFormat) {
             self._maskFormat = newFormat
-            self.mask        = try! Mask.getOrCreate(withFormat: newFormat)
         }
     }
     
@@ -80,9 +83,9 @@ open class MaskedTextFieldDelegate: NSObject, UITextFieldDelegate {
     
     public init(format: String) {
         self._maskFormat = format
-        self.mask = try! Mask.getOrCreate(withFormat: format)
         self._autocomplete = false
         self._autocompleteOnFocus = false
+        self.customNotations = []
         super.init()
     }
     

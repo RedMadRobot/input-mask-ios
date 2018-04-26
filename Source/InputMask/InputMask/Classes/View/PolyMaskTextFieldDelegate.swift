@@ -18,25 +18,15 @@ import UIKit
 @IBDesignable
 open class PolyMaskTextFieldDelegate: MaskedTextFieldDelegate {
     
-    fileprivate var _affineFormats: [String]
-    
-    public var affineFormats: [String] {
-        get {
-            return self._affineFormats
-        }
-        
-        set(newFormats) {
-            self._affineFormats = newFormats
-        }
-    }
+    public var affineFormats: [String]
     
     public init(primaryFormat: String, affineFormats: [String]) {
-        self._affineFormats = affineFormats
+        self.affineFormats = affineFormats
         super.init(format: primaryFormat)
     }
     
     public override init(format: String) {
-        self._affineFormats = []
+        self.affineFormats = []
         super.init(format: format)
     }
     
@@ -133,8 +123,8 @@ open class PolyMaskTextFieldDelegate: MaskedTextFieldDelegate {
     
     open override var debugDescription: String {
         get {
-            return self._affineFormats.reduce(self.mask.debugDescription) { (debugDescription: String, affineFormat: String) -> String in
-                return try! debugDescription + "\n" + Mask.getOrCreate(withFormat: affineFormat).debugDescription
+            return self.affineFormats.reduce(self.mask.debugDescription) { (debugDescription: String, affineFormat: String) -> String in
+                return try! debugDescription + "\n" + Mask.getOrCreate(withFormat: affineFormat, customNotations: customNotations).debugDescription
             }
         }
     }
@@ -156,7 +146,7 @@ internal extension PolyMaskTextFieldDelegate {
         )
         
         var masks: [(Mask, Int)] = self.affineFormats.map { (affineFormat: String) -> (Mask, Int) in
-            let mask:     Mask = try! Mask.getOrCreate(withFormat: affineFormat)
+            let mask:     Mask = try! Mask.getOrCreate(withFormat: affineFormat, customNotations: customNotations)
             let affinity: Int  = self.calculateAffinity(
                 ofMask: mask,
                 forText: text,

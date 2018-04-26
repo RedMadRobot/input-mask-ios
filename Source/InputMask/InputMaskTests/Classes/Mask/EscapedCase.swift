@@ -11,9 +11,9 @@ import XCTest
 class EscapedCase: MaskTestCase {
     
     override func format() -> String {
-        return "\\{\\[[00]\\]{99}{\\}\\[}"
-        // show:   {[12]99}[
-        // value:  1299}[
+        return "\\{\\[[00]\\]{99}{\\}\\]}"
+        // show:   {[12]99}]
+        // value:  1299}]
     }
     
     func testInit_correctFormat_maskInitialized() {
@@ -44,7 +44,7 @@ class EscapedCase: MaskTestCase {
     
     func testGetPlaceholder_allSet_returnsCorrectPlaceholder() {
         let placeholder: String = try! self.mask().placeholder
-        XCTAssertEqual(placeholder, "{[00]99}[")
+        XCTAssertEqual(placeholder, "{[00]99}]")
     }
     
     func testAcceptableTextLength_allSet_returnsCorrectCount() {
@@ -115,9 +115,9 @@ class EscapedCase: MaskTestCase {
         let inputString: String         = "112"
         let inputCaret:  String.Index   = inputString.endIndex
         
-        let expectedString: String       = "{[11]99}["
+        let expectedString: String       = "{[11]99}]"
         let expectedCaret:  String.Index = expectedString.endIndex
-        let expectedValue:  String       = "1199}["
+        let expectedValue:  String       = "1199}]"
         
         let result: Mask.Result = try! self.mask().apply(
             toText: CaretString(
@@ -137,9 +137,9 @@ class EscapedCase: MaskTestCase {
         let inputString: String         = "1122"
         let inputCaret:  String.Index   = inputString.endIndex
         
-        let expectedString: String       = "{[11]99}["
+        let expectedString: String       = "{[11]99}]"
         let expectedCaret:  String.Index = expectedString.endIndex
-        let expectedValue:  String       = "1199}["
+        let expectedValue:  String       = "1199}]"
         
         let result: Mask.Result = try! self.mask().apply(
             toText: CaretString(

@@ -66,13 +66,14 @@ public class Mask: CustomDebugStringConvertible, CustomStringConvertible {
      Constructor.
      
      - parameter format: mask format.
+     - parameter customNotations: a list of custom rules to compile square bracket ```[]``` groups of format symbols.
      
      - returns: Initialized ```Mask``` instance.
      
      - throws: ```CompilerError``` if format string is incorrect.
      */
-    public required init(format: String) throws {
-        self.initialState = try Compiler().compile(formatString: format)
+    public required init(format: String, customNotations: [Notation] = []) throws {
+        self.initialState = try Compiler(customNotations: customNotations).compile(formatString: format)
     }
     
     /**
@@ -84,11 +85,11 @@ public class Mask: CustomDebugStringConvertible, CustomStringConvertible {
      - returns: Previously cached ```Mask``` object for requested format string. If such it doesn't exist in cache, the
      object is constructed, cached and returned.
      */
-    public static func getOrCreate(withFormat format: String) throws -> Mask {
+    public static func getOrCreate(withFormat format: String, customNotations: [Notation] = []) throws -> Mask {
         if let cachedMask: Mask = cache[format] {
             return cachedMask
         } else {
-            let mask: Mask = try Mask(format: format)
+            let mask: Mask = try Mask(format: format, customNotations: customNotations)
             cache[format] = mask
             return mask
         }
@@ -257,14 +258,17 @@ private extension Mask {
         
         if let state = state as? OptionalValueState {
             switch state.type {
-                case .AlphaNumeric:
+                case .alphaNumeric:
                     return self.appendPlaceholder(withState: state.child, placeholder: placeholder + "-")
                 
-                case .Literal:
+                case .literal:
                     return self.appendPlaceholder(withState: state.child, placeholder: placeholder + "a")
                 
-                case .Numeric:
+                case .numeric:
                     return self.appendPlaceholder(withState: state.child, placeholder: placeholder + "0")
+                
+                case .custom(let char, _):
+                    return self.appendPlaceholder(withState: state.child, placeholder: placeholder + String(char))
             }
         }
         
@@ -281,6 +285,9 @@ private extension Mask {
                 
                 case .ellipsis:
                     return placeholder
+                
+                case .custom(let char, _):
+                    return self.appendPlaceholder(withState: state.child, placeholder: placeholder + String(char))
             }
         }
         

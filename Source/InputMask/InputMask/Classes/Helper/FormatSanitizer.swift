@@ -152,7 +152,7 @@ private extension FormatSanitizer {
                         continue
                     }
                     
-                    if blockCharacter == "]" {
+                    if blockCharacter == "]" && !blockBuffer.hasSuffix("\\") {
                         blockBuffer += String(blockCharacter)
                         resultingBlocks.append(blockBuffer)
                         break

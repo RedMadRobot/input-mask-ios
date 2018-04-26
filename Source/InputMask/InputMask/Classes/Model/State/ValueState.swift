@@ -27,12 +27,14 @@ class ValueState: State {
      * ```literal``` stands for [a] characters
      * ```alphaNumeric``` stands for [-] characters
      * ```ellipsis``` stands for […] characters
+     * ```custom``` stands for characters of custom notation
      */
     indirect enum StateType {
         case numeric
         case literal
         case alphaNumeric
         case ellipsis(inheritedType: StateType)
+        case custom(char: Character, characterSet: CharacterSet)
         
         var characterSet: CharacterSet {
             switch self {
@@ -40,6 +42,7 @@ class ValueState: State {
                 case .literal: return CharacterSet.letters
                 case .alphaNumeric: return CharacterSet.alphanumerics
                 case .ellipsis(let inheritedType): return inheritedType.characterSet
+                case .custom(_, let characterSet): return characterSet
             }
         }
     }
@@ -113,6 +116,8 @@ class ValueState: State {
                 return "[_] -> " + (nil != self.child ? self.child!.debugDescription : "nil")
             case .ellipsis:
                 return "[…] -> " + (nil != self.child ? self.child!.debugDescription : "nil")
+            case .custom(let char, _):
+                return "[\(char)] -> " + (nil != self.child ? self.child!.debugDescription : "nil")
         }
     }
     
