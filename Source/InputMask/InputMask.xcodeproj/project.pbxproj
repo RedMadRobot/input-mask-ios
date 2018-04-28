@@ -56,6 +56,7 @@
 		8AB1E8961D6378D400892C3B /* ValueState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB1E8951D6378D400892C3B /* ValueState.swift */; };
 		8AB1E8991D637BFD00892C3B /* FixedState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB1E8981D637BFD00892C3B /* FixedState.swift */; };
 		8ACF16E81D65B9A4004F3374 /* InterfaceBuilderSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ACF16E71D65B9A4004F3374 /* InterfaceBuilderSupport.swift */; };
+		8AE42E652094B6AA00D9D3E2 /* ReversedMaskTextFieldDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE42E642094B6AA00D9D3E2 /* ReversedMaskTextFieldDelegate.swift */; };
 		8AE8CA091E4489B400EDC9C4 /* YearCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE8CA081E4489B400EDC9C4 /* YearCase.swift */; };
 /* End PBXBuildFile section */
 
@@ -111,6 +112,7 @@
 		8AB1E8951D6378D400892C3B /* ValueState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ValueState.swift; sourceTree = "<group>"; };
 		8AB1E8981D637BFD00892C3B /* FixedState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FixedState.swift; sourceTree = "<group>"; };
 		8ACF16E71D65B9A4004F3374 /* InterfaceBuilderSupport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InterfaceBuilderSupport.swift; sourceTree = "<group>"; };
+		8AE42E642094B6AA00D9D3E2 /* ReversedMaskTextFieldDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReversedMaskTextFieldDelegate.swift; sourceTree = "<group>"; };
 		8AE8CA081E4489B400EDC9C4 /* YearCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YearCase.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -160,9 +162,10 @@
 		8A01854B1D64AB9B007B5EBD /* View */ = {
 			isa = PBXGroup;
 			children = (
-				8A01854C1D64ABCC007B5EBD /* MaskedTextFieldDelegate.swift */,
 				8ACF16E71D65B9A4004F3374 /* InterfaceBuilderSupport.swift */,
+				8A01854C1D64ABCC007B5EBD /* MaskedTextFieldDelegate.swift */,
 				8A485DD91DD4735A009351FB /* PolyMaskTextFieldDelegate.swift */,
+				8AE42E642094B6AA00D9D3E2 /* ReversedMaskTextFieldDelegate.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -482,6 +485,7 @@
 				8AB1E8931D63773400892C3B /* Next.swift in Sources */,
 				8A485DDA1DD4735A009351FB /* PolyMaskTextFieldDelegate.swift in Sources */,
 				8AB1E8861D63746400892C3B /* CaretString.swift in Sources */,
+				8AE42E652094B6AA00D9D3E2 /* ReversedMaskTextFieldDelegate.swift in Sources */,
 				8A83CCB01D5B579800C0184F /* NSCharacterSet.swift in Sources */,
 				8A0185471D6498F9007B5EBD /* FreeState.swift in Sources */,
 				8ACF16E81D65B9A4004F3374 /* InterfaceBuilderSupport.swift in Sources */,

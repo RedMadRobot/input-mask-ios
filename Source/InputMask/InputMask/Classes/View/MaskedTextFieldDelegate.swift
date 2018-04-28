@@ -167,7 +167,6 @@ open class MaskedTextFieldDelegate: NSObject, UITextFieldDelegate {
         shouldChangeCharactersIn range: NSRange,
         replacementString string: String
     ) -> Bool {
-        
         let extractedValue: String
         let complete:       Bool
         

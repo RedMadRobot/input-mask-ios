@@ -23,4 +23,27 @@ extension String {
         return String(self[self.index(after: self.startIndex)...])
     }
     
+    /**
+     Reverse format string preserving `[...]` and `{...}` symbol groups.
+     */
+    func reversedFormat() -> String {
+        return String(
+            String(self.reversed())
+                .replacingOccurrences(of: "[\\", with: "\\]")
+                .replacingOccurrences(of: "]\\", with: "\\[")
+                .replacingOccurrences(of: "{\\", with: "\\}")
+                .replacingOccurrences(of: "}\\", with: "\\{")
+                .map { (c: Character) -> Character in
+                    switch c {
+                        case "[": return "]"
+                        case "]": return "["
+                        case "{": return "}"
+                        case "}": return "{"
+                        default: return c
+                    }
+                }
+        )
+
+    }
+    
 }
