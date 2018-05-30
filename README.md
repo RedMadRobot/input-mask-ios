@@ -211,6 +211,8 @@ Elliptical format examples:
 4. `[_…]` is a wildcard mask with a single mandatory character. Allows to enter letters and digits. Requires a single character (digit or letter).
 5. `[-…]` acts same as `[…]`.
 
+Elliptical masks support custom notations, too.
+
 <a name="custom_notation" />
 
 ## Custom notations
@@ -253,7 +255,7 @@ Mask.getOrCreate(
 )
 ```
 
-For your convinience, `MaskedTextFieldDelegate` and its children now contains a `customNotations` field. You may still use the Interface Builder with custom formats, just don't forget to programmatically assign your custom notations:
+For your convenience, `MaskedTextFieldDelegate` and its children now contains a `customNotations` field. You may still use the Interface Builder with custom formats, just don't forget to programmatically assign your custom notations:
 
 ```swift
 class ViewController: UIViewController {

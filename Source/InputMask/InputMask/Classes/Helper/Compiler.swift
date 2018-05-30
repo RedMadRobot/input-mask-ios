@@ -309,7 +309,7 @@ private extension Compiler {
             case "[":
                 return ValueState.StateType.alphaNumeric
             
-            default: throw CompilerError.wrongFormat
+            default: return try determineCustomStateType(forCharacter: character)
         }
     }
     
@@ -337,6 +337,15 @@ private extension Compiler {
                         type: ValueState.StateType.custom(char: char, characterSet: notation.characterSet)
                     )
                 }
+            }
+        }
+        throw CompilerError.wrongFormat
+    }
+    
+    func determineCustomStateType(forCharacter character: Character) throws -> ValueState.StateType {
+        for notation in self.customNotations {
+            if notation.character == character {
+                return ValueState.StateType.custom(char: character, characterSet: notation.characterSet)
             }
         }
         throw CompilerError.wrongFormat
