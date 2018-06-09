@@ -299,7 +299,13 @@ private extension Mask {
             return true
         } else if let valueState = state as? ValueState {
             return valueState.isElliptical
-        } else if (state is FixedState || state is FreeState) {
+        } else if let state = state as? FreeState {
+            let skip = CharacterSet.whitespacesAndNewlines.isMember(character: state.ownCharacter)
+            if skip {
+                return self.noMandatoryCharactersLeftAfterState(state.nextState())
+            }
+            return false
+        } else if (state is FixedState) {
             return false
         } else {
             return self.noMandatoryCharactersLeftAfterState(state.nextState())
