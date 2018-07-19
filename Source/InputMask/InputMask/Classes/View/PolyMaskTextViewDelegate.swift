@@ -9,14 +9,14 @@ import UIKit
 
 
 /**
- ### PolyMaskTextFieldDelegate
+ ### PolyMaskTextViewDelegate
  
- UITextFieldDelegate, which applies masking to the user input, picking the most suitable mask for the text.
+ UITextViewDelegate, which applies masking to the user input, picking the most suitable mask for the text.
  
- Might be used as a decorator, which forwards UITextFieldDelegate calls to its own listener.
+ Might be used as a decorator, which forwards UITextViewDelegate calls to its own listener.
  */
 @IBDesignable
-open class PolyMaskTextFieldDelegate: MaskedTextFieldDelegate {
+open class PolyMaskTextViewDelegate: MaskedTextViewDelegate {
     
     public var affineFormats: [String]
     
