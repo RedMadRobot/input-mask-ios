@@ -19,40 +19,37 @@ open class ReversedMaskTextFieldDelegate: MaskedTextFieldDelegate {
     
     private var reversedMask: Mask {
         return try! Mask.getOrCreate(
-            withFormat: self.maskFormat.reversedFormat(),
+            withFormat: maskFormat.reversedFormat(),
             customNotations: customNotations
         )
     }
     
     override open func put(text: String, into field: UITextField) {
         let reversedText = String(text.reversed())
-        let result: Mask.Result = self.reversedMask.apply(
+        let result: Mask.Result = reversedMask.apply(
             toText: CaretString(
                 string: reversedText,
                 caretPosition: reversedText.endIndex
             ),
-            autocomplete: self.autocomplete
+            autocomplete: autocomplete
         )
         
         field.text = String(result.formattedText.string.reversed())
+        field.caretPosition = result.formattedText.string.distance(
+            from: result.formattedText.string.startIndex,
+            to: result.formattedText.caretPosition
+        )
         
-        let position: Int =
-            result.formattedText.string.distance(from: result.formattedText.string.startIndex, to: result.formattedText.caretPosition)
-        
-        self.setCaretPosition(position, inField: field)
-        self.listener?.textField?(
+        listener?.textField?(
             field,
             didFillMandatoryCharacters: result.complete,
             didExtractValue: result.extractedValue
         )
     }
     
-    override open func deleteText(
-        inRange range: NSRange,
-        inField field: UITextField
-    ) -> (String, Bool) {
-        let text: String = self.replaceCharacters(
-            inText: field.text,
+    override open func deleteText(inRange range: NSRange, inTextInput field: UITextInput) -> Mask.Result {
+        let text: String = replaceCharacters(
+            inText: field.allText,
             range: range,
             withCharacters: ""
         )
@@ -60,7 +57,7 @@ open class ReversedMaskTextFieldDelegate: MaskedTextFieldDelegate {
         let reversedText: String = String(text.reversed())
         let reversedCaretPosition: String.Index = reversedText.index(reversedText.endIndex, offsetBy: -range.location)
         
-        let result: Mask.Result = self.reversedMask.apply(
+        let result: Mask.Result = reversedMask.apply(
             toText: CaretString(
                 string: reversedText,
                 caretPosition: reversedCaretPosition
@@ -68,32 +65,32 @@ open class ReversedMaskTextFieldDelegate: MaskedTextFieldDelegate {
             autocomplete: false
         )
         
-        field.text = String(result.formattedText.string.reversed())
-        self.setCaretPosition(range.location, inField: field)
+        field.allText = String(result.formattedText.string.reversed())
+        field.caretPosition = range.location
         
-        return (result.extractedValue, result.complete)
+        return result
     }
     
     override open func modifyText(
         inRange range: NSRange,
-        inField field: UITextField,
+        inTextInput field: UITextInput,
         withText text: String
-    ) -> (String, Bool) {
-        let updatedText: String = self.replaceCharacters(
-            inText: field.text,
+    ) -> Mask.Result {
+        let updatedText: String = replaceCharacters(
+            inText: field.allText,
             range: range,
             withCharacters: text
         )
         
         let reversedText: String = String(updatedText.reversed())
-        let reversedCaretPosition: String.Index = reversedText.index(reversedText.endIndex, offsetBy: -(self.caretPosition(inField: field) + text.count))
+        let reversedCaretPosition: String.Index = reversedText.index(reversedText.endIndex, offsetBy: -(field.caretPosition + text.count))
         
-        let result: Mask.Result = self.mask.apply(
+        let result: Mask.Result = mask.apply(
             toText: CaretString(
                 string: reversedText,
                 caretPosition: reversedCaretPosition
             ),
-            autocomplete: self.autocomplete
+            autocomplete: autocomplete
         )
         
         let formattedText = result.formattedText
@@ -105,24 +102,23 @@ open class ReversedMaskTextFieldDelegate: MaskedTextFieldDelegate {
                 offsetBy: -(formattedText.string.distance(from: formattedText.string.startIndex, to: formattedText.caretPosition))
             )
         
-        field.text = reversedResultText
-        let position: Int = reversedResultText.distance(from: reversedResultText.startIndex, to: reversedResultCaretPosition)
-        self.setCaretPosition(position, inField: field)
+        field.allText = reversedResultText
+        field.caretPosition = reversedResultText.distance(from: reversedResultText.startIndex, to: reversedResultCaretPosition)
         
-        return (result.extractedValue, result.complete)
+        return result
     }
     
     override open func textFieldShouldClear(_ textField: UITextField) -> Bool {
-        let shouldClear: Bool = self.listener?.textFieldShouldClear?(textField) ?? true
+        let shouldClear: Bool = listener?.textFieldShouldClear?(textField) ?? true
         if shouldClear {
-            let result: Mask.Result = self.reversedMask.apply(
+            let result: Mask.Result = reversedMask.apply(
                 toText: CaretString(
                     string: "",
                     caretPosition: "".endIndex
                 ),
-                autocomplete: self.autocomplete
+                autocomplete: autocomplete
             )
-            self.listener?.textField?(
+            listener?.textField?(
                 textField,
                 didFillMandatoryCharacters: result.complete,
                 didExtractValue: result.extractedValue
