@@ -28,6 +28,8 @@
 		8A076E0220923F830056476F /* Notation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A076E0120923F830056476F /* Notation.swift */; };
 		8A076E04209275750056476F /* DecimalNumberCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A076E03209275750056476F /* DecimalNumberCase.swift */; };
 		8A1256F220BE95CB005E3324 /* CustomNotationEllipticalCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A1256F120BE95CB005E3324 /* CustomNotationEllipticalCase.swift */; };
+		8A1DD0B1210108A7008BAE2A /* MaskedTextViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A1DD0B0210108A7008BAE2A /* MaskedTextViewDelegate.swift */; };
+		8A1DD0B321011D11008BAE2A /* PolyMaskTextViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A1DD0B221011D11008BAE2A /* PolyMaskTextViewDelegate.swift */; };
 		8A1E3C4D1D64649200589799 /* CaretStringIterator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A1E3C4C1D64649200589799 /* CaretStringIterator.swift */; };
 		8A1E3C501D647BA800589799 /* DayMonthYearCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A1E3C4F1D647BA800589799 /* DayMonthYearCase.swift */; };
 		8A1E3C521D647E1700589799 /* MonthYearDoubleSlashCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A1E3C511D647E1700589799 /* MonthYearDoubleSlashCase.swift */; };
@@ -84,6 +86,8 @@
 		8A076E0120923F830056476F /* Notation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notation.swift; sourceTree = "<group>"; };
 		8A076E03209275750056476F /* DecimalNumberCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecimalNumberCase.swift; sourceTree = "<group>"; };
 		8A1256F120BE95CB005E3324 /* CustomNotationEllipticalCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNotationEllipticalCase.swift; sourceTree = "<group>"; };
+		8A1DD0B0210108A7008BAE2A /* MaskedTextViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaskedTextViewDelegate.swift; sourceTree = "<group>"; };
+		8A1DD0B221011D11008BAE2A /* PolyMaskTextViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PolyMaskTextViewDelegate.swift; sourceTree = "<group>"; };
 		8A1E3C4C1D64649200589799 /* CaretStringIterator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CaretStringIterator.swift; sourceTree = "<group>"; };
 		8A1E3C4F1D647BA800589799 /* DayMonthYearCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DayMonthYearCase.swift; sourceTree = "<group>"; };
 		8A1E3C511D647E1700589799 /* MonthYearDoubleSlashCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MonthYearDoubleSlashCase.swift; sourceTree = "<group>"; };
@@ -171,7 +175,9 @@
 				8ACF16E71D65B9A4004F3374 /* InterfaceBuilderSupport.swift */,
 				8A01854C1D64ABCC007B5EBD /* MaskedTextFieldDelegate.swift */,
 				8ADB578C20FE324C0095417D /* MaskedTextInputDelegate.swift */,
+				8A1DD0B0210108A7008BAE2A /* MaskedTextViewDelegate.swift */,
 				8A485DD91DD4735A009351FB /* PolyMaskTextFieldDelegate.swift */,
+				8A1DD0B221011D11008BAE2A /* PolyMaskTextViewDelegate.swift */,
 				8AE42E642094B6AA00D9D3E2 /* ReversedMaskTextFieldDelegate.swift */,
 				8ADB578A20FE2E1C0095417D /* UITextInput.swift */,
 			);
@@ -484,6 +490,7 @@
 				8AB1E8961D6378D400892C3B /* ValueState.swift in Sources */,
 				8A1E3C541D64807800589799 /* Mask.swift in Sources */,
 				8AB1E8991D637BFD00892C3B /* FixedState.swift in Sources */,
+				8A1DD0B1210108A7008BAE2A /* MaskedTextViewDelegate.swift in Sources */,
 				8A1E3C571D64847D00589799 /* OptionalValueState.swift in Sources */,
 				8AB1E8901D6375FC00892C3B /* EOLState.swift in Sources */,
 				8ADB578D20FE324C0095417D /* MaskedTextInputDelegate.swift in Sources */,
@@ -502,6 +509,7 @@
 				8ACF16E81D65B9A4004F3374 /* InterfaceBuilderSupport.swift in Sources */,
 				8A1E3C601D648C9E00589799 /* FormatSanitizer.swift in Sources */,
 				8AB1E88C1D63755300892C3B /* State.swift in Sources */,
+				8A1DD0B321011D11008BAE2A /* PolyMaskTextViewDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

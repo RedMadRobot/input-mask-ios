@@ -30,3 +30,28 @@ public extension MaskedTextFieldDelegate {
     }
     
 }
+
+
+public extension MaskedTextViewDelegate {
+    
+    /**
+     Workaround to support Interface Builder delegate outlets.
+     
+     Allows assigning ```MaskedTextViewDelegate.listener``` within the Interface Builder.
+     
+     Consider using ```MaskedTextViewDelegate.listener``` property from your source code instead of
+     ```MaskedTextViewDelegate.delegate``` outlet.
+     */
+    @IBOutlet public var delegate: NSObject? {
+        get {
+            return self.listener as? NSObject
+        }
+        
+        set(newDelegate) {
+            if let listener = newDelegate as? MaskedTextViewDelegateListener {
+                self.listener = listener
+            }
+        }
+    }
+    
+}

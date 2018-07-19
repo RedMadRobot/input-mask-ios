@@ -111,7 +111,7 @@ open class MaskedTextInputDelegate: NSObject {
         }
     }
 
-    func isDeletion(inRange range: NSRange, string: String) -> Bool {
+    open func isDeletion(inRange range: NSRange, string: String) -> Bool {
         return 0 < range.length && 0 == string.count
     }
 
