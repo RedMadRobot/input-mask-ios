@@ -12,6 +12,12 @@
 
 <img src="https://raw.githubusercontent.com/RedMadRobot/input-mask-ios/assets/Assets/phone_input.gif" alt="Input Mask" width="640" />
 
+
+## ATTENTION
+**Please be advised current library version `3.5.0` is not stable for `iOS 10.x` and older. Consider sticking to the previous version `3.4.1` in case your project doesn't require `UITextView` masking.**
+
+Next update with a patch is on its way.
+
 ## Description
 The library allows to format user input on the fly according to the provided mask and to extract valueable characters.  
 
