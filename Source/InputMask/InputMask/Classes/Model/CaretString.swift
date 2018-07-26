@@ -34,6 +34,15 @@ public struct CaretString: CustomDebugStringConvertible, CustomStringConvertible
         self.string = string
         self.caretPosition = caretPosition
     }
+
+    /**
+     Constructor.
+     
+     Same as the ```init(string:caretPosition:)```, with the caret position equal to the end of the line.
+     */
+    public init(string: String) {
+        self.init(string: string, caretPosition: string.endIndex)
+    }
     
     public var debugDescription: String {
         return "STRING: \(self.string)\nCARET POSITION: \(self.caretPosition)"

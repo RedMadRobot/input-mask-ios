@@ -12,18 +12,21 @@
 
 <img src="https://raw.githubusercontent.com/RedMadRobot/input-mask-ios/assets/Assets/phone_input.gif" alt="Input Mask" width="640" />
 
-
-## ATTENTION
-**Please be advised current library version `3.5.0` is not stable for `iOS 10.x` and older. Consider sticking to the previous version `3.4.1` in case your project doesn't require `UITextView` masking.**
-
-Next update with a patch is on its way.
-
 ## Description
-The library allows to format user input on the fly according to the provided mask and to extract valueable characters.  
+The library allows to format user input on the fly according to the provided mask and to extract valueable characters.
+
+Mask examples:
+
+1. International phone numbers: `+1 ([000]) [000] [00] [00]`
+2. Local phone numbers: `8 ([000]) [000]-[00]-[00]`
+3. Visa card numbers: `[0000] [0000] [0000] [0000]`
+4. Names: `[A][-----------------------------------------------------]`
+5. Text: `[A…]`
+6. Dates: `[00]{/}[00]{/}[9900]`
 
 Masks consist of blocks of symbols, which may include:
 
-* `[]` — a block for valueable symbols written by user. 
+* `[]` — a square brackets block for valueable symbols written by user. 
 
 Square brackets block may contain any number of special symbols:
 
@@ -37,7 +40,7 @@ Square brackets block may contain any number of special symbols:
 
 Other symbols inside square brackets will cause a mask initialization error, unless you have used [custom notations](#custom_notation).
 
-Blocks may contain mixed types of symbols; such that, `[000AA]` will end up being divided in two groups: `[000][AA]` (this happens automatically). Though, it's highly recommended not to mix default symbols with symbols from [custom notations](#custom_notation). 
+Blocks may contain mixed types of symbols; such that, `[000AA]` will end up being divided in two groups: `[000][AA]` (this happens automatically). Though, it's highly recommended not to mix default symbols with symbols defined by [custom notations](#custom_notation). 
 
 Blocks must not contain nested brackets. `[[00]000]` format will cause a mask initialization error.
 
@@ -46,22 +49,9 @@ For instance, `+7 ([000]) [000]-[0000]` mask will format the input field to the 
 
 * `{}` — a block for valueable yet fixed symbols, which could not be altered by the user.
 
-Symbols within the square and curly brackets form an extracted value (valueable characters).
-In other words, `[00]-[00]` and `[00]{-}[00]` will format the input to the same form of `12-34`, 
+Symbols within the square and curly brackets form an extracted value (or «valueable characters»).
+In other words, `[00]-[00]` and `[00]{-}[00]` will form the same output `12-34`, 
 but in the first case the value, extracted by the library, will be equal to `1234`, and in the second case it will result in `12-34`. 
-
-Mask format examples:
-
-1. [00000000000]
-2. {401}-[000]-[00]-[00]
-3. [000999999]
-4. {818}-[000]-[00]-[00]
-5. [A][-----------------------------------------------------]
-6. [A][_______________________________________________________________]
-7. 8 [0000000000] 
-8. 8([000])[000]-[00]-[00]
-9. [0000]{-}[00]
-10. +1 ([000]) [000] [00] [00]
 
 ### Character escaping
 
@@ -95,57 +85,84 @@ git "https://github.com/RedMadRobot/input-mask-ios.git"
 
 ```swift
 dependencies: [
-    .Package(url: "https://github.com/RedMadRobot/input-mask-ios", majorVersion: 3)
+    .Package(url: "https://github.com/RedMadRobot/input-mask-ios", majorVersion: 4)
 ]
 ```
 
 # Usage
 ## Simple UITextField for the phone numbers
 
-Listening to the text change events of `UITextField` and simultaneously altering the entered text could be a bit tricky as
-long as you need to add, remove and replace symbols intelligently preserving the cursor position.
+Drop an object on your scene and cofigure it as a `MaskedTextFieldDelegate`:
 
-Thus, the library provides corresponding `MaskedTextFieldDelegate` class.
+![Interface Builder](https://raw.githubusercontent.com/RedMadRobot/input-mask-ios/assets/Assets/ib-step00.png "Interface Builder")
 
-`MaskedTextFieldDelegate` conforms to `UITextFieldDelegate` protocol and encaspulates logic to process text edit events.
-The object might be instantiated via code or might be dropped on the Interface Builder canvas as an NSObject and then 
-wired with the corresponding `UITextField`.
+Assign your `UITextField.delegate` to be this object: 
 
-`MaskedTextFieldDelegate` has his own listener `MaskedTextFieldDelegateListener`, which extends `UITextFieldDelegate` protocol
-with a callback providing actual extracted value. All the `UITextFieldDelegate` calls from
-the client `UITextField` are forwarded to the `MaskedTextFieldDelegateListener` object, yet it doesn't allow to override
-`textField(textField:shouldChangeCharactersIn:replacementString:)` result, always returning `false`.
+![Interface Builder](https://raw.githubusercontent.com/RedMadRobot/input-mask-ios/assets/Assets/ib-step01.png "Interface Builder")
 
-![Interface Builder](https://raw.githubusercontent.com/RedMadRobot/input-mask-ios/assets/Assets/shot.png "Interface Builder")
+Make sure your `ViewController` knows its residents:
+
+![Interface Builder](https://raw.githubusercontent.com/RedMadRobot/input-mask-ios/assets/Assets/ib-step02.png "Interface Builder")
 
 ```swift
-class ViewController: UIViewController, MaskedTextFieldDelegateListener {
-    
-    var maskedDelegate: MaskedTextFieldDelegate!
+open class ViewController: UIViewController {
+    @IBOutlet weak var listener: MaskedTextFieldDelegate!
+    @IBOutlet weak var field: UITextField! 
+}
+```
 
+Check that your object has configured `Primary Mask Format`. Prepare for receiving text changed events by assigning your `ViewController` as a `delegate` to `MaskedTextFieldDelegate` object:
+
+![Interface Builder](https://raw.githubusercontent.com/RedMadRobot/input-mask-ios/assets/Assets/ib-step03.png "Interface Builder")
+
+Make your `ViewController` to implement `MaskedTextFieldDelegateListener`:
+
+```swift
+open class ViewController: UIViewController, MaskedTextFieldDelegateListener {    
+    @IBOutlet weak var listener: MaskedTextFieldDelegate!
     @IBOutlet weak var field: UITextField!
     
-    open override func viewDidLoad() {
-        maskedDelegate = MaskedTextFieldDelegate(format: "{+7} ([000]) [000] [00] [00]")
-        maskedDelegate.listener = self
-
-        field.delegate = maskedDelegate
-
-        maskedDelegate.put(text: "+7 123", into: field)
-    }
-    
     open func textField(
-        _ textField: UITextField, 
+        _ textField: UITextField,
         didFillMandatoryCharacters complete: Bool,
         didExtractValue value: String
     ) {
         print(value)
     }
-    
 }
 ```
 
-Sample project might be found under `Source/Sample`
+All set. Run.
+
+Sample project is located under under `Source/Sample`.
+
+## Affine masks
+
+You may want to switch between mask formats depending on the user input. Say, most of your phone numbers have **primary format** like this:
+
+`+7 ([000]) [000] [00] [00]`
+
+But some of them may have an operator code:
+
+`+7 ([000]) [000] [00] [00]#[900]`
+
+You put your additional mask formats into the `affineFormats` property:
+
+``` swift
+open class ViewController: UIViewController, MaskedTextFieldDelegateListener {
+    @IBOutlet weak var listener: PolyMaskTextFieldDelegate!
+    
+    open override func viewDidLoad() {
+        super.viewDidLoad()
+        listener.affinityCalculationStrategy = .prefix
+        listener.affineFormats = [
+            "+7 ([000]) [000] [00] [00]#[900]"
+        ]
+    }    
+}
+```
+
+You may also want to set the `affinityCalculationStrategy`. `AffinityCalculationStrategy.prefix` configuration works better when your affine formats have distinctive prefixes, e.g. `+1 (` and `8 (`, though the default one, `.whole`, performs better when the entire value is inserted from the clipboard.
 
 ## String formatting without views
 
@@ -165,39 +182,6 @@ let result: Mask.Result = mask.apply(
 let output: String = result.formattedText.string
 ```
 
-## Affine masks
-
-An experimental feature. While transforming the text, `Mask` calculates `affinity` index, which is basically an `Int` that shows the absolute rate of similarity between the text and the mask pattern.
-
-This index might be used to choose the most suitable pattern between predefined, and then applied to format the text.
-
-For the implementation, look for the `PolyMaskTextFieldDelegate` class, which inherits logic from `MaskedTextFieldDelegate`. It has its primary mask pattern and corresponding list of affine formats.
-
-``` swift
-open class ViewController: UIViewController, MaskedTextFieldDelegateListener {
-    
-    @IBOutlet weak var listener: PolyMaskTextFieldDelegate!
-    @IBOutlet weak var field: UITextField!
-    
-    open override func viewDidLoad() {
-        super.viewDidLoad()
-        listener.affineFormats = [
-            "8 ([000]) [000] [00] [00]"
-        ]
-    }
-    
-    open func textField(
-        _ textField: UITextField, 
-        didFillMandatoryCharacters complete: Bool,
-        didExtractValue value: String
-    ) {
-        print(complete)
-        print(value)
-    }
-        
-}
-```
-
 <a name="elliptical" />
 
 ## Elliptical masks
@@ -206,8 +190,8 @@ An experimental feature. Allows to enter endless line of symbols of specific typ
 previous character in format string. Masks like `[A…]` or `[a…]` will allow to enter letters, `[0…]` or `[9…]` — numbers, etc.
 
 Be aware that ellipsis doesn't count as a required character. Also, ellipsis works as a string terminator, such that mask `[0…][AAA]`
-filled with a single digit `5` returns `true` in `Result.complete`, yet continues to accept **digits** (not letters!). Format after ellipsis is compiled into the mask but 
-never actually used; characters `[AAA]` in the `[0…][AAA]` mask are pretty much useless.
+filled with a single digit returns `true` in `Result.complete`, yet continues to accept **digits** (not letters!). Characters after the ellipsis are compiled into the mask but 
+never actually used; `[AAA]` in the `[0…][AAA]` mask is pretty much useless.
 
 Elliptical format examples: 
 
@@ -385,22 +369,7 @@ $1000
 
 ## `UITextView` support
 
-Currently, the library has full support for all the features mentioned above for the `UITextView` component, except the autocompletion on focus.
-
-However, you may override the `textViewDidBeginEditing(textView:)` method in order to regain this feature. Consider copying the `textFieldDidBeginEditing(textField:)` implementation, replacing the empty `replacementString` with any character your app won't ever be dealing with.
-
-```swift
-override open func textViewDidBeginEditing(_ textView: UITextView) {
-    if autocompleteOnFocus && textView.text.isEmpty {
-        let _ = self.textView(
-            textView,
-            shouldChangeTextIn: NSMakeRange(0, 0),
-            replacementText: "…"
-        )
-    }
-    listener?.textViewDidBeginEditing?(textView)
-}
-```
+All the features mentioned above are fully supported for the `UITextView` component, just use the `MaskedTextViewDelegate` class instead of the `MaskedTextFieldDelegate`.
 
 # Known issues
 
@@ -462,6 +431,14 @@ class UITextFieldMonkeyPatch: UITextField {
 ```
 
 From our library perspective, this looks like a highly invasive solution. Thus, in the long term, we are going to investigate a "costly" method to bring the behaviour matching the iOS SDK logic. Yet, here "long term" might mean months.
+
+## `MaskedTextInputListener`
+
+In case you are wondering why do we have two separate `UITextFieldDelegate` and `UITextViewDelegate` implementations, the answer is simple: prior to **iOS 11** `UITextField` and `UITextView` had different behaviour in some key situations, which made it difficult to implement common logic. 
+
+Both had the same [bug](http://jon-nolen.blogspot.com/2013/10/uitextview-returns-nil-for-uitextinput.html) with the `UITextInput.beginningOfDocument` property, which rendered impossible to use the generic `UITextInput` protocol `UITextField` and `UITextView` have in common.
+
+Since **iOS 11** most of the things received their fixes (except for the `UITextView` edge case). In case your project is not going to support anything below 11, consider using the modern `MaskedTextInputListener`.
 
 # License
 

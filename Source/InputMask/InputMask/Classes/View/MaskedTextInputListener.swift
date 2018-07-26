@@ -8,44 +8,23 @@ import Foundation
 import UIKit
 
 
-/**
- ### MaskedTextFieldDelegateListener
- 
- Allows clients to obtain value extracted by the mask from user input.
- 
- Provides callbacks from listened UITextField.
- */
-@objc public protocol MaskedTextFieldDelegateListener: UITextFieldDelegate {
-    
-    /**
-     Callback to return extracted value and to signal whether the user has complete input.
-     */
-    @objc optional func textField(
-        _ textField: UITextField,
-        didFillMandatoryCharacters complete: Bool,
-        didExtractValue value: String
-    )
-    
+@available(iOS 11, *)
+public protocol OnMaskedTextChangedListener: AnyObject {
+    func textInput(_ textInput: UITextInput, didExtractValue: String, didFillMandatoryCharacters: Bool)
 }
 
 
-/**
- ### MaskedTextFieldDelegate
- 
- UITextFieldDelegate, which applies masking to the user input.
- 
- Might be used as a decorator, which forwards UITextFieldDelegate calls to its own listener.
- */
+@available(iOS 11, *)
 @IBDesignable
-open class MaskedTextFieldDelegate: NSObject, UITextFieldDelegate {
+open class MaskedTextInputListener: NSObject {
 
-    open weak var listener: MaskedTextFieldDelegateListener?
-    open var onMaskedTextChangedCallback: ((_ textField: UITextField, _ value: String, _ complete: Bool) -> ())?
-    
+    open weak var listener: OnMaskedTextChangedListener?
+    open var onMaskedTextChangedCallback: ((_ textInput: UITextInput, _ value: String, _ complete: Bool) -> ())?
+
     @IBInspectable open var primaryMaskFormat: String
     @IBInspectable open var autocomplete: Bool
     @IBInspectable open var autocompleteOnFocus: Bool
-    
+
     open var affineFormats: [String]
     open var affinityCalculationStrategy: AffinityCalculationStrategy
     open var customNotations: [Notation]
@@ -122,109 +101,74 @@ open class MaskedTextFieldDelegate: NSObject, UITextFieldDelegate {
     open var totalValueLength: Int {
         return primaryMask.totalValueLength
     }
-    
+
     @discardableResult
-    open func put(text: String, into field: UITextField, autocomplete putAutocomplete: Bool? = nil) -> Mask.Result {
+    open func put(text: String, into field: UITextInput, autocomplete putAutocomplete: Bool? = nil) -> Mask.Result {
         let autocomplete: Bool = putAutocomplete ?? self.autocomplete
         let mask: Mask = pickMask(forText: CaretString(string: text), autocomplete: autocomplete)
-        
+
         let result: Mask.Result = mask.apply(
             toText: CaretString(string: text, caretPosition: text.endIndex),
             autocomplete: autocomplete
         )
-        
-        field.text = result.formattedText.string
-        field.cursorPosition = result.formattedText.string.distance(
+
+        field.allText = result.formattedText.string
+        field.caretPosition = result.formattedText.string.distance(
             from: result.formattedText.string.startIndex,
             to: result.formattedText.caretPosition
         )
-        
-        notifyOnMaskedTextChangedListeners(forTextField: field, result: result)
+
+        notifyOnMaskedTextChangedListeners(forTextInput: field, result: result)
         return result
     }
     
-    open func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
-        return listener?.textFieldShouldBeginEditing?(textField) ?? true
-    }
-    
-    open func textFieldDidBeginEditing(_ textField: UITextField) {
-        if autocompleteOnFocus && (textField.text ?? "").isEmpty {
-            let result: Mask.Result = put(text: "", into: textField, autocomplete: true)
-            notifyOnMaskedTextChangedListeners(forTextField: textField, result: result)
-        }
-        listener?.textFieldDidBeginEditing?(textField)
-    }
-    
-    open func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
-        return listener?.textFieldShouldEndEditing?(textField) ?? true
-    }
-    
-    open func textFieldDidEndEditing(_ textField: UITextField) {
-        listener?.textFieldDidEndEditing?(textField)
-    }
-    
-    @available(iOS 10.0, *)
-    open func textFieldDidEndEditing(_ textField: UITextField, reason: UITextFieldDidEndEditingReason) {
-        listener?.textFieldDidEndEditing?(textField, reason: reason)
-    }
-    
-    open func textField(
-        _ textField: UITextField,
-        shouldChangeCharactersIn range: NSRange,
+    @discardableResult
+    open func textInput(
+        _ textInput: UITextInput,
+        isChangingCharactersIn range: NSRange,
         replacementString string: String
-    ) -> Bool {
-        let result: Mask.Result
-        if isDeletion(inRange: range, string: string) {
-            result = deleteText(inRange: range, inTextField: textField)
+    ) -> Mask.Result {
+        if isDeletion(inRange: range, string: string, field: textInput) {
+            return deleteText(inRange: range, inTextInput: textInput)
         } else {
-            result = modifyText(inRange: range, inTextField: textField, withText: string)
+            return modifyText(inRange: range, inTextInput: textInput, withText: string)
         }
-        notifyOnMaskedTextChangedListeners(forTextField: textField, result: result)
-        return false
     }
     
-    open func textFieldShouldClear(_ textField: UITextField) -> Bool {
-        let shouldClear = listener?.textFieldShouldClear?(textField) ?? true
-        if shouldClear {
-            let result: Mask.Result = put(text: "", into: textField, autocomplete: false)
-            notifyOnMaskedTextChangedListeners(forTextField: textField, result: result)
+    open func isDeletion(inRange range: NSRange, string: String, field: UITextInput) -> Bool {
+        let isDeletion = 0 < range.length && 0 == string.count
+        if field is UITextView {
+            // UITextView edge case
+            return isDeletion || (0 == range.length && 0 == range.location && 0 == string.count)
         }
-        return shouldClear
+        return isDeletion
     }
     
-    open func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        return listener?.textFieldShouldReturn?(textField) ?? true
-    }
-    
-    open func isDeletion(inRange range: NSRange, string: String) -> Bool {
-        return 0 < range.length && 0 == string.count
-    }
-    
-    open func deleteText(inRange range: NSRange, inTextField field: UITextField) -> Mask.Result {
-        let updatedText: String = replaceCharacters(inText: field.text ?? "", range: range, withCharacters: "")
+    open func deleteText(inRange range: NSRange, inTextInput field: UITextInput) -> Mask.Result {
+        let updatedText: String = replaceCharacters(inText: field.allText, range: range, withCharacters: "")
         let caretPosition: String.Index = updatedText.index(updatedText.startIndex, offsetBy: range.location)
-        
+
         let mask: Mask = pickMask(
             forText: CaretString(string: updatedText, caretPosition: caretPosition),
             autocomplete: false
         )
-        
+
         let result: Mask.Result = mask.apply(
             toText: CaretString(string: updatedText, caretPosition: caretPosition),
             autocomplete: false
         )
         
-        field.text = result.formattedText.string
-        field.cursorPosition = range.location
+        field.allText = result.formattedText.string
+        field.caretPosition = range.location
         
         return result
     }
     
-    open func modifyText(inRange range: NSRange, inTextField field: UITextField, withText text: String) -> Mask.Result {
-        let updatedText: String = replaceCharacters(inText: field.text ?? "", range: range, withCharacters: text)
+    open func modifyText(inRange range: NSRange, inTextInput field: UITextInput, withText text: String) -> Mask.Result {
+        let updatedText: String = replaceCharacters(inText: field.allText, range: range, withCharacters: text)
         let caretPosition: String.Index = updatedText.index(
             updatedText.startIndex,
-            offsetBy: field.cursorPosition + text.count
+            offsetBy: field.caretPosition + text.count
         )
         
         let mask: Mask = pickMask(
@@ -237,8 +181,8 @@ open class MaskedTextFieldDelegate: NSObject, UITextFieldDelegate {
             autocomplete: autocomplete
         )
         
-        field.text = result.formattedText.string
-        field.cursorPosition = result.formattedText.string.distance(
+        field.allText = result.formattedText.string
+        field.caretPosition = result.formattedText.string.distance(
             from: result.formattedText.string.startIndex,
             to: result.formattedText.caretPosition
         )
@@ -261,19 +205,19 @@ open class MaskedTextFieldDelegate: NSObject, UITextFieldDelegate {
     open func pickMask(forText text: CaretString, autocomplete: Bool) -> Mask {
         guard !affineFormats.isEmpty
         else { return primaryMask }
-        
+
         let primaryAffinity: Int = affinityCalculationStrategy.calculateAffinity(ofMask: primaryMask, forText: text, autocomplete: autocomplete)
         
         var masksAndAffinities: [MaskAndAffinity] = affineFormats.map { (affineFormat: String) -> MaskAndAffinity in
             let mask = try! Mask.getOrCreate(withFormat: affineFormat, customNotations: customNotations)
             let affinity = affinityCalculationStrategy.calculateAffinity(ofMask: mask, forText: text, autocomplete: autocomplete)
             return MaskAndAffinity(mask: mask, affinity: affinity)
-            }.sorted { (left: MaskAndAffinity, right: MaskAndAffinity) -> Bool in
-                return left.affinity > right.affinity
+        }.sorted { (left: MaskAndAffinity, right: MaskAndAffinity) -> Bool in
+            return left.affinity > right.affinity
         }
         
         var insertIndex: Int = -1
-        
+
         for (index, maskAndAffinity) in masksAndAffinities.enumerated() {
             if primaryAffinity >= maskAndAffinity.affinity {
                 insertIndex = index
@@ -290,21 +234,21 @@ open class MaskedTextFieldDelegate: NSObject, UITextFieldDelegate {
         return masksAndAffinities.first!.mask
     }
     
-    open func notifyOnMaskedTextChangedListeners(forTextField textField: UITextField, result: Mask.Result) {
-        listener?.textField?(textField, didFillMandatoryCharacters: result.complete, didExtractValue: result.extractedValue)
-        onMaskedTextChangedCallback?(textField, result.extractedValue, result.complete)
+    open func notifyOnMaskedTextChangedListeners(forTextInput textInput: UITextInput, result: Mask.Result) {
+        listener?.textInput(textInput, didExtractValue: result.extractedValue, didFillMandatoryCharacters: result.complete)
+        onMaskedTextChangedCallback?(textInput, result.extractedValue, result.complete)
     }
-    
+
     private struct MaskAndAffinity {
         let mask: Mask
         let affinity: Int
     }
-    
+
     /**
      Workaround to support Interface Builder delegate outlets.
-     
+
      Allows assigning ```MaskedTextFieldDelegate.listener``` within the Interface Builder.
-     
+
      Consider using ```MaskedTextFieldDelegate.listener``` property from your source code instead of
      ```MaskedTextFieldDelegate.delegate``` outlet.
      */
@@ -312,12 +256,64 @@ open class MaskedTextFieldDelegate: NSObject, UITextFieldDelegate {
         get {
             return self.listener as? NSObject
         }
-        
+
         set(newDelegate) {
-            if let listener = newDelegate as? MaskedTextFieldDelegateListener {
+            if let listener = newDelegate as? OnMaskedTextChangedListener {
                 self.listener = listener
             }
         }
     }
-    
+
+}
+
+
+@available(iOS 11, *)
+extension MaskedTextInputListener: UITextFieldDelegate {
+
+    public func textFieldDidBeginEditing(_ textField: UITextField) {
+        if autocompleteOnFocus && (textField.text ?? "").isEmpty {
+            let result: Mask.Result = put(text: "", into: textField, autocomplete: true)
+            notifyOnMaskedTextChangedListeners(forTextInput: textField, result: result)
+        }
+    }
+
+    public func textField(
+        _ textField: UITextField,
+        shouldChangeCharactersIn range: NSRange,
+        replacementString string: String
+    ) -> Bool {
+        let result: Mask.Result = textInput(textField, isChangingCharactersIn: range, replacementString: string)
+        notifyOnMaskedTextChangedListeners(forTextInput: textField, result: result)
+        return false
+    }
+
+    public func textFieldShouldClear(_ textField: UITextField) -> Bool {
+        let result: Mask.Result = put(text: "", into: textField, autocomplete: false)
+        notifyOnMaskedTextChangedListeners(forTextInput: textField, result: result)
+        return true
+    }
+
+}
+
+
+@available(iOS 11, *)
+extension MaskedTextInputListener: UITextViewDelegate {
+
+    public func textViewDidBeginEditing(_ textView: UITextView) {
+        if autocompleteOnFocus && textView.text.isEmpty {
+            let result: Mask.Result = put(text: "", into: textView, autocomplete: true)
+            notifyOnMaskedTextChangedListeners(forTextInput: textView, result: result)
+        }
+    }
+
+    public func textView(
+        _ textView: UITextView,
+        shouldChangeTextIn range: NSRange,
+        replacementText text: String
+    ) -> Bool {
+        let result: Mask.Result = textInput(textView, isChangingCharactersIn: range, replacementString: text)
+        notifyOnMaskedTextChangedListeners(forTextInput: textView, result: result)
+        return false
+    }
+
 }

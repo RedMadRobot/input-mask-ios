@@ -10,7 +10,7 @@ import Foundation
 /**
  Utility extension for comonly used ```Mask``` operations upon strings.
  */
-extension String {
+public extension String {
     
     /**
      Make a string by cutting the first character of current.
@@ -19,8 +19,27 @@ extension String {
      
      - throws: EXC_BAD_INSTRUCTION for empty strings.
      */
-    func truncateFirst() -> String {
+    public func truncateFirst() -> String {
         return String(self[self.index(after: self.startIndex)...])
+    }
+    
+    /**
+     Find common prefix.
+     */
+    public func prefixIntersection(with string: String) -> Substring {
+        var lhsIndex = startIndex
+        var rhsIndex = string.startIndex
+        
+        while lhsIndex != endIndex && rhsIndex != string.endIndex {
+            if self[...lhsIndex] == string[...rhsIndex] {
+                lhsIndex = index(after: lhsIndex)
+                rhsIndex = string.index(after: rhsIndex)
+            } else {
+                return self[..<lhsIndex]
+            }
+        }
+        
+        return self[..<lhsIndex]
     }
     
     /**
@@ -43,7 +62,6 @@ extension String {
                     }
                 }
         )
-
     }
     
 }
