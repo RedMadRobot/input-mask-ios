@@ -11,9 +11,10 @@ import UIKit
 /**
  Common logic for UITextField and UITextView.
  */
-extension UITextInput {
+@available(iOS 11, *)
+public extension UITextInput {
     
-    var allText: String {
+    public var allText: String {
         get {
             guard let all: UITextRange = allTextRange
             else { return "" }
@@ -27,7 +28,7 @@ extension UITextInput {
         }
     }
     
-    var caretPosition: Int {
+    public var caretPosition: Int {
         get {
             if let responder = self as? UIResponder {
                 // Workaround for non-optional `beginningOfDocument`, which could actually be nil if field doesn't have focus
@@ -60,12 +61,7 @@ extension UITextInput {
         }
     }
     
-}
-
-
-private extension UITextInput {
-    
-    var allTextRange: UITextRange? {
+    public var allTextRange: UITextRange? {
         return self.textRange(from: self.beginningOfDocument, to: self.endOfDocument)
     }
     
