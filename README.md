@@ -438,7 +438,7 @@ In case you are wondering why do we have two separate `UITextFieldDelegate` and 
 
 Both had the same [bug](http://jon-nolen.blogspot.com/2013/10/uitextview-returns-nil-for-uitextinput.html) with the `UITextInput.beginningOfDocument` property, which rendered impossible to use the generic `UITextInput` protocol `UITextField` and `UITextView` have in common.
 
-Since **iOS 11** most of the things received their fixes (except for the `UITextView` edge case). In case your project is not going to support anything below 11, consider using the modern `MaskedTextInputListener`.
+Since **iOS 11** most of the things received their fixes (except for the `UITextView` [edge case](https://github.com/RedMadRobot/input-mask-ios/blob/master/Source/InputMask/InputMask/Classes/View/MaskedTextInputListener.swift#L140)). In case your project is not going to support anything below 11, consider using the modern `MaskedTextInputListener`.
 
 # License
 
