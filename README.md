@@ -150,7 +150,7 @@ You put your additional mask formats into the `affineFormats` property:
 
 ``` swift
 open class ViewController: UIViewController, MaskedTextFieldDelegateListener {
-    @IBOutlet weak var listener: PolyMaskTextFieldDelegate!
+    @IBOutlet weak var listener: MaskedTextFieldDelegate!
     
     open override func viewDidLoad() {
         super.viewDidLoad()
@@ -249,7 +249,7 @@ For your convenience, `MaskedTextFieldDelegate` and its children now contains a 
 
 ```swift
 class ViewController: UIViewController {
-    @IBOutlet weak var listener: PolyMaskTextFieldDelegate!
+    @IBOutlet weak var listener: MaskedTextFieldDelegate!
     
     open override func viewDidLoad() {
         super.viewDidLoad()
@@ -375,7 +375,7 @@ All the features mentioned above are fully supported for the `UITextView` compon
 
 ## `UITextFieldTextDidChange` notification and target-action `editingChanged` event
 
-`UITextField` with assigned `MaskedTextFieldDelegate` or `PolyMaskTextFieldDelegate` object won't issue `UITextFieldTextDidChange` notifications and `editingChanged` control events. This happens due to the `textField(_:shouldChangeCharactersIn:replacementString:)` method implementation, which always returns `false`.
+`UITextField` with assigned `MaskedTextFieldDelegate` object won't issue `UITextFieldTextDidChange` notifications and `editingChanged` control events. This happens due to the `textField(_:shouldChangeCharactersIn:replacementString:)` method implementation, which always returns `false`.
 
 Consider using following workaround in case if you do really need to catch editing events:
 
