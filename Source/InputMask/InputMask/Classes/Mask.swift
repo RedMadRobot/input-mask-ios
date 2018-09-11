@@ -96,6 +96,26 @@ public class Mask: CustomDebugStringConvertible, CustomStringConvertible {
     }
     
     /**
+     Validate format string.
+     
+     - parameter format: format string to check
+     
+     - returns: bool value representing correctness of format string
+     */
+    public static func isValid(format: String) -> Bool {
+        if let _ = cache[format] {
+            return true
+        } else {
+            if let mask: Mask = try? Mask(format: format, customNotations: [Notation]()) {
+                cache[format] = mask
+                return true
+            } else {
+                return false
+            }
+        }
+    }
+    
+    /**
      Apply mask to the user input string.
      
      - parameter toText: user input string with current cursor position
