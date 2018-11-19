@@ -13,7 +13,7 @@
 <img src="https://raw.githubusercontent.com/RedMadRobot/input-mask-ios/assets/Assets/phone_input.gif" alt="Input Mask" width="640" />
 
 ## Description
-The library allows to format user input on the fly according to the provided mask and to extract valueable characters.
+The library allows to format user input on the fly according to the provided mask and to extract valuable characters.
 
 Mask examples:
 
@@ -26,7 +26,7 @@ Mask examples:
 
 Masks consist of blocks of symbols, which may include:
 
-* `[]` — a square brackets block for valueable symbols written by user. 
+* `[]` — a square brackets block for valuable symbols written by user. 
 
 Square brackets block may contain any number of special symbols:
 
@@ -47,9 +47,9 @@ Blocks must not contain nested brackets. `[[00]000]` format will cause a mask in
 Symbols outside the square brackets will take a place in the output.
 For instance, `+7 ([000]) [000]-[0000]` mask will format the input field to the form of `+7 (123) 456-7890`. 
 
-* `{}` — a block for valueable yet fixed symbols, which could not be altered by the user.
+* `{}` — a block for valuable yet fixed symbols, which could not be altered by the user.
 
-Symbols within the square and curly brackets form an extracted value (or «valueable characters»).
+Symbols within the square and curly brackets form an extracted value (or «valuable characters»).
 In other words, `[00]-[00]` and `[00]{-}[00]` will form the same output `12-34`, 
 but in the first case the value, extracted by the library, will be equal to `1234`, and in the second case it will result in `12-34`. 
 
@@ -166,7 +166,7 @@ You may also want to set the `affinityCalculationStrategy`. `AffinityCalculation
 
 ## String formatting without views
 
-In case you want to format a `String` somewhere in your applicaiton's code, `Mask` is the class you are looking for.
+In case you want to format a `String` somewhere in your application's code, `Mask` is the class you are looking for.
 Instantiate a `Mask` instance and feed it with your string, mocking the cursor position:
 
 ```swift
@@ -191,7 +191,7 @@ previous character in format string. Masks like `[A…]` or `[a…]` will allow 
 
 Be aware that ellipsis doesn't count as a required character. Also, ellipsis works as a string terminator, such that mask `[0…][AAA]`
 filled with a single digit returns `true` in `Result.complete`, yet continues to accept **digits** (not letters!). Characters after the ellipsis are compiled into the mask but 
-never actually used; `[AAA]` in the `[0…][AAA]` mask is pretty much useless.
+never actually used; `[AAA]` part of the `[0…][AAA]` mask is pretty much useless.
 
 Elliptical format examples: 
 
@@ -293,7 +293,7 @@ Notation(character: ".", characterSet: CharacterSet(charactersIn: "."), isOption
 
 ### An email (please use regular expressions instead)
 
-With optional and mantatory "**d**ots" and "at" symbol.
+With optional and mandatory "**d**ots" and "at" symbol.
 
 Mask: `[aaaaaaaaaa][d][aaaaaaaaaa][@][aaaaaaaaaa][d][aaaaaaaaaa][D][aaaaaaaaaa]`
 
