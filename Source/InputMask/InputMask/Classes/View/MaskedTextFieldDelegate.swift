@@ -224,7 +224,7 @@ open class MaskedTextFieldDelegate: NSObject, UITextFieldDelegate {
         let updatedText: String = replaceCharacters(inText: field.text ?? "", range: range, withCharacters: text)
         let caretPosition: String.Index = updatedText.index(
             updatedText.startIndex,
-            offsetBy: field.cursorPosition + text.count
+            offsetBy: range.location + text.count
         )
         
         let mask: Mask = pickMask(
