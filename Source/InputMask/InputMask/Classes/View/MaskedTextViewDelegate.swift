@@ -235,7 +235,7 @@ open class MaskedTextViewDelegate: NSObject, UITextViewDelegate {
         let updatedText: String = replaceCharacters(inText: textView.text, range: range, withCharacters: text)
         let caretPosition: String.Index = updatedText.index(
             updatedText.startIndex,
-            offsetBy: textView.cursorPosition + text.count
+            offsetBy: range.location + text.count
         )
         
         let mask: Mask = pickMask(

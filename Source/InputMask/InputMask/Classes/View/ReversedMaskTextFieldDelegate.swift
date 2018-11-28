@@ -85,7 +85,7 @@ open class ReversedMaskTextFieldDelegate: MaskedTextFieldDelegate {
         )
         
         let reversedText: String = String(updatedText.reversed())
-        let reversedCaretPosition: String.Index = reversedText.index(reversedText.endIndex, offsetBy: -(field.cursorPosition + text.count))
+        let reversedCaretPosition: String.Index = reversedText.index(reversedText.endIndex, offsetBy: -(range.location + text.count))
         
         let result: Mask.Result = primaryMask.apply(
             toText: CaretString(
