@@ -53,10 +53,22 @@ public class Mask: CustomDebugStringConvertible, CustomStringConvertible {
         public var description: String {
             return self.debugDescription
         }
+
+        /**
+         Produce a reversed ```Result``` with reversed formatted text (```CaretString```) and reversed extracted value.
+         */
+        func reversed() -> Result {
+            return Result(
+                formattedText: self.formattedText.reversed(),
+                extractedValue: self.extractedValue.reversed,
+                affinity: affinity,
+                complete: complete
+            )
+        }
     }
     
     private let initialState: State
-    private static var cache: [String : Mask] = [:]
+    private static var cache: [String: Mask] = [:]
     
     /**
      Constructor.
@@ -81,7 +93,7 @@ public class Mask: CustomDebugStringConvertible, CustomStringConvertible {
      - returns: Previously cached ```Mask``` object for requested format string. If such it doesn't exist in cache, the
      object is constructed, cached and returned.
      */
-    public static func getOrCreate(withFormat format: String, customNotations: [Notation] = []) throws -> Mask {
+    public class func getOrCreate(withFormat format: String, customNotations: [Notation] = []) throws -> Mask {
         if let cachedMask: Mask = cache[format] {
             return cachedMask
         } else {
@@ -99,7 +111,7 @@ public class Mask: CustomDebugStringConvertible, CustomStringConvertible {
      - returns: Formatted text with extracted value an adjusted cursor position.
      */
     public func apply(toText text: CaretString, autocomplete: Bool = false) -> Result {
-        let iterator: CaretStringIterator = CaretStringIterator(caretString: text)
+        let iterator: CaretStringIterator = self.makeIterator(forText: text)
         
         var affinity:               Int     = 0
         var extractedValue:         String  = ""
@@ -224,6 +236,10 @@ public class Mask: CustomDebugStringConvertible, CustomStringConvertible {
     
     public var description: String {
         return self.debugDescription
+    }
+    
+    func makeIterator(forText text: CaretString) -> CaretStringIterator {
+        return CaretStringIterator(caretString: text)
     }
     
 }

@@ -41,23 +41,25 @@ open class MaskedTextViewDelegate: NSObject, UITextViewDelegate {
     
     open weak var listener: MaskedTextViewDelegateListener?
     open var onMaskedTextChangedCallback: ((_ textField: UITextView, _ value: String, _ complete: Bool) -> ())?
-    
-    @IBInspectable open var primaryMaskFormat: String
-    @IBInspectable open var autocomplete: Bool
+
+    @IBInspectable open var primaryMaskFormat:   String
+    @IBInspectable open var autocomplete:        Bool
     @IBInspectable open var autocompleteOnFocus: Bool
-    
-    open var affineFormats: [String]
+    @IBInspectable open var rightToLeft:         Bool
+
+    open var affineFormats:               [String]
     open var affinityCalculationStrategy: AffinityCalculationStrategy
-    open var customNotations: [Notation]
+    open var customNotations:             [Notation]
     
     open var primaryMask: Mask {
-        return try! Mask.getOrCreate(withFormat: primaryMaskFormat, customNotations: customNotations)
+        return try! maskGetOrCreate(withFormat: primaryMaskFormat, customNotations: customNotations)
     }
     
     public init(
         primaryFormat: String = "",
         autocomplete: Bool = true,
         autocompleteOnFocus: Bool = true,
+        rightToLeft: Bool = false,
         affineFormats: [String] = [],
         affinityCalculationStrategy: AffinityCalculationStrategy = .wholeString,
         customNotations: [Notation] = [],
@@ -66,6 +68,7 @@ open class MaskedTextViewDelegate: NSObject, UITextViewDelegate {
         self.primaryMaskFormat = primaryFormat
         self.autocomplete = autocomplete
         self.autocompleteOnFocus = autocompleteOnFocus
+        self.rightToLeft = rightToLeft
         self.affineFormats = affineFormats
         self.affinityCalculationStrategy = affinityCalculationStrategy
         self.customNotations = customNotations
@@ -273,7 +276,7 @@ open class MaskedTextViewDelegate: NSObject, UITextViewDelegate {
         let primaryAffinity: Int = affinityCalculationStrategy.calculateAffinity(ofMask: primaryMask, forText: text, autocomplete: autocomplete)
         
         var masksAndAffinities: [MaskAndAffinity] = affineFormats.map { (affineFormat: String) -> MaskAndAffinity in
-            let mask = try! Mask.getOrCreate(withFormat: affineFormat, customNotations: customNotations)
+            let mask = try! maskGetOrCreate(withFormat: affineFormat, customNotations: customNotations)
             let affinity = affinityCalculationStrategy.calculateAffinity(ofMask: mask, forText: text, autocomplete: autocomplete)
             return MaskAndAffinity(mask: mask, affinity: affinity)
         }.sorted { (left: MaskAndAffinity, right: MaskAndAffinity) -> Bool in
@@ -301,6 +304,13 @@ open class MaskedTextViewDelegate: NSObject, UITextViewDelegate {
     open func notifyOnMaskedTextChangedListeners(forTextView textView: UITextView, result: Mask.Result) {
         listener?.textView?(textView, didFillMandatoryCharacters: result.complete, didExtractValue: result.extractedValue)
         onMaskedTextChangedCallback?(textView, result.extractedValue, result.complete)
+    }
+
+    private func maskGetOrCreate(withFormat format: String, customNotations: [Notation]) throws -> Mask {
+        if rightToLeft {
+            return try RTLMask.getOrCreate(withFormat: format, customNotations: customNotations)
+        }
+        return try Mask.getOrCreate(withFormat: format, customNotations: customNotations)
     }
     
     private struct MaskAndAffinity {

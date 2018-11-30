@@ -41,23 +41,25 @@ open class MaskedTextFieldDelegate: NSObject, UITextFieldDelegate {
 
     open weak var listener: MaskedTextFieldDelegateListener?
     open var onMaskedTextChangedCallback: ((_ textField: UITextField, _ value: String, _ complete: Bool) -> ())?
-    
-    @IBInspectable open var primaryMaskFormat: String
-    @IBInspectable open var autocomplete: Bool
+
+    @IBInspectable open var primaryMaskFormat:   String
+    @IBInspectable open var autocomplete:        Bool
     @IBInspectable open var autocompleteOnFocus: Bool
-    
-    open var affineFormats: [String]
+    @IBInspectable open var rightToLeft:         Bool
+
+    open var affineFormats:               [String]
     open var affinityCalculationStrategy: AffinityCalculationStrategy
-    open var customNotations: [Notation]
+    open var customNotations:             [Notation]
     
     open var primaryMask: Mask {
-        return try! Mask.getOrCreate(withFormat: primaryMaskFormat, customNotations: customNotations)
+        return try! maskGetOrCreate(withFormat: primaryMaskFormat, customNotations: customNotations)
     }
     
     public init(
         primaryFormat: String = "",
         autocomplete: Bool = true,
         autocompleteOnFocus: Bool = true,
+        rightToLeft: Bool = false,
         affineFormats: [String] = [],
         affinityCalculationStrategy: AffinityCalculationStrategy = .wholeString,
         customNotations: [Notation] = [],
@@ -66,6 +68,7 @@ open class MaskedTextFieldDelegate: NSObject, UITextFieldDelegate {
         self.primaryMaskFormat = primaryFormat
         self.autocomplete = autocomplete
         self.autocompleteOnFocus = autocompleteOnFocus
+        self.rightToLeft = rightToLeft
         self.affineFormats = affineFormats
         self.affinityCalculationStrategy = affinityCalculationStrategy
         self.customNotations = customNotations
@@ -126,7 +129,7 @@ open class MaskedTextFieldDelegate: NSObject, UITextFieldDelegate {
     @discardableResult
     open func put(text: String, into field: UITextField, autocomplete putAutocomplete: Bool? = nil) -> Mask.Result {
         let autocomplete: Bool = putAutocomplete ?? self.autocomplete
-        let mask: Mask = pickMask(forText: CaretString(string: text), autocomplete: autocomplete)
+        let mask:         Mask = pickMask(forText: CaretString(string: text), autocomplete: autocomplete)
         
         let result: Mask.Result = mask.apply(
             toText: CaretString(string: text),
@@ -200,7 +203,7 @@ open class MaskedTextFieldDelegate: NSObject, UITextFieldDelegate {
     }
     
     open func deleteText(inRange range: NSRange, inTextField field: UITextField) -> Mask.Result {
-        let updatedText: String = replaceCharacters(inText: field.text ?? "", range: range, withCharacters: "")
+        let updatedText:   String       = replaceCharacters(inText: field.text ?? "", range: range, withCharacters: "")
         let caretPosition: String.Index = updatedText.startIndex(offsetBy: range.location)
         
         let mask: Mask = pickMask(
@@ -220,10 +223,8 @@ open class MaskedTextFieldDelegate: NSObject, UITextFieldDelegate {
     }
     
     open func modifyText(inRange range: NSRange, inTextField field: UITextField, withText text: String) -> Mask.Result {
-        let updatedText: String = replaceCharacters(inText: field.text ?? "", range: range, withCharacters: text)
-        let caretPosition: String.Index = updatedText.startIndex(
-            offsetBy: range.location + text.count
-        )
+        let updatedText:   String       = replaceCharacters(inText: field.text ?? "", range: range, withCharacters: text)
+        let caretPosition: String.Index = updatedText.startIndex(offsetBy: range.location + text.count)
         
         let mask: Mask = pickMask(
             forText: CaretString(string: updatedText, caretPosition: caretPosition),
@@ -262,7 +263,7 @@ open class MaskedTextFieldDelegate: NSObject, UITextFieldDelegate {
         let primaryAffinity: Int = affinityCalculationStrategy.calculateAffinity(ofMask: primaryMask, forText: text, autocomplete: autocomplete)
         
         var masksAndAffinities: [MaskAndAffinity] = affineFormats.map { (affineFormat: String) -> MaskAndAffinity in
-            let mask = try! Mask.getOrCreate(withFormat: affineFormat, customNotations: customNotations)
+            let mask = try! maskGetOrCreate(withFormat: affineFormat, customNotations: customNotations)
             let affinity = affinityCalculationStrategy.calculateAffinity(ofMask: mask, forText: text, autocomplete: autocomplete)
             return MaskAndAffinity(mask: mask, affinity: affinity)
         }.sorted { (left: MaskAndAffinity, right: MaskAndAffinity) -> Bool in
@@ -290,6 +291,13 @@ open class MaskedTextFieldDelegate: NSObject, UITextFieldDelegate {
     open func notifyOnMaskedTextChangedListeners(forTextField textField: UITextField, result: Mask.Result) {
         listener?.textField?(textField, didFillMandatoryCharacters: result.complete, didExtractValue: result.extractedValue)
         onMaskedTextChangedCallback?(textField, result.extractedValue, result.complete)
+    }
+
+    private func maskGetOrCreate(withFormat format: String, customNotations: [Notation]) throws -> Mask {
+        if rightToLeft {
+            return try RTLMask.getOrCreate(withFormat: format, customNotations: customNotations)
+        }
+        return try Mask.getOrCreate(withFormat: format, customNotations: customNotations)
     }
     
     private struct MaskAndAffinity {

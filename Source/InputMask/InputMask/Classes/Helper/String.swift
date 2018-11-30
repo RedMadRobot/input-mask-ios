@@ -11,6 +11,13 @@ import Foundation
  Utility extension for commonly used ```Mask``` operations upon strings.
  */
 public extension String {
+
+    /**
+     A shortcut for ```String(str.reversed())```.
+     */
+    var reversed: String {
+        return String(self.reversed())
+    }
     
     /**
      Make a string by cutting the first character of current.

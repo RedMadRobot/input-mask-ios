@@ -21,22 +21,24 @@ open class MaskedTextInputListener: NSObject {
     open weak var listener: OnMaskedTextChangedListener?
     open var onMaskedTextChangedCallback: ((_ textInput: UITextInput, _ value: String, _ complete: Bool) -> ())?
 
-    @IBInspectable open var primaryMaskFormat: String
-    @IBInspectable open var autocomplete: Bool
+    @IBInspectable open var primaryMaskFormat:   String
+    @IBInspectable open var autocomplete:        Bool
     @IBInspectable open var autocompleteOnFocus: Bool
+    @IBInspectable open var rightToLeft:         Bool
 
-    open var affineFormats: [String]
+    open var affineFormats:               [String]
     open var affinityCalculationStrategy: AffinityCalculationStrategy
-    open var customNotations: [Notation]
+    open var customNotations:             [Notation]
     
     open var primaryMask: Mask {
-        return try! Mask.getOrCreate(withFormat: primaryMaskFormat, customNotations: customNotations)
+        return try! maskGetOrCreate(withFormat: primaryMaskFormat, customNotations: customNotations)
     }
     
     public init(
         primaryFormat: String = "",
         autocomplete: Bool = true,
         autocompleteOnFocus: Bool = true,
+        rightToLeft: Bool = false,
         affineFormats: [String] = [],
         affinityCalculationStrategy: AffinityCalculationStrategy = .wholeString,
         customNotations: [Notation] = [],
@@ -45,6 +47,7 @@ open class MaskedTextInputListener: NSObject {
         self.primaryMaskFormat = primaryFormat
         self.autocomplete = autocomplete
         self.autocompleteOnFocus = autocompleteOnFocus
+        self.rightToLeft = rightToLeft
         self.affineFormats = affineFormats
         self.affinityCalculationStrategy = affinityCalculationStrategy
         self.customNotations = customNotations
@@ -165,9 +168,7 @@ open class MaskedTextInputListener: NSObject {
     
     open func modifyText(inRange range: NSRange, inTextInput field: UITextInput, withText text: String) -> Mask.Result {
         let updatedText: String = replaceCharacters(inText: field.allText, range: range, withCharacters: text)
-        let caretPosition: String.Index = updatedText.startIndex(
-            offsetBy: range.location + text.count
-        )
+        let caretPosition: String.Index = updatedText.startIndex(offsetBy: range.location + text.count)
         
         let mask: Mask = pickMask(
             forText: CaretString(string: updatedText, caretPosition: caretPosition),
@@ -206,7 +207,7 @@ open class MaskedTextInputListener: NSObject {
         let primaryAffinity: Int = affinityCalculationStrategy.calculateAffinity(ofMask: primaryMask, forText: text, autocomplete: autocomplete)
         
         var masksAndAffinities: [MaskAndAffinity] = affineFormats.map { (affineFormat: String) -> MaskAndAffinity in
-            let mask = try! Mask.getOrCreate(withFormat: affineFormat, customNotations: customNotations)
+            let mask = try! maskGetOrCreate(withFormat: affineFormat, customNotations: customNotations)
             let affinity = affinityCalculationStrategy.calculateAffinity(ofMask: mask, forText: text, autocomplete: autocomplete)
             return MaskAndAffinity(mask: mask, affinity: affinity)
         }.sorted { (left: MaskAndAffinity, right: MaskAndAffinity) -> Bool in
@@ -234,6 +235,13 @@ open class MaskedTextInputListener: NSObject {
     open func notifyOnMaskedTextChangedListeners(forTextInput textInput: UITextInput, result: Mask.Result) {
         listener?.textInput(textInput, didExtractValue: result.extractedValue, didFillMandatoryCharacters: result.complete)
         onMaskedTextChangedCallback?(textInput, result.extractedValue, result.complete)
+    }
+
+    private func maskGetOrCreate(withFormat format: String, customNotations: [Notation]) throws -> Mask {
+        if rightToLeft {
+            return try RTLMask.getOrCreate(withFormat: format, customNotations: customNotations)
+        }
+        return try Mask.getOrCreate(withFormat: format, customNotations: customNotations)
     }
 
     private struct MaskAndAffinity {

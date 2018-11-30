@@ -39,6 +39,9 @@
 		8A3C8C0A21B14E7400CDBDE1 /* StringTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A3C8C0921B14E7400CDBDE1 /* StringTests.swift */; };
 		8A4CDCCD210999C6005B2FA6 /* UITextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A4CDCCC210999C6005B2FA6 /* UITextField.swift */; };
 		8A4CDCCF21099A71005B2FA6 /* UITextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A4CDCCE21099A71005B2FA6 /* UITextView.swift */; };
+		8A3C8C0D21B1529D00CDBDE1 /* LargeNumberTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A3C8C0C21B1529D00CDBDE1 /* LargeNumberTests.swift */; };
+		8A3C8C0F21B1841500CDBDE1 /* RTLMask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A3C8C0E21B1841500CDBDE1 /* RTLMask.swift */; };
+		8A3C8C1121B1993B00CDBDE1 /* RTLCaretStringIterator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A3C8C1021B1993B00CDBDE1 /* RTLCaretStringIterator.swift */; };
 		8A4CDCD121099B6D005B2FA6 /* MaskedTextInputListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A4CDCD021099B6D005B2FA6 /* MaskedTextInputListener.swift */; };
 		8A4CDCD32109C0D4005B2FA6 /* AffinityCalculationStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A4CDCD22109C0D4005B2FA6 /* AffinityCalculationStrategy.swift */; };
 		8A4CDCD42109C2D0005B2FA6 /* AffinityCalculationStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A4CDCD22109C0D4005B2FA6 /* AffinityCalculationStrategy.swift */; };
@@ -95,7 +98,10 @@
 		8A1E3C561D64847D00589799 /* OptionalValueState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OptionalValueState.swift; sourceTree = "<group>"; };
 		8A1E3C5C1D648A0F00589799 /* DayMonthYearShortCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DayMonthYearShortCase.swift; sourceTree = "<group>"; };
 		8A1E3C5F1D648C9E00589799 /* FormatSanitizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormatSanitizer.swift; sourceTree = "<group>"; };
-		8A3C8C0921B14E7400CDBDE1 /* StringTests.swift */ = {isa = PBXFileReference; indentWidth = 4; lastKnownFileType = sourcecode.swift; path = StringTests.swift; sourceTree = "<group>"; tabWidth = 4; };
+		8A3C8C0921B14E7400CDBDE1 /* StringTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringTests.swift; sourceTree = "<group>"; };
+		8A3C8C0C21B1529D00CDBDE1 /* LargeNumberTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LargeNumberTests.swift; sourceTree = "<group>"; usesTabs = 0; };
+		8A3C8C0E21B1841500CDBDE1 /* RTLMask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RTLMask.swift; sourceTree = "<group>"; };
+		8A3C8C1021B1993B00CDBDE1 /* RTLCaretStringIterator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RTLCaretStringIterator.swift; sourceTree = "<group>"; };
 		8A4CDCCC210999C6005B2FA6 /* UITextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextField.swift; sourceTree = "<group>"; };
 		8A4CDCCE21099A71005B2FA6 /* UITextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextView.swift; sourceTree = "<group>"; };
 		8A4CDCD021099B6D005B2FA6 /* MaskedTextInputListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaskedTextInputListener.swift; sourceTree = "<group>"; };
@@ -191,6 +197,14 @@
 			path = Helper;
 			sourceTree = "<group>";
 		};
+		8A3C8C0B21B1526D00CDBDE1 /* Reversed */ = {
+			isa = PBXGroup;
+			children = (
+				8A3C8C0C21B1529D00CDBDE1 /* LargeNumberTests.swift */,
+			);
+			path = Reversed;
+			sourceTree = "<group>";
+		};
 		8A808EC11D5B0FEC00A75B9C = {
 			isa = PBXGroup;
 			children = (
@@ -227,6 +241,7 @@
 				8A808F001D5B15DF00A75B9C /* Model */,
 				8A01854B1D64AB9B007B5EBD /* View */,
 				8A1E3C531D64807800589799 /* Mask.swift */,
+				8A3C8C0E21B1841500CDBDE1 /* RTLMask.swift */,
 				8A808EFA1D5B110300A75B9C /* InputMask.h */,
 			);
 			path = Classes;
@@ -272,9 +287,10 @@
 			children = (
 				8A4CDCD22109C0D4005B2FA6 /* AffinityCalculationStrategy.swift */,
 				8A1E3C4C1D64649200589799 /* CaretStringIterator.swift */,
+				8A83CCAF1D5B579800C0184F /* CharacterSet.swift */,
 				8AB1E8881D63753E00892C3B /* Compiler.swift */,
 				8A1E3C5F1D648C9E00589799 /* FormatSanitizer.swift */,
-				8A83CCAF1D5B579800C0184F /* CharacterSet.swift */,
+				8A3C8C1021B1993B00CDBDE1 /* RTLCaretStringIterator.swift */,
 				8A83CCB21D5B5E1F00C0184F /* String.swift */,
 			);
 			path = Helper;
@@ -295,6 +311,7 @@
 		8A808F071D5B1A8100A75B9C /* Mask */ = {
 			isa = PBXGroup;
 			children = (
+				8A3C8C0B21B1526D00CDBDE1 /* Reversed */,
 				8A1256F120BE95CB005E3324 /* CustomNotationEllipticalCase.swift */,
 				8A1E3C4F1D647BA800589799 /* DayMonthYearCase.swift */,
 				8A1E3C5C1D648A0F00589799 /* DayMonthYearShortCase.swift */,
@@ -498,12 +515,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				8AB1E8961D6378D400892C3B /* ValueState.swift in Sources */,
+				8A3C8C1121B1993B00CDBDE1 /* RTLCaretStringIterator.swift in Sources */,
 				8A1E3C541D64807800589799 /* Mask.swift in Sources */,
 				8AB1E8991D637BFD00892C3B /* FixedState.swift in Sources */,
 				8A1DD0B1210108A7008BAE2A /* MaskedTextViewDelegate.swift in Sources */,
 				8A1E3C571D64847D00589799 /* OptionalValueState.swift in Sources */,
 				8AB1E8901D6375FC00892C3B /* EOLState.swift in Sources */,
 				8A4CDCCF21099A71005B2FA6 /* UITextView.swift in Sources */,
+				8A3C8C0F21B1841500CDBDE1 /* RTLMask.swift in Sources */,
 				8A83CCB31D5B5E1F00C0184F /* String.swift in Sources */,
 				8A01854D1D64ABCC007B5EBD /* MaskedTextFieldDelegate.swift in Sources */,
 				8A1E3C4D1D64649200589799 /* CaretStringIterator.swift in Sources */,
@@ -528,6 +547,7 @@
 			files = (
 				8A4EC4C220893C4500CDDBF7 /* SillyEllipticalCase.swift in Sources */,
 				8A4EC4C0208931D300CDDBF7 /* EndlessIntegerCase.swift in Sources */,
+				8A3C8C0D21B1529D00CDBDE1 /* LargeNumberTests.swift in Sources */,
 				8A1E3C501D647BA800589799 /* DayMonthYearCase.swift in Sources */,
 				8A4EC4BC2089255200CDDBF7 /* NameCase.swift in Sources */,
 				8A076E04209275750056476F /* DecimalNumberCase.swift in Sources */,

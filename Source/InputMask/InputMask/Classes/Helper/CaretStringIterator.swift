@@ -17,8 +17,8 @@ import Foundation
  */
 class CaretStringIterator {
     
-    private let caretString: CaretString
-    private var currentIndex: String.Index
+    let caretString: CaretString
+    var currentIndex: String.Index
     
     /**
      Constructor

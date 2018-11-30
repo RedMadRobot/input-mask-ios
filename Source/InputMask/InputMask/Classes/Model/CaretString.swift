@@ -51,6 +51,19 @@ public struct CaretString: CustomDebugStringConvertible, CustomStringConvertible
     public var description: String {
         return self.debugDescription
     }
+
+    /**
+     Creates a reversed ```CaretString``` instance with reversed string and corresponding caret position.
+     */
+    func reversed() -> CaretString {
+        let reversedString:        String       = self.string.reversed
+        let caretPositionInt:      Int          = self.string.distanceFromStartIndex(to: self.caretPosition)
+        let reversedCaretPosition: String.Index = reversedString.startIndex(offsetBy: self.string.count - caretPositionInt)
+        return CaretString(
+            string: reversedString,
+            caretPosition: reversedCaretPosition
+        )
+    }
     
 }
 
