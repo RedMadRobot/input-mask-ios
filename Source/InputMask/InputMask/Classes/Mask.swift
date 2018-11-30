@@ -47,15 +47,11 @@ public class Mask: CustomDebugStringConvertible, CustomStringConvertible {
         public let complete: Bool
         
         public var debugDescription: String {
-            get {
-                return "FORMATTED TEXT: \(self.formattedText)\nEXTRACTED VALUE: \(self.extractedValue)\nAFFINITY: \(self.affinity)\nCOMPLETE: \(self.complete)"
-            }
+            return "FORMATTED TEXT: \(self.formattedText)\nEXTRACTED VALUE: \(self.extractedValue)\nAFFINITY: \(self.affinity)\nCOMPLETE: \(self.complete)"
         }
         
         public var description: String {
-            get {
-                return self.debugDescription
-            }
+            return self.debugDescription
         }
     }
     
@@ -108,8 +104,7 @@ public class Mask: CustomDebugStringConvertible, CustomStringConvertible {
         var affinity:               Int     = 0
         var extractedValue:         String  = ""
         var modifiedString:         String  = ""
-        var modifiedCaretPosition:  Int     =
-            text.string.distance(from: text.string.startIndex, to: text.caretPosition) 
+        var modifiedCaretPosition:  Int     = text.string.distanceFromStartIndex(to: text.caretPosition)
         
         var state:       State      = self.initialState
         var beforeCaret: Bool       = iterator.beforeCaret()
@@ -152,7 +147,7 @@ public class Mask: CustomDebugStringConvertible, CustomStringConvertible {
         return Result(
             formattedText: CaretString(
                 string: modifiedString,
-                caretPosition: modifiedString.index(modifiedString.startIndex, offsetBy: modifiedCaretPosition)
+                caretPosition: modifiedString.startIndex(offsetBy: modifiedCaretPosition)
             ),
             extractedValue: extractedValue,
             affinity: affinity,
@@ -224,15 +219,11 @@ public class Mask: CustomDebugStringConvertible, CustomStringConvertible {
     }
     
     public var debugDescription: String {
-        get {
-            return self.initialState.debugDescription
-        }
+        return self.initialState.debugDescription
     }
     
     public var description: String {
-        get {
-            return self.debugDescription
-        }
+        return self.debugDescription
     }
     
 }

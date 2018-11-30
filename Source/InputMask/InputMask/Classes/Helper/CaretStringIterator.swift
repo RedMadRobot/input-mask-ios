@@ -63,9 +63,8 @@ class CaretStringIterator {
      - returns: ```True```, if current iterator position is less than or equal to ```CaretString.caretPosition```
      */
     func beforeCaret() -> Bool {
-        let startIndex:     String.Index = self.caretString.string.startIndex
-        let currentIndex:   Int          = self.caretString.string.distance(from: startIndex, to: self.currentIndex)
-        let caretPosition:  Int          = self.caretString.string.distance(from: startIndex, to: self.caretString.caretPosition)
+        let currentIndex:  Int = self.caretString.string.distanceFromStartIndex(to: self.currentIndex)
+        let caretPosition: Int = self.caretString.string.distanceFromStartIndex(to: self.caretString.caretPosition)
         
         return self.currentIndex <= self.caretString.caretPosition
             || (0 == currentIndex && 0 == caretPosition)

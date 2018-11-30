@@ -129,13 +129,12 @@ open class MaskedTextViewDelegate: NSObject, UITextViewDelegate {
         let mask: Mask = pickMask(forText: CaretString(string: text), autocomplete: autocomplete)
         
         let result: Mask.Result = mask.apply(
-            toText: CaretString(string: text, caretPosition: text.endIndex),
+            toText: CaretString(string: text),
             autocomplete: autocomplete
         )
         
         textView.text = result.formattedText.string
-        textView.cursorPosition = result.formattedText.string.distance(
-            from: result.formattedText.string.startIndex,
+        textView.cursorPosition = result.formattedText.string.distanceFromStartIndex(
             to: result.formattedText.caretPosition
         )
         
@@ -213,7 +212,7 @@ open class MaskedTextViewDelegate: NSObject, UITextViewDelegate {
     
     open func deleteText(inRange range: NSRange, inTextView textView: UITextView) -> Mask.Result {
         let updatedText: String = replaceCharacters(inText: textView.text, range: range, withCharacters: "")
-        let caretPosition: String.Index = updatedText.index(updatedText.startIndex, offsetBy: range.location)
+        let caretPosition: String.Index = updatedText.startIndex(offsetBy: range.location)
         
         let mask: Mask = pickMask(
             forText: CaretString(string: updatedText, caretPosition: caretPosition),
@@ -233,8 +232,7 @@ open class MaskedTextViewDelegate: NSObject, UITextViewDelegate {
     
     open func modifyText(inRange range: NSRange, inTextView textView: UITextView, withText text: String) -> Mask.Result {
         let updatedText: String = replaceCharacters(inText: textView.text, range: range, withCharacters: text)
-        let caretPosition: String.Index = updatedText.index(
-            updatedText.startIndex,
+        let caretPosition: String.Index = updatedText.startIndex(
             offsetBy: range.location + text.count
         )
         
@@ -249,8 +247,7 @@ open class MaskedTextViewDelegate: NSObject, UITextViewDelegate {
         )
         
         textView.text = result.formattedText.string
-        textView.cursorPosition = result.formattedText.string.distance(
-            from: result.formattedText.string.startIndex,
+        textView.cursorPosition = result.formattedText.string.distanceFromStartIndex(
             to: result.formattedText.caretPosition
         )
         
@@ -279,8 +276,8 @@ open class MaskedTextViewDelegate: NSObject, UITextViewDelegate {
             let mask = try! Mask.getOrCreate(withFormat: affineFormat, customNotations: customNotations)
             let affinity = affinityCalculationStrategy.calculateAffinity(ofMask: mask, forText: text, autocomplete: autocomplete)
             return MaskAndAffinity(mask: mask, affinity: affinity)
-            }.sorted { (left: MaskAndAffinity, right: MaskAndAffinity) -> Bool in
-                return left.affinity > right.affinity
+        }.sorted { (left: MaskAndAffinity, right: MaskAndAffinity) -> Bool in
+            return left.affinity > right.affinity
         }
         
         var insertIndex: Int = -1

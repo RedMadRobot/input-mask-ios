@@ -63,5 +63,19 @@ public extension String {
                 }
         )
     }
+
+    /**
+     A shortcut for ```str.distance(from: str.startIndex, to: index)```.
+     */
+    func distanceFromStartIndex(to index: String.Index) -> Int {
+        return self.distance(from: self.startIndex, to: index)
+    }
+
+    /**
+     A shortcut for ```str.index(str.startIndex, offsetBy: offset)```.
+     */
+    func startIndex(offsetBy offset: Int) -> String.Index {
+        return self.index(self.startIndex, offsetBy: offset)
+    }
     
 }

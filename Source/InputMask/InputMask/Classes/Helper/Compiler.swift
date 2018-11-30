@@ -102,7 +102,7 @@ public class Compiler {
         
         return try self.compile(
             sanitizedFormat,
-            valueable: false,
+            valuable: false,
             fixed: false,
             lastCharacter: nil
         )
@@ -114,7 +114,7 @@ private extension Compiler {
     
     func compile(
         _ string: String,
-        valueable: Bool,
+        valuable: Bool,
         fixed: Bool,
         lastCharacter: Character?
     ) throws -> State {
@@ -131,7 +131,7 @@ private extension Compiler {
                 }
                 return try self.compile(
                     string.truncateFirst(),
-                    valueable: true,
+                    valuable: true,
                     fixed: false,
                     lastCharacter: char
                 )
@@ -142,7 +142,7 @@ private extension Compiler {
                 }
                 return try self.compile(
                     string.truncateFirst(),
-                    valueable: false,
+                    valuable: false,
                     fixed: true,
                     lastCharacter: char
                 )
@@ -153,7 +153,7 @@ private extension Compiler {
                 }
                 return try self.compile(
                     string.truncateFirst(),
-                    valueable: false,
+                    valuable: false,
                     fixed: false,
                     lastCharacter: char
                 )
@@ -164,18 +164,18 @@ private extension Compiler {
                 }
                 return try self.compile(
                     string.truncateFirst(),
-                    valueable: false,
+                    valuable: false,
                     fixed: false,
                     lastCharacter: char
                 )
             
-            case "\\": // the escapting character
+            case "\\": // the escaping character
                 if "\\" == lastCharacter { // escaped «\» character
                     break
                 }
                 return try self.compile(
                     string.truncateFirst(),
-                    valueable: valueable,
+                    valuable: valuable,
                     fixed: fixed,
                     lastCharacter: char
                 )
@@ -183,15 +183,15 @@ private extension Compiler {
             default: break
         }
         
-        if valueable {
-            return try compileValueable(char, string: string, lastCharacter: lastCharacter)
+        if valuable {
+            return try compileValuable(char, string: string, lastCharacter: lastCharacter)
         }
         
         if fixed {
             return FixedState(
                 child: try self.compile(
                     string.truncateFirst(),
-                    valueable: false,
+                    valuable: false,
                     fixed: true,
                     lastCharacter: char
                 ),
@@ -202,7 +202,7 @@ private extension Compiler {
         return FreeState(
             child: try self.compile(
                 string.truncateFirst(),
-                valueable: false,
+                valuable: false,
                 fixed: false,
                 lastCharacter: char
             ),
@@ -210,13 +210,13 @@ private extension Compiler {
         )
     }
     
-    func compileValueable(_ char: Character, string: String, lastCharacter: Character?) throws -> State {
+    func compileValuable(_ char: Character, string: String, lastCharacter: Character?) throws -> State {
         switch char {
             case "0":
                 return ValueState(
                     child: try self.compile(
                         string.truncateFirst(),
-                        valueable: true,
+                        valuable: true,
                         fixed: false,
                         lastCharacter: char
                     ),
@@ -227,7 +227,7 @@ private extension Compiler {
                 return ValueState(
                     child: try self.compile(
                         string.truncateFirst(),
-                        valueable: true,
+                        valuable: true,
                         fixed: false,
                         lastCharacter: char
                     ),
@@ -238,7 +238,7 @@ private extension Compiler {
                 return ValueState(
                     child: try self.compile(
                         string.truncateFirst(),
-                        valueable: true,
+                        valuable: true,
                         fixed: false,
                         lastCharacter: char
                     ),
@@ -252,7 +252,7 @@ private extension Compiler {
                 return OptionalValueState(
                     child: try self.compile(
                         string.truncateFirst(),
-                        valueable: true,
+                        valuable: true,
                         fixed: false,
                         lastCharacter: char
                     ),
@@ -263,7 +263,7 @@ private extension Compiler {
                 return OptionalValueState(
                     child: try self.compile(
                         string.truncateFirst(),
-                        valueable: true,
+                        valuable: true,
                         fixed: false,
                         lastCharacter: char
                     ),
@@ -274,7 +274,7 @@ private extension Compiler {
                 return OptionalValueState(
                     child: try self.compile(
                         string.truncateFirst(),
-                        valueable: true,
+                        valuable: true,
                         fixed: false,
                         lastCharacter: char
                     ),
@@ -320,7 +320,7 @@ private extension Compiler {
                     return OptionalValueState(
                         child: try self.compile(
                             string.truncateFirst(),
-                            valueable: true,
+                            valuable: true,
                             fixed: false,
                             lastCharacter: char
                         ),
@@ -330,7 +330,7 @@ private extension Compiler {
                     return ValueState(
                         child: try self.compile(
                             string.truncateFirst(),
-                            valueable: true,
+                            valuable: true,
                             fixed: false,
                             lastCharacter: char
                         ),

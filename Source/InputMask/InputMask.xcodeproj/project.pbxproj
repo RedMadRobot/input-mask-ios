@@ -11,7 +11,7 @@
 		518F8AB81F36AAA100065733 /* CaretStringIterator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A1E3C4C1D64649200589799 /* CaretStringIterator.swift */; };
 		518F8AB91F36AAA100065733 /* Compiler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB1E8881D63753E00892C3B /* Compiler.swift */; };
 		518F8ABA1F36AAA100065733 /* FormatSanitizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A1E3C5F1D648C9E00589799 /* FormatSanitizer.swift */; };
-		518F8ABB1F36AAA100065733 /* NSCharacterSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A83CCAF1D5B579800C0184F /* NSCharacterSet.swift */; };
+		518F8ABB1F36AAA100065733 /* CharacterSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A83CCAF1D5B579800C0184F /* CharacterSet.swift */; };
 		518F8ABC1F36AAA100065733 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A83CCB21D5B5E1F00C0184F /* String.swift */; };
 		518F8ABD1F36AAA500065733 /* EOLState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB1E88F1D6375FC00892C3B /* EOLState.swift */; };
 		518F8ABE1F36AAA500065733 /* FixedState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB1E8981D637BFD00892C3B /* FixedState.swift */; };
@@ -53,7 +53,7 @@
 		8A808EFB1D5B110300A75B9C /* InputMask.h in Headers */ = {isa = PBXBuildFile; fileRef = 8A808EFA1D5B110300A75B9C /* InputMask.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8A808F091D5B1A8E00A75B9C /* MaskTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A808F081D5B1A8E00A75B9C /* MaskTestCase.swift */; };
 		8A808F0B1D5B1CDD00A75B9C /* MonthYearCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A808F0A1D5B1CDD00A75B9C /* MonthYearCase.swift */; };
-		8A83CCB01D5B579800C0184F /* NSCharacterSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A83CCAF1D5B579800C0184F /* NSCharacterSet.swift */; };
+		8A83CCB01D5B579800C0184F /* CharacterSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A83CCAF1D5B579800C0184F /* CharacterSet.swift */; };
 		8A83CCB31D5B5E1F00C0184F /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A83CCB21D5B5E1F00C0184F /* String.swift */; };
 		8AB1E8861D63746400892C3B /* CaretString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB1E8851D63746400892C3B /* CaretString.swift */; };
 		8AB1E8891D63753E00892C3B /* Compiler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB1E8881D63753E00892C3B /* Compiler.swift */; };
@@ -63,7 +63,6 @@
 		8AB1E8961D6378D400892C3B /* ValueState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB1E8951D6378D400892C3B /* ValueState.swift */; };
 		8AB1E8991D637BFD00892C3B /* FixedState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB1E8981D637BFD00892C3B /* FixedState.swift */; };
 		8ADB578B20FE2E1C0095417D /* UITextInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADB578A20FE2E1C0095417D /* UITextInput.swift */; };
-		8AE42E652094B6AA00D9D3E2 /* ReversedMaskTextFieldDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE42E642094B6AA00D9D3E2 /* ReversedMaskTextFieldDelegate.swift */; };
 		8AE8CA091E4489B400EDC9C4 /* YearCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE8CA081E4489B400EDC9C4 /* YearCase.swift */; };
 /* End PBXBuildFile section */
 
@@ -115,7 +114,7 @@
 		8A808EFA1D5B110300A75B9C /* InputMask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InputMask.h; sourceTree = "<group>"; };
 		8A808F081D5B1A8E00A75B9C /* MaskTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaskTestCase.swift; sourceTree = "<group>"; };
 		8A808F0A1D5B1CDD00A75B9C /* MonthYearCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MonthYearCase.swift; sourceTree = "<group>"; };
-		8A83CCAF1D5B579800C0184F /* NSCharacterSet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSCharacterSet.swift; sourceTree = "<group>"; };
+		8A83CCAF1D5B579800C0184F /* CharacterSet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CharacterSet.swift; sourceTree = "<group>"; };
 		8A83CCB21D5B5E1F00C0184F /* String.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		8AB1E8851D63746400892C3B /* CaretString.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CaretString.swift; sourceTree = "<group>"; };
 		8AB1E8881D63753E00892C3B /* Compiler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Compiler.swift; sourceTree = "<group>"; };
@@ -125,7 +124,6 @@
 		8AB1E8951D6378D400892C3B /* ValueState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ValueState.swift; sourceTree = "<group>"; };
 		8AB1E8981D637BFD00892C3B /* FixedState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FixedState.swift; sourceTree = "<group>"; };
 		8ADB578A20FE2E1C0095417D /* UITextInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UITextInput.swift; sourceTree = "<group>"; };
-		8AE42E642094B6AA00D9D3E2 /* ReversedMaskTextFieldDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReversedMaskTextFieldDelegate.swift; sourceTree = "<group>"; };
 		8AE8CA081E4489B400EDC9C4 /* YearCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YearCase.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -178,7 +176,6 @@
 				8A01854C1D64ABCC007B5EBD /* MaskedTextFieldDelegate.swift */,
 				8A4CDCD021099B6D005B2FA6 /* MaskedTextInputListener.swift */,
 				8A1DD0B0210108A7008BAE2A /* MaskedTextViewDelegate.swift */,
-				8AE42E642094B6AA00D9D3E2 /* ReversedMaskTextFieldDelegate.swift */,
 				8A4CDCCC210999C6005B2FA6 /* UITextField.swift */,
 				8ADB578A20FE2E1C0095417D /* UITextInput.swift */,
 				8A4CDCCE21099A71005B2FA6 /* UITextView.swift */,
@@ -277,7 +274,7 @@
 				8A1E3C4C1D64649200589799 /* CaretStringIterator.swift */,
 				8AB1E8881D63753E00892C3B /* Compiler.swift */,
 				8A1E3C5F1D648C9E00589799 /* FormatSanitizer.swift */,
-				8A83CCAF1D5B579800C0184F /* NSCharacterSet.swift */,
+				8A83CCAF1D5B579800C0184F /* CharacterSet.swift */,
 				8A83CCB21D5B5E1F00C0184F /* String.swift */,
 			);
 			path = Helper;
@@ -481,7 +478,7 @@
 				8A4CDCD42109C2D0005B2FA6 /* AffinityCalculationStrategy.swift in Sources */,
 				518F8AC31F36AAA900065733 /* Next.swift in Sources */,
 				518F8ABA1F36AAA100065733 /* FormatSanitizer.swift in Sources */,
-				518F8ABB1F36AAA100065733 /* NSCharacterSet.swift in Sources */,
+				518F8ABB1F36AAA100065733 /* CharacterSet.swift in Sources */,
 				518F8ABD1F36AAA500065733 /* EOLState.swift in Sources */,
 				518F8ABC1F36AAA100065733 /* String.swift in Sources */,
 				518F8AB91F36AAA100065733 /* Compiler.swift in Sources */,
@@ -516,8 +513,7 @@
 				8AB1E8931D63773400892C3B /* Next.swift in Sources */,
 				8A4CDCD32109C0D4005B2FA6 /* AffinityCalculationStrategy.swift in Sources */,
 				8AB1E8861D63746400892C3B /* CaretString.swift in Sources */,
-				8AE42E652094B6AA00D9D3E2 /* ReversedMaskTextFieldDelegate.swift in Sources */,
-				8A83CCB01D5B579800C0184F /* NSCharacterSet.swift in Sources */,
+				8A83CCB01D5B579800C0184F /* CharacterSet.swift in Sources */,
 				8ADB578B20FE2E1C0095417D /* UITextInput.swift in Sources */,
 				8A4CDCD121099B6D005B2FA6 /* MaskedTextInputListener.swift in Sources */,
 				8A0185471D6498F9007B5EBD /* FreeState.swift in Sources */,

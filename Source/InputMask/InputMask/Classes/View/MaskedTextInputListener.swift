@@ -108,13 +108,12 @@ open class MaskedTextInputListener: NSObject {
         let mask: Mask = pickMask(forText: CaretString(string: text), autocomplete: autocomplete)
 
         let result: Mask.Result = mask.apply(
-            toText: CaretString(string: text, caretPosition: text.endIndex),
+            toText: CaretString(string: text),
             autocomplete: autocomplete
         )
 
         field.allText = result.formattedText.string
-        field.caretPosition = result.formattedText.string.distance(
-            from: result.formattedText.string.startIndex,
+        field.caretPosition = result.formattedText.string.distanceFromStartIndex(
             to: result.formattedText.caretPosition
         )
 
@@ -146,7 +145,7 @@ open class MaskedTextInputListener: NSObject {
     
     open func deleteText(inRange range: NSRange, inTextInput field: UITextInput) -> Mask.Result {
         let updatedText: String = replaceCharacters(inText: field.allText, range: range, withCharacters: "")
-        let caretPosition: String.Index = updatedText.index(updatedText.startIndex, offsetBy: range.location)
+        let caretPosition: String.Index = updatedText.startIndex(offsetBy: range.location)
 
         let mask: Mask = pickMask(
             forText: CaretString(string: updatedText, caretPosition: caretPosition),
@@ -166,8 +165,7 @@ open class MaskedTextInputListener: NSObject {
     
     open func modifyText(inRange range: NSRange, inTextInput field: UITextInput, withText text: String) -> Mask.Result {
         let updatedText: String = replaceCharacters(inText: field.allText, range: range, withCharacters: text)
-        let caretPosition: String.Index = updatedText.index(
-            updatedText.startIndex,
+        let caretPosition: String.Index = updatedText.startIndex(
             offsetBy: range.location + text.count
         )
         
@@ -182,8 +180,7 @@ open class MaskedTextInputListener: NSObject {
         )
         
         field.allText = result.formattedText.string
-        field.caretPosition = result.formattedText.string.distance(
-            from: result.formattedText.string.startIndex,
+        field.caretPosition = result.formattedText.string.distanceFromStartIndex(
             to: result.formattedText.caretPosition
         )
         
