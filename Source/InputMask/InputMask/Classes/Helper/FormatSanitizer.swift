@@ -110,7 +110,7 @@ private extension FormatSanitizer {
             if "\\" == char {
                 if !escape {
                     escape = true
-                    currentBlock += String(char)
+                    currentBlock.append(char)
                     continue
                 }
             }
@@ -123,7 +123,7 @@ private extension FormatSanitizer {
                 currentBlock = ""
             }
             
-            currentBlock += String(char)
+            currentBlock.append(char)
             
             if ("]" == char || "}" == char) && !escape {
                 blocks.append(currentBlock)
@@ -148,12 +148,12 @@ private extension FormatSanitizer {
                 var blockBuffer: String = ""
                 for blockCharacter in block {
                     if blockCharacter == "[" {
-                        blockBuffer += String(blockCharacter)
+                        blockBuffer.append(blockCharacter)
                         continue
                     }
                     
                     if blockCharacter == "]" && !blockBuffer.hasSuffix("\\") {
-                        blockBuffer += String(blockCharacter)
+                        blockBuffer.append(blockCharacter)
                         resultingBlocks.append(blockBuffer)
                         break
                     }
@@ -197,7 +197,7 @@ private extension FormatSanitizer {
                         }
                     }
                     
-                    blockBuffer += String(blockCharacter)
+                    blockBuffer.append(blockCharacter)
                 }
             } else {
                 resultingBlocks.append(block)
