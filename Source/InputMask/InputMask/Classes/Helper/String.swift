@@ -8,7 +8,7 @@ import Foundation
 
 
 /**
- Utility extension for comonly used ```Mask``` operations upon strings.
+ Utility extension for commonly used ```Mask``` operations upon strings.
  */
 public extension String {
     

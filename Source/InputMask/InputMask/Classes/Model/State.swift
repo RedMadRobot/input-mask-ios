@@ -31,7 +31,7 @@ class State: CustomDebugStringConvertible, CustomStringConvertible {
      - returns: ```Next``` object instance with a set of actions that should take place when the user input character is
      accepted.
      
-     - throws: Fatal error, if the method is not implemeted.
+     - throws: Fatal error, if the method is not implemented.
      */
     /* abstract */ func accept(character char: Character) -> Next? {
         fatalError("accept(character:) method is abstract")
