@@ -31,7 +31,7 @@ public extension String {
         var rhsIndex = string.startIndex
         
         while lhsIndex != endIndex && rhsIndex != string.endIndex {
-            if self[...lhsIndex] == string[...rhsIndex] {
+            if self[lhsIndex] == string[rhsIndex] {
                 lhsIndex = index(after: lhsIndex)
                 rhsIndex = string.index(after: rhsIndex)
             } else {

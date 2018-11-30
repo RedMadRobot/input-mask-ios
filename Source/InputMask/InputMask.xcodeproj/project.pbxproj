@@ -36,6 +36,7 @@
 		8A1E3C571D64847D00589799 /* OptionalValueState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A1E3C561D64847D00589799 /* OptionalValueState.swift */; };
 		8A1E3C5E1D648A0F00589799 /* DayMonthYearShortCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A1E3C5C1D648A0F00589799 /* DayMonthYearShortCase.swift */; };
 		8A1E3C601D648C9E00589799 /* FormatSanitizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A1E3C5F1D648C9E00589799 /* FormatSanitizer.swift */; };
+		8A3C8C0A21B14E7400CDBDE1 /* StringTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A3C8C0921B14E7400CDBDE1 /* StringTests.swift */; };
 		8A4CDCCD210999C6005B2FA6 /* UITextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A4CDCCC210999C6005B2FA6 /* UITextField.swift */; };
 		8A4CDCCF21099A71005B2FA6 /* UITextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A4CDCCE21099A71005B2FA6 /* UITextView.swift */; };
 		8A4CDCD121099B6D005B2FA6 /* MaskedTextInputListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A4CDCD021099B6D005B2FA6 /* MaskedTextInputListener.swift */; };
@@ -95,6 +96,7 @@
 		8A1E3C561D64847D00589799 /* OptionalValueState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OptionalValueState.swift; sourceTree = "<group>"; };
 		8A1E3C5C1D648A0F00589799 /* DayMonthYearShortCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DayMonthYearShortCase.swift; sourceTree = "<group>"; };
 		8A1E3C5F1D648C9E00589799 /* FormatSanitizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormatSanitizer.swift; sourceTree = "<group>"; };
+		8A3C8C0921B14E7400CDBDE1 /* StringTests.swift */ = {isa = PBXFileReference; indentWidth = 4; lastKnownFileType = sourcecode.swift; path = StringTests.swift; sourceTree = "<group>"; tabWidth = 4; };
 		8A4CDCCC210999C6005B2FA6 /* UITextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextField.swift; sourceTree = "<group>"; };
 		8A4CDCCE21099A71005B2FA6 /* UITextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextView.swift; sourceTree = "<group>"; };
 		8A4CDCD021099B6D005B2FA6 /* MaskedTextInputListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaskedTextInputListener.swift; sourceTree = "<group>"; };
@@ -184,6 +186,14 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		8A3C8C0821B14E5E00CDBDE1 /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				8A3C8C0921B14E7400CDBDE1 /* StringTests.swift */,
+			);
+			path = Helper;
+			sourceTree = "<group>";
+		};
 		8A808EC11D5B0FEC00A75B9C = {
 			isa = PBXGroup;
 			children = (
@@ -246,6 +256,7 @@
 		8A808EEF1D5B104A00A75B9C /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				8A3C8C0821B14E5E00CDBDE1 /* Helper */,
 				8A808F071D5B1A8100A75B9C /* Mask */,
 			);
 			path = Classes;
@@ -526,6 +537,7 @@
 				8A076E04209275750056476F /* DecimalNumberCase.swift in Sources */,
 				8A808F0B1D5B1CDD00A75B9C /* MonthYearCase.swift in Sources */,
 				8A01854A1D649BC9007B5EBD /* PhoneCase.swift in Sources */,
+				8A3C8C0A21B14E7400CDBDE1 /* StringTests.swift in Sources */,
 				8AE8CA091E4489B400EDC9C4 /* YearCase.swift in Sources */,
 				8A4EC4C42089409B00CDDBF7 /* SillyPiEllipticalCase.swift in Sources */,
 				8A75D98D1E2392B300F7D244 /* YearACCase.swift in Sources */,
