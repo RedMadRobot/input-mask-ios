@@ -84,7 +84,7 @@ class YearACCase: MaskTestCase {
         XCTAssertEqual(expectedCaret, result.formattedText.caretPosition)
         XCTAssertEqual(expectedValue, result.extractedValue)
         
-        XCTAssertEqual(false, result.complete)
+        XCTAssertEqual(true, result.complete)
     }
     
     func testApply_11_returns_11() {
@@ -106,7 +106,7 @@ class YearACCase: MaskTestCase {
         XCTAssertEqual(expectedCaret, result.formattedText.caretPosition)
         XCTAssertEqual(expectedValue, result.extractedValue)
         
-        XCTAssertEqual(false, result.complete)
+        XCTAssertEqual(true, result.complete)
     }
     
     func testApply_111_returns_111() {
@@ -128,7 +128,7 @@ class YearACCase: MaskTestCase {
         XCTAssertEqual(expectedCaret, result.formattedText.caretPosition)
         XCTAssertEqual(expectedValue, result.extractedValue)
         
-        XCTAssertEqual(false, result.complete)
+        XCTAssertEqual(true, result.complete)
     }
     
     func testApply_1111_returns_1111() {
@@ -150,7 +150,7 @@ class YearACCase: MaskTestCase {
         XCTAssertEqual(expectedCaret, result.formattedText.caretPosition)
         XCTAssertEqual(expectedValue, result.extractedValue)
         
-        XCTAssertEqual(false, result.complete)
+        XCTAssertEqual(true, result.complete)
     }
     
     func testApply_11112_returns_1111spaceAC() {
