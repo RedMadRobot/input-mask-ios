@@ -104,6 +104,19 @@ public class Mask: CustomDebugStringConvertible, CustomStringConvertible {
     }
     
     /**
+     Check your mask format is valid.
+     
+     - parameter format: mask format.
+     - parameter customNotations: a list of custom rules to compile square bracket ```[]``` groups of format symbols.
+     
+     - returns: ```true``` if this format coupled with custom notations will compile into a working ```Mask``` object.
+     Otherwise ```false```.
+     */
+    public class func isValid(format: String, customNotations: [Notation] = []) -> Bool {
+        return nil != (try? self.init(format: format, customNotations: customNotations))
+    }
+    
+    /**
      Apply mask to the user input string.
      
      - parameter toText: user input string with current cursor position
