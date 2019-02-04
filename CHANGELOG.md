@@ -9,5 +9,6 @@
 
 #### Fixed:
 
+* Optional blocks of symbols are now ignored when extracted value completeness is calculated
 * `textFieldDidEndEditing` delegate method not called
 	* by [Mikhail Zhadko](https://github.com/while366) in [PR#65](https://github.com/RedMadRobot/input-mask-ios/pull/65)
