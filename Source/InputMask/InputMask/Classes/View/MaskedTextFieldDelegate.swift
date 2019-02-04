@@ -165,7 +165,11 @@ open class MaskedTextFieldDelegate: NSObject, UITextFieldDelegate {
     
     @available(iOS 10.0, *)
     open func textFieldDidEndEditing(_ textField: UITextField, reason: UITextField.DidEndEditingReason) {
-        listener?.textFieldDidEndEditing?(textField, reason: reason)
+        if listener?.textFieldDidEndEditing?(textField, reason: reason) != nil {
+            listener?.textFieldDidEndEditing?(textField, reason: reason)
+        } else {
+            listener?.textFieldDidEndEditing?(textField)
+        }
     }
     
     open func textField(
