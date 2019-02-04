@@ -46,6 +46,18 @@ open class MaskedTextViewDelegate: NSObject, UITextViewDelegate {
     @IBInspectable open var autocomplete:        Bool
     @IBInspectable open var autocompleteOnFocus: Bool
     @IBInspectable open var rightToLeft:         Bool
+    
+    /**
+     Shortly after new text is being pasted from the clipboard, ```UITextView``` receives a new value for its
+     `selectedTextRange` property from the system. This new range is not consistent with the formatted text and
+     calculated cursor position most of the time, yet it's being assigned just after ```set cursorPosition``` call.
+     
+     To ensure correct cursor position is set, it is assigned asynchronously (presumably after a vanishingly
+     small delay), if cursor movement is set to be non-atomic.
+     
+     Default is ```true```.
+     */
+    @IBInspectable open var atomicCursorMovement: Bool = true
 
     open var affineFormats:               [String]
     open var affinityCalculationStrategy: AffinityCalculationStrategy
@@ -234,10 +246,8 @@ open class MaskedTextViewDelegate: NSObject, UITextViewDelegate {
     }
     
     open func modifyText(inRange range: NSRange, inTextView textView: UITextView, withText text: String) -> Mask.Result {
-        let updatedText: String = replaceCharacters(inText: textView.text, range: range, withCharacters: text)
-        let caretPosition: String.Index = updatedText.startIndex(
-            offsetBy: range.location + text.count
-        )
+        let updatedText:   String       = replaceCharacters(inText: textView.text, range: range, withCharacters: text)
+        let caretPosition: String.Index = updatedText.startIndex(offsetBy: range.location + text.count)
         
         let mask: Mask = pickMask(
             forText: CaretString(string: updatedText, caretPosition: caretPosition),
@@ -250,9 +260,18 @@ open class MaskedTextViewDelegate: NSObject, UITextViewDelegate {
         )
         
         textView.text = result.formattedText.string
-        textView.cursorPosition = result.formattedText.string.distanceFromStartIndex(
-            to: result.formattedText.caretPosition
-        )
+        
+        if self.atomicCursorMovement {
+            textView.cursorPosition = result.formattedText.string.distanceFromStartIndex(
+                to: result.formattedText.caretPosition
+            )
+        } else {
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()) {
+                textView.cursorPosition = result.formattedText.string.distanceFromStartIndex(
+                    to: result.formattedText.caretPosition
+                )
+            }
+        }
         
         return result
     }

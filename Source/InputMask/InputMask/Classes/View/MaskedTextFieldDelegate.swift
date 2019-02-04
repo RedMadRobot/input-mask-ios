@@ -46,6 +46,18 @@ open class MaskedTextFieldDelegate: NSObject, UITextFieldDelegate {
     @IBInspectable open var autocomplete:        Bool
     @IBInspectable open var autocompleteOnFocus: Bool
     @IBInspectable open var rightToLeft:         Bool
+    
+    /**
+     Shortly after new text is being pasted from the clipboard, ```UITextField``` receives a new value for its
+     `selectedTextRange` property from the system. This new range is not consistent with the formatted text and
+     calculated cursor position most of the time, yet it's being assigned just after ```set cursorPosition``` call.
+     
+     To ensure correct cursor position is set, it is assigned asynchronously (presumably after a vanishingly
+     small delay), if cursor movement is set to be non-atomic.
+     
+     Default is ```true```.
+     */
+    @IBInspectable open var atomicCursorMovement: Bool = true
 
     open var affineFormats:               [String]
     open var affinityCalculationStrategy: AffinityCalculationStrategy
@@ -241,9 +253,18 @@ open class MaskedTextFieldDelegate: NSObject, UITextFieldDelegate {
         )
         
         field.text = result.formattedText.string
-        field.cursorPosition = result.formattedText.string.distanceFromStartIndex(
-            to: result.formattedText.caretPosition
-        )
+        
+        if self.atomicCursorMovement {
+            field.cursorPosition = result.formattedText.string.distanceFromStartIndex(
+                to: result.formattedText.caretPosition
+            )
+        } else {
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()) {
+                field.cursorPosition = result.formattedText.string.distanceFromStartIndex(
+                    to: result.formattedText.caretPosition
+                )
+            }
+        }
         
         return result
     }

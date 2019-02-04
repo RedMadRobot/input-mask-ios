@@ -25,6 +25,18 @@ open class MaskedTextInputListener: NSObject {
     @IBInspectable open var autocomplete:        Bool
     @IBInspectable open var autocompleteOnFocus: Bool
     @IBInspectable open var rightToLeft:         Bool
+    
+    /**
+     Shortly after new text is being pasted from the clipboard, ```UITextInput``` receives a new value for its
+     `selectedTextRange` property from the system. This new range is not consistent with the formatted text and
+     calculated caret position most of the time, yet it's being assigned just after ```set caretPosition``` call.
+     
+     To ensure correct caret position is set, it is assigned asynchronously (presumably after a vanishingly
+     small delay), if caret movement is set to be non-atomic.
+     
+     Default is ```true```.
+     */
+    @IBInspectable open var atomicCaretMovement: Bool = true
 
     open var affineFormats:               [String]
     open var affinityCalculationStrategy: AffinityCalculationStrategy
@@ -181,9 +193,18 @@ open class MaskedTextInputListener: NSObject {
         )
         
         field.allText = result.formattedText.string
-        field.caretPosition = result.formattedText.string.distanceFromStartIndex(
-            to: result.formattedText.caretPosition
-        )
+        
+        if self.atomicCaretMovement {
+            field.caretPosition = result.formattedText.string.distanceFromStartIndex(
+                to: result.formattedText.caretPosition
+            )
+        } else {
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()) {
+                field.caretPosition = result.formattedText.string.distanceFromStartIndex(
+                    to: result.formattedText.caretPosition
+                )
+            }
+        }
         
         return result
     }

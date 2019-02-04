@@ -432,6 +432,12 @@ class UITextFieldMonkeyPatch: UITextField {
 
 From our library perspective, this looks like a highly invasive solution. Thus, in the long term, we are going to investigate a "costly" method to bring the behaviour matching the iOS SDK logic. Yet, here "long term" might mean months.
 
+## Incorrect cursor position after pasting
+
+Shortly after new text is being pasted from the clipboard, every ```UITextInput``` receives a new value for its `selectedTextRange` property from the system. This new range is not consistent with the formatted text and calculated caret position most of the time, yet it's being assigned just after ```set caretPosition``` call.
+     
+To ensure correct caret position is set, it might be assigned asynchronously (presumably after a vanishingly small delay), if caret movement is set to be non-atomic; see `MaskedTextFieldDelegate.atomicCursorMovement` property.
+
 ## `MaskedTextInputListener`
 
 In case you are wondering why do we have two separate `UITextFieldDelegate` and `UITextViewDelegate` implementations, the answer is simple: prior to **iOS 11** `UITextField` and `UITextView` had different behaviour in some key situations, which made it difficult to implement common logic. 
