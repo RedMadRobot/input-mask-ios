@@ -13,62 +13,36 @@
 <img src="https://raw.githubusercontent.com/RedMadRobot/input-mask-ios/assets/Assets/phone_input.gif" alt="Input Mask" width="640" />
 
 ## Description
-The library allows to format user input on the fly according to the provided mask and to extract valuable characters.
+
+`Input Mask` is an [Android](https://github.com/RedMadRobot/input-mask-android) & [iOS](https://github.com/RedMadRobot/input-mask-ios) native library allowing to format user input on the fly.
+
+The library provides you with a text field listener; when attached, it puts separators into the text while user types it in, and gets rid of unwanted symbols, all according to custom predefined pattern.
+
+This allows to reformat whole strings pasted from the clipboard, e.g. turning pasted `8 800 123-45-67` into `8 (800) 123 45 67`.
+
+Each pattern allows to extract valuable symbols from the entered text, returning you the immediate result with the text field listener's callback when the text changes. Such that, you'll be able to extract `1234567` from `8 (800) 123 45 67` or `19991234567` from `1 (999) 123 45 67` with two different patterns.
+
+All separators and valuable symbol placeholders have their own syntax. We call such patterns "masks".
 
 Mask examples:
 
 1. International phone numbers: `+1 ([000]) [000] [00] [00]`
-2. Local phone numbers: `8 ([000]) [000]-[00]-[00]`
-3. Visa card numbers: `[0000] [0000] [0000] [0000]`
-4. Names: `[A][-----------------------------------------------------]`
-5. Text: `[A…]`
-6. Dates: `[00]{/}[00]{/}[9900]`
+2. Local phone numbers: `([000]) [000]-[00]-[00]`
+3. Names: `[A][-----------------------------------------------------]` 
+4. Text: `[A…]`
+5. Dates: `[00]{.}[00]{.}[9900]`
+6. Serial numbers: `[AA]-[00000099]`
+7. IPv4: `[099]{.}[099]{.}[099]{.}[099]`
+8. Visa card numbers: `[0000] [0000] [0000] [0000]`
+9. MM/YY: `[00]{/}[00]`
 
-Masks consist of blocks of symbols, which may include:
+Check out our [wiki](https://github.com/RedMadRobot/input-mask-ios/wiki) for further reading.  
+Please also take a closer look at our [Known issues](#knownissues) section before you incorporate our library into your project.
 
-* `[]` — a square brackets block for valuable symbols written by user. 
-
-Square brackets block may contain any number of special symbols:
-
-1. `0` — mandatory digit. For instance, `[000]` mask will allow user to enter three numbers: `123`.
-2. `9` — optional digit . For instance, `[00099]` mask will allow user to enter from three to five numbers.
-3. `А` — mandatory letter. `[AAA]` mask will allow user to enter three letters: `abc`.
-4. `а` — optional letter. `[АААааа]` mask will allow to enter from three to six letters.
-5. `_` — mandatory symbol (digit or letter).
-6. `-` — optional symbol (digit or letter).
-7. `…` — ellipsis. Allows to enter endless count of symbols. For details and rules see [Elliptical masks](#elliptical).
-
-Other symbols inside square brackets will cause a mask initialization error, unless you have used [custom notations](#custom_notation).
-
-Blocks may contain mixed types of symbols; such that, `[000AA]` will end up being divided in two groups: `[000][AA]` (this happens automatically). Though, it's highly recommended not to mix default symbols with symbols defined by [custom notations](#custom_notation). 
-
-Blocks must not contain nested brackets. `[[00]000]` format will cause a mask initialization error.
-
-Symbols outside the square brackets will take a place in the output.
-For instance, `+7 ([000]) [000]-[0000]` mask will format the input field to the form of `+7 (123) 456-7890`. 
-
-* `{}` — a block for valuable yet fixed symbols, which could not be altered by the user.
-
-Symbols within the square and curly brackets form an extracted value (or «valuable characters»).
-In other words, `[00]-[00]` and `[00]{-}[00]` will form the same output `12-34`, 
-but in the first case the value, extracted by the library, will be equal to `1234`, and in the second case it will result in `12-34`. 
-
-### Character escaping
-
-Mask format supports backslash escapes when you need square or curly brackets in the output.
-
-For instance, `\[[00]\]` mask will allow user to enter `[12]`. Extracted value will be equal to `12`.
-
-Note that you've got to escape backslashes in the actual code:
-
-```swift
-let format: String = "\\[[00]\\]"
-```
-
-Escaped square or curly brackets might be included in the extracted value. For instance, `\[[00]{\]}` mask will allow user 
-to enter the same `[12]`, yet the extracted value will contain the latter square bracket: `12]`.
+<a name="installation" />
 
 # Installation
+
 ## CocoaPods
 
 ```ruby
@@ -89,287 +63,16 @@ dependencies: [
 ]
 ```
 
-# Usage
-## Simple UITextField for the phone numbers
-
-Drop an object on your scene and cofigure it as a `MaskedTextFieldDelegate`:
-
-![Interface Builder](https://raw.githubusercontent.com/RedMadRobot/input-mask-ios/assets/Assets/ib-step00.png "Interface Builder")
-
-Assign your `UITextField.delegate` to be this object: 
-
-![Interface Builder](https://raw.githubusercontent.com/RedMadRobot/input-mask-ios/assets/Assets/ib-step01.png "Interface Builder")
-
-Make sure your `ViewController` knows its residents:
-
-![Interface Builder](https://raw.githubusercontent.com/RedMadRobot/input-mask-ios/assets/Assets/ib-step02.png "Interface Builder")
-
-```swift
-open class ViewController: UIViewController {
-    @IBOutlet weak var listener: MaskedTextFieldDelegate!
-    @IBOutlet weak var field: UITextField! 
-}
-```
-
-Check that your object has configured `Primary Mask Format`. Prepare for receiving text changed events by assigning your `ViewController` as a `delegate` to `MaskedTextFieldDelegate` object:
-
-![Interface Builder](https://raw.githubusercontent.com/RedMadRobot/input-mask-ios/assets/Assets/ib-step03.png "Interface Builder")
-
-Make your `ViewController` to implement `MaskedTextFieldDelegateListener`:
-
-```swift
-open class ViewController: UIViewController, MaskedTextFieldDelegateListener {    
-    @IBOutlet weak var listener: MaskedTextFieldDelegate!
-    @IBOutlet weak var field: UITextField!
-    
-    open func textField(
-        _ textField: UITextField,
-        didFillMandatoryCharacters complete: Bool,
-        didExtractValue value: String
-    ) {
-        print(value)
-    }
-}
-```
-
-All set. Run.
-
-Sample project is located under under `Source/Sample`.
-
-## Affine masks
-
-You may want to switch between mask formats depending on the user input. Say, most of your phone numbers have **primary format** like this:
-
-`+7 ([000]) [000] [00] [00]`
-
-But some of them may have an operator code:
-
-`+7 ([000]) [000] [00] [00]#[900]`
-
-You put your additional mask formats into the `affineFormats` property:
-
-``` swift
-open class ViewController: UIViewController, MaskedTextFieldDelegateListener {
-    @IBOutlet weak var listener: MaskedTextFieldDelegate!
-    
-    open override func viewDidLoad() {
-        super.viewDidLoad()
-        listener.affinityCalculationStrategy = .prefix
-        listener.affineFormats = [
-            "+7 ([000]) [000] [00] [00]#[900]"
-        ]
-    }    
-}
-```
-
-You may also want to set the `affinityCalculationStrategy`. `AffinityCalculationStrategy.prefix` configuration works better when your affine formats have distinctive prefixes, e.g. `+1 (` and `8 (`, though the default one, `.whole`, performs better when the entire value is inserted from the clipboard.
-
-## String formatting without views
-
-In case you want to format a `String` somewhere in your application's code, `Mask` is the class you are looking for.
-Instantiate a `Mask` instance and feed it with your string, mocking the cursor position:
-
-```swift
-let mask: Mask = try! Mask(format: "+7 ([000]) [000] [00] [00]")
-let input: String = "+71234567890"
-let result: Mask.Result = mask.apply(
-    toText: CaretString(
-        string: input,
-        caretPosition: input.endIndex
-    ),
-    autocomplete: true // you may consider disabling autocompletion for your case
-)
-let output: String = result.formattedText.string
-```
-
-<a name="elliptical" />
-
-## Elliptical masks
-
-An experimental feature. Allows to enter endless line of symbols of specific type. Ellipsis "inherits" its symbol type from the 
-previous character in format string. Masks like `[A…]` or `[a…]` will allow to enter letters, `[0…]` or `[9…]` — numbers, etc.
-
-Be aware that ellipsis doesn't count as a required character. Also, ellipsis works as a string terminator, such that mask `[0…][AAA]`
-filled with a single digit returns `true` in `Result.complete`, yet continues to accept **digits** (not letters!). Characters after the ellipsis are compiled into the mask but 
-never actually used; `[AAA]` part of the `[0…][AAA]` mask is pretty much useless.
-
-Elliptical format examples: 
-
-1. `[…]` is a wildcard mask, allowing to enter letters and digits. Always returns `true` in `Result.complete`.
-2. `[00…]` is a numeric mask, allowing to enter digits. Requires at least two digits to be `complete`.
-3. `[9…]` is a numeric mask, allowing to enter digits. Always returns `true` in `Result.complete`.
-4. `[_…]` is a wildcard mask with a single mandatory character. Allows to enter letters and digits. Requires a single character (digit or letter).
-5. `[-…]` acts same as `[…]`.
-
-Elliptical masks support custom notations, too.
-
-<a name="custom_notation" />
-
-## Custom notations
-
-An advanced experimental feature. Use with caution.
-
-Internal `Mask` compiler supports a series of symbols which represent letters and numbers in user input. Each symbol stands for its own character set; for instance, `0` and `9` stand for numeric character set. This means user can type any digit instead of `0` or `9`, or any letter instead of `A` or `a`. 
-
-The difference between `0` and `9` is that `0` stands for a **mandatory** digit, while `9` stands for **optional**. This means with the mask like `[099][A]` user may enter `1b`, `12c` or `123d`, while with the mask `[000][A]` user won't be able to enter the last letter unless he has entered three digits: `1` or `12` or `123` or `123e`.
-
-Summarizing, each symbol supported by the compiler has its own **character set** associated with it, and also has an option to be **mandatory** or not.
-
-This said, you may configure your own symbols in addition to the default ones through the `Notation` objects:
-
-```swift
-Mask(
-    format: "[999][.][99]",
-    customNotations: [
-        Notation(
-            character: ".", 
-            characterSet: CharacterSet(charactersIn: ".,"), 
-            isOptional: true
-        ),
-    ]
-)
-```
-
-or 
-
-```swift
-Mask.getOrCreate(
-    withFormat: "[999][.][99]",
-    customNotations: [
-        Notation(
-            character: ".", 
-            characterSet: CharacterSet(charactersIn: ".,"), 
-            isOptional: true
-        ),
-    ]
-)
-```
-
-For your convenience, `MaskedTextFieldDelegate` and its children now contains a `customNotations` field. You may still use the Interface Builder with custom formats, just don't forget to programmatically assign your custom notations:
-
-```swift
-class ViewController: UIViewController {
-    @IBOutlet weak var listener: MaskedTextFieldDelegate!
-    
-    open override func viewDidLoad() {
-        super.viewDidLoad()
-        listener.customNotations = [
-            Notation(
-                character: ".", 
-                characterSet: CharacterSet(charactersIn: ".,"), 
-                isOptional: true
-            ),
-        ]
-    }
-}
-```
-
-Please note, that you won't have autocompletion for any of your custom symbols. For more examples, see below.
-
-### A floating point number with two decimal places
-
-Mask: `[999999999][.][99]`
-
-<details>
-<summary>Custom notations:</summary>
-
-```swift
-Notation(character: ".", characterSet: CharacterSet(charactersIn: "."), isOptional: true)
-```
-</details>
-
-<details>
-<summary>Results</summary>
-
-```
-1
-123
-1234.
-1234.5
-1234.56
-```
-
-</details>
-
-### An email (please use regular expressions instead)
-
-With optional and mandatory "**d**ots" and "at" symbol.
-
-Mask: `[aaaaaaaaaa][d][aaaaaaaaaa][@][aaaaaaaaaa][d][aaaaaaaaaa][D][aaaaaaaaaa]`
-
-<details>
-<summary>Custom notations:</summary>
-
-
-```swift
-Notation(
-    character: "D",
-    characterSet: CharacterSet(charactersIn: "."),
-    isOptional: false
-),
-Notation(
-    character: "d",
-    characterSet: CharacterSet(charactersIn: "."),
-    isOptional: true
-),
-Notation(
-    character: "@",
-    characterSet: CharacterSet(charactersIn: "@"),
-    isOptional: false
-)
-```
-
-</details>
-
-<details>
-<summary>Results</summary>
-
-```
-d
-derh
-derh.
-derh.a
-derh.asd
-derh.asd@
-derh.asd@h
-derh.asd@hello.
-derh.asd@hello.c
-derh.asd@hello.com.
-derh.asd@hello.com.u
-derh.asd@hello.com.uk
-```
-
-</details>
-
-### An optional currency symbol
-
-Mask: `[s][9999]`
-
-<details>
-<summary>Custom notations:</summary>
-
-```swift
-Notation(character: "s", characterSet: CharacterSet(charactersIn: "$€"), isOptional: true)
-```
-</details>
-
-<details>
-<summary>Results</summary>
-
-```
-12
-$12
-918
-€918
-1000
-$1000
-```
-
-</details>
-
-## `UITextView` support
-
-All the features mentioned above are fully supported for the `UITextView` component, just use the `MaskedTextViewDelegate` class instead of the `MaskedTextFieldDelegate`.
+## Manual
+
+0. `git clone` this repository;
+1. Add `InputMask.xcodeproj` into your project/workspace;
+2. Go to your target's settings, add `InputMask.framework` under the `Embedded Binaries` section
+3. For `ObjC` projects:
+	* (~Xcode 8.x) make sure `Build Options` has `Embedded Content Contains Swift Code` enabled;
+	* import bridging header.
+
+<a name="knownissues" />
 
 # Known issues
 
