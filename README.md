@@ -156,6 +156,21 @@ Both had the same [bug](http://jon-nolen.blogspot.com/2013/10/uitextview-returns
 
 Since **iOS 11** most of the things received their fixes (except for the `UITextView` [edge case](https://github.com/RedMadRobot/input-mask-ios/blob/master/Source/InputMask/InputMask/Classes/View/MaskedTextInputListener.swift#L140)). In case your project is not going to support anything below 11, consider using the modern `MaskedTextInputListener`.
 
+## References
+
+The list of projects that are using this library which were kind enough to share that information.
+
+Feel free to add yours below.
+
+## Special thanks
+
+These folks rock:
+
+* Mikhail [while366](https://github.com/while366) Zhadko
+* Sergey [SergeyCHiP](https://github.com/SergeyCHiP) Germanovich
+* Luiz [LuizZak](https://github.com/LuizZak) Fernando
+* Ivan [vani](https://github.com/vani2) Vavilov
+
 # License
 
 The library is distributed under the MIT [LICENSE](https://opensource.org/licenses/MIT).
