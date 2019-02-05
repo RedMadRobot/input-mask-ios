@@ -42,7 +42,7 @@ Mask examples:
 Check out our [wiki](https://github.com/RedMadRobot/input-mask-ios/wiki) for further reading.  
 Please also take a closer look at our [Known issues](#knownissues) section before you incorporate our library into your project.
 
-For your bugreports please file new issues as usually.
+For your bugreports and feature requests please file new issues as usually.
 
 Should you have any questions, search for closed [issues](https://github.com/RedMadRobot/input-mask-ios/issues?q=is%3Aclosed) or open new ones at **[StackOverflow](https://stackoverflow.com/questions/tagged/input-mask)** with the `input-mask` tag.
 
