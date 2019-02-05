@@ -18,7 +18,8 @@
 
 The library provides you with a text field listener; when attached, it puts separators into the text while user types it in, and gets rid of unwanted symbols, all according to custom predefined pattern.
 
-This allows to reformat whole strings pasted from the clipboard, e.g. turning pasted `8 800 123-45-67` into `8 (800) 123 45 67`.
+This allows to reformat whole strings pasted from the clipboard, e.g. turning pasted `8 800 123-45-67` into  
+`8 (800) 123 45 67`.
 
 Each pattern allows to extract valuable symbols from the entered text, returning you the immediate result with the text field listener's callback when the text changes. Such that, you'll be able to extract `1234567` from `8 (800) 123 45 67` or `19991234567` from `1 (999) 123 45 67` with two different patterns.
 
@@ -36,26 +37,32 @@ Mask examples:
 8. Visa card numbers: `[0000] [0000] [0000] [0000]`
 9. MM/YY: `[00]{/}[00]`
 
+## Questions & Issues
+
 Check out our [wiki](https://github.com/RedMadRobot/input-mask-ios/wiki) for further reading.  
 Please also take a closer look at our [Known issues](#knownissues) section before you incorporate our library into your project.
 
+For your bugreports please file new issues as usually.
+
+Should you have any questions, search for closed [issues](https://github.com/RedMadRobot/input-mask-ios/issues?q=is%3Aclosed) or open new ones at **[StackOverflow](https://stackoverflow.com/questions/tagged/input-mask)** with the `input-mask` tag.
+
 <a name="installation" />
 
-# Installation
+## Installation
 
-## CocoaPods
+### CocoaPods
 
 ```ruby
 pod 'InputMask'
 ```
 
-## Carthage
+### Carthage
 
 ```ruby
 git "https://github.com/RedMadRobot/input-mask-ios.git"
 ```
 
-## Swift Package Manager
+### Swift Package Manager
 
 ```swift
 dependencies: [
@@ -63,7 +70,7 @@ dependencies: [
 ]
 ```
 
-## Manual
+### Manual
 
 0. `git clone` this repository;
 1. Add `InputMask.xcodeproj` into your project/workspace;
@@ -74,9 +81,9 @@ dependencies: [
 
 <a name="knownissues" />
 
-# Known issues
+## Known issues
 
-## `UITextFieldTextDidChange` notification and target-action `editingChanged` event
+### `UITextFieldTextDidChange` notification and target-action `editingChanged` event
 
 `UITextField` with assigned `MaskedTextFieldDelegate` object won't issue `UITextFieldTextDidChange` notifications and `editingChanged` control events. This happens due to the `textField(_:shouldChangeCharactersIn:replacementString:)` method implementation, which always returns `false`.
 
@@ -106,7 +113,7 @@ protocol NotifyingMaskedTextFieldDelegateListener: class {
 
 Please, avoid at all costs sending SDK events and notifications manually.
 
-## Carthage vs. IBDesignables, IBInspectables, views and their outlets
+### Carthage vs. IBDesignables, IBInspectables, views and their outlets
 
 Interface Builder struggles to support modules imported in a form of a dynamic framework. For instance, custom views annotated as IBDesignable, containing IBInspectable and IBOutlet fields aren't recognized properly from the drag'n'dropped \*.framework.
 
@@ -114,7 +121,7 @@ In case you are using our library as a Carthage-built dynamic framework, be awar
 
 Also, consider filing a radar to Apple, like [this one](https://openradar.appspot.com/23114017).
 
-## Cut action doesn't put text into the pasteboard
+### Cut action doesn't put text into the pasteboard
 
 When you cut text, characters get deleted yet you won't be able to paste them somewhere as they aren't actually in your pasteboard.
 
@@ -135,13 +142,13 @@ class UITextFieldMonkeyPatch: UITextField {
 
 From our library perspective, this looks like a highly invasive solution. Thus, in the long term, we are going to investigate a "costly" method to bring the behaviour matching the iOS SDK logic. Yet, here "long term" might mean months.
 
-## Incorrect cursor position after pasting
+### Incorrect cursor position after pasting
 
 Shortly after new text is being pasted from the clipboard, every ```UITextInput``` receives a new value for its `selectedTextRange` property from the system. This new range is not consistent with the formatted text and calculated caret position most of the time, yet it's being assigned just after ```set caretPosition``` call.
      
 To ensure correct caret position is set, it might be assigned asynchronously (presumably after a vanishingly small delay), if caret movement is set to be non-atomic; see `MaskedTextFieldDelegate.atomicCursorMovement` property.
 
-## `MaskedTextInputListener`
+### `MaskedTextInputListener`
 
 In case you are wondering why do we have two separate `UITextFieldDelegate` and `UITextViewDelegate` implementations, the answer is simple: prior to **iOS 11** `UITextField` and `UITextView` had different behaviour in some key situations, which made it difficult to implement common logic. 
 
