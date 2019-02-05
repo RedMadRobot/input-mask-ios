@@ -46,6 +46,8 @@ For your bugreports and feature requests please file new issues as usually.
 
 Should you have any questions, search for closed [issues](https://github.com/RedMadRobot/input-mask-ios/issues?q=is%3Aclosed) or open new ones at **[StackOverflow](https://stackoverflow.com/questions/tagged/input-mask)** with the `input-mask` tag.
 
+We also have a community-dirver [cookbook](https://github.com/RedMadRobot/input-mask-ios/blob/master/Documentation/COOKBOOK.md) of recipes, be sure to check it out, too.
+
 <a name="installation" />
 
 ## Installation
