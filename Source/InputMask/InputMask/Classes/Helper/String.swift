@@ -26,14 +26,14 @@ public extension String {
      
      - throws: EXC_BAD_INSTRUCTION for empty strings.
      */
-    public func truncateFirst() -> String {
+    func truncateFirst() -> String {
         return String(self[self.index(after: self.startIndex)...])
     }
     
     /**
      Find common prefix.
      */
-    public func prefixIntersection(with string: String) -> Substring {
+    func prefixIntersection(with string: String) -> Substring {
         var lhsIndex = startIndex
         var rhsIndex = string.startIndex
         

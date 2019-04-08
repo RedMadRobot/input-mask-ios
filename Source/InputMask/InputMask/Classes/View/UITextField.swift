@@ -11,7 +11,7 @@ import UIKit
 @available(iOS, introduced: 8, deprecated: 11, message: "Use UITextInput extension instead")
 public extension UITextField {
     
-    public var cursorPosition: Int {
+    var cursorPosition: Int {
         get {
             // Workaround for non-optional `beginningOfDocument`, which could actually be nil if field doesn't have focus
             guard isFirstResponder
