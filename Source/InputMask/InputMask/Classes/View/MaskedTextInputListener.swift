@@ -67,9 +67,27 @@ open class MaskedTextInputListener: NSObject {
         super.init()
     }
     
-    public override convenience init() {
-        // Interface Builder support
-        self.init(primaryFormat: "")
+    public override init() {
+        /**
+         Interface Builder support
+         
+         https://developer.apple.com/documentation/xcode_release_notes/xcode_10_2_release_notes/swift_5_release_notes_for_xcode_10_2
+         From known issue no.2:
+         
+         > To reduce the size taken up by Swift metadata, convenience initializers defined in Swift now only allocate an
+         > object ahead of time if they’re calling a designated initializer defined in Objective-C. In most cases, this
+         > has no effect on your program, but if your convenience initializer is called from Objective-C, the initial
+         > allocation from +alloc is released without any initializer being called.
+         */
+        self.primaryMaskFormat = ""
+        self.autocomplete = true
+        self.autocompleteOnFocus = true
+        self.rightToLeft = false
+        self.affineFormats = []
+        self.affinityCalculationStrategy = .wholeString
+        self.customNotations = []
+        self.onMaskedTextChangedCallback = nil
+        super.init()
     }
     
     /**
