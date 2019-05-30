@@ -53,9 +53,9 @@ public enum AffinityCalculationStrategy {
     case prefix
     
     /**
-     Affinity is tolerance between the length of the input and the total amount of text current mask can accomodate.
+     Affinity is tolerance between the length of the input and the total amount of text current mask can accommodate.
      
-     If current mask can't accomodate all the text, the affinity equals `Int.min`.
+     If current mask can't accommodate all the text, the affinity equals `Int.min`.
      
      For example:
      ```
