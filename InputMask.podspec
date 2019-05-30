@@ -1,6 +1,6 @@
 Pod::Spec.new do |spec|
   spec.name             = "InputMask"
-  spec.version          = "4.1.1"
+  spec.version          = "4.2.0"
   spec.summary          = "InputMask"
   spec.description      = "User input masking library."
   spec.homepage         = "https://github.com/RedMadRobot/input-mask-ios"
