@@ -138,8 +138,8 @@ public class Mask: CustomDebugStringConvertible, CustomStringConvertible {
         while let char: Character = character {
             if let next: Next = state.accept(character: char) {
                 state = next.state
-                modifiedString += nil != next.insert ? String(next.insert!) : ""
-                extractedValue += nil != next.value  ? String(next.value!)  : ""
+                modifiedString += next.insert.map { String($0) } ?? ""
+                extractedValue += next.value.map { String($0) } ?? ""
                 if next.pass {
                     beforeCaret = iterator.beforeCaret()
                     character   = iterator.next()
@@ -162,8 +162,8 @@ public class Mask: CustomDebugStringConvertible, CustomStringConvertible {
         
         while autocomplete && beforeCaret, let next: Next = state.autocomplete() {
             state = next.state
-            modifiedString += nil != next.insert ? String(next.insert!) : ""
-            extractedValue += nil != next.value  ? String(next.value!)  : ""
+            modifiedString += next.insert.map { String($0) } ?? ""
+            extractedValue += next.value.map { String($0) } ?? ""
             if nil != next.insert {
                 modifiedCaretPosition += 1
             }
