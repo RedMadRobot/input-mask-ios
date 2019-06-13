@@ -59,17 +59,18 @@ public enum AffinityCalculationStrategy {
      
      For example:
      ```
-     format1: [000]
-     format2: [00000]
-     format3: [0000000]
+     format1: [00]-[0]
+     format2: [00]-[000]
+     format3: [00]-[00000]
      
      input          affinity1    affinity2    affinity3
-     1              -2           -4           -6
-     12             -1           -3           -5
-     123            0            -2           -4
-     1234           Int.min      -1           -3
-     12345          Int.min      0            -2
-     123456         Int.min      Int.min      -1
+     1              -3           -5           -7
+     12             -2           -4           -6
+     123            -1           -3           -5
+     12-3           0            -2           -4
+     1234           0            -2           -4
+     12345          Int.min      -1           -3
+     123456         Int.min      0            -2
      ```
      
      This affinity calculation strategy comes in handy when the mask format radically changes depending on the input
@@ -78,6 +79,34 @@ public enum AffinityCalculationStrategy {
      N.B.: Make sure the widest mask format is the primary mask format.
      */
     case capacity
+    
+    /**
+     Affinity is tolerance between the length of the extracted value and the total extracted value length current mask can accommodate.
+     
+     If current mask can't accommodate all the text, the affinity equals `Int.min`.
+     
+     For example:
+     ```
+     format1: [00]-[0]
+     format2: [00]-[000]
+     format3: [00]-[00000]
+     
+     input          affinity1    affinity2    affinity3
+     1              -2           -4           -6
+     12             -1           -3           -5
+     123            0            -2           -4
+     12-3           0            -2           -4
+     1234           Int.min      -1           -3
+     12345          Int.min      0            -2
+     123456         Int.min      Int.min      -1
+     ```
+     
+     This affinity calculation strategy comes in handy when the mask format radically changes depending on the value
+     length.
+     
+     N.B.: Make sure the widest mask format is the primary mask format.
+     */
+    case extractedValueCapacity
     
     public func calculateAffinity(
         ofMask mask: Mask,
@@ -101,6 +130,16 @@ public enum AffinityCalculationStrategy {
                     return Int.min
                 } else {
                     return textLength - mask.totalTextLength
+                }
+            case .extractedValueCapacity:
+                let extractedValueLength: Int = mask.apply(
+                    toText: text,
+                    autocomplete: autocomplete
+                ).extractedValue.count
+                if extractedValueLength > mask.totalValueLength {
+                    return Int.min
+                } else {
+                    return extractedValueLength - mask.totalValueLength
                 }
         }
     }
