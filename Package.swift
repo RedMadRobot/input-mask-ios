@@ -16,7 +16,6 @@ let package = Package(
             name: "InputMask",
             dependencies: [],
             path: "Source/InputMask/InputMask",
-            exclude: ["Classes/View"],
             sources: ["Classes"]
         ),
         .testTarget(
