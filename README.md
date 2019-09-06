@@ -172,6 +172,7 @@ These folks rock:
 * Sergey [SergeyCHiP](https://github.com/SergeyCHiP) Germanovich
 * Luiz [LuizZak](https://github.com/LuizZak) Fernando
 * Ivan [vani](https://github.com/vani2) Vavilov
+* Diego [diegotl](https://github.com/diegotl) Trevisan
 
 # License
 
