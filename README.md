@@ -12,6 +12,12 @@
 
 <img src="https://raw.githubusercontent.com/RedMadRobot/input-mask-ios/assets/Assets/phone_input.gif" alt="Input Mask" width="640" />
 
+### Important: Migration Guide: v.5
+
+We've added a new concept of cursor gravity to our library internals. A simple flag had allowed us to get rid of some logic flaws and to finalise the right-to-left functionality at the cost of backward compatibility loss.
+
+Make sure to take a look at our [CHANGELOG](https://github.com/RedMadRobot/input-mask-ios/blob/master/CHANGELOG.md) in order to get familiar with the breaking changes.
+
 ## Description
 
 `Input Mask` is an [Android](https://github.com/RedMadRobot/input-mask-android) & [iOS](https://github.com/RedMadRobot/input-mask-ios) native library allowing to format user input on the fly.
@@ -68,7 +74,7 @@ git "https://github.com/RedMadRobot/input-mask-ios.git"
 
 ```swift
 dependencies: [
-    .Package(url: "https://github.com/RedMadRobot/input-mask-ios", majorVersion: 4)
+    .Package(url: "https://github.com/RedMadRobot/input-mask-ios", majorVersion: 5)
 ]
 ```
 

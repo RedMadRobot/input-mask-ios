@@ -1,5 +1,35 @@
 # Changelog
 
+### `5.0.0`
+
+#### Removed:
+
+* `CaretStringIterator::beforeCaret()`
+
+This method is now replaced with `::insertionAffectsCaret()` and `::deletionAffectsCaret()` calls. 
+
+* `::deleteText()` and `::modifyText()` in `MaskedTextFieldDelegate`, `MaskedTextInputListener` and `MaskedTextViewDelegate`
+
+These methods had been refactored and merged.
+
+Please, consider overriding corresponding  
+`textField(:shouldChangeCharactersIn:replacementString:)`  
+`textInput(:isChangingCharactersIn:replacementString:)` or  
+`textView(:shouldChangeTextIn:replacementText:)`  
+instead.
+
+#### Added:
+
+* `CaretString` instances now contain caret gravity.
+
+Caret gravity affects caret movement when `Mask` adds characters precisely at the caret position during formatting. It is important to retain caret position after text deletion/backspacing.
+
+Default `CaretGravity` is `.forward`. Set caret gravity to `.backward` only when user hits backspace.
+
+* `CaretStringIterator::insertionAffectsCaret()` and `CaretStringIterator::deletionAffectsCaret()`
+
+These methods allow to incorporate new caret gravity setting. `RTLCaretStringIterator` had also been rewritten to reflect these changes.
+
 ### `4.3.0`
 
 #### Added:

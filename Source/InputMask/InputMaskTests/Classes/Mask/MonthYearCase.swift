@@ -76,7 +76,8 @@ class MonthYearCase: MaskTestCase {
         let result: Mask.Result = try! self.mask().apply(
             toText: CaretString(
                 string: inputString,
-                caretPosition: inputCaret
+                caretPosition: inputCaret,
+                caretGravity: .forward
             )
         )
         
@@ -98,7 +99,8 @@ class MonthYearCase: MaskTestCase {
         let result: Mask.Result = try! self.mask().apply(
             toText: CaretString(
                 string: inputString,
-                caretPosition: inputCaret
+                caretPosition: inputCaret,
+                caretGravity: .forward
             )
         )
         
@@ -120,7 +122,8 @@ class MonthYearCase: MaskTestCase {
         let result: Mask.Result = try! self.mask().apply(
             toText: CaretString(
                 string: inputString,
-                caretPosition: inputCaret
+                caretPosition: inputCaret,
+                caretGravity: .forward
             )
         )
         
@@ -142,7 +145,8 @@ class MonthYearCase: MaskTestCase {
         let result: Mask.Result = try! self.mask().apply(
             toText: CaretString(
                 string: inputString,
-                caretPosition: inputCaret
+                caretPosition: inputCaret,
+                caretGravity: .forward
             )
         )
         
@@ -164,7 +168,8 @@ class MonthYearCase: MaskTestCase {
         let result: Mask.Result = try! self.mask().apply(
             toText: CaretString(
                 string: inputString,
-                caretPosition: inputCaret
+                caretPosition: inputCaret,
+                caretGravity: .forward
             )
         )
         
@@ -186,7 +191,8 @@ class MonthYearCase: MaskTestCase {
         let result: Mask.Result = try! self.mask().apply(
             toText: CaretString(
                 string: inputString,
-                caretPosition: inputCaret
+                caretPosition: inputCaret,
+                caretGravity: .forward
             )
         )
         
@@ -208,7 +214,8 @@ class MonthYearCase: MaskTestCase {
         let result: Mask.Result = try! self.mask().apply(
             toText: CaretString(
                 string: inputString,
-                caretPosition: inputCaret
+                caretPosition: inputCaret,
+                caretGravity: .forward
             )
         )
         
@@ -230,7 +237,8 @@ class MonthYearCase: MaskTestCase {
         let result: Mask.Result = try! self.mask().apply(
             toText: CaretString(
                 string: inputString,
-                caretPosition: inputCaret
+                caretPosition: inputCaret,
+                caretGravity: .forward
             )
         )
         
@@ -252,7 +260,8 @@ class MonthYearCase: MaskTestCase {
         let result: Mask.Result = try! self.mask().apply(
             toText: CaretString(
                 string: inputString,
-                caretPosition: inputCaret
+                caretPosition: inputCaret,
+                caretGravity: .forward
             )
         )
         
@@ -274,7 +283,8 @@ class MonthYearCase: MaskTestCase {
         let result: Mask.Result = try! self.mask().apply(
             toText: CaretString(
                 string: inputString,
-                caretPosition: inputCaret
+                caretPosition: inputCaret,
+                caretGravity: .forward
             )
         )
         
@@ -296,7 +306,8 @@ class MonthYearCase: MaskTestCase {
         let result: Mask.Result = try! self.mask().apply(
             toText: CaretString(
                 string: inputString,
-                caretPosition: inputCaret
+                caretPosition: inputCaret,
+                caretGravity: .forward
             )
         )
         
@@ -318,7 +329,8 @@ class MonthYearCase: MaskTestCase {
         let result: Mask.Result = try! self.mask().apply(
             toText: CaretString(
                 string: inputString,
-                caretPosition: inputCaret
+                caretPosition: inputCaret,
+                caretGravity: .forward
             )
         )
         
@@ -340,7 +352,31 @@ class MonthYearCase: MaskTestCase {
         let result: Mask.Result = try! self.mask().apply(
             toText: CaretString(
                 string: inputString,
-                caretPosition: inputCaret
+                caretPosition: inputCaret,
+                caretGravity: .forward
+            )
+        )
+        
+        XCTAssertEqual(expectedString, result.formattedText.string)
+        XCTAssertEqual(expectedCaret, result.formattedText.caretPosition)
+        XCTAssertEqual(expectedValue, result.extractedValue)
+        
+        XCTAssertEqual(false, result.complete)
+    }
+    
+    func testApply_1111_ThirdIndexGravityBackward_returns_11slash11_ThirdIndex() {
+        let inputString: String         = "1111"
+        let inputCaret:  String.Index   = inputString.index(inputString.startIndex, offsetBy: 2)
+        
+        let expectedString: String       = "11/11"
+        let expectedCaret:  String.Index = expectedString.index(expectedString.startIndex, offsetBy: 2)
+        let expectedValue:  String       = expectedString
+        
+        let result: Mask.Result = try! self.mask().apply(
+            toText: CaretString(
+                string: inputString,
+                caretPosition: inputCaret,
+                caretGravity: .backward
             )
         )
         
@@ -362,7 +398,8 @@ class MonthYearCase: MaskTestCase {
         let result: Mask.Result = try! self.mask().apply(
             toText: CaretString(
                 string: inputString,
-                caretPosition: inputCaret
+                caretPosition: inputCaret,
+                caretGravity: .forward
             )
         )
         
@@ -384,7 +421,8 @@ class MonthYearCase: MaskTestCase {
         let result: Mask.Result = try! self.mask().apply(
             toText: CaretString(
                 string: inputString,
-                caretPosition: inputCaret
+                caretPosition: inputCaret,
+                caretGravity: .forward
             )
         )
         
@@ -406,7 +444,8 @@ class MonthYearCase: MaskTestCase {
         let result: Mask.Result = try! self.mask().apply(
             toText: CaretString(
                 string: inputString,
-                caretPosition: inputCaret
+                caretPosition: inputCaret,
+                caretGravity: .forward
             )
         )
         
@@ -428,7 +467,8 @@ class MonthYearCase: MaskTestCase {
         let result: Mask.Result = try! self.mask().apply(
             toText: CaretString(
                 string: inputString,
-                caretPosition: inputCaret
+                caretPosition: inputCaret,
+                caretGravity: .forward
             )
         )
         

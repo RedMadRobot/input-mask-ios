@@ -57,7 +57,7 @@ open class MaskedTextViewDelegate: NSObject, UITextViewDelegate {
      
      Default is ```true```.
      */
-    @IBInspectable open var atomicCursorMovement: Bool = true
+    @IBInspectable open var atomicCursorMovement: Bool = false
 
     open var affineFormats:               [String]
     open var affinityCalculationStrategy: AffinityCalculationStrategy
@@ -200,12 +200,33 @@ open class MaskedTextViewDelegate: NSObject, UITextViewDelegate {
         shouldChangeTextIn range: NSRange,
         replacementText text: String
     ) -> Bool {
-        let result: Mask.Result
-        if isDeletion(inRange: range, string: text) {
-            result = deleteText(inRange: range, inTextView: textView)
+        // UITextView edge case
+        let isDeletion = (0 < range.length && 0 == text.count) || (0 == range.length && 0 == range.location && 0 == text.count)
+        
+        let updatedText: String = replaceCharacters(inText: textView.text ?? "", range: range, withCharacters: text)
+        let caretPositionInt: Int = isDeletion ? range.location : range.location + text.count
+        let caretPosition: String.Index = updatedText.startIndex(offsetBy: caretPositionInt)
+        let caretGravity: CaretString.CaretGravity = isDeletion ? .backward : .forward
+        
+        let text = CaretString(string: updatedText, caretPosition: caretPosition, caretGravity: caretGravity)
+        let useAutocomplete = isDeletion ? false : autocomplete
+        let mask: Mask = pickMask(forText: text, autocomplete: useAutocomplete)
+        let result: Mask.Result = mask.apply(toText: text, autocomplete: useAutocomplete)
+        
+        textView.text = result.formattedText.string
+        
+        if self.atomicCursorMovement {
+            textView.cursorPosition = result.formattedText.string.distanceFromStartIndex(
+                to: result.formattedText.caretPosition
+            )
         } else {
-            result = modifyText(inRange: range, inTextView: textView, withText: text)
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()) {
+                textView.cursorPosition = result.formattedText.string.distanceFromStartIndex(
+                    to: result.formattedText.caretPosition
+                )
+            }
         }
+        
         notifyOnMaskedTextChangedListeners(forTextView: textView, result: result)
         return false
     }
@@ -236,62 +257,6 @@ open class MaskedTextViewDelegate: NSObject, UITextViewDelegate {
     @available(iOS, introduced: 7.0, deprecated: 10.0, message: "Use textView:shouldInteractWithTextAttachment:inRange:forInteractionType: instead")
     open func textView(_ textView: UITextView, shouldInteractWith textAttachment: NSTextAttachment, in characterRange: NSRange) -> Bool {
         return listener?.textView?(textView, shouldInteractWith: textAttachment, in: characterRange) ?? true
-    }
-    
-    open func isDeletion(inRange range: NSRange, string: String) -> Bool {
-        // UITextView edge case
-        return (0 < range.length && 0 == string.count) || (0 == range.length && 0 == range.location && 0 == string.count)
-    }
-    
-    open func deleteText(inRange range: NSRange, inTextView textView: UITextView) -> Mask.Result {
-        let updatedText: String = replaceCharacters(inText: textView.text, range: range, withCharacters: "")
-        let caretPosition: String.Index = updatedText.startIndex(offsetBy: range.location)
-        
-        let mask: Mask = pickMask(
-            forText: CaretString(string: updatedText, caretPosition: caretPosition),
-            autocomplete: false
-        )
-        
-        let result: Mask.Result = mask.apply(
-            toText: CaretString(string: updatedText, caretPosition: caretPosition),
-            autocomplete: false
-        )
-        
-        textView.text = result.formattedText.string
-        textView.cursorPosition = range.location
-        
-        return result
-    }
-    
-    open func modifyText(inRange range: NSRange, inTextView textView: UITextView, withText text: String) -> Mask.Result {
-        let updatedText:   String       = replaceCharacters(inText: textView.text, range: range, withCharacters: text)
-        let caretPosition: String.Index = updatedText.startIndex(offsetBy: range.location + text.count)
-        
-        let mask: Mask = pickMask(
-            forText: CaretString(string: updatedText, caretPosition: caretPosition),
-            autocomplete: autocomplete
-        )
-        
-        let result: Mask.Result = mask.apply(
-            toText: CaretString(string: updatedText, caretPosition: caretPosition),
-            autocomplete: autocomplete
-        )
-        
-        textView.text = result.formattedText.string
-        
-        if self.atomicCursorMovement {
-            textView.cursorPosition = result.formattedText.string.distanceFromStartIndex(
-                to: result.formattedText.caretPosition
-            )
-        } else {
-            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()) {
-                textView.cursorPosition = result.formattedText.string.distanceFromStartIndex(
-                    to: result.formattedText.caretPosition
-                )
-            }
-        }
-        
-        return result
     }
     
     open func replaceCharacters(inText text: String, range: NSRange, withCharacters newText: String) -> String {

@@ -76,7 +76,8 @@ class PhoneCase: MaskTestCase {
         let result: Mask.Result = try! self.mask().apply(
             toText: CaretString(
                 string: inputString,
-                caretPosition: inputCaret
+                caretPosition: inputCaret,
+                caretGravity: .forward
             )
         )
         
@@ -98,7 +99,8 @@ class PhoneCase: MaskTestCase {
         let result: Mask.Result = try! self.mask().apply(
             toText: CaretString(
                 string: inputString,
-                caretPosition: inputCaret
+                caretPosition: inputCaret,
+                caretGravity: .forward
             )
         )
         
@@ -120,7 +122,8 @@ class PhoneCase: MaskTestCase {
         let result: Mask.Result = try! self.mask().apply(
             toText: CaretString(
                 string: inputString,
-                caretPosition: inputCaret
+                caretPosition: inputCaret,
+                caretGravity: .forward
             )
         )
         
@@ -142,7 +145,8 @@ class PhoneCase: MaskTestCase {
         let result: Mask.Result = try! self.mask().apply(
             toText: CaretString(
                 string: inputString,
-                caretPosition: inputCaret
+                caretPosition: inputCaret,
+                caretGravity: .forward
             )
         )
         
@@ -164,7 +168,8 @@ class PhoneCase: MaskTestCase {
         let result: Mask.Result = try! self.mask().apply(
             toText: CaretString(
                 string: inputString,
-                caretPosition: inputCaret
+                caretPosition: inputCaret,
+                caretGravity: .forward
             )
         )
         
@@ -186,7 +191,8 @@ class PhoneCase: MaskTestCase {
         let result: Mask.Result = try! self.mask().apply(
             toText: CaretString(
                 string: inputString,
-                caretPosition: inputCaret
+                caretPosition: inputCaret,
+                caretGravity: .forward
             )
         )
         
@@ -208,7 +214,8 @@ class PhoneCase: MaskTestCase {
         let result: Mask.Result = try! self.mask().apply(
             toText: CaretString(
                 string: inputString,
-                caretPosition: inputCaret
+                caretPosition: inputCaret,
+                caretGravity: .forward
             )
         )
         
@@ -230,7 +237,8 @@ class PhoneCase: MaskTestCase {
         let result: Mask.Result = try! self.mask().apply(
             toText: CaretString(
                 string: inputString,
-                caretPosition: inputCaret
+                caretPosition: inputCaret,
+                caretGravity: .forward
             )
         )
         
@@ -252,7 +260,8 @@ class PhoneCase: MaskTestCase {
         let result: Mask.Result = try! self.mask().apply(
             toText: CaretString(
                 string: inputString,
-                caretPosition: inputCaret
+                caretPosition: inputCaret,
+                caretGravity: .forward
             )
         )
         
@@ -274,7 +283,8 @@ class PhoneCase: MaskTestCase {
         let result: Mask.Result = try! self.mask().apply(
             toText: CaretString(
                 string: inputString,
-                caretPosition: inputCaret
+                caretPosition: inputCaret,
+                caretGravity: .forward
             )
         )
         
@@ -296,7 +306,8 @@ class PhoneCase: MaskTestCase {
         let result: Mask.Result = try! self.mask().apply(
             toText: CaretString(
                 string: inputString,
-                caretPosition: inputCaret
+                caretPosition: inputCaret,
+                caretGravity: .forward
             )
         )
         
@@ -318,7 +329,8 @@ class PhoneCase: MaskTestCase {
         let result: Mask.Result = try! self.mask().apply(
             toText: CaretString(
                 string: inputString,
-                caretPosition: inputCaret
+                caretPosition: inputCaret,
+                caretGravity: .forward
             )
         )
         
@@ -340,7 +352,8 @@ class PhoneCase: MaskTestCase {
         let result: Mask.Result = try! self.mask().apply(
             toText: CaretString(
                 string: inputString,
-                caretPosition: inputCaret
+                caretPosition: inputCaret,
+                caretGravity: .forward
             )
         )
         
@@ -362,7 +375,8 @@ class PhoneCase: MaskTestCase {
         let result: Mask.Result = try! self.mask().apply(
             toText: CaretString(
                 string: inputString,
-                caretPosition: inputCaret
+                caretPosition: inputCaret,
+                caretGravity: .forward
             )
         )
         
@@ -384,7 +398,8 @@ class PhoneCase: MaskTestCase {
         let result: Mask.Result = try! self.mask().apply(
             toText: CaretString(
                 string: inputString,
-                caretPosition: inputCaret
+                caretPosition: inputCaret,
+                caretGravity: .forward
             )
         )
         
@@ -406,7 +421,8 @@ class PhoneCase: MaskTestCase {
         let result: Mask.Result = try! self.mask().apply(
             toText: CaretString(
                 string: inputString,
-                caretPosition: inputCaret
+                caretPosition: inputCaret,
+                caretGravity: .forward
             )
         )
         
@@ -428,7 +444,8 @@ class PhoneCase: MaskTestCase {
         let result: Mask.Result = try! self.mask().apply(
             toText: CaretString(
                 string: inputString,
-                caretPosition: inputCaret
+                caretPosition: inputCaret,
+                caretGravity: .forward
             )
         )
         
@@ -450,7 +467,8 @@ class PhoneCase: MaskTestCase {
         let result: Mask.Result = try! self.mask().apply(
             toText: CaretString(
                 string: inputString,
-                caretPosition: inputCaret
+                caretPosition: inputCaret,
+                caretGravity: .forward
             )
         )
         
@@ -472,7 +490,8 @@ class PhoneCase: MaskTestCase {
         let result: Mask.Result = try! self.mask().apply(
             toText: CaretString(
                 string: inputString,
-                caretPosition: inputCaret
+                caretPosition: inputCaret,
+                caretGravity: .forward
             )
         )
         
@@ -494,7 +513,8 @@ class PhoneCase: MaskTestCase {
         let result: Mask.Result = try! self.mask().apply(
             toText: CaretString(
                 string: inputString,
-                caretPosition: inputCaret
+                caretPosition: inputCaret,
+                caretGravity: .forward
             )
         )
         
@@ -516,7 +536,8 @@ class PhoneCase: MaskTestCase {
         let result: Mask.Result = try! self.mask().apply(
             toText: CaretString(
                 string: inputString,
-                caretPosition: inputCaret
+                caretPosition: inputCaret,
+                caretGravity: .forward
             )
         )
         
@@ -538,7 +559,8 @@ class PhoneCase: MaskTestCase {
         let result: Mask.Result = try! self.mask().apply(
             toText: CaretString(
                 string: inputString,
-                caretPosition: inputCaret
+                caretPosition: inputCaret,
+                caretGravity: .forward
             )
         )
         
@@ -560,7 +582,8 @@ class PhoneCase: MaskTestCase {
         let result: Mask.Result = try! self.mask().apply(
             toText: CaretString(
                 string: inputString,
-                caretPosition: inputCaret
+                caretPosition: inputCaret,
+                caretGravity: .forward
             )
         )
         
@@ -582,7 +605,8 @@ class PhoneCase: MaskTestCase {
         let result: Mask.Result = try! self.mask().apply(
             toText: CaretString(
                 string: inputString,
-                caretPosition: inputCaret
+                caretPosition: inputCaret,
+                caretGravity: .forward
             )
         )
         
@@ -604,7 +628,8 @@ class PhoneCase: MaskTestCase {
         let result: Mask.Result = try! self.mask().apply(
             toText: CaretString(
                 string: inputString,
-                caretPosition: inputCaret
+                caretPosition: inputCaret,
+                caretGravity: .forward
             ),
             autocomplete: true
         )
@@ -627,7 +652,8 @@ class PhoneCase: MaskTestCase {
         let result: Mask.Result = try! self.mask().apply(
             toText: CaretString(
                 string: inputString,
-                caretPosition: inputCaret
+                caretPosition: inputCaret,
+                caretGravity: .forward
             ),
             autocomplete: true
         )
@@ -650,7 +676,8 @@ class PhoneCase: MaskTestCase {
         let result: Mask.Result = try! self.mask().apply(
             toText: CaretString(
                 string: inputString,
-                caretPosition: inputCaret
+                caretPosition: inputCaret,
+                caretGravity: .forward
             ),
             autocomplete: true
         )
@@ -673,7 +700,8 @@ class PhoneCase: MaskTestCase {
         let result: Mask.Result = try! self.mask().apply(
             toText: CaretString(
                 string: inputString,
-                caretPosition: inputCaret
+                caretPosition: inputCaret,
+                caretGravity: .forward
             ),
             autocomplete: true
         )
@@ -696,7 +724,8 @@ class PhoneCase: MaskTestCase {
         let result: Mask.Result = try! self.mask().apply(
             toText: CaretString(
                 string: inputString,
-                caretPosition: inputCaret
+                caretPosition: inputCaret,
+                caretGravity: .forward
             ),
             autocomplete: true
         )
@@ -719,7 +748,8 @@ class PhoneCase: MaskTestCase {
         let result: Mask.Result = try! self.mask().apply(
             toText: CaretString(
                 string: inputString,
-                caretPosition: inputCaret
+                caretPosition: inputCaret,
+                caretGravity: .forward
             ),
             autocomplete: true
         )
@@ -742,7 +772,8 @@ class PhoneCase: MaskTestCase {
         let result: Mask.Result = try! self.mask().apply(
             toText: CaretString(
                 string: inputString,
-                caretPosition: inputCaret
+                caretPosition: inputCaret,
+                caretGravity: .forward
             ),
             autocomplete: true
         )
@@ -765,7 +796,8 @@ class PhoneCase: MaskTestCase {
         let result: Mask.Result = try! self.mask().apply(
             toText: CaretString(
                 string: inputString,
-                caretPosition: inputCaret
+                caretPosition: inputCaret,
+                caretGravity: .forward
             ),
             autocomplete: true
         )

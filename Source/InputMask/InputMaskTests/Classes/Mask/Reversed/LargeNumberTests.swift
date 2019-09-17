@@ -21,7 +21,7 @@ class LargeNumberTests: XCTestCase {
 
         let mask: Mask = try! RTLMask.getOrCreate(withFormat: "[0] [000] [000]")
 
-        let actualOutput: Mask.Result = mask.apply(toText: CaretString(string: input, caretPosition: caret))
+        let actualOutput: Mask.Result = mask.apply(toText: CaretString(string: input, caretPosition: caret, caretGravity: .forward))
 
         XCTAssertEqual(actualOutput.formattedText.string, expectedOutput)
         XCTAssertEqual(actualOutput.formattedText.caretPosition, expectedCaret)
@@ -40,7 +40,7 @@ class LargeNumberTests: XCTestCase {
 
         let mask: Mask = try! RTLMask.getOrCreate(withFormat: "[0] [000] [000]")
 
-        let actualOutput: Mask.Result = mask.apply(toText: CaretString(string: input, caretPosition: caret))
+        let actualOutput: Mask.Result = mask.apply(toText: CaretString(string: input, caretPosition: caret, caretGravity: .forward))
 
         XCTAssertEqual(actualOutput.formattedText.string, expectedOutput)
         XCTAssertEqual(actualOutput.formattedText.caretPosition, expectedCaret)
@@ -48,18 +48,18 @@ class LargeNumberTests: XCTestCase {
         XCTAssertEqual(actualOutput.complete, expectedComplete)
     }
 
-    func testApply_1CARET000_returns1spaceCARET000() {
+    func testApply_1CARET000_returns1CARETspace000() {
         let input: String       = "1000"
         let caret: String.Index = input.startIndex(offsetBy: 1)
 
         let expectedOutput:   String       = "1 000"
-        let expectedCaret:    String.Index = expectedOutput.startIndex(offsetBy: 2)
+        let expectedCaret:    String.Index = expectedOutput.startIndex(offsetBy: 1)
         let expectedAffinity: Int          = 3
         let expectedComplete: Bool         = false
 
         let mask: Mask = try! RTLMask.getOrCreate(withFormat: "[0] [000] [000]")
 
-        let actualOutput: Mask.Result = mask.apply(toText: CaretString(string: input, caretPosition: caret))
+        let actualOutput: Mask.Result = mask.apply(toText: CaretString(string: input, caretPosition: caret, caretGravity: .forward))
 
         XCTAssertEqual(actualOutput.formattedText.string, expectedOutput)
         XCTAssertEqual(actualOutput.formattedText.caretPosition, expectedCaret)
@@ -78,7 +78,7 @@ class LargeNumberTests: XCTestCase {
         
         let mask: Mask = try! RTLMask.getOrCreate(withFormat: "[0] [000] [000]")
         
-        let actualOutput: Mask.Result = mask.apply(toText: CaretString(string: input, caretPosition: caret))
+        let actualOutput: Mask.Result = mask.apply(toText: CaretString(string: input, caretPosition: caret, caretGravity: .forward))
         
         XCTAssertEqual(actualOutput.formattedText.string, expectedOutput)
         XCTAssertEqual(actualOutput.formattedText.caretPosition, expectedCaret)
@@ -86,18 +86,18 @@ class LargeNumberTests: XCTestCase {
         XCTAssertEqual(actualOutput.complete, expectedComplete)
     }
     
-    func testApplyAutocomplete_CARET000_returnsCARET000() {
+    func testApplyAutocomplete_CARET000_returnsCARETspace000() {
         let input: String       = "000"
         let caret: String.Index = input.startIndex
         
-        let expectedOutput:   String       = "000"
+        let expectedOutput:   String       = " 000"
         let expectedCaret:    String.Index = expectedOutput.startIndex
         let expectedAffinity: Int          = 3
         let expectedComplete: Bool         = false
         
         let mask: Mask = try! RTLMask.getOrCreate(withFormat: "[0] [000] [000]")
         
-        let actualOutput: Mask.Result = mask.apply(toText: CaretString(string: input, caretPosition: caret), autocomplete: true)
+        let actualOutput: Mask.Result = mask.apply(toText: CaretString(string: input, caretPosition: caret, caretGravity: .forward), autocomplete: true)
         
         XCTAssertEqual(actualOutput.formattedText.string, expectedOutput)
         XCTAssertEqual(actualOutput.formattedText.caretPosition, expectedCaret)
@@ -116,7 +116,7 @@ class LargeNumberTests: XCTestCase {
         
         let mask: Mask = try! RTLMask.getOrCreate(withFormat: "[0] [000] [000]")
         
-        let actualOutput: Mask.Result = mask.apply(toText: CaretString(string: input, caretPosition: caret))
+        let actualOutput: Mask.Result = mask.apply(toText: CaretString(string: input, caretPosition: caret, caretGravity: .forward))
         
         XCTAssertEqual(actualOutput.formattedText.string, expectedOutput)
         XCTAssertEqual(actualOutput.formattedText.caretPosition, expectedCaret)

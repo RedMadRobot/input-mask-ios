@@ -120,6 +120,7 @@ public class Mask: CustomDebugStringConvertible, CustomStringConvertible {
      Apply mask to the user input string.
      
      - parameter toText: user input string with current cursor position
+     - parameter autocomplete: enable text autocompletion; `false` by default
      
      - returns: Formatted text with extracted value an adjusted cursor position.
      */
@@ -131,9 +132,11 @@ public class Mask: CustomDebugStringConvertible, CustomStringConvertible {
         var modifiedString:         String  = ""
         var modifiedCaretPosition:  Int     = text.string.distanceFromStartIndex(to: text.caretPosition)
         
-        var state:       State      = self.initialState
-        var beforeCaret: Bool       = iterator.beforeCaret()
-        var character:   Character? = iterator.next()
+        var state: State = self.initialState
+        
+        var insertionAffectsCaret: Bool       = iterator.insertionAffectsCaret()
+        var deletionAffectsCaret:  Bool       = iterator.deletionAffectsCaret()
+        var character:             Character? = iterator.next()
         
         while let char: Character = character {
             if let next: Next = state.accept(character: char) {
@@ -141,26 +144,28 @@ public class Mask: CustomDebugStringConvertible, CustomStringConvertible {
                 modifiedString += nil != next.insert ? String(next.insert!) : ""
                 extractedValue += nil != next.value  ? String(next.value!)  : ""
                 if next.pass {
-                    beforeCaret = iterator.beforeCaret()
+                    insertionAffectsCaret = iterator.insertionAffectsCaret()
+                    deletionAffectsCaret  = iterator.deletionAffectsCaret()
                     character   = iterator.next()
                     affinity   += 1
                 } else {
-                    if beforeCaret && nil != next.insert {
+                    if insertionAffectsCaret && nil != next.insert {
                         modifiedCaretPosition += 1
                     }
                     affinity -= 1
                 }
             } else {
-                if iterator.beforeCaret() {
+                if deletionAffectsCaret {
                     modifiedCaretPosition -= 1
                 }
-                beforeCaret = iterator.beforeCaret()
+                insertionAffectsCaret = iterator.insertionAffectsCaret()
+                deletionAffectsCaret  = iterator.deletionAffectsCaret()
                 character   = iterator.next()
                 affinity   -= 1
             }
         }
         
-        while autocomplete && beforeCaret, let next: Next = state.autocomplete() {
+        while autocomplete && insertionAffectsCaret, let next: Next = state.autocomplete() {
             state = next.state
             modifiedString += nil != next.insert ? String(next.insert!) : ""
             extractedValue += nil != next.value  ? String(next.value!)  : ""
@@ -172,7 +177,8 @@ public class Mask: CustomDebugStringConvertible, CustomStringConvertible {
         return Result(
             formattedText: CaretString(
                 string: modifiedString,
-                caretPosition: modifiedString.startIndex(offsetBy: modifiedCaretPosition)
+                caretPosition: modifiedString.startIndex(offsetBy: modifiedCaretPosition),
+                caretGravity: text.caretGravity
             ),
             extractedValue: extractedValue,
             affinity: affinity,

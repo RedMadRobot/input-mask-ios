@@ -36,7 +36,7 @@ open class MaskedTextInputListener: NSObject {
      
      Default is ```true```.
      */
-    @IBInspectable open var atomicCaretMovement: Bool = true
+    @IBInspectable open var atomicCaretMovement: Bool = false
 
     open var affineFormats:               [String]
     open var affinityCalculationStrategy: AffinityCalculationStrategy
@@ -160,71 +160,42 @@ open class MaskedTextInputListener: NSObject {
         isChangingCharactersIn range: NSRange,
         replacementString string: String
     ) -> Mask.Result {
-        if isDeletion(inRange: range, string: string, field: textInput) {
-            return deleteText(inRange: range, inTextInput: textInput)
-        } else {
-            return modifyText(inRange: range, inTextInput: textInput, withText: string)
-        }
-    }
-    
-    open func isDeletion(inRange range: NSRange, string: String, field: UITextInput) -> Bool {
-        let isDeletion = 0 < range.length && 0 == string.count
-        if field is UITextView {
-            // UITextView edge case
-            return isDeletion || (0 == range.length && 0 == range.location && 0 == string.count)
-        }
-        return isDeletion
-    }
-    
-    open func deleteText(inRange range: NSRange, inTextInput field: UITextInput) -> Mask.Result {
-        let updatedText: String = replaceCharacters(inText: field.allText, range: range, withCharacters: "")
-        let caretPosition: String.Index = updatedText.startIndex(offsetBy: range.location)
-
-        let mask: Mask = pickMask(
-            forText: CaretString(string: updatedText, caretPosition: caretPosition),
-            autocomplete: false
-        )
-
-        let result: Mask.Result = mask.apply(
-            toText: CaretString(string: updatedText, caretPosition: caretPosition),
-            autocomplete: false
-        )
+        let isDeletion = isThisDeletion(inRange: range, string: string, field: textInput)
         
-        field.allText = result.formattedText.string
-        field.caretPosition = range.location
+        let updatedText: String = replaceCharacters(inText: textInput.allText, range: range, withCharacters: string)
+        let caretPositionInt: Int = isDeletion ? range.location : range.location + string.count
+        let caretPosition: String.Index = updatedText.startIndex(offsetBy: caretPositionInt)
+        let caretGravity: CaretString.CaretGravity = isDeletion ? .backward : .forward
         
-        return result
-    }
-    
-    open func modifyText(inRange range: NSRange, inTextInput field: UITextInput, withText text: String) -> Mask.Result {
-        let updatedText: String = replaceCharacters(inText: field.allText, range: range, withCharacters: text)
-        let caretPosition: String.Index = updatedText.startIndex(offsetBy: range.location + text.count)
+        let text = CaretString(string: updatedText, caretPosition: caretPosition, caretGravity: caretGravity)
+        let useAutocomplete = isDeletion ? false : autocomplete
+        let mask: Mask = pickMask(forText: text, autocomplete: useAutocomplete)
+        let result: Mask.Result = mask.apply(toText: text, autocomplete: useAutocomplete)
         
-        let mask: Mask = pickMask(
-            forText: CaretString(string: updatedText, caretPosition: caretPosition),
-            autocomplete: autocomplete
-        )
-        
-        let result: Mask.Result = mask.apply(
-            toText: CaretString(string: updatedText, caretPosition: caretPosition),
-            autocomplete: autocomplete
-        )
-        
-        field.allText = result.formattedText.string
+        textInput.allText = result.formattedText.string
         
         if self.atomicCaretMovement {
-            field.caretPosition = result.formattedText.string.distanceFromStartIndex(
+            textInput.caretPosition = result.formattedText.string.distanceFromStartIndex(
                 to: result.formattedText.caretPosition
             )
         } else {
             DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()) {
-                field.caretPosition = result.formattedText.string.distanceFromStartIndex(
+                textInput.caretPosition = result.formattedText.string.distanceFromStartIndex(
                     to: result.formattedText.caretPosition
                 )
             }
         }
         
         return result
+    }
+    
+    open func isThisDeletion(inRange range: NSRange, string: String, field: UITextInput) -> Bool {
+        let isDeletion = 0 < range.length && 0 == string.count
+        if field is UITextView {
+            // UITextView edge case
+            return isDeletion || (0 == range.length && 0 == range.location && 0 == string.count)
+        }
+        return isDeletion
     }
     
     open func replaceCharacters(inText text: String, range: NSRange, withCharacters newText: String) -> String {

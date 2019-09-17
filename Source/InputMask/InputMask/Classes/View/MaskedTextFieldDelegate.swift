@@ -57,7 +57,7 @@ open class MaskedTextFieldDelegate: NSObject, UITextFieldDelegate {
      
      Default is ```true```.
      */
-    @IBInspectable open var atomicCursorMovement: Bool = true
+    @IBInspectable open var atomicCursorMovement: Bool = false
 
     open var affineFormats:               [String]
     open var affinityCalculationStrategy: AffinityCalculationStrategy
@@ -209,12 +209,32 @@ open class MaskedTextFieldDelegate: NSObject, UITextFieldDelegate {
         shouldChangeCharactersIn range: NSRange,
         replacementString string: String
     ) -> Bool {
-        let result: Mask.Result
-        if isDeletion(inRange: range, string: string) {
-            result = deleteText(inRange: range, inTextField: textField)
+        let isDeletion = 0 < range.length && 0 == string.count
+        
+        let updatedText: String = replaceCharacters(inText: textField.text ?? "", range: range, withCharacters: string)
+        let caretPositionInt: Int = isDeletion ? range.location : range.location + string.count
+        let caretPosition: String.Index = updatedText.startIndex(offsetBy: caretPositionInt)
+        let caretGravity: CaretString.CaretGravity = isDeletion ? .backward : .forward
+        
+        let text = CaretString(string: updatedText, caretPosition: caretPosition, caretGravity: caretGravity)
+        let useAutocomplete = isDeletion ? false : autocomplete
+        let mask: Mask = pickMask(forText: text, autocomplete: useAutocomplete)
+        let result: Mask.Result = mask.apply(toText: text, autocomplete: useAutocomplete)
+        
+        textField.text = result.formattedText.string
+        
+        if self.atomicCursorMovement {
+            textField.cursorPosition = result.formattedText.string.distanceFromStartIndex(
+                to: result.formattedText.caretPosition
+            )
         } else {
-            result = modifyText(inRange: range, inTextField: textField, withText: string)
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()) {
+                textField.cursorPosition = result.formattedText.string.distanceFromStartIndex(
+                    to: result.formattedText.caretPosition
+                )
+            }
         }
+        
         notifyOnMaskedTextChangedListeners(forTextField: textField, result: result)
         return false
     }
@@ -230,61 +250,6 @@ open class MaskedTextFieldDelegate: NSObject, UITextFieldDelegate {
     
     open func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         return listener?.textFieldShouldReturn?(textField) ?? true
-    }
-    
-    open func isDeletion(inRange range: NSRange, string: String) -> Bool {
-        return 0 < range.length && 0 == string.count
-    }
-    
-    open func deleteText(inRange range: NSRange, inTextField field: UITextField) -> Mask.Result {
-        let updatedText:   String       = replaceCharacters(inText: field.text ?? "", range: range, withCharacters: "")
-        let caretPosition: String.Index = updatedText.startIndex(offsetBy: range.location)
-        
-        let mask: Mask = pickMask(
-            forText: CaretString(string: updatedText, caretPosition: caretPosition),
-            autocomplete: false
-        )
-        
-        let result: Mask.Result = mask.apply(
-            toText: CaretString(string: updatedText, caretPosition: caretPosition),
-            autocomplete: false
-        )
-        
-        field.text = result.formattedText.string
-        field.cursorPosition = range.location
-        
-        return result
-    }
-    
-    open func modifyText(inRange range: NSRange, inTextField field: UITextField, withText text: String) -> Mask.Result {
-        let updatedText:   String       = replaceCharacters(inText: field.text ?? "", range: range, withCharacters: text)
-        let caretPosition: String.Index = updatedText.startIndex(offsetBy: range.location + text.count)
-        
-        let mask: Mask = pickMask(
-            forText: CaretString(string: updatedText, caretPosition: caretPosition),
-            autocomplete: autocomplete
-        )
-        
-        let result: Mask.Result = mask.apply(
-            toText: CaretString(string: updatedText, caretPosition: caretPosition),
-            autocomplete: autocomplete
-        )
-        
-        field.text = result.formattedText.string
-        
-        if self.atomicCursorMovement {
-            field.cursorPosition = result.formattedText.string.distanceFromStartIndex(
-                to: result.formattedText.caretPosition
-            )
-        } else {
-            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()) {
-                field.cursorPosition = result.formattedText.string.distanceFromStartIndex(
-                    to: result.formattedText.caretPosition
-                )
-            }
-        }
-        
-        return result
     }
     
     open func replaceCharacters(inText text: String, range: NSRange, withCharacters newText: String) -> String {

@@ -8,7 +8,7 @@ import Foundation
 
 
 class RTLCaretStringIterator: CaretStringIterator {
-    override func beforeCaret() -> Bool {
-        return self.currentIndex < self.caretString.caretPosition
+    override func insertionAffectsCaret() -> Bool {
+        return self.currentIndex <= self.caretString.caretPosition
     }
 }
