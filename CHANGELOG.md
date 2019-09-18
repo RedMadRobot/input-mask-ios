@@ -30,6 +30,10 @@ Default `CaretGravity` is `.forward`. Set caret gravity to `.backward` only when
 
 These methods allow to incorporate new caret gravity setting. `RTLCaretStringIterator` had also been rewritten to reflect these changes.
 
+#### Modified:
+
+* [Atomic cursor movement](https://github.com/RedMadRobot/input-mask-ios/wiki/2.-Text-Field-Listener#atomic-cursor-movement-an-ugly-workaround-property) is now turned off by default.
+
 ### `4.3.0`
 
 #### Added:
