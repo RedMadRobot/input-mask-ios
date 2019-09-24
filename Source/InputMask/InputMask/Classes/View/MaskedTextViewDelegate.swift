@@ -55,7 +55,7 @@ open class MaskedTextViewDelegate: NSObject, UITextViewDelegate {
      To ensure correct cursor position is set, it is assigned asynchronously (presumably after a vanishingly
      small delay), if cursor movement is set to be non-atomic.
      
-     Default is ```true```.
+     Default is ```false```.
      */
     @IBInspectable open var atomicCursorMovement: Bool = false
 

@@ -34,7 +34,7 @@ open class MaskedTextInputListener: NSObject {
      To ensure correct caret position is set, it is assigned asynchronously (presumably after a vanishingly
      small delay), if caret movement is set to be non-atomic.
      
-     Default is ```true```.
+     Default is ```false```.
      */
     @IBInspectable open var atomicCaretMovement: Bool = false
 
