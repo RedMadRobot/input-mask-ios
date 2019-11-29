@@ -67,6 +67,8 @@ open class MaskedTextViewDelegate: NSObject, UITextViewDelegate {
         return try! maskGetOrCreate(withFormat: primaryMaskFormat, customNotations: customNotations)
     }
     
+    private var lastEntryInput: String = ""
+    
     public init(
         primaryFormat: String = "",
         autocomplete: Bool = true,
@@ -200,6 +202,12 @@ open class MaskedTextViewDelegate: NSObject, UITextViewDelegate {
         shouldChangeTextIn range: NSRange,
         replacementText text: String
     ) -> Bool {
+        if text.count > 1 && text == lastEntryInput {
+            print("Caught unwanted recursion") // iOS 13
+            return false
+        }
+        lastEntryInput = text
+        
         // UITextView edge case
         let isDeletion = (0 < range.length && 0 == text.count) || (0 == range.length && 0 == range.location && 0 == text.count)
         

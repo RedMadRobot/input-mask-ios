@@ -38,7 +38,7 @@ import UIKit
  */
 @IBDesignable
 open class MaskedTextFieldDelegate: NSObject, UITextFieldDelegate {
-
+    
     open weak var listener: MaskedTextFieldDelegateListener?
     open var onMaskedTextChangedCallback: ((_ textField: UITextField, _ value: String, _ complete: Bool) -> ())?
 
@@ -66,6 +66,8 @@ open class MaskedTextFieldDelegate: NSObject, UITextFieldDelegate {
     open var primaryMask: Mask {
         return try! maskGetOrCreate(withFormat: primaryMaskFormat, customNotations: customNotations)
     }
+    
+    private var lastEntryInput: String = ""
     
     public init(
         primaryFormat: String = "",
@@ -209,6 +211,12 @@ open class MaskedTextFieldDelegate: NSObject, UITextFieldDelegate {
         shouldChangeCharactersIn range: NSRange,
         replacementString string: String
     ) -> Bool {
+        if string.count > 1 && string == lastEntryInput {
+            print("Caught unwanted recursion") // iOS 13
+            return false
+        }
+        lastEntryInput = string
+        
         let isDeletion = 0 < range.length && 0 == string.count
         
         let updatedText: String = replaceCharacters(inText: textField.text ?? "", range: range, withCharacters: string)
