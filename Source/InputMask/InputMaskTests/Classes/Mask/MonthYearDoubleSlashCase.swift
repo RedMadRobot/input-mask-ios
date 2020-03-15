@@ -77,7 +77,7 @@ class MonthYearDoubledoubleShashCase: MaskTestCase {
             toText: CaretString(
                 string: inputString,
                 caretPosition: inputCaret,
-                caretGravity: .forward
+                caretGravity: .forward(autocomplete: false)
             )
         )
         
@@ -100,7 +100,7 @@ class MonthYearDoubledoubleShashCase: MaskTestCase {
             toText: CaretString(
                 string: inputString,
                 caretPosition: inputCaret,
-                caretGravity: .forward
+                caretGravity: .forward(autocomplete: false)
             )
         )
         
@@ -123,7 +123,7 @@ class MonthYearDoubledoubleShashCase: MaskTestCase {
             toText: CaretString(
                 string: inputString,
                 caretPosition: inputCaret,
-                caretGravity: .forward
+                caretGravity: .forward(autocomplete: false)
             )
         )
         
@@ -146,7 +146,7 @@ class MonthYearDoubledoubleShashCase: MaskTestCase {
             toText: CaretString(
                 string: inputString,
                 caretPosition: inputCaret,
-                caretGravity: .forward
+                caretGravity: .forward(autocomplete: false)
             )
         )
         
@@ -169,7 +169,7 @@ class MonthYearDoubledoubleShashCase: MaskTestCase {
             toText: CaretString(
                 string: inputString,
                 caretPosition: inputCaret,
-                caretGravity: .forward
+                caretGravity: .forward(autocomplete: false)
             )
         )
         
@@ -192,7 +192,7 @@ class MonthYearDoubledoubleShashCase: MaskTestCase {
             toText: CaretString(
                 string: inputString,
                 caretPosition: inputCaret,
-                caretGravity: .forward
+                caretGravity: .forward(autocomplete: false)
             )
         )
         
@@ -215,7 +215,7 @@ class MonthYearDoubledoubleShashCase: MaskTestCase {
             toText: CaretString(
                 string: inputString,
                 caretPosition: inputCaret,
-                caretGravity: .forward
+                caretGravity: .forward(autocomplete: false)
             )
         )
         
@@ -238,7 +238,7 @@ class MonthYearDoubledoubleShashCase: MaskTestCase {
             toText: CaretString(
                 string: inputString,
                 caretPosition: inputCaret,
-                caretGravity: .forward
+                caretGravity: .forward(autocomplete: false)
             )
         )
         
@@ -261,7 +261,7 @@ class MonthYearDoubledoubleShashCase: MaskTestCase {
             toText: CaretString(
                 string: inputString,
                 caretPosition: inputCaret,
-                caretGravity: .forward
+                caretGravity: .forward(autocomplete: false)
             )
         )
         
@@ -284,7 +284,7 @@ class MonthYearDoubledoubleShashCase: MaskTestCase {
             toText: CaretString(
                 string: inputString,
                 caretPosition: inputCaret,
-                caretGravity: .forward
+                caretGravity: .forward(autocomplete: false)
             )
         )
         
@@ -307,7 +307,7 @@ class MonthYearDoubledoubleShashCase: MaskTestCase {
             toText: CaretString(
                 string: inputString,
                 caretPosition: inputCaret,
-                caretGravity: .forward
+                caretGravity: .forward(autocomplete: false)
             )
         )
         
@@ -330,7 +330,7 @@ class MonthYearDoubledoubleShashCase: MaskTestCase {
             toText: CaretString(
                 string: inputString,
                 caretPosition: inputCaret,
-                caretGravity: .forward
+                caretGravity: .forward(autocomplete: false)
             )
         )
         
@@ -353,7 +353,7 @@ class MonthYearDoubledoubleShashCase: MaskTestCase {
             toText: CaretString(
                 string: inputString,
                 caretPosition: inputCaret,
-                caretGravity: .forward
+                caretGravity: .forward(autocomplete: false)
             )
         )
         
@@ -376,7 +376,7 @@ class MonthYearDoubledoubleShashCase: MaskTestCase {
             toText: CaretString(
                 string: inputString,
                 caretPosition: inputCaret,
-                caretGravity: .forward
+                caretGravity: .forward(autocomplete: false)
             )
         )
         
@@ -399,7 +399,7 @@ class MonthYearDoubledoubleShashCase: MaskTestCase {
             toText: CaretString(
                 string: inputString,
                 caretPosition: inputCaret,
-                caretGravity: .forward
+                caretGravity: .forward(autocomplete: false)
             )
         )
         
@@ -422,7 +422,7 @@ class MonthYearDoubledoubleShashCase: MaskTestCase {
             toText: CaretString(
                 string: inputString,
                 caretPosition: inputCaret,
-                caretGravity: .backward
+                caretGravity: .backward(autoskip: false)
             )
         )
         
@@ -445,7 +445,7 @@ class MonthYearDoubledoubleShashCase: MaskTestCase {
             toText: CaretString(
                 string: inputString,
                 caretPosition: inputCaret,
-                caretGravity: .forward
+                caretGravity: .forward(autocomplete: false)
             )
         )
         
@@ -468,7 +468,7 @@ class MonthYearDoubledoubleShashCase: MaskTestCase {
             toText: CaretString(
                 string: inputString,
                 caretPosition: inputCaret,
-                caretGravity: .forward
+                caretGravity: .forward(autocomplete: false)
             )
         )
         
@@ -491,7 +491,7 @@ class MonthYearDoubledoubleShashCase: MaskTestCase {
             toText: CaretString(
                 string: inputString,
                 caretPosition: inputCaret,
-                caretGravity: .forward
+                caretGravity: .forward(autocomplete: false)
             )
         )
         

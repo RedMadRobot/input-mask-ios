@@ -94,7 +94,7 @@ class CustomNotationEllipticalCase: MaskTestCase {
             toText: CaretString(
                 string: inputString,
                 caretPosition: inputCaret,
-                caretGravity: .forward
+                caretGravity: .forward(autocomplete: false)
             )
         )
         
@@ -117,7 +117,7 @@ class CustomNotationEllipticalCase: MaskTestCase {
             toText: CaretString(
                 string: inputString,
                 caretPosition: inputCaret,
-                caretGravity: .forward
+                caretGravity: .forward(autocomplete: false)
             )
         )
         
@@ -140,7 +140,7 @@ class CustomNotationEllipticalCase: MaskTestCase {
             toText: CaretString(
                 string: inputString,
                 caretPosition: inputCaret,
-                caretGravity: .forward
+                caretGravity: .forward(autocomplete: false)
             )
         )
         
@@ -163,7 +163,7 @@ class CustomNotationEllipticalCase: MaskTestCase {
             toText: CaretString(
                 string: inputString,
                 caretPosition: inputCaret,
-                caretGravity: .forward
+                caretGravity: .forward(autocomplete: false)
             )
         )
         
@@ -186,7 +186,7 @@ class CustomNotationEllipticalCase: MaskTestCase {
             toText: CaretString(
                 string: inputString,
                 caretPosition: inputCaret,
-                caretGravity: .forward
+                caretGravity: .forward(autocomplete: false)
             )
         )
         
@@ -209,7 +209,7 @@ class CustomNotationEllipticalCase: MaskTestCase {
             toText: CaretString(
                 string: inputString,
                 caretPosition: inputCaret,
-                caretGravity: .forward
+                caretGravity: .forward(autocomplete: false)
             )
         )
         
@@ -232,7 +232,7 @@ class CustomNotationEllipticalCase: MaskTestCase {
             toText: CaretString(
                 string: inputString,
                 caretPosition: inputCaret,
-                caretGravity: .forward
+                caretGravity: .forward(autocomplete: false)
             )
         )
         
@@ -255,7 +255,7 @@ class CustomNotationEllipticalCase: MaskTestCase {
             toText: CaretString(
                 string: inputString,
                 caretPosition: inputCaret,
-                caretGravity: .forward
+                caretGravity: .forward(autocomplete: false)
             )
         )
         
@@ -278,7 +278,7 @@ class CustomNotationEllipticalCase: MaskTestCase {
             toText: CaretString(
                 string: inputString,
                 caretPosition: inputCaret,
-                caretGravity: .forward
+                caretGravity: .forward(autocomplete: false)
             )
         )
         
@@ -301,7 +301,7 @@ class CustomNotationEllipticalCase: MaskTestCase {
             toText: CaretString(
                 string: inputString,
                 caretPosition: inputCaret,
-                caretGravity: .forward
+                caretGravity: .forward(autocomplete: false)
             )
         )
         
@@ -324,7 +324,7 @@ class CustomNotationEllipticalCase: MaskTestCase {
             toText: CaretString(
                 string: inputString,
                 caretPosition: inputCaret,
-                caretGravity: .forward
+                caretGravity: .forward(autocomplete: false)
             )
         )
         

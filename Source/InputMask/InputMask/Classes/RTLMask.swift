@@ -29,8 +29,8 @@ public class RTLMask: Mask {
         }
     }
 
-    public override func apply(toText text: CaretString, autocomplete: Bool = false) -> Result {
-        return super.apply(toText: text.reversed(), autocomplete: autocomplete).reversed()
+    public override func apply(toText text: CaretString) -> Result {
+        return super.apply(toText: text.reversed()).reversed()
     }
     
     override func makeIterator(forText text: CaretString) -> CaretStringIterator {

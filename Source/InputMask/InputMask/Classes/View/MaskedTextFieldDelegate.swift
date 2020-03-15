@@ -45,6 +45,7 @@ open class MaskedTextFieldDelegate: NSObject, UITextFieldDelegate {
     @IBInspectable open var primaryMaskFormat:   String
     @IBInspectable open var autocomplete:        Bool
     @IBInspectable open var autocompleteOnFocus: Bool
+    @IBInspectable open var autoskip:            Bool
     @IBInspectable open var rightToLeft:         Bool
     
     /**
@@ -71,6 +72,7 @@ open class MaskedTextFieldDelegate: NSObject, UITextFieldDelegate {
         primaryFormat: String = "",
         autocomplete: Bool = true,
         autocompleteOnFocus: Bool = true,
+        autoskip: Bool = false,
         rightToLeft: Bool = false,
         affineFormats: [String] = [],
         affinityCalculationStrategy: AffinityCalculationStrategy = .wholeString,
@@ -80,6 +82,7 @@ open class MaskedTextFieldDelegate: NSObject, UITextFieldDelegate {
         self.primaryMaskFormat = primaryFormat
         self.autocomplete = autocomplete
         self.autocompleteOnFocus = autocompleteOnFocus
+        self.autoskip = autoskip
         self.rightToLeft = rightToLeft
         self.affineFormats = affineFormats
         self.affinityCalculationStrategy = affinityCalculationStrategy
@@ -103,6 +106,7 @@ open class MaskedTextFieldDelegate: NSObject, UITextFieldDelegate {
         self.primaryMaskFormat = ""
         self.autocomplete = true
         self.autocompleteOnFocus = true
+        self.autoskip = false
         self.rightToLeft = false
         self.affineFormats = []
         self.affinityCalculationStrategy = .wholeString
@@ -159,11 +163,20 @@ open class MaskedTextFieldDelegate: NSObject, UITextFieldDelegate {
     @discardableResult
     open func put(text: String, into field: UITextField, autocomplete putAutocomplete: Bool? = nil) -> Mask.Result {
         let autocomplete: Bool = putAutocomplete ?? self.autocomplete
-        let mask:         Mask = pickMask(forText: CaretString(string: text), autocomplete: autocomplete)
+        let mask:         Mask = pickMask(
+            forText: CaretString(
+                string: text,
+                caretPosition: text.endIndex,
+                caretGravity: CaretString.CaretGravity.forward(autocomplete: autocomplete)
+            )
+        )
         
         let result: Mask.Result = mask.apply(
-            toText: CaretString(string: text),
-            autocomplete: autocomplete
+            toText: CaretString(
+                string: text,
+                caretPosition: text.endIndex,
+                caretGravity: CaretString.CaretGravity.forward(autocomplete: autocomplete)
+            )
         )
         
         field.text = result.formattedText.string
@@ -210,16 +223,18 @@ open class MaskedTextFieldDelegate: NSObject, UITextFieldDelegate {
         replacementString string: String
     ) -> Bool {
         let isDeletion = 0 < range.length && 0 == string.count
+        let useAutocomplete = isDeletion ? false : autocomplete
+        let useAutoskip = isDeletion ? autoskip : false
+        let caretGravity: CaretString.CaretGravity =
+            isDeletion ? .backward(autoskip: useAutoskip) : .forward(autocomplete: useAutocomplete)
         
         let updatedText: String = replaceCharacters(inText: textField.text ?? "", range: range, withCharacters: string)
         let caretPositionInt: Int = isDeletion ? range.location : range.location + string.count
         let caretPosition: String.Index = updatedText.startIndex(offsetBy: caretPositionInt)
-        let caretGravity: CaretString.CaretGravity = isDeletion ? .backward : .forward
-        
         let text = CaretString(string: updatedText, caretPosition: caretPosition, caretGravity: caretGravity)
-        let useAutocomplete = isDeletion ? false : autocomplete
-        let mask: Mask = pickMask(forText: text, autocomplete: useAutocomplete)
-        let result: Mask.Result = mask.apply(toText: text, autocomplete: useAutocomplete)
+        
+        let mask: Mask = pickMask(forText: text)
+        let result: Mask.Result = mask.apply(toText: text)
         
         textField.text = result.formattedText.string
         
@@ -264,7 +279,7 @@ open class MaskedTextFieldDelegate: NSObject, UITextFieldDelegate {
         }
     }
     
-    open func pickMask(forText text: CaretString, autocomplete: Bool) -> Mask {
+    open func pickMask(forText text: CaretString) -> Mask {
         guard !affineFormats.isEmpty
         else { return primaryMask }
         

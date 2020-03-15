@@ -116,13 +116,11 @@ public enum AffinityCalculationStrategy {
         switch self {
             case .wholeString:
                 return mask.apply(
-                    toText: text,
-                    autocomplete: autocomplete
+                    toText: text
                 ).affinity
             case .prefix:
                 return mask.apply(
-                    toText: text,
-                    autocomplete: autocomplete
+                    toText: text
                 ).formattedText.string.prefixIntersection(with: text.string).count
             case .capacity:
                 let textLength: Int = text.string.count
@@ -133,8 +131,7 @@ public enum AffinityCalculationStrategy {
                 }
             case .extractedValueCapacity:
                 let extractedValueLength: Int = mask.apply(
-                    toText: text,
-                    autocomplete: autocomplete
+                    toText: text
                 ).extractedValue.count
                 if extractedValueLength > mask.totalValueLength {
                     return Int.min

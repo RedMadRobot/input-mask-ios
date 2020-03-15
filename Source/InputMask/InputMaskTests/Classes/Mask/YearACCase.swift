@@ -77,7 +77,7 @@ class YearACCase: MaskTestCase {
             toText: CaretString(
                 string: inputString,
                 caretPosition: inputCaret,
-                caretGravity: .forward
+                caretGravity: .forward(autocomplete: false)
             )
         )
         
@@ -100,7 +100,7 @@ class YearACCase: MaskTestCase {
             toText: CaretString(
                 string: inputString,
                 caretPosition: inputCaret,
-                caretGravity: .forward
+                caretGravity: .forward(autocomplete: false)
             )
         )
         
@@ -123,7 +123,7 @@ class YearACCase: MaskTestCase {
             toText: CaretString(
                 string: inputString,
                 caretPosition: inputCaret,
-                caretGravity: .forward
+                caretGravity: .forward(autocomplete: false)
             )
         )
         
@@ -146,7 +146,7 @@ class YearACCase: MaskTestCase {
             toText: CaretString(
                 string: inputString,
                 caretPosition: inputCaret,
-                caretGravity: .forward
+                caretGravity: .forward(autocomplete: false)
             )
         )
         
@@ -169,7 +169,7 @@ class YearACCase: MaskTestCase {
             toText: CaretString(
                 string: inputString,
                 caretPosition: inputCaret,
-                caretGravity: .forward
+                caretGravity: .forward(autocomplete: false)
             )
         )
         
@@ -192,9 +192,8 @@ class YearACCase: MaskTestCase {
             toText: CaretString(
                 string: inputString,
                 caretPosition: inputCaret,
-                caretGravity: .forward
-            ),
-            autocomplete: true
+                caretGravity: .forward(autocomplete: true)
+            )
         )
         
         XCTAssertEqual(expectedString, result.formattedText.string)

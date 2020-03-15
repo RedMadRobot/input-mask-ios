@@ -124,7 +124,7 @@ public class Mask: CustomDebugStringConvertible, CustomStringConvertible {
      
      - returns: Formatted text with extracted value an adjusted cursor position.
      */
-    public func apply(toText text: CaretString, autocomplete: Bool = false) -> Result {
+    public func apply(toText text: CaretString) -> Result {
         let iterator: CaretStringIterator = self.makeIterator(forText: text)
         
         var affinity:               Int     = 0
@@ -132,7 +132,8 @@ public class Mask: CustomDebugStringConvertible, CustomStringConvertible {
         var modifiedString:         String  = ""
         var modifiedCaretPosition:  Int     = text.string.distanceFromStartIndex(to: text.caretPosition)
         
-        var state: State = self.initialState
+        var state: State        = self.initialState
+        var autocompletionStack = AutocompletionStack()
         
         var insertionAffectsCaret: Bool       = iterator.insertionAffectsCaret()
         var deletionAffectsCaret:  Bool       = iterator.deletionAffectsCaret()
@@ -140,6 +141,9 @@ public class Mask: CustomDebugStringConvertible, CustomStringConvertible {
         
         while let char: Character = character {
             if let next: Next = state.accept(character: char) {
+                if deletionAffectsCaret {
+                    autocompletionStack.pushBack(next: state.autocomplete())
+                }
                 state = next.state
                 modifiedString += nil != next.insert ? String(next.insert!) : ""
                 extractedValue += nil != next.value  ? String(next.value!)  : ""
@@ -165,12 +169,29 @@ public class Mask: CustomDebugStringConvertible, CustomStringConvertible {
             }
         }
         
-        while autocomplete && insertionAffectsCaret, let next: Next = state.autocomplete() {
+        while text.caretGravity.autocomplete && insertionAffectsCaret, let next: Next = state.autocomplete() {
             state = next.state
             modifiedString += nil != next.insert ? String(next.insert!) : ""
             extractedValue += nil != next.value  ? String(next.value!)  : ""
             if nil != next.insert {
                 modifiedCaretPosition += 1
+            }
+        }
+        
+        while text.caretGravity.autoskip && !autocompletionStack.isEmpty {
+            let skip: Next = autocompletionStack.pop()
+            if modifiedString.count == modifiedCaretPosition {
+                if nil != skip.insert && skip.insert == modifiedString.last {
+                    modifiedString.removeLast()
+                    modifiedCaretPosition -= 1
+                }
+                if nil != skip.value && skip.value == extractedValue.last {
+                    extractedValue.removeLast()
+                }
+            } else {
+                if nil != skip.insert {
+                    modifiedCaretPosition -= 1
+                }
             }
         }
         
@@ -259,6 +280,31 @@ public class Mask: CustomDebugStringConvertible, CustomStringConvertible {
     
     func makeIterator(forText text: CaretString) -> CaretStringIterator {
         return CaretStringIterator(caretString: text)
+    }
+    
+    /**
+     While scanning through the input string in the `.apply(…)` method, the mask builds a graph of autocompletion steps.
+     This graph accumulates the results of `.autocomplete()` calls for each consecutive `State`, acting as a `stack` of
+     `Next` object instances.
+     
+     Each time the `State` returns `null` for its `.autocomplete()`, the graph resets empty.
+     */
+    private struct AutocompletionStack {
+        private var stack = [Next]()
+        
+        var isEmpty: Bool { stack.isEmpty }
+        
+        mutating func pushBack(next: Next?) {
+            if let next: Next = next {
+                stack.append(next)
+            } else {
+                stack.removeAll()
+            }
+        }
+        
+        mutating func pop() -> Next { return stack.removeLast() }
+        
+        mutating func removeAll() { stack.removeAll() }
     }
     
 }

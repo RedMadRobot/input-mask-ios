@@ -79,7 +79,7 @@ class EscapedCase: MaskTestCase {
             toText: CaretString(
                 string: inputString,
                 caretPosition: inputCaret,
-                caretGravity: .forward
+                caretGravity: .forward(autocomplete: false)
             )
         )
         
@@ -102,7 +102,7 @@ class EscapedCase: MaskTestCase {
             toText: CaretString(
                 string: inputString,
                 caretPosition: inputCaret,
-                caretGravity: .forward
+                caretGravity: .forward(autocomplete: false)
             )
         )
         
@@ -125,7 +125,7 @@ class EscapedCase: MaskTestCase {
             toText: CaretString(
                 string: inputString,
                 caretPosition: inputCaret,
-                caretGravity: .forward
+                caretGravity: .forward(autocomplete: false)
             )
         )
         
@@ -148,7 +148,7 @@ class EscapedCase: MaskTestCase {
             toText: CaretString(
                 string: inputString,
                 caretPosition: inputCaret,
-                caretGravity: .forward
+                caretGravity: .forward(autocomplete: false)
             )
         )
         

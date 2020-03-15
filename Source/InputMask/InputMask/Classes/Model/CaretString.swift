@@ -44,15 +44,6 @@ public struct CaretString: CustomDebugStringConvertible, CustomStringConvertible
         self.caretGravity  = caretGravity
     }
 
-    /**
-     Constructor.
-     
-     Same as the ```init(string:caretPosition:)```, with the caret position equal to the end of the line.
-     */
-    public init(string: String) {
-        self.init(string: string, caretPosition: string.endIndex, caretGravity: CaretGravity.forward)
-    }
-    
     public var debugDescription: String {
         return "STRING: \(self.string)\nCARET POSITION: \(self.caretPosition)\nCARET GRAVITY: \(self.caretGravity)"
     }
@@ -82,12 +73,32 @@ public struct CaretString: CustomDebugStringConvertible, CustomStringConvertible
         /**
          Put additional characters before caret, thus move caret forward.
          */
-        case forward
+        case forward(autocomplete: Bool)
         
         /**
          Put additional characters after caret, thus caret won't move.
          */
-        case backward
+        case backward(autoskip: Bool)
+        
+        /**
+         Autocomplete, if possible.
+         */
+        var autocomplete: Bool {
+            if case CaretGravity.forward(let autocomplete) = self {
+                return autocomplete
+            }
+            return false
+        }
+        
+        /**
+         Autoskip, if possible.
+         */
+        var autoskip: Bool {
+            if case CaretGravity.backward(let autoskip) = self {
+                return autoskip
+            }
+            return false
+        }
     }
     
 }

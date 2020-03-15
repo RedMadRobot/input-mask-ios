@@ -21,7 +21,13 @@ class LargeNumberTests: XCTestCase {
 
         let mask: Mask = try! RTLMask.getOrCreate(withFormat: "[0] [000] [000]")
 
-        let actualOutput: Mask.Result = mask.apply(toText: CaretString(string: input, caretPosition: caret, caretGravity: .forward))
+        let actualOutput: Mask.Result = mask.apply(
+            toText: CaretString(
+                string: input,
+                caretPosition: caret,
+                caretGravity: .forward(autocomplete: false)
+            )
+        )
 
         XCTAssertEqual(actualOutput.formattedText.string, expectedOutput)
         XCTAssertEqual(actualOutput.formattedText.caretPosition, expectedCaret)
@@ -40,7 +46,13 @@ class LargeNumberTests: XCTestCase {
 
         let mask: Mask = try! RTLMask.getOrCreate(withFormat: "[0] [000] [000]")
 
-        let actualOutput: Mask.Result = mask.apply(toText: CaretString(string: input, caretPosition: caret, caretGravity: .forward))
+        let actualOutput: Mask.Result = mask.apply(
+            toText: CaretString(
+                string: input,
+                caretPosition: caret,
+                caretGravity: .forward(autocomplete: false)
+            )
+        )
 
         XCTAssertEqual(actualOutput.formattedText.string, expectedOutput)
         XCTAssertEqual(actualOutput.formattedText.caretPosition, expectedCaret)
@@ -59,7 +71,13 @@ class LargeNumberTests: XCTestCase {
 
         let mask: Mask = try! RTLMask.getOrCreate(withFormat: "[0] [000] [000]")
 
-        let actualOutput: Mask.Result = mask.apply(toText: CaretString(string: input, caretPosition: caret, caretGravity: .forward))
+        let actualOutput: Mask.Result = mask.apply(
+            toText: CaretString(
+                string: input,
+                caretPosition: caret,
+                caretGravity: .forward(autocomplete: false)
+            )
+        )
 
         XCTAssertEqual(actualOutput.formattedText.string, expectedOutput)
         XCTAssertEqual(actualOutput.formattedText.caretPosition, expectedCaret)
@@ -78,7 +96,13 @@ class LargeNumberTests: XCTestCase {
         
         let mask: Mask = try! RTLMask.getOrCreate(withFormat: "[0] [000] [000]")
         
-        let actualOutput: Mask.Result = mask.apply(toText: CaretString(string: input, caretPosition: caret, caretGravity: .forward))
+        let actualOutput: Mask.Result = mask.apply(
+            toText: CaretString(
+                string: input,
+                caretPosition: caret,
+                caretGravity: .forward(autocomplete: false)
+            )
+        )
         
         XCTAssertEqual(actualOutput.formattedText.string, expectedOutput)
         XCTAssertEqual(actualOutput.formattedText.caretPosition, expectedCaret)
@@ -97,7 +121,13 @@ class LargeNumberTests: XCTestCase {
         
         let mask: Mask = try! RTLMask.getOrCreate(withFormat: "[0] [000] [000]")
         
-        let actualOutput: Mask.Result = mask.apply(toText: CaretString(string: input, caretPosition: caret, caretGravity: .forward), autocomplete: true)
+        let actualOutput: Mask.Result = mask.apply(
+            toText: CaretString(
+                string: input,
+                caretPosition: caret,
+                caretGravity: .forward(autocomplete: true)
+            )
+        )
         
         XCTAssertEqual(actualOutput.formattedText.string, expectedOutput)
         XCTAssertEqual(actualOutput.formattedText.caretPosition, expectedCaret)
@@ -116,7 +146,13 @@ class LargeNumberTests: XCTestCase {
         
         let mask: Mask = try! RTLMask.getOrCreate(withFormat: "[0] [000] [000]")
         
-        let actualOutput: Mask.Result = mask.apply(toText: CaretString(string: input, caretPosition: caret, caretGravity: .forward))
+        let actualOutput: Mask.Result = mask.apply(
+            toText: CaretString(
+                string: input,
+                caretPosition: caret,
+                caretGravity: .forward(autocomplete: false)
+            )
+        )
         
         XCTAssertEqual(actualOutput.formattedText.string, expectedOutput)
         XCTAssertEqual(actualOutput.formattedText.caretPosition, expectedCaret)

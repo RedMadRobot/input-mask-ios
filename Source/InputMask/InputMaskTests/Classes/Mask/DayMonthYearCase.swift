@@ -77,7 +77,7 @@ class DayMonthYearCase: MaskTestCase {
             toText: CaretString(
                 string: inputString,
                 caretPosition: inputCaret,
-                caretGravity: .forward
+                caretGravity: .forward(autocomplete: false)
             )
         )
         
@@ -100,7 +100,7 @@ class DayMonthYearCase: MaskTestCase {
             toText: CaretString(
                 string: inputString,
                 caretPosition: inputCaret,
-                caretGravity: .forward
+                caretGravity: .forward(autocomplete: false)
             )
         )
         
@@ -123,7 +123,7 @@ class DayMonthYearCase: MaskTestCase {
             toText: CaretString(
                 string: inputString,
                 caretPosition: inputCaret,
-                caretGravity: .forward
+                caretGravity: .forward(autocomplete: false)
             )
         )
         
@@ -146,7 +146,7 @@ class DayMonthYearCase: MaskTestCase {
             toText: CaretString(
                 string: inputString,
                 caretPosition: inputCaret,
-                caretGravity: .forward
+                caretGravity: .forward(autocomplete: false)
             )
         )
         
@@ -169,7 +169,7 @@ class DayMonthYearCase: MaskTestCase {
             toText: CaretString(
                 string: inputString,
                 caretPosition: inputCaret,
-                caretGravity: .forward
+                caretGravity: .forward(autocomplete: false)
             )
         )
         
@@ -192,7 +192,7 @@ class DayMonthYearCase: MaskTestCase {
             toText: CaretString(
                 string: inputString,
                 caretPosition: inputCaret,
-                caretGravity: .forward
+                caretGravity: .forward(autocomplete: false)
             )
         )
         
@@ -215,7 +215,7 @@ class DayMonthYearCase: MaskTestCase {
             toText: CaretString(
                 string: inputString,
                 caretPosition: inputCaret,
-                caretGravity: .forward
+                caretGravity: .forward(autocomplete: false)
             )
         )
         
@@ -238,7 +238,7 @@ class DayMonthYearCase: MaskTestCase {
             toText: CaretString(
                 string: inputString,
                 caretPosition: inputCaret,
-                caretGravity: .forward
+                caretGravity: .forward(autocomplete: false)
             )
         )
         
@@ -261,7 +261,7 @@ class DayMonthYearCase: MaskTestCase {
             toText: CaretString(
                 string: inputString,
                 caretPosition: inputCaret,
-                caretGravity: .forward
+                caretGravity: .forward(autocomplete: false)
             )
         )
         
@@ -284,7 +284,7 @@ class DayMonthYearCase: MaskTestCase {
             toText: CaretString(
                 string: inputString,
                 caretPosition: inputCaret,
-                caretGravity: .forward
+                caretGravity: .forward(autocomplete: false)
             )
         )
         
@@ -307,7 +307,7 @@ class DayMonthYearCase: MaskTestCase {
             toText: CaretString(
                 string: inputString,
                 caretPosition: inputCaret,
-                caretGravity: .forward
+                caretGravity: .forward(autocomplete: false)
             )
         )
         
@@ -330,7 +330,7 @@ class DayMonthYearCase: MaskTestCase {
             toText: CaretString(
                 string: inputString,
                 caretPosition: inputCaret,
-                caretGravity: .forward
+                caretGravity: .forward(autocomplete: false)
             )
         )
         
@@ -353,7 +353,7 @@ class DayMonthYearCase: MaskTestCase {
             toText: CaretString(
                 string: inputString,
                 caretPosition: inputCaret,
-                caretGravity: .forward
+                caretGravity: .forward(autocomplete: false)
             )
         )
         
@@ -376,7 +376,7 @@ class DayMonthYearCase: MaskTestCase {
             toText: CaretString(
                 string: inputString,
                 caretPosition: inputCaret,
-                caretGravity: .backward
+                caretGravity: .backward(autoskip: false)
             )
         )
         
@@ -399,7 +399,7 @@ class DayMonthYearCase: MaskTestCase {
             toText: CaretString(
                 string: inputString,
                 caretPosition: inputCaret,
-                caretGravity: .forward
+                caretGravity: .forward(autocomplete: false)
             )
         )
         
@@ -422,7 +422,7 @@ class DayMonthYearCase: MaskTestCase {
             toText: CaretString(
                 string: inputString,
                 caretPosition: inputCaret,
-                caretGravity: .forward
+                caretGravity: .forward(autocomplete: false)
             )
         )
         
@@ -445,7 +445,7 @@ class DayMonthYearCase: MaskTestCase {
             toText: CaretString(
                 string: inputString,
                 caretPosition: inputCaret,
-                caretGravity: .forward
+                caretGravity: .forward(autocomplete: false)
             )
         )
         
@@ -468,9 +468,8 @@ class DayMonthYearCase: MaskTestCase {
             toText: CaretString(
                 string: inputString,
                 caretPosition: inputCaret,
-                caretGravity: .forward
-            ),
-            autocomplete: true
+                caretGravity: .forward(autocomplete: true)
+            )
         )
         
         XCTAssertEqual(expectedString, result.formattedText.string)
@@ -492,9 +491,8 @@ class DayMonthYearCase: MaskTestCase {
             toText: CaretString(
                 string: inputString,
                 caretPosition: inputCaret,
-                caretGravity: .forward
-            ),
-            autocomplete: true
+                caretGravity: .forward(autocomplete: true)
+            )
         )
         
         XCTAssertEqual(expectedString, result.formattedText.string)
@@ -516,9 +514,54 @@ class DayMonthYearCase: MaskTestCase {
             toText: CaretString(
                 string: inputString,
                 caretPosition: inputCaret,
-                caretGravity: .forward
-            ),
-            autocomplete: true
+                caretGravity: .forward(autocomplete: true)
+            )
+        )
+        
+        XCTAssertEqual(expectedString, result.formattedText.string)
+        XCTAssertEqual(expectedCaret, result.formattedText.caretPosition)
+        XCTAssertEqual(expectedValue, result.extractedValue)
+        
+        XCTAssertEqual(false, result.complete)
+    }
+    
+    func testApplyAutoskip_11dot_returns_11() {
+        let inputString: String         = "11."
+        let inputCaret:  String.Index   = inputString.endIndex
+        
+        let expectedString: String       = "11"
+        let expectedCaret:  String.Index = expectedString.endIndex
+        let expectedValue:  String       = expectedString
+        
+        let result: Mask.Result = try! self.mask().apply(
+            toText: CaretString(
+                string: inputString,
+                caretPosition: inputCaret,
+                caretGravity: .backward(autoskip: true)
+            )
+        )
+        
+        XCTAssertEqual(expectedString, result.formattedText.string)
+        XCTAssertEqual(expectedCaret, result.formattedText.caretPosition)
+        XCTAssertEqual(expectedValue, result.extractedValue)
+        
+        XCTAssertEqual(false, result.complete)
+    }
+    
+    func testAppyAutoskip_11dot1_returns11dot1CaretMoved() {
+        let inputString: String         = "11.1"
+        let inputCaret:  String.Index   = inputString.startIndex(offsetBy: 3)
+        
+        let expectedString: String       = "11.1"
+        let expectedCaret:  String.Index = expectedString.startIndex(offsetBy: 2)
+        let expectedValue:  String       = expectedString
+        
+        let result: Mask.Result = try! self.mask().apply(
+            toText: CaretString(
+                string: inputString,
+                caretPosition: inputCaret,
+                caretGravity: .backward(autoskip: true)
+            )
         )
         
         XCTAssertEqual(expectedString, result.formattedText.string)
@@ -540,9 +583,8 @@ class DayMonthYearCase: MaskTestCase {
             toText: CaretString(
                 string: inputString,
                 caretPosition: inputCaret,
-                caretGravity: .forward
-            ),
-            autocomplete: true
+                caretGravity: .forward(autocomplete: true)
+            )
         )
         
         XCTAssertEqual(expectedString, result.formattedText.string)
@@ -564,9 +606,8 @@ class DayMonthYearCase: MaskTestCase {
             toText: CaretString(
                 string: inputString,
                 caretPosition: inputCaret,
-                caretGravity: .forward
-            ),
-            autocomplete: true
+                caretGravity: .forward(autocomplete: true)
+            )
         )
         
         XCTAssertEqual(expectedString, result.formattedText.string)
@@ -588,9 +629,8 @@ class DayMonthYearCase: MaskTestCase {
             toText: CaretString(
                 string: inputString,
                 caretPosition: inputCaret,
-                caretGravity: .forward
-            ),
-            autocomplete: true
+                caretGravity: .forward(autocomplete: true)
+            )
         )
         
         XCTAssertEqual(expectedString, result.formattedText.string)
@@ -612,9 +652,8 @@ class DayMonthYearCase: MaskTestCase {
             toText: CaretString(
                 string: inputString,
                 caretPosition: inputCaret,
-                caretGravity: .forward
-            ),
-            autocomplete: true
+                caretGravity: .forward(autocomplete: true)
+            )
         )
         
         XCTAssertEqual(expectedString, result.formattedText.string)
@@ -636,9 +675,8 @@ class DayMonthYearCase: MaskTestCase {
             toText: CaretString(
                 string: inputString,
                 caretPosition: inputCaret,
-                caretGravity: .forward
-            ),
-            autocomplete: true
+                caretGravity: .forward(autocomplete: true)
+            )
         )
         
         XCTAssertEqual(expectedString, result.formattedText.string)
@@ -660,9 +698,8 @@ class DayMonthYearCase: MaskTestCase {
             toText: CaretString(
                 string: inputString,
                 caretPosition: inputCaret,
-                caretGravity: .forward
-            ),
-            autocomplete: true
+                caretGravity: .forward(autocomplete: true)
+            )
         )
         
         XCTAssertEqual(expectedString, result.formattedText.string)
@@ -684,9 +721,8 @@ class DayMonthYearCase: MaskTestCase {
             toText: CaretString(
                 string: inputString,
                 caretPosition: inputCaret,
-                caretGravity: .forward
-            ),
-            autocomplete: true
+                caretGravity: .forward(autocomplete: true)
+            )
         )
         
         XCTAssertEqual(expectedString, result.formattedText.string)
