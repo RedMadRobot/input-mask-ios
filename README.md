@@ -12,11 +12,13 @@
 
 <img src="https://raw.githubusercontent.com/RedMadRobot/input-mask-ios/assets/Assets/phone_input.gif" alt="Input Mask" width="640" />
 
-### Important: Migration Guide: v.5
+### Migration Guide: v.6
 
-We've added a new concept of cursor gravity to our library internals. A simple flag had allowed us to get rid of some logic flaws and to finalise the right-to-left functionality at the cost of backward compatibility loss.
+This update brings breaking changes. Namely, the `autocomplete` flag is now a part of the `CaretGravity` enum, thus the `Mask::apply` call is now single-argument, as all the necessary information is included into the `CaretString` structure.
 
-Make sure to take a look at our [CHANGELOG](https://github.com/RedMadRobot/input-mask-ios/blob/master/CHANGELOG.md) in order to get familiar with the breaking changes.
+`v.6` introduces the «autoskip» feature, which allows the cursor to jump over formatting blocks of symbols in the middle of the text as if they were a single char when hitting `Backspace`, and this feature also allows to trim formatting characters on backspacing at the end of the line.
+
+Make sure to take a look at our [CHANGELOG](https://github.com/RedMadRobot/input-mask-ios/blob/master/CHANGELOG.md).
 
 ## Description
 

@@ -1,5 +1,18 @@
 # Changelog
 
+### `6.0.0`
+
+#### Removed:
+
+* `Mask::apply()`, the `autocomplete` flag
+
+This flag is now a part of the `CaretGravity.forward` enum case.
+
+#### Added:
+
+* `CaretGravity.forward`, the `autocomplete` flag
+* `CaretGravity.backward`, the [`autoskip`](https://github.com/RedMadRobot/input-mask-ios/wiki/0.-Mask#autoskip-flag) flag
+
 ### `5.0.0`
 
 #### Removed:
