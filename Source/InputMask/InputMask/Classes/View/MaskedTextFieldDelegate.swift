@@ -194,8 +194,10 @@ open class MaskedTextFieldDelegate: NSObject, UITextFieldDelegate {
     
     open func textFieldDidBeginEditing(_ textField: UITextField) {
         if autocompleteOnFocus && (textField.text ?? "").isEmpty {
-            let result: Mask.Result = put(text: "", into: textField, autocomplete: true)
-            notifyOnMaskedTextChangedListeners(forTextField: textField, result: result)
+            DispatchQueue.main.async {
+                let result: Mask.Result = put(text: "", into: textField, autocomplete: true)
+                notifyOnMaskedTextChangedListeners(forTextField: textField, result: result)
+            }
         }
         listener?.textFieldDidBeginEditing?(textField)
     }
