@@ -68,6 +68,9 @@ open class MaskedTextFieldDelegate: NSObject, UITextFieldDelegate {
         return try! maskGetOrCreate(withFormat: primaryMaskFormat, customNotations: customNotations)
     }
     
+    open var editingMask: String?
+    var caretPositionInt = 0
+    
     public init(
         primaryFormat: String = "",
         autocomplete: Bool = true,
@@ -194,9 +197,26 @@ open class MaskedTextFieldDelegate: NSObject, UITextFieldDelegate {
     
     open func textFieldDidBeginEditing(_ textField: UITextField) {
         if autocompleteOnFocus && (textField.text ?? "").isEmpty {
-            let result: Mask.Result = put(text: "", into: textField, autocomplete: true)
-            notifyOnMaskedTextChangedListeners(forTextField: textField, result: result)
+            
+            if let editingMask = editingMask {
+                let result: Mask.Result = put(text: editingMask, into: textField)
+                textField.cursorPosition = 0
+                notifyOnMaskedTextChangedListeners(forTextField: textField, result: result)
+
+            } else {
+                let result: Mask.Result = put(text: "", into: textField, autocomplete: true)
+                notifyOnMaskedTextChangedListeners(forTextField: textField, result: result)
+            }
         }
+        
+        if let editingMask = editingMask {
+            if textField.text == editingMask {
+                textField.cursorPosition = 0
+            } else {
+                textField.cursorPosition = caretPositionInt
+            }
+        }
+        
         listener?.textFieldDidBeginEditing?(textField)
     }
     
@@ -228,8 +248,17 @@ open class MaskedTextFieldDelegate: NSObject, UITextFieldDelegate {
         let caretGravity: CaretString.CaretGravity =
             isDeletion ? .backward(autoskip: useAutoskip) : .forward(autocomplete: useAutocomplete)
         
-        let updatedText: String = replaceCharacters(inText: textField.text ?? "", range: range, withCharacters: string)
-        let caretPositionInt: Int = isDeletion ? range.location : range.location + string.count
+        var updatedText: String = replaceCharacters(inText: textField.text ?? "", range: range, withCharacters: string)
+        
+        if isDeletion {
+            if let editingMask = editingMask {
+                let start = editingMask.startIndex;
+                let end = editingMask.index(editingMask.startIndex, offsetBy: updatedText.count);
+                updatedText = editingMask.replacingCharacters(in: start..<end, with: updatedText)
+            }
+        }
+
+        caretPositionInt = isDeletion ? range.location : range.location + string.count
         let caretPosition: String.Index = updatedText.startIndex(offsetBy: caretPositionInt)
         let text = CaretString(string: updatedText, caretPosition: caretPosition, caretGravity: caretGravity)
         

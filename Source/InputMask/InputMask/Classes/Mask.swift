@@ -203,7 +203,7 @@ public class Mask: CustomDebugStringConvertible, CustomStringConvertible {
             ),
             extractedValue: extractedValue,
             affinity: affinity,
-            complete: self.noMandatoryCharactersLeftAfterState(state)
+            complete: self.noMandatoryCharactersLeftAfterState(state) && !modifiedString.contains("_")
         )
     }
     

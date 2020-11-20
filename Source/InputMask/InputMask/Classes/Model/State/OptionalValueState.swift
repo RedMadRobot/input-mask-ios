@@ -40,13 +40,13 @@ class OptionalValueState: State {
     func accepts(character char: Character) -> Bool {
         switch self.type {
             case .numeric:
-                return CharacterSet.decimalDigits.isMember(character: char)
+                return CharacterSet.decimalDigits.isMember(character: char) || char == "_"
             case .literal:
-                return CharacterSet.letters.isMember(character: char)
+                return CharacterSet.letters.isMember(character: char) || char == "_"
             case .alphaNumeric:
-                return CharacterSet.alphanumerics.isMember(character: char)
+                return CharacterSet.alphanumerics.isMember(character: char) || char == "_"
             case .custom(_, let characterSet):
-                return characterSet.isMember(character: char)
+                return characterSet.isMember(character: char) || char == "_"
         }
     }
     
