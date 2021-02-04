@@ -222,6 +222,15 @@ open class MaskedTextFieldDelegate: NSObject, UITextFieldDelegate {
         shouldChangeCharactersIn range: NSRange,
         replacementString string: String
     ) -> Bool {
+        // https://stackoverflow.com/questions/52131894/shouldchangecharactersin-combined-with-suggested-text
+        if (string == " ") {
+            defer {
+              if let text = textField.text, let textRange = Range(range, in: text) {
+                textField.text = text.replacingCharacters(in: textRange, with: "")
+              }
+            }
+            return true
+        }
         let isDeletion = 0 < range.length && 0 == string.count
         let useAutocomplete = isDeletion ? false : autocomplete
         let useAutoskip = isDeletion ? autoskip : false
