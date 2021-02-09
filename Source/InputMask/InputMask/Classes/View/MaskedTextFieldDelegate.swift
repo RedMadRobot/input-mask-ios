@@ -47,6 +47,10 @@ open class MaskedTextFieldDelegate: NSObject, UITextFieldDelegate {
     @IBInspectable open var autocompleteOnFocus: Bool
     @IBInspectable open var autoskip:            Bool
     @IBInspectable open var rightToLeft:         Bool
+    /**
+        Allows input suggestions from keyboard
+     */
+    @IBInspectable open var allowSuggestions:   Bool
     
     /**
      Shortly after new text is being pasted from the clipboard, ```UITextField``` receives a new value for its
@@ -77,7 +81,8 @@ open class MaskedTextFieldDelegate: NSObject, UITextFieldDelegate {
         affineFormats: [String] = [],
         affinityCalculationStrategy: AffinityCalculationStrategy = .wholeString,
         customNotations: [Notation] = [],
-        onMaskedTextChangedCallback: ((_ textInput: UITextInput, _ value: String, _ complete: Bool) -> ())? = nil
+        onMaskedTextChangedCallback: ((_ textInput: UITextInput, _ value: String, _ complete: Bool) -> ())? = nil,
+        allowSuggestions: Bool = true
     ) {
         self.primaryMaskFormat = primaryFormat
         self.autocomplete = autocomplete
@@ -88,6 +93,7 @@ open class MaskedTextFieldDelegate: NSObject, UITextFieldDelegate {
         self.affinityCalculationStrategy = affinityCalculationStrategy
         self.customNotations = customNotations
         self.onMaskedTextChangedCallback = onMaskedTextChangedCallback
+        self.allowSuggestions = allowSuggestions
         super.init()
     }
     
@@ -112,6 +118,7 @@ open class MaskedTextFieldDelegate: NSObject, UITextFieldDelegate {
         self.affinityCalculationStrategy = .wholeString
         self.customNotations = []
         self.onMaskedTextChangedCallback = nil
+        self.allowSuggestions = true
         super.init()
     }
     
@@ -222,13 +229,9 @@ open class MaskedTextFieldDelegate: NSObject, UITextFieldDelegate {
         shouldChangeCharactersIn range: NSRange,
         replacementString string: String
     ) -> Bool {
+        let updatedText: String = replaceCharacters(inText: textField.text ?? "", range: range, withCharacters: string)
         // https://stackoverflow.com/questions/52131894/shouldchangecharactersin-combined-with-suggested-text
-        if (string == " ") {
-            defer {
-              if let text = textField.text, let textRange = Range(range, in: text) {
-                textField.text = text.replacingCharacters(in: textRange, with: "")
-              }
-            }
+        if (allowSuggestions &&  string == " " && updatedText == " ") {
             return true
         }
         let isDeletion = 0 < range.length && 0 == string.count
@@ -237,7 +240,6 @@ open class MaskedTextFieldDelegate: NSObject, UITextFieldDelegate {
         let caretGravity: CaretString.CaretGravity =
             isDeletion ? .backward(autoskip: useAutoskip) : .forward(autocomplete: useAutocomplete)
         
-        let updatedText: String = replaceCharacters(inText: textField.text ?? "", range: range, withCharacters: string)
         let caretPositionInt: Int = isDeletion ? range.location : range.location + string.count
         let caretPosition: String.Index = updatedText.startIndex(offsetBy: caretPositionInt)
         let text = CaretString(string: updatedText, caretPosition: caretPosition, caretGravity: caretGravity)
