@@ -47,6 +47,10 @@ open class MaskedTextViewDelegate: NSObject, UITextViewDelegate {
     @IBInspectable open var autocompleteOnFocus: Bool
     @IBInspectable open var autoskip:            Bool
     @IBInspectable open var rightToLeft:         Bool
+    /**
+        Allows input suggestions from keyboard
+     */
+    @IBInspectable open var allowSuggestions:   Bool
     
     /**
      Shortly after new text is being pasted from the clipboard, ```UITextView``` receives a new value for its
@@ -77,7 +81,8 @@ open class MaskedTextViewDelegate: NSObject, UITextViewDelegate {
         affineFormats: [String] = [],
         affinityCalculationStrategy: AffinityCalculationStrategy = .wholeString,
         customNotations: [Notation] = [],
-        onMaskedTextChangedCallback: ((_ textInput: UITextInput, _ value: String, _ complete: Bool) -> ())? = nil
+        onMaskedTextChangedCallback: ((_ textInput: UITextInput, _ value: String, _ complete: Bool) -> ())? = nil,
+        allowSuggestions: Bool = true
     ) {
         self.primaryMaskFormat = primaryFormat
         self.autocomplete = autocomplete
@@ -88,6 +93,7 @@ open class MaskedTextViewDelegate: NSObject, UITextViewDelegate {
         self.affinityCalculationStrategy = affinityCalculationStrategy
         self.customNotations = customNotations
         self.onMaskedTextChangedCallback = onMaskedTextChangedCallback
+        self.allowSuggestions = allowSuggestions
         super.init()
     }
     
@@ -112,6 +118,7 @@ open class MaskedTextViewDelegate: NSObject, UITextViewDelegate {
         self.affinityCalculationStrategy = .wholeString
         self.customNotations = []
         self.onMaskedTextChangedCallback = nil
+        self.allowSuggestions = true
         super.init()
     }
     
@@ -214,13 +221,17 @@ open class MaskedTextViewDelegate: NSObject, UITextViewDelegate {
         replacementText text: String
     ) -> Bool {
         // UITextView edge case
+        let updatedText: String = replaceCharacters(inText: textView.text ?? "", range: range, withCharacters: text)
+        // https://stackoverflow.com/questions/52131894/shouldchangecharactersin-combined-with-suggested-text
+        if (allowSuggestions && text == " " && updatedText == " ") {
+            return true
+        }
         let isDeletion = (0 < range.length && 0 == text.count) || (0 == range.length && 0 == range.location && 0 == text.count)
         let useAutocomplete = isDeletion ? false : autocomplete
         let useAutoskip = isDeletion ? autoskip : false
         let caretGravity: CaretString.CaretGravity =
             isDeletion ? .backward(autoskip: useAutoskip) : .forward(autocomplete: useAutocomplete)
         
-        let updatedText: String = replaceCharacters(inText: textView.text ?? "", range: range, withCharacters: text)
         let caretPositionInt: Int = isDeletion ? range.location : range.location + text.count
         let caretPosition: String.Index = updatedText.startIndex(offsetBy: caretPositionInt)
         let text = CaretString(string: updatedText, caretPosition: caretPosition, caretGravity: caretGravity)
