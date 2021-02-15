@@ -77,7 +77,7 @@ git "https://github.com/RedMadRobot/input-mask-ios.git"
 
 ```swift
 dependencies: [
-    .Package(url: "https://github.com/RedMadRobot/input-mask-ios", majorVersion: 5)
+    .Package(url: "https://github.com/RedMadRobot/input-mask-ios", majorVersion: 6)
 ]
 ```
 
@@ -182,6 +182,7 @@ These folks rock:
 * Luiz [LuizZak](https://github.com/LuizZak) Fernando
 * Ivan [vani](https://github.com/vani2) Vavilov
 * Diego [diegotl](https://github.com/diegotl) Trevisan
+* Martin [martintreurnicht](https://github.com/martintreurnicht) Treurnicht
 
 # License
 

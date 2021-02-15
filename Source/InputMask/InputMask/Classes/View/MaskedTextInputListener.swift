@@ -28,6 +28,11 @@ open class MaskedTextInputListener: NSObject {
     @IBInspectable open var rightToLeft:         Bool
     
     /**
+        Allows input suggestions from keyboard
+     */
+    @IBInspectable open var allowSuggestions: Bool
+    
+    /**
      Shortly after new text is being pasted from the clipboard, ```UITextInput``` receives a new value for its
      `selectedTextRange` property from the system. This new range is not consistent with the formatted text and
      calculated caret position most of the time, yet it's being assigned just after ```set caretPosition``` call.
@@ -56,7 +61,8 @@ open class MaskedTextInputListener: NSObject {
         affineFormats: [String] = [],
         affinityCalculationStrategy: AffinityCalculationStrategy = .wholeString,
         customNotations: [Notation] = [],
-        onMaskedTextChangedCallback: ((_ textInput: UITextInput, _ value: String, _ complete: Bool) -> ())? = nil
+        onMaskedTextChangedCallback: ((_ textInput: UITextInput, _ value: String, _ complete: Bool) -> ())? = nil,
+        allowSuggestions: Bool = true
     ) {
         self.primaryMaskFormat = primaryFormat
         self.autocomplete = autocomplete
@@ -67,6 +73,7 @@ open class MaskedTextInputListener: NSObject {
         self.affinityCalculationStrategy = affinityCalculationStrategy
         self.customNotations = customNotations
         self.onMaskedTextChangedCallback = onMaskedTextChangedCallback
+        self.allowSuggestions = allowSuggestions
         super.init()
     }
     
@@ -91,6 +98,7 @@ open class MaskedTextInputListener: NSObject {
         self.affinityCalculationStrategy = .wholeString
         self.customNotations = []
         self.onMaskedTextChangedCallback = nil
+        self.allowSuggestions = true
         super.init()
     }
     
@@ -173,13 +181,18 @@ open class MaskedTextInputListener: NSObject {
         isChangingCharactersIn range: NSRange,
         replacementString string: String
     ) -> Mask.Result {
+        let updatedText: String = replaceCharacters(inText: textInput.allText, range: range, withCharacters: string)
+        // https://stackoverflow.com/questions/52131894/shouldchangecharactersin-combined-with-suggested-text
+        if (allowSuggestions && string == " " && updatedText == " ") {
+//            TODO:
+//            return true
+        }
         let isDeletion = isThisDeletion(inRange: range, string: string, field: textInput)
         let useAutocomplete = isDeletion ? false : autocomplete
         let useAutoskip = isDeletion ? autoskip : false
         let caretGravity: CaretString.CaretGravity =
             isDeletion ? .backward(autoskip: useAutoskip) : .forward(autocomplete: useAutocomplete)
         
-        let updatedText: String = replaceCharacters(inText: textInput.allText, range: range, withCharacters: string)
         let caretPositionInt: Int = isDeletion ? range.location : range.location + string.count
         let caretPosition: String.Index = updatedText.startIndex(offsetBy: caretPositionInt)
         let text = CaretString(string: updatedText, caretPosition: caretPosition, caretGravity: caretGravity)

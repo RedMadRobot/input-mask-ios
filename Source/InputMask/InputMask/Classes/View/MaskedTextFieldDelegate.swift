@@ -47,10 +47,11 @@ open class MaskedTextFieldDelegate: NSObject, UITextFieldDelegate {
     @IBInspectable open var autocompleteOnFocus: Bool
     @IBInspectable open var autoskip:            Bool
     @IBInspectable open var rightToLeft:         Bool
+    
     /**
         Allows input suggestions from keyboard
      */
-    @IBInspectable open var allowSuggestions:   Bool
+    @IBInspectable open var allowSuggestions: Bool
     
     /**
      Shortly after new text is being pasted from the clipboard, ```UITextField``` receives a new value for its
@@ -231,7 +232,7 @@ open class MaskedTextFieldDelegate: NSObject, UITextFieldDelegate {
     ) -> Bool {
         let updatedText: String = replaceCharacters(inText: textField.text ?? "", range: range, withCharacters: string)
         // https://stackoverflow.com/questions/52131894/shouldchangecharactersin-combined-with-suggested-text
-        if (allowSuggestions &&  string == " " && updatedText == " ") {
+        if (allowSuggestions && string == " " && updatedText == " ") {
             return true
         }
         let isDeletion = 0 < range.length && 0 == string.count

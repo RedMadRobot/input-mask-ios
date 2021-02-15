@@ -1,5 +1,11 @@
 # Changelog
 
+### `6.1.0`
+
+##### Added:
+
+* iOS suggestions support
+
 ### `6.0.0`
 
 #### Removed:
