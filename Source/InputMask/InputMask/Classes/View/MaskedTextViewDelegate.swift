@@ -187,7 +187,7 @@ open class MaskedTextViewDelegate: NSObject, UITextViewDelegate {
         )
         
         textView.text = result.formattedText.string
-        textView.cursorPosition = result.formattedText.string.distanceFromStartIndex(
+        textView.caretPosition = result.formattedText.string.distanceFromStartIndex(
             to: result.formattedText.caretPosition
         )
         
@@ -242,12 +242,12 @@ open class MaskedTextViewDelegate: NSObject, UITextViewDelegate {
         textView.text = result.formattedText.string
         
         if self.atomicCursorMovement {
-            textView.cursorPosition = result.formattedText.string.distanceFromStartIndex(
+            textView.caretPosition = result.formattedText.string.distanceFromStartIndex(
                 to: result.formattedText.caretPosition
             )
         } else {
             DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()) {
-                textView.cursorPosition = result.formattedText.string.distanceFromStartIndex(
+                textView.caretPosition = result.formattedText.string.distanceFromStartIndex(
                     to: result.formattedText.caretPosition
                 )
             }

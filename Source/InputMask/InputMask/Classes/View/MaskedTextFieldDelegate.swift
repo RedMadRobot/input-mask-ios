@@ -188,7 +188,7 @@ open class MaskedTextFieldDelegate: NSObject, UITextFieldDelegate {
         )
         
         field.text = result.formattedText.string
-        field.cursorPosition = result.formattedText.string.distanceFromStartIndex(
+        field.caretPosition = result.formattedText.string.distanceFromStartIndex(
             to: result.formattedText.caretPosition
         )
         
@@ -251,12 +251,12 @@ open class MaskedTextFieldDelegate: NSObject, UITextFieldDelegate {
         textField.text = result.formattedText.string
         
         if self.atomicCursorMovement {
-            textField.cursorPosition = result.formattedText.string.distanceFromStartIndex(
+            textField.caretPosition = result.formattedText.string.distanceFromStartIndex(
                 to: result.formattedText.caretPosition
             )
         } else {
             DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()) {
-                textField.cursorPosition = result.formattedText.string.distanceFromStartIndex(
+                textField.caretPosition = result.formattedText.string.distanceFromStartIndex(
                     to: result.formattedText.caretPosition
                 )
             }
