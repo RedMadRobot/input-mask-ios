@@ -180,10 +180,18 @@ public struct MaskedTextField: UIViewRepresentable {
             )
         }
         
-        public override func textInput(_ textInput: UITextInput, isChangingCharactersIn range: NSRange, replacementString string: String) -> Mask.Result {
-            let result = super.textInput(textInput, isChangingCharactersIn: range, replacementString: string)
+        public override func textFieldDidBeginEditing(_ textField: UITextField) {
+            super.textFieldDidBeginEditing(textField)
+            isEditing = true
+        }
+        
+        public func textFieldDidEndEditing(_ textField: UITextField) {
+            isEditing = false
+        }
+        
+        public override func notifyOnMaskedTextChangedListeners(forTextInput textInput: UITextInput, result: Mask.Result) {
+            super.notifyOnMaskedTextChangedListeners(forTextInput: textInput, result: result)
             text = textInput.allText
-            return result
         }
     }
     
