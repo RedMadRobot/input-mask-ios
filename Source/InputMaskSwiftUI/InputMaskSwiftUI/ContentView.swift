@@ -9,33 +9,68 @@ import SwiftUI
 import InputMask
 
 struct ContentView: View {
-    @State var placeholder = "+380 (00) 000-00-00"
-    @State var text = ""
-    @State var isEditing = false
+    @State var name = ""
+    @State var phone = ""
+    @State var dob = ""
+    
+    @State var keepFocused = false
+    @State var keepFocusedDob = false
+    
+    @State var completePhone = false
+    @State var completeDob = false
     
     var body: some View {
         NavigationStack{
             Form {
                 Section {
                     HStack {
+                        Image(systemName: "person")
+                            .imageScale(.large)
+                            .foregroundColor(.accentColor)
+                        TextField("Name", text: $name)
+                    }
+                    HStack {
                         Image(systemName: "phone")
                             .imageScale(.large)
                             .foregroundColor(.accentColor)
                         MaskedTextField(
-                            text: $text,
-                            placeholder: $placeholder,
-                            isEditing: $isEditing,
+                            text: $phone,
+                            keepFocused: $keepFocused,
+                            placeholder: "+380 (00) 000-00-00",
                             primaryMaskFormat: "+380 ([00]) [000]-[00]-[00]",
                             autocomplete: true,
                             autocompleteOnFocus: true,
                             allowSuggestions: true,
                             onMaskedTextChangedCallback: { textInput, value, complete in
-                                print("complete: \(complete); value: \(value); text: \(text)")
+                                print("PHONE complete: \(complete); value: \(value); text: \(phone)")
+                                completePhone = complete
                             })
                         .monospaced()
+                        .keyboardType(.phonePad)
+                    }
+                    HStack {
+                        Image(systemName: "calendar")
+                            .imageScale(.large)
+                            .foregroundColor(.accentColor)
+                        MaskedTextField(
+                            text: $dob,
+                            keepFocused: $keepFocusedDob,
+                            placeholder: "00.00.0000",
+                            primaryMaskFormat: "[90].[90].[0000]",
+                            autocomplete: true,
+                            autocompleteOnFocus: true,
+                            allowSuggestions: true,
+                            onMaskedTextChangedCallback: { textInput, value, complete in
+                                print("DOB complete: \(complete); value: \(value); text: \(dob)")
+                                completeDob = complete
+                            })
+                        .monospaced()
+                        .keyboardType(.decimalPad)
                     }
                 } header: {
-                    Text("Phone")
+                    Text("User")
+                } footer: {
+                    completePhone && completeDob ? Text("Done") : nil
                 }
             }
             .navigationTitle("Sample")

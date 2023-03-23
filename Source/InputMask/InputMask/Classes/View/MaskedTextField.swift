@@ -13,8 +13,10 @@ import SwiftUI
 @available(iOS 13.0, *)
 public struct MaskedTextField: UIViewRepresentable {
     @Binding public var text: String
-    @Binding public var placeholder: String
-    @Binding public var isEditing: Bool
+    
+    @Binding public var keepFocused: Bool
+    
+    public var placeholder: String
     
     public var textColor: UIColor?
     public var font: UIFont?
@@ -89,8 +91,8 @@ public struct MaskedTextField: UIViewRepresentable {
     
     public init(
         text: Binding<String>,
-        placeholder: Binding<String>,
-        isEditing: Binding<Bool>,
+        keepFocused: Binding<Bool>,
+        placeholder: String,
         primaryMaskFormat: String = "",
         autocomplete: Bool = true,
         autocompleteOnFocus: Bool = true,
@@ -103,8 +105,8 @@ public struct MaskedTextField: UIViewRepresentable {
         onMaskedTextChangedCallback: ((_ textInput: UITextInput, _ value: String, _ complete: Bool) -> ())? = nil
     ) {
         self._text = text
-        self._placeholder = placeholder
-        self._isEditing = isEditing
+        self._keepFocused = keepFocused
+        self.placeholder = placeholder
         self.primaryMaskFormat = primaryMaskFormat
         self.autocomplete = autocomplete
         self.autocompleteOnFocus = autocompleteOnFocus
@@ -127,12 +129,15 @@ public struct MaskedTextField: UIViewRepresentable {
     public func updateUIView(_ uiView: UITextField, context: Context) {
         updateTextFieldAttributes(uiView)
         uiView.delegate = context.coordinator
+        
+        if keepFocused {
+            uiView.becomeFirstResponder()
+        }
     }
     
     public func makeCoordinator() -> Coordinator {
         Coordinator(
             text: $text,
-            isEditing: $isEditing,
             primaryFormat: primaryMaskFormat,
             autocomplete: autocomplete,
             autocompleteOnFocus: autocompleteOnFocus,
@@ -148,11 +153,9 @@ public struct MaskedTextField: UIViewRepresentable {
     
     public final class Coordinator: MaskedTextInputListener {
         @Binding public var text: String
-        @Binding public var isEditing: Bool
         
         public init(
             text: Binding<String>,
-            isEditing: Binding<Bool>,
             primaryFormat: String = "",
             autocomplete: Bool = true,
             autocompleteOnFocus: Bool = true,
@@ -165,7 +168,6 @@ public struct MaskedTextField: UIViewRepresentable {
             allowSuggestions: Bool = true
         ) {
             self._text = text
-            self._isEditing = isEditing
             super.init(
                 primaryFormat: primaryFormat,
                 autocomplete: autocomplete,
@@ -180,18 +182,9 @@ public struct MaskedTextField: UIViewRepresentable {
             )
         }
         
-        public override func textFieldDidBeginEditing(_ textField: UITextField) {
-            super.textFieldDidBeginEditing(textField)
-            isEditing = true
-        }
-        
-        public func textFieldDidEndEditing(_ textField: UITextField) {
-            isEditing = false
-        }
-        
         public override func notifyOnMaskedTextChangedListeners(forTextInput textInput: UITextInput, result: Mask.Result) {
+            text = result.formattedText.string
             super.notifyOnMaskedTextChangedListeners(forTextInput: textInput, result: result)
-            text = textInput.allText
         }
     }
     
@@ -226,7 +219,7 @@ public struct MaskedTextField: UIViewRepresentable {
         field.inputAccessoryView = inputAccessoryView
         
         field.isUserInteractionEnabled = isUserInteractionEnabled ?? field.isUserInteractionEnabled
-     
+        
         field.autocapitalizationType = autocapitalizationType ?? field.autocapitalizationType
         field.autocorrectionType = autocorrectionType ?? field.autocorrectionType
         field.spellCheckingType = spellCheckingType ?? field.spellCheckingType
