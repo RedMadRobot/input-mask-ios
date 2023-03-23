@@ -232,6 +232,18 @@ public extension MaskedTextField {
     
     // MARK: - SwiftUI Modifiers
 
+    func onSubmit(_ onSubmit: @escaping () -> Void) -> Self {
+        var s = self
+        s.onSubmit = onSubmit
+        return s
+    }
+    
+    func onFocus(_ onFocus: @escaping () -> Void) -> Self {
+        var s = self
+        s.onFocus = onFocus
+        return s
+    }
+    
     func monospacedDigit(size: CGFloat = 16.0, weight: UIFont.Weight = .medium) -> Self {
         var s = self
         s.font = UIFont.monospacedDigitSystemFont(ofSize: size, weight: weight)
