@@ -8,13 +8,15 @@ import SwiftUI
 /**
  ### MaskedTextField
  
- A UITextField wrapper for SwiftUI.
+ A UITextField wrapper for SwiftUI, with a MaskedTextInputListener attached.
  */
 @available(iOS 13.0, *)
 public struct MaskedTextField: UIViewRepresentable {
-    @Binding public var text: String
+    public typealias UITextFieldEvent = (_ textField: UITextField) -> Void
     
-    @Binding public var keepFocused: Bool
+    @Binding public var text: String
+    @Binding public var value: String
+    @Binding public var complete: Bool
     
     public var placeholder: String
     
@@ -71,30 +73,29 @@ public struct MaskedTextField: UIViewRepresentable {
     public var contentCompressionResistancePriorityHorizontal: UILayoutPriority = .defaultLow
     public var contentCompressionResistancePriorityVertical: UILayoutPriority?
     
+    public var onSubmit: UITextFieldEvent?
+    public var onFocus: UITextFieldEvent?
+    
     // MaskedTextFieldDelegate properties
     
-    public var onMaskedTextChangedCallback: ((_ textInput: UITextInput, _ value: String, _ complete: Bool) -> ())?
+    public let primaryMaskFormat:   String
+    public let autocomplete:        Bool
+    public let autocompleteOnFocus: Bool
+    public let autoskip:            Bool
+    public let rightToLeft:         Bool
     
-    public var primaryMaskFormat:   String
-    public var autocomplete:        Bool
-    public var autocompleteOnFocus: Bool
-    public var autoskip:            Bool
-    public var rightToLeft:         Bool
+    public let allowSuggestions: Bool
     
-    public var allowSuggestions: Bool
+    public let atomicCursorMovement: Bool = false
     
-    public var atomicCursorMovement: Bool = false
-    
-    public var affineFormats:               [String]
-    public var affinityCalculationStrategy: AffinityCalculationStrategy
-    public var customNotations:             [Notation]
-    
-    public var onSubmit: (() -> Void)?
-    public var onFocus: (() -> Void)?
+    public let affineFormats:               [String]
+    public let affinityCalculationStrategy: AffinityCalculationStrategy
+    public let customNotations:             [Notation]
     
     public init(
         text: Binding<String>,
-        keepFocused: Binding<Bool>,
+        value: Binding<String>,
+        complete: Binding<Bool>,
         placeholder: String,
         primaryMaskFormat: String = "",
         autocomplete: Bool = true,
@@ -104,11 +105,11 @@ public struct MaskedTextField: UIViewRepresentable {
         allowSuggestions: Bool = true,
         affineFormats: [String] = [],
         affinityCalculationStrategy: AffinityCalculationStrategy = .wholeString,
-        customNotations: [Notation] = [],
-        onMaskedTextChangedCallback: ((_ textInput: UITextInput, _ value: String, _ complete: Bool) -> ())? = nil
+        customNotations: [Notation] = []
     ) {
         self._text = text
-        self._keepFocused = keepFocused
+        self._value = value
+        self._complete = complete
         self.placeholder = placeholder
         self.primaryMaskFormat = primaryMaskFormat
         self.autocomplete = autocomplete
@@ -119,30 +120,28 @@ public struct MaskedTextField: UIViewRepresentable {
         self.affineFormats = affineFormats
         self.affinityCalculationStrategy = affinityCalculationStrategy
         self.customNotations = customNotations
-        self.onMaskedTextChangedCallback = onMaskedTextChangedCallback
     }
     
     public func makeUIView(context: Context) -> UITextField {
         let textField = UITextField()
-        updateTextFieldAttributes(textField)
+        updateTextFieldAttributes(textField, context: context)
         textField.delegate = context.coordinator
         return textField
     }
     
     public func updateUIView(_ uiView: UITextField, context: Context) {
-        context.coordinator.onSubmit = onSubmit
+        let coordinator = context.coordinator
         
-        updateTextFieldAttributes(uiView)
+        coordinator.onSubmit = onSubmit
+        coordinator.onFocus = onFocus
+        
+        updateTextFieldAttributes(uiView, context: context)
+        uiView.delegate = coordinator
         uiView.text = text
-        
-        if keepFocused {
-            uiView.becomeFirstResponder()
-        }
     }
     
     public func makeCoordinator() -> Coordinator {
         Coordinator(
-            text: $text,
             primaryFormat: primaryMaskFormat,
             autocomplete: autocomplete,
             autocompleteOnFocus: autocompleteOnFocus,
@@ -151,7 +150,11 @@ public struct MaskedTextField: UIViewRepresentable {
             affineFormats: affineFormats,
             affinityCalculationStrategy: affinityCalculationStrategy,
             customNotations: customNotations,
-            onMaskedTextChangedCallback: onMaskedTextChangedCallback,
+            onMaskedTextChangedCallback: { input, value, complete in
+                self.text = input.allText
+                self.value = value
+                self.complete = complete
+            },
             allowSuggestions: allowSuggestions,
             onSubmit: onSubmit,
             onFocus: onFocus
@@ -159,13 +162,10 @@ public struct MaskedTextField: UIViewRepresentable {
     }
     
     public final class Coordinator: MaskedTextInputListener {
-        @Binding public var text: String
-        
-        public var onSubmit: (() -> Void)?
-        public var onFocus: (() -> Void)?
+        public var onSubmit: UITextFieldEvent?
+        public var onFocus: UITextFieldEvent?
         
         public init(
-            text: Binding<String>,
             primaryFormat: String = "",
             autocomplete: Bool = true,
             autocompleteOnFocus: Bool = true,
@@ -176,10 +176,9 @@ public struct MaskedTextField: UIViewRepresentable {
             customNotations: [Notation] = [],
             onMaskedTextChangedCallback: ((UITextInput, String, Bool) -> ())? = nil,
             allowSuggestions: Bool = true,
-            onSubmit: (() -> Void)? = nil,
-            onFocus: (() -> Void)? = nil
+            onSubmit: UITextFieldEvent? = nil,
+            onFocus: UITextFieldEvent? = nil
         ) {
-            self._text = text
             self.onSubmit = onSubmit
             self.onFocus = onFocus
             super.init(
@@ -196,27 +195,18 @@ public struct MaskedTextField: UIViewRepresentable {
             )
         }
         
-        public override func notifyOnMaskedTextChangedListeners(forTextInput textInput: UITextInput, result: Mask.Result) {
-            text = result.formattedText.string
-            super.notifyOnMaskedTextChangedListeners(forTextInput: textInput, result: result)
-        }
-        
         public func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-            if let onSubmit = onSubmit {
-                onSubmit()
-            }
+            onSubmit?(textField)
             return true
         }
 
         public override func textFieldDidBeginEditing(_ textField: UITextField) {
             super.textFieldDidBeginEditing(textField)
-            if let onFocus = onFocus {
-                onFocus()
-            }
+            onFocus?(textField)
         }
     }
     
-    private func updateTextFieldAttributes(_ field: UITextField) {
+    private func updateTextFieldAttributes(_ field: UITextField, context: Context) {
         field.text = text
         field.placeholder = placeholder
         
@@ -275,6 +265,12 @@ public struct MaskedTextField: UIViewRepresentable {
         field.setContentCompressionResistancePriority(contentCompressionResistancePriorityHorizontal, for: .horizontal)
         if let contentCompressionResistancePriorityVertical = contentCompressionResistancePriorityVertical {
             field.setContentCompressionResistancePriority(contentCompressionResistancePriorityVertical, for: .vertical)
+        }
+        
+        if #available(iOS 14, *) {
+            if context.environment.isFocused {
+                print("focused")
+            }
         }
     }
 }

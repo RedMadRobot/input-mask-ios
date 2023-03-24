@@ -224,21 +224,15 @@ public extension MaskedTextField {
         return s
     }
     
-    func onMaskedTextChanged(_ onMaskedTextChangedCallback: @escaping (_ textInput: UITextInput, _ value: String, _ complete: Bool) -> ()) -> Self {
-        var s = self
-        s.onMaskedTextChangedCallback = onMaskedTextChangedCallback
-        return s
-    }
-    
     // MARK: - SwiftUI Modifiers
-
-    func onSubmit(_ onSubmit: @escaping () -> Void) -> Self {
+    
+    func onSubmit(_ onSubmit: @escaping UITextFieldEvent) -> Self {
         var s = self
         s.onSubmit = onSubmit
         return s
     }
     
-    func onFocus(_ onFocus: @escaping () -> Void) -> Self {
+    func onFocus(_ onFocus: @escaping UITextFieldEvent) -> Self {
         var s = self
         s.onFocus = onFocus
         return s

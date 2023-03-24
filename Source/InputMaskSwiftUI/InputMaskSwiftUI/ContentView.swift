@@ -12,10 +12,8 @@ struct ContentView: View {
     @State var name = ""
     @State var phone = ""
     @State var dob = ""
-    
-    @State var keepFocused = false
-    @State var keepFocusedDob = false
-    
+
+    @State var completeName = false
     @State var completePhone = false
     @State var completeDob = false
     
@@ -28,6 +26,10 @@ struct ContentView: View {
                             .imageScale(.large)
                             .foregroundColor(.accentColor)
                         TextField("Name", text: $name)
+                            .onSubmit {
+                                completeName = !name.isEmpty
+                            }
+                            .submitLabel(SubmitLabel.done)
                     }
                     HStack {
                         Image(systemName: "phone")
@@ -35,7 +37,6 @@ struct ContentView: View {
                             .foregroundColor(.accentColor)
                         MaskedTextField(
                             text: $phone,
-                            keepFocused: $keepFocused,
                             placeholder: "+380 (00) 000-00-00",
                             primaryMaskFormat: "+380 ([00]) [000]-[00]-[00]",
                             autocomplete: true,
@@ -46,7 +47,11 @@ struct ContentView: View {
                                 completePhone = complete
                             })
                         .monospaced()
-                        .keyboardType(.phonePad)
+                        .keyboardType(.numbersAndPunctuation)
+                        .returnKeyType(.done)
+                        .onSubmit { textField in
+                            textField.resignFirstResponder()
+                        }
                     }
                     HStack {
                         Image(systemName: "calendar")
@@ -54,9 +59,8 @@ struct ContentView: View {
                             .foregroundColor(.accentColor)
                         MaskedTextField(
                             text: $dob,
-                            keepFocused: $keepFocusedDob,
                             placeholder: "00.00.0000",
-                            primaryMaskFormat: "[90].[90].[0000]",
+                            primaryMaskFormat: "[90]{.}[90]{.}[0000]",
                             autocomplete: true,
                             autocompleteOnFocus: true,
                             allowSuggestions: true,
@@ -65,12 +69,16 @@ struct ContentView: View {
                                 completeDob = complete
                             })
                         .monospaced()
-                        .keyboardType(.decimalPad)
+                        .keyboardType(.numbersAndPunctuation)
+                        .returnKeyType(.done)
+                        .onSubmit { textField in
+                            textField.resignFirstResponder()
+                        }
                     }
                 } header: {
                     Text("User")
                 } footer: {
-                    completePhone && completeDob ? Text("Done") : nil
+                    completeName && completePhone && completeDob ? Text("Done") : nil
                 }
             }
             .navigationTitle("Sample")
