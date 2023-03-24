@@ -1,8 +1,6 @@
 //
-//  InputMaskSwiftUIApp.swift
-//  InputMaskSwiftUI
-//
-//  Created by Jeorge Taflanidi on 2023-03-22.
+// Project «InputMask»
+// Created by Jeorge Taflanidi
 //
 
 import SwiftUI

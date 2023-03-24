@@ -1,24 +1,24 @@
 //
-//  ContentView.swift
-//  InputMaskSwiftUI
-//
-//  Created by Jeorge Taflanidi on 2023-03-22.
+// Project «InputMask»
+// Created by Jeorge Taflanidi
 //
 
 import SwiftUI
-import InputMask
 
 struct ContentView: View {
     @State var name = ""
     @State var phone = ""
     @State var dob = ""
+    
+    @State var phoneValue = ""
+    @State var dobValue = ""
 
-    @State var completeName = false
-    @State var completePhone = false
-    @State var completeDob = false
+    @State var nameComplete = false
+    @State var phoneComplete = false
+    @State var dobComplete = false
     
     var body: some View {
-        NavigationStack{
+        NavigationView {
             Form {
                 Section {
                     HStack {
@@ -26,8 +26,11 @@ struct ContentView: View {
                             .imageScale(.large)
                             .foregroundColor(.accentColor)
                         TextField("Name", text: $name)
+                            .onChange(of: name) { newValue in
+                                nameComplete = !name.isEmpty
+                            }
                             .onSubmit {
-                                completeName = !name.isEmpty
+                                nameComplete = !name.isEmpty
                             }
                             .submitLabel(SubmitLabel.done)
                     }
@@ -37,21 +40,11 @@ struct ContentView: View {
                             .foregroundColor(.accentColor)
                         MaskedTextField(
                             text: $phone,
+                            value: $phoneValue,
+                            complete: $phoneComplete,
                             placeholder: "+380 (00) 000-00-00",
-                            primaryMaskFormat: "+380 ([00]) [000]-[00]-[00]",
-                            autocomplete: true,
-                            autocompleteOnFocus: true,
-                            allowSuggestions: true,
-                            onMaskedTextChangedCallback: { textInput, value, complete in
-                                print("PHONE complete: \(complete); value: \(value); text: \(phone)")
-                                completePhone = complete
-                            })
-                        .monospaced()
-                        .keyboardType(.numbersAndPunctuation)
-                        .returnKeyType(.done)
-                        .onSubmit { textField in
-                            textField.resignFirstResponder()
-                        }
+                            mask: "+380 ([00]) [000]-[00]-[00]"
+                        )
                     }
                     HStack {
                         Image(systemName: "calendar")
@@ -59,26 +52,16 @@ struct ContentView: View {
                             .foregroundColor(.accentColor)
                         MaskedTextField(
                             text: $dob,
+                            value: $dobValue,
+                            complete: $dobComplete,
                             placeholder: "00.00.0000",
-                            primaryMaskFormat: "[90]{.}[90]{.}[0000]",
-                            autocomplete: true,
-                            autocompleteOnFocus: true,
-                            allowSuggestions: true,
-                            onMaskedTextChangedCallback: { textInput, value, complete in
-                                print("DOB complete: \(complete); value: \(value); text: \(dob)")
-                                completeDob = complete
-                            })
-                        .monospaced()
-                        .keyboardType(.numbersAndPunctuation)
-                        .returnKeyType(.done)
-                        .onSubmit { textField in
-                            textField.resignFirstResponder()
-                        }
+                            mask: "[90]{.}[90]{.}[0000]"
+                        )
                     }
                 } header: {
                     Text("User")
                 } footer: {
-                    completeName && completePhone && completeDob ? Text("Done") : nil
+                    nameComplete && phoneComplete && dobComplete ? Text("Done") : nil
                 }
             }
             .navigationTitle("Sample")

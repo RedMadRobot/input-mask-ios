@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8A14315529CDE7370026898C /* MaskedTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A14315429CDE7370026898C /* MaskedTextField.swift */; };
 		8A1C5C8A29CB0EEF00896D32 /* InputMaskSwiftUIApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A1C5C8929CB0EEF00896D32 /* InputMaskSwiftUIApp.swift */; };
 		8A1C5C8C29CB0EEF00896D32 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A1C5C8B29CB0EEF00896D32 /* ContentView.swift */; };
 		8A1C5C8E29CB0EF000896D32 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8A1C5C8D29CB0EF000896D32 /* Assets.xcassets */; };
@@ -15,6 +16,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8A14315429CDE7370026898C /* MaskedTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaskedTextField.swift; sourceTree = "<group>"; };
 		8A1C5C8629CB0EEF00896D32 /* InputMaskSwiftUI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = InputMaskSwiftUI.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8A1C5C8929CB0EEF00896D32 /* InputMaskSwiftUIApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputMaskSwiftUIApp.swift; sourceTree = "<group>"; };
 		8A1C5C8B29CB0EEF00896D32 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -54,11 +56,12 @@
 		8A1C5C8829CB0EEF00896D32 /* InputMaskSwiftUI */ = {
 			isa = PBXGroup;
 			children = (
+				8A1C5C8D29CB0EF000896D32 /* Assets.xcassets */,
+				8A1C5C8B29CB0EEF00896D32 /* ContentView.swift */,
 				8ADFF0A829CC57B9003C3908 /* Info.plist */,
 				8A1C5C8929CB0EEF00896D32 /* InputMaskSwiftUIApp.swift */,
-				8A1C5C8B29CB0EEF00896D32 /* ContentView.swift */,
-				8A1C5C8D29CB0EF000896D32 /* Assets.xcassets */,
 				8A1C5C8F29CB0EF000896D32 /* Preview Content */,
+				8A14315429CDE7370026898C /* MaskedTextField.swift */,
 			);
 			path = InputMaskSwiftUI;
 			sourceTree = "<group>";
@@ -148,6 +151,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8A1C5C8C29CB0EEF00896D32 /* ContentView.swift in Sources */,
+				8A14315529CDE7370026898C /* MaskedTextField.swift in Sources */,
 				8A1C5C8A29CB0EEF00896D32 /* InputMaskSwiftUIApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -286,6 +290,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -316,6 +321,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
