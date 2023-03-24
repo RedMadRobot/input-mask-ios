@@ -267,9 +267,20 @@ public struct MaskedTextField: UIViewRepresentable {
             field.setContentCompressionResistancePriority(contentCompressionResistancePriorityVertical, for: .vertical)
         }
         
-        if #available(iOS 14, *) {
-            if context.environment.isFocused {
-                print("focused")
+        field.isEnabled = context.environment.isEnabled
+        
+        if context.environment.autocorrectionDisabled {
+            field.autocorrectionType = .no
+        }
+        
+        if #available(iOS 14.0, *) {
+            if let textCase = context.environment.textCase {
+                switch textCase {
+                    case .uppercase:
+                        field.autocapitalizationType = .allCharacters
+                    case .lowercase:
+                        field.autocapitalizationType = .none
+                }
             }
         }
     }
