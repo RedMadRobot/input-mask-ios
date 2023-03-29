@@ -25,11 +25,32 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" keyboardType="phonePad"/>
                                 <connections>
-                                    <outlet property="delegate" destination="Jf8-Lb-6rq" id="XZq-t7-7gU"/>
+                                    <outlet property="delegate" destination="Jf8-Lb-6rq" id="sGy-LF-QbK"/>
                                 </connections>
                             </textField>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sample" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nHp-6r-sbR">
-                                <rect key="frame" x="159" y="287.5" width="57" height="20.5"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Phone:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nHp-6r-sbR">
+                                <rect key="frame" x="161" y="287.5" width="53" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="qSO-kp-EV4">
+                                <rect key="frame" x="20" y="358" width="335" height="289"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <color key="textColor" systemColor="systemGrayColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="G3H-PU-FM8">
+                                <rect key="frame" x="20" y="245" width="335" height="34"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation"/>
+                                <connections>
+                                    <outlet property="delegate" destination="0B9-UY-Mlk" id="Uy3-8B-emH"/>
+                                </connections>
+                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a4Z-Rm-zLH">
+                                <rect key="frame" x="167" y="216" width="41" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -37,34 +58,59 @@
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstAttribute="trailing" secondItem="G3H-PU-FM8" secondAttribute="trailing" constant="20" id="0Os-My-Lfi"/>
                             <constraint firstAttribute="trailing" secondItem="MtV-1y-GNI" secondAttribute="trailing" constant="20" symbolic="YES" id="EBM-nu-6Fk"/>
                             <constraint firstItem="nHp-6r-sbR" firstAttribute="centerX" secondItem="MtV-1y-GNI" secondAttribute="centerX" id="PBs-TK-i7n"/>
                             <constraint firstItem="MtV-1y-GNI" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="Pd3-bb-D6T"/>
+                            <constraint firstItem="qSO-kp-EV4" firstAttribute="top" secondItem="MtV-1y-GNI" secondAttribute="bottom" constant="7.5" id="QhA-Jg-Om2"/>
+                            <constraint firstItem="qSO-kp-EV4" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="4" id="QpT-FK-Oiz"/>
+                            <constraint firstItem="G3H-PU-FM8" firstAttribute="top" secondItem="a4Z-Rm-zLH" secondAttribute="bottom" constant="8" symbolic="YES" id="Tdd-Fm-quY"/>
                             <constraint firstItem="MtV-1y-GNI" firstAttribute="top" secondItem="nHp-6r-sbR" secondAttribute="bottom" constant="8.5" id="W0p-pE-tpP"/>
+                            <constraint firstItem="G3H-PU-FM8" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="20" id="b4p-L1-D1O"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="qSO-kp-EV4" secondAttribute="trailing" constant="4" id="g5A-BB-Nod"/>
+                            <constraint firstItem="a4Z-Rm-zLH" firstAttribute="centerX" secondItem="G3H-PU-FM8" secondAttribute="centerX" id="ifi-7b-jti"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="qSO-kp-EV4" secondAttribute="bottom" constant="20" id="kNV-WZ-Bz7"/>
+                            <constraint firstItem="nHp-6r-sbR" firstAttribute="top" secondItem="G3H-PU-FM8" secondAttribute="bottom" constant="8.5" id="kv5-dU-DcV"/>
                             <constraint firstItem="MtV-1y-GNI" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="20" symbolic="YES" id="yEn-VD-eMt"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="field" destination="MtV-1y-GNI" id="jrd-2g-Iuq"/>
-                        <outlet property="listener" destination="Jf8-Lb-6rq" id="kcQ-xH-c30"/>
+                        <outlet property="dateField" destination="G3H-PU-FM8" id="3X9-Uw-dpR"/>
+                        <outlet property="dateListener" destination="0B9-UY-Mlk" id="78X-TQ-l1u"/>
+                        <outlet property="phoneField" destination="MtV-1y-GNI" id="jrd-2g-Iuq"/>
+                        <outlet property="phoneListener" destination="Jf8-Lb-6rq" id="e5t-q5-CQz"/>
+                        <outlet property="textView" destination="qSO-kp-EV4" id="hBc-lu-vVE"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
-                <customObject id="Jf8-Lb-6rq" customClass="MaskedTextFieldDelegate" customModule="InputMask">
+                <customObject id="Jf8-Lb-6rq" customClass="PhoneInputListener" customModule="InputMask">
                     <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="string" keyPath="primaryMaskFormat" value="+7 ([000]) [000] [00] [00]"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="primaryMaskFormat" value="+380 ([00]) [000]-[00]-[00]"/>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="autocomplete" value="YES"/>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="autocompleteOnFocus" value="YES"/>
                     </userDefinedRuntimeAttributes>
                     <connections>
-                        <outlet property="delegate" destination="BYZ-38-t0r" id="kNe-qw-Sri"/>
+                        <outlet property="delegate" destination="BYZ-38-t0r" id="PnD-yl-nSU"/>
+                    </connections>
+                </customObject>
+                <customObject id="0B9-UY-Mlk" customClass="MaskedTextInputListener" customModule="InputMask">
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="primaryMaskFormat" value="[9900].[90].[90]"/>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <outlet property="delegate" destination="BYZ-38-t0r" id="E9p-A8-HWl"/>
                     </connections>
                 </customObject>
             </objects>
-            <point key="canvasLocation" x="106" y="0.0"/>
+            <point key="canvasLocation" x="104.8" y="-0.44977511244377816"/>
         </scene>
     </scenes>
     <resources>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemGrayColor">
+            <color red="0.55686274509803924" green="0.55686274509803924" blue="0.57647058823529407" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

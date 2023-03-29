@@ -85,4 +85,11 @@ public extension String {
         return self.index(self.startIndex, offsetBy: offset)
     }
     
+    /**
+     Extract digits from a string.
+     */
+    func extractDigits() -> String {
+        return self.components(separatedBy: CharacterSet.decimalDigits.inverted).joined()
+    }
+    
 }

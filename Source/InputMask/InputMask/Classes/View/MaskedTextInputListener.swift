@@ -10,7 +10,7 @@ import UIKit
 
 @available(iOS 11, *)
 public protocol OnMaskedTextChangedListener: AnyObject {
-    func textInput(_ textInput: UITextInput, didExtractValue: String, didFillMandatoryCharacters: Bool)
+    func textInput(_ textInput: UITextInput, didExtractValue value: String, didFillMandatoryCharacters complete: Bool)
 }
 
 
