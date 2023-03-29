@@ -95,7 +95,7 @@
                 </customObject>
                 <customObject id="0B9-UY-Mlk" customClass="MaskedTextInputListener" customModule="InputMask">
                     <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="string" keyPath="primaryMaskFormat" value="[9900].[90].[90]"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="primaryMaskFormat" value="[90].[90].[0000]"/>
                     </userDefinedRuntimeAttributes>
                     <connections>
                         <outlet property="delegate" destination="BYZ-38-t0r" id="E9p-A8-HWl"/>
