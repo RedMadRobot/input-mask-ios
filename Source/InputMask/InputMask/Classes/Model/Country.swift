@@ -7,18 +7,71 @@
 import Foundation
 
 
+/**
+ ### Country
+ 
+ Model object representing a **Country** record operated by the ```PhoneInputListener```.
+ */
 public struct Country {
+    /**
+     International country name.
+     */
     public let name: String
+    
+    /**
+     Country name in its own language.
+     */
     public let nameNative: String?
+    
+    /**
+     Country emoji.
+     */
     public let emoji: String
+    
+    /**
+     Country ISO-3166 code, 2 letters.
+     */
     public let iso3166alpha2: String
+    
+    /**
+     Country ISO-3166 code, 3 letters.
+     */
     public let iso3166alpha3: String
+    
+    /**
+     Country dial code.
+     */
     public let countryCode: String
+    
+    /**
+     Primary ```Mask``` format for the country phone numbers.
+     */
     public let primaryFormat: String
+    
+    /**
+     Affine ```Mask``` formats for the country phone numbers.
+     */
     public let affineFormats: [String]
     
+    /**
+     A regular expression to detect whether or not the entered digits correspond to this particular country.
+     */
     public let phoneRegex: String
     
+    /**
+     Constructor.
+     
+     - Parameters:
+        - name: international country name
+        - nameNative: country name in its own language
+        - emoji: country emoji
+        - iso3166alpha2: country ISO-3166 code, 2 letters
+        - iso3166alpha3: country ISO-3166 code, 3 letters
+        - countryCode: country dial code
+        - primaryFormat: primary ```Mask``` format for the country phone numbers
+        - affineFormats: affine ```Mask``` formats for the country phone numbers
+        - phoneRegex: a regular expression to detect whether or not the entered digits correspond to this particular country
+     */
     public init(
         name: String,
         nameNative: String?,
@@ -41,11 +94,19 @@ public struct Country {
         self.phoneRegex = phoneRegex
     }
     
-    func phoneStartsWith(digits: String) -> Bool {
+    /**
+     Test digits upon this ```Country::phoneRegex```
+     */
+    public func phoneStartsWith(digits: String) -> Bool {
         return digits.range(of: self.phoneRegex, options: String.CompareOptions.regularExpression) != nil
     }
     
-    static func findCountries(amongCountries customCountries: [Country]?, withTerms includingTerms: [String]?, excluding excludingTerms: [String]?, phone: String) -> [Country] {
+    public static func findCountries(
+        amongCountries customCountries: [Country]?,
+        withTerms includingTerms: [String]?,
+        excluding excludingTerms: [String]?,
+        phone: String
+    ) -> [Country] {
         let includingTermsLowercased = (includingTerms ?? []).map { $0.lowercased() }
         let excludingTermsLowercased = (excludingTerms ?? []).map { $0.lowercased() }
         let phoneDigits = phone.extractDigits()
@@ -87,7 +148,12 @@ public struct Country {
         }
     }
     
-    static let all: [Country] = [
+    /**
+     A ```Country``` dictionary.
+     
+     Feel free to append/correct & file PRs, see https://countrycode.org
+     */
+    public static let all: [Country] = [
         Country(
             name: "Canada",
             nameNative: "Canada",
