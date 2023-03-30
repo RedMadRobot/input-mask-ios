@@ -10,4 +10,5 @@ Pod::Spec.new do |spec|
   spec.platform         = :ios, "16.1"
   spec.requires_arc     = true
   spec.source_files     = "Source/InputMask/InputMask/Classes/**/*"
+  spec.swift_version    = '5.7'
 end
