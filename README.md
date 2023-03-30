@@ -1,65 +1,42 @@
-<img src="Documentation/logo.png" alt="Input Mask" height="102" />
+<img src="Documentation/Assets/logo.png" alt="Input Mask" height="102" />
 
-[![Awesome](https://cdn.rawgit.com/sindresorhus/awesome/d7305f38d29fed78fa85652e3a63e154dd8e8829/media/badge.svg)](https://github.com/sindresorhus/awesome)
-[![Version Badge](https://img.shields.io/cocoapods/v/InputMask.svg)](https://cocoapods.org/pods/InputMask)
-[![SPM compatible](https://img.shields.io/badge/SPM-compatible-4BC51D.svg?style=flat)](https://swift.org/package-manager)
-[![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
+[![Awesome](https://cdn.rawgit.com/sindresorhus/awesome/d7305f38d29fed78fa85652e3a63e154dd8e8829/media/badge.svg)](https://github.com/sindresorhus/awesome)  
+[![Version Badge](https://img.shields.io/cocoapods/v/InputMask.svg)](https://cocoapods.org/pods/InputMask)  
+[![SPM compatible](https://img.shields.io/badge/SPM-compatible-4BC51D.svg?style=flat)](https://swift.org/package-manager)  
+[![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)  
 [![license](https://img.shields.io/github/license/mashape/apistatus.svg)](#license)
-[![Build Status](https://travis-ci.org/RedMadRobot/input-mask-ios.svg?branch=master)](https://travis-ci.org/RedMadRobot/input-mask-ios)
-[![codebeat badge](https://codebeat.co/badges/d753a2f1-173d-4c13-a97a-1680164e7bcf)](https://codebeat.co/projects/github-com-redmadrobot-input-mask-ios-master)
 
 [![Platform](https://cdn.rawgit.com/RedMadRobot/input-mask-ios/assets/Assets/shields/platform.svg)]()[![Android](https://cdn.rawgit.com/RedMadRobot/input-mask-ios/assets/Assets/shields/android.svg)](https://github.com/RedMadRobot/input-mask-android)[![iOS](https://cdn.rawgit.com/RedMadRobot/input-mask-ios/assets/Assets/shields/ios_rect.svg)](https://github.com/RedMadRobot/input-mask-ios)[![macOS](https://cdn.rawgit.com/RedMadRobot/input-mask-ios/assets/Assets/shields/macos.svg)](https://github.com/RedMadRobot/input-mask-ios)
 
-<img src="https://raw.githubusercontent.com/RedMadRobot/input-mask-ios/assets/Assets/phone_input.gif" alt="Input Mask" width="640" />
+[![](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2FRedMadRobot%2Finput-mask-ios%2Fbadge%3Ftype%3Dswift-versions)](https://swiftpackageindex.com/RedMadRobot/input-mask-ios)
 
-### Migration Guide: v.6
+[![](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2FRedMadRobot%2Finput-mask-ios%2Fbadge%3Ftype%3Dplatforms)](https://swiftpackageindex.com/RedMadRobot/input-mask-ios)
 
-This update brings breaking changes. Namely, the `autocomplete` flag is now a part of the `CaretGravity` enum, thus the `Mask::apply` call is now single-argument, as all the necessary information is included into the `CaretString` structure.
+Input masks restrict data input and allow you to guide users to enter correct values.  
+Check out our [wiki](https://github.com/RedMadRobot/input-mask-ios/wiki) for quick start and further reading.  
 
-`v.6` introduces the «autoskip» feature, which allows the cursor to jump over formatting blocks of symbols in the middle of the text as if they were a single char when hitting `Backspace`, and this feature also allows to trim formatting characters on backspacing at the end of the line.
+## ⚙️ Features
 
-Make sure to take a look at our [CHANGELOG](https://github.com/RedMadRobot/input-mask-ios/blob/master/CHANGELOG.md).
+- Apply formatting to your text fields, see [examples](#examples)
+- Filter out nonessential symbols (e.g. extract `0123456` from `+1 (999) 012-34-56`)
+- For international phone numbers 
+    - guess the country from the entered digits
+    - apply corresponding value restrictions (e.g. a 🇺🇸US phone will have a format like `+1 201 456-7890`)
 
-## Description
+<a name="examples" />
 
-`Input Mask` is an [Android](https://github.com/RedMadRobot/input-mask-android) & [iOS](https://github.com/RedMadRobot/input-mask-ios) native library allowing to format user input on the fly.
+## 💳 Examples
 
-The library provides you with a text field listener; when attached, it puts separators into the text while user types it in, and gets rid of unwanted symbols, all according to custom predefined pattern.
-
-This allows to reformat whole strings pasted from the clipboard, e.g. turning pasted `8 800 123-45-67` into  
-`8 (800) 123 45 67`.
-
-Each pattern allows to extract valuable symbols from the entered text, returning you the immediate result with the text field listener's callback when the text changes. Such that, you'll be able to extract `1234567` from `8 (800) 123 45 67` or `19991234567` from `1 (999) 123 45 67` with two different patterns.
-
-All separators and valuable symbol placeholders have their own syntax. We call such patterns "masks".
-
-Mask examples:
-
-1. International phone numbers: `+1 ([000]) [000] [00] [00]`
-2. Local phone numbers: `([000]) [000]-[00]-[00]`
-3. Names: `[A][-----------------------------------------------------]` 
-4. Text: `[A…]`
-5. Dates: `[00]{.}[00]{.}[9900]`
-6. Serial numbers: `[AA]-[00000099]`
-7. IPv4: `[099]{.}[099]{.}[099]{.}[099]`
-8. Visa card numbers: `[0000] [0000] [0000] [0000]`
-9. MM/YY: `[00]{/}[00]`
-10. UK IBAN: `GB[00] [____] [0000] [0000] [0000] [00]`
-
-## Questions & Issues
-
-Check out our [wiki](https://github.com/RedMadRobot/input-mask-ios/wiki) for further reading.  
-Please also take a closer look at our [Known issues](#knownissues) section before you incorporate our library into your project.
-
-For your bugreports and feature requests please file new issues as usually.
-
-Should you have any questions, search for closed [issues](https://github.com/RedMadRobot/input-mask-ios/issues?q=is%3Aclosed) or open new ones at **[StackOverflow](https://stackoverflow.com/questions/tagged/input-mask)** with the `input-mask` tag.
-
-We also have a community-driven [cookbook](https://github.com/RedMadRobot/input-mask-ios/blob/master/Documentation/COOKBOOK.md) of recipes, be sure to check it out, too.
+- Phone numbers: `+1 ([000]) [000] [00] [00]`
+- Dates: `[00]{.}[00]{.}[9900]`
+- Serial numbers: `[AA]-[00000099]`
+- IPv4: `[099]{.}[099]{.}[099]{.}[099]`
+- Visa/MasterCard numbers: `[0000] [0000] [0000] [0000]`
+- UK IBAN: `GB[00] [____] [0000] [0000] [0000] [00]`
 
 <a name="installation" />
 
-## Installation
+## 🛠️ Installation
 
 ### CocoaPods
 
@@ -67,17 +44,11 @@ We also have a community-driven [cookbook](https://github.com/RedMadRobot/input-
 pod 'InputMask'
 ```
 
-### Carthage
-
-```ruby
-git "https://github.com/RedMadRobot/input-mask-ios.git"
-```
-
 ### Swift Package Manager
 
 ```swift
 dependencies: [
-    .Package(url: "https://github.com/RedMadRobot/input-mask-ios", majorVersion: 6)
+    .Package(url: "https://github.com/RedMadRobot/input-mask-ios", majorVersion: 7)
 ]
 ```
 
@@ -90,9 +61,17 @@ dependencies: [
 	* (~Xcode 8.x) make sure `Build Options` has `Embedded Content Contains Swift Code` enabled;
 	* import bridging header.
 
+## 📢 Communication, Questions & Issues
+
+Please take a closer look at our [Known issues](#knownissues) section before you incorporate our library into your project.
+
+For your bugreports and feature requests please file new issues [via GitHub](https://github.com/RedMadRobot/input-mask-ios/issues/new/choose).
+
+Should you have any questions, please search for closed [issues](https://github.com/RedMadRobot/input-mask-ios/issues?q=is%3Aclosed) or ask questions at **[StackOverflow](https://stackoverflow.com/questions/tagged/input-mask)** with the `input-mask` tag.
+
 <a name="knownissues" />
 
-## Known issues
+## ❗Known issues
 
 ### `UITextFieldTextDidChange` notification and target-action `editingChanged` event
 
@@ -167,13 +146,7 @@ Both had the same [bug](http://jon-nolen.blogspot.com/2013/10/uitextview-returns
 
 Since **iOS 11** most of the things received their fixes (except for the `UITextView` [edge case](https://github.com/RedMadRobot/input-mask-ios/blob/master/Source/InputMask/InputMask/Classes/View/MaskedTextInputListener.swift#L140)). In case your project is not going to support anything below 11, consider using the modern `MaskedTextInputListener`.
 
-## References
-
-The list of projects that are using this library which were kind enough to share that information.
-
-Feel free to add yours below.
-
-## Special thanks
+## 🙏 Special thanks
 
 These folks rock:
 
@@ -184,6 +157,6 @@ These folks rock:
 * Diego [diegotl](https://github.com/diegotl) Trevisan
 * Martin [martintreurnicht](https://github.com/martintreurnicht) Treurnicht
 
-# License
+## ♻️ License
 
 The library is distributed under the MIT [LICENSE](https://opensource.org/licenses/MIT).

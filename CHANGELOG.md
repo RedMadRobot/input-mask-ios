@@ -1,5 +1,11 @@
 # 𝌡Changelog
 
+## 7.0.0
+
+**⤵️ Added:**
+
+* A basic UI test in the **Sample** project for the date/phone fields
+
 ## 6.1.0
 
 **⤵️ Added:**

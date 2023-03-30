@@ -3,6 +3,8 @@
 // Created by Jeorge Taflanidi
 //
 
+#if !os(macOS) && !os(watchOS)
+
 import SwiftUI
 
 /**
@@ -285,3 +287,5 @@ public struct MaskedTextField: UIViewRepresentable {
         }
     }
 }
+
+#endif

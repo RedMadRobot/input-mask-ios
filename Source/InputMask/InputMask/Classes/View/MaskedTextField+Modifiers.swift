@@ -3,8 +3,11 @@
 // Created by Jeorge Taflanidi
 //
 
+#if !os(macOS) && !os(watchOS)
+
 import UIKit
 import SwiftUI
+
 
 @available(iOS 13.0, *)
 public extension MaskedTextField {
@@ -268,3 +271,5 @@ public extension MaskedTextField {
         return s
     }
 }
+
+#endif

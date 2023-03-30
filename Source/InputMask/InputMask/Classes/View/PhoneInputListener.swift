@@ -3,6 +3,7 @@
 // Created by Jeorge Taflanidi
 //
 
+#if !os(macOS) && !os(watchOS)
 
 import Foundation
 
@@ -32,3 +33,5 @@ open class PhoneInputListener: MaskedTextInputListener {
         return super.pickMask(forText: text)
     }
 }
+
+#endif

@@ -3,6 +3,7 @@
 // Created by Jeorge Taflanidi
 //
 
+#if !os(macOS) && !os(watchOS)
 
 import Foundation
 import UIKit
@@ -361,3 +362,5 @@ open class MaskedTextFieldDelegate: NSObject, UITextFieldDelegate {
     }
     
 }
+
+#endif
