@@ -4,7 +4,27 @@
 
 **⤵️ Added:**
 
+* New logo :D 
+* New README :D 
 * A basic UI test in the **Sample** project for the date/phone fields
+* `"".extractDigits()`: a helper method to extract digits from a `String`
+* `"".boxSizeWithFont(font)`: a helper method to calculate a rectangle size for a `String`
+* Text listener callbacks now return a `tailPlaceholder` for the value to be completed
+* `Country`: a model object representing a country with phone formatting, ISO codes & emojis
+* `Country.all`: a dictionary of known countries
+* `MaskedTextField`: a SwiftUI `TextField` with an attached mask
+* A SwiftUI sample project
+* `PhoneInputListener`: a `MaskedTextInputListener` allowing to enter a phone number of any known country
+
+**⤴️ Removed:**
+
+* `UITextField.cursorPosition`: please use a `UITextInput.caretPosition` property instead
+* `UITextView.cursorPosition`: please use a `UITextInput.caretPosition` property instead
+
+**🔄 Modified:**
+
+* `swift-tools-version` → `5.7.1`
+* Pod platform → `16.1`
 
 ## 6.1.0
 
