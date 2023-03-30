@@ -16,6 +16,10 @@ open class ViewController: UIViewController, OnMaskedTextChangedListener {
     @IBOutlet weak var dateField: UITextField!
     @IBOutlet weak var textView: UITextView!
     
+    @IBOutlet weak var dateFieldBackground: UIView!
+    @IBOutlet weak var dateFieldPlaceholder: UILabel!
+    @IBOutlet weak var dateFieldPlaceholderLeadingConstraint: NSLayoutConstraint!
+    
     weak var countryFlag: UILabel!
     
     open override func viewDidLoad() {
@@ -43,6 +47,10 @@ open class ViewController: UIViewController, OnMaskedTextChangedListener {
         
         dateField.placeholder = dateListener.placeholder
         dateField.rightView = completeDateLabel
+        
+        dateFieldBackground.layer.cornerRadius = 6
+        dateFieldBackground.layer.borderWidth = 0.5
+        dateFieldBackground.layer.borderColor = UIColor.systemFill.cgColor
     }
     
     public func textInput(
@@ -68,6 +76,11 @@ open class ViewController: UIViewController, OnMaskedTextChangedListener {
 
         if textInput === dateField {
             dateField.rightViewMode = complete ? .always : .never
+            
+            dateFieldPlaceholder.text = dateField.allText.isEmpty ? "" : tailPlaceholder
+            
+            let textWidth = dateField.allText.boxSizeWithFont(dateField.font ?? UIFont.systemFont(ofSize: 14)).width
+            dateFieldPlaceholderLeadingConstraint.constant = textWidth
         }
     }
     
