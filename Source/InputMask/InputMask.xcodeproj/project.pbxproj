@@ -40,8 +40,6 @@
 		8A3C8C0D21B1529D00CDBDE1 /* LargeNumberTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A3C8C0C21B1529D00CDBDE1 /* LargeNumberTests.swift */; };
 		8A3C8C0F21B1841500CDBDE1 /* RTLMask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A3C8C0E21B1841500CDBDE1 /* RTLMask.swift */; };
 		8A3C8C1121B1993B00CDBDE1 /* RTLCaretStringIterator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A3C8C1021B1993B00CDBDE1 /* RTLCaretStringIterator.swift */; };
-		8A4CDCCD210999C6005B2FA6 /* UITextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A4CDCCC210999C6005B2FA6 /* UITextField.swift */; };
-		8A4CDCCF21099A71005B2FA6 /* UITextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A4CDCCE21099A71005B2FA6 /* UITextView.swift */; };
 		8A4CDCD121099B6D005B2FA6 /* MaskedTextInputListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A4CDCD021099B6D005B2FA6 /* MaskedTextInputListener.swift */; };
 		8A4CDCD32109C0D4005B2FA6 /* AffinityCalculationStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A4CDCD22109C0D4005B2FA6 /* AffinityCalculationStrategy.swift */; };
 		8A4CDCD42109C2D0005B2FA6 /* AffinityCalculationStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A4CDCD22109C0D4005B2FA6 /* AffinityCalculationStrategy.swift */; };
@@ -102,8 +100,6 @@
 		8A3C8C0C21B1529D00CDBDE1 /* LargeNumberTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LargeNumberTests.swift; sourceTree = "<group>"; usesTabs = 0; };
 		8A3C8C0E21B1841500CDBDE1 /* RTLMask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RTLMask.swift; sourceTree = "<group>"; };
 		8A3C8C1021B1993B00CDBDE1 /* RTLCaretStringIterator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RTLCaretStringIterator.swift; sourceTree = "<group>"; };
-		8A4CDCCC210999C6005B2FA6 /* UITextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextField.swift; sourceTree = "<group>"; };
-		8A4CDCCE21099A71005B2FA6 /* UITextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextView.swift; sourceTree = "<group>"; };
 		8A4CDCD021099B6D005B2FA6 /* MaskedTextInputListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaskedTextInputListener.swift; sourceTree = "<group>"; };
 		8A4CDCD22109C0D4005B2FA6 /* AffinityCalculationStrategy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AffinityCalculationStrategy.swift; sourceTree = "<group>"; };
 		8A4EC4BB2089255200CDDBF7 /* NameCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NameCase.swift; sourceTree = "<group>"; };
@@ -182,9 +178,7 @@
 				8A01854C1D64ABCC007B5EBD /* MaskedTextFieldDelegate.swift */,
 				8A4CDCD021099B6D005B2FA6 /* MaskedTextInputListener.swift */,
 				8A1DD0B0210108A7008BAE2A /* MaskedTextViewDelegate.swift */,
-				8A4CDCCC210999C6005B2FA6 /* UITextField.swift */,
 				8ADB578A20FE2E1C0095417D /* UITextInput.swift */,
-				8A4CDCCE21099A71005B2FA6 /* UITextView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -427,7 +421,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0730;
-				LastUpgradeCheck = 1240;
+				LastUpgradeCheck = 1420;
 				ORGANIZATIONNAME = "Egor Taflanidi";
 				TargetAttributes = {
 					518F8AAC1F36A98400065733 = {
@@ -522,13 +516,11 @@
 				8A1DD0B1210108A7008BAE2A /* MaskedTextViewDelegate.swift in Sources */,
 				8A1E3C571D64847D00589799 /* OptionalValueState.swift in Sources */,
 				8AB1E8901D6375FC00892C3B /* EOLState.swift in Sources */,
-				8A4CDCCF21099A71005B2FA6 /* UITextView.swift in Sources */,
 				8A3C8C0F21B1841500CDBDE1 /* RTLMask.swift in Sources */,
 				8A83CCB31D5B5E1F00C0184F /* String.swift in Sources */,
 				8A01854D1D64ABCC007B5EBD /* MaskedTextFieldDelegate.swift in Sources */,
 				8A1E3C4D1D64649200589799 /* CaretStringIterator.swift in Sources */,
 				8AB1E8891D63753E00892C3B /* Compiler.swift in Sources */,
-				8A4CDCCD210999C6005B2FA6 /* UITextField.swift in Sources */,
 				8A076E0220923F830056476F /* Notation.swift in Sources */,
 				8AB1E8931D63773400892C3B /* Next.swift in Sources */,
 				8A4CDCD32109C0D4005B2FA6 /* AffinityCalculationStrategy.swift in Sources */,
@@ -587,6 +579,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_IDENTITY = "";
 				COMBINE_HIDPI_IMAGES = YES;
+				DEAD_CODE_STRIPPING = YES;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 42LRQS6X44;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -597,7 +590,7 @@
 				INFOPLIST_FILE = "$(SRCROOT)/InputMaskMac/Supporting Files/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MACOSX_DEPLOYMENT_TARGET = "$(RECOMMENDED_MACOSX_DEPLOYMENT_TARGET)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.redmadrobot.InputMaskMac;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SDKROOT = macosx;
@@ -616,6 +609,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_IDENTITY = "";
 				COMBINE_HIDPI_IMAGES = YES;
+				DEAD_CODE_STRIPPING = YES;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 42LRQS6X44;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -626,7 +620,7 @@
 				INFOPLIST_FILE = "$(SRCROOT)/InputMaskMac/Supporting Files/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MACOSX_DEPLOYMENT_TARGET = "$(RECOMMENDED_MACOSX_DEPLOYMENT_TARGET)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.redmadrobot.InputMaskMac;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SDKROOT = macosx;

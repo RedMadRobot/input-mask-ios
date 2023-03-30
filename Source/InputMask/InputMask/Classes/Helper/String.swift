@@ -3,8 +3,10 @@
 // Created by Jeorge Taflanidi
 //
 
+#if !os(macOS) && !os(watchOS)
 
 import Foundation
+import UIKit
 
 
 /**
@@ -85,4 +87,23 @@ public extension String {
         return self.index(self.startIndex, offsetBy: offset)
     }
     
+    /**
+     Extract digits from a string.
+     */
+    func extractDigits() -> String {
+        return self.components(separatedBy: CharacterSet.decimalDigits.inverted).joined()
+    }
+    
+    /**
+     Get a rectangle size to contain this string.
+     */
+    func boxSizeWithFont(_ font: UIFont) -> CGSize {
+        var size = (self as NSString).size(withAttributes: [NSAttributedString.Key.font: font])
+        size.width = size.width.rounded(.up)
+        size.height = size.height.rounded(.up)
+        return size
+    }
+    
 }
+
+#endif

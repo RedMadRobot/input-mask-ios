@@ -14,10 +14,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "8A808ECA1D5B0FEC00A75B9C"
-               BuildableName = "InputMask.framework"
-               BlueprintName = "InputMask"
-               ReferencedContainer = "container:InputMask.xcodeproj">
+               BlueprintIdentifier = "8A1C5C8529CB0EEF00896D32"
+               BuildableName = "InputMaskSwiftUI.app"
+               BlueprintName = "InputMaskSwiftUI"
+               ReferencedContainer = "container:InputMaskSwiftUI.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -27,26 +27,7 @@
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "8A808ECA1D5B0FEC00A75B9C"
-            BuildableName = "InputMask.framework"
-            BlueprintName = "InputMask"
-            ReferencedContainer = "container:InputMask.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
       <Testables>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "8A808ED41D5B0FEC00A75B9C"
-               BuildableName = "InputMaskTests.xctest"
-               BlueprintName = "InputMaskTests"
-               ReferencedContainer = "container:InputMask.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction
@@ -59,15 +40,16 @@
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES">
-      <MacroExpansion>
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "8A808ECA1D5B0FEC00A75B9C"
-            BuildableName = "InputMask.framework"
-            BlueprintName = "InputMask"
-            ReferencedContainer = "container:InputMask.xcodeproj">
+            BlueprintIdentifier = "8A1C5C8529CB0EEF00896D32"
+            BuildableName = "InputMaskSwiftUI.app"
+            BlueprintName = "InputMaskSwiftUI"
+            ReferencedContainer = "container:InputMaskSwiftUI.xcodeproj">
          </BuildableReference>
-      </MacroExpansion>
+      </BuildableProductRunnable>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"
@@ -75,15 +57,16 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
-      <MacroExpansion>
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "8A808ECA1D5B0FEC00A75B9C"
-            BuildableName = "InputMask.framework"
-            BlueprintName = "InputMask"
-            ReferencedContainer = "container:InputMask.xcodeproj">
+            BlueprintIdentifier = "8A1C5C8529CB0EEF00896D32"
+            BuildableName = "InputMaskSwiftUI.app"
+            BlueprintName = "InputMaskSwiftUI"
+            ReferencedContainer = "container:InputMaskSwiftUI.xcodeproj">
          </BuildableReference>
-      </MacroExpansion>
+      </BuildableProductRunnable>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">

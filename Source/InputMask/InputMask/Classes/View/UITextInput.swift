@@ -3,6 +3,7 @@
 // Created by Jeorge Taflanidi
 //
 
+#if !os(macOS) && !os(watchOS)
 
 import Foundation
 import UIKit
@@ -66,3 +67,5 @@ public extension UITextInput {
     }
     
 }
+
+#endif
