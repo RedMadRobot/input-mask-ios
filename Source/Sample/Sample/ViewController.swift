@@ -45,7 +45,12 @@ open class ViewController: UIViewController, OnMaskedTextChangedListener {
         dateField.rightView = completeDateLabel
     }
     
-    public func textInput(_ textInput: UITextInput, didExtractValue value: String, didFillMandatoryCharacters complete: Bool) {
+    public func textInput(
+        _ textInput: UITextInput,
+        didExtractValue value: String,
+        didFillMandatoryCharacters complete: Bool,
+        didComputeTailPlaceholder tailPlaceholder: String
+    ) {
         print(value)
         
         if let country = phoneListener.computedCountry {

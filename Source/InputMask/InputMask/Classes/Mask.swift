@@ -46,6 +46,11 @@ public class Mask: CustomDebugStringConvertible, CustomStringConvertible {
          */
         public let complete: Bool
         
+        /**
+         Placeholder for remaining text.
+         */
+        public let tailPlaceholder: String
+        
         public var debugDescription: String {
             return "FORMATTED TEXT: \(self.formattedText)\nEXTRACTED VALUE: \(self.extractedValue)\nAFFINITY: \(self.affinity)\nCOMPLETE: \(self.complete)"
         }
@@ -62,7 +67,8 @@ public class Mask: CustomDebugStringConvertible, CustomStringConvertible {
                 formattedText: self.formattedText.reversed(),
                 extractedValue: self.extractedValue.reversed,
                 affinity: affinity,
-                complete: complete
+                complete: complete,
+                tailPlaceholder: tailPlaceholder.reversed
             )
         }
     }
@@ -178,6 +184,9 @@ public class Mask: CustomDebugStringConvertible, CustomStringConvertible {
             }
         }
         
+        var tailState = state
+        var tail = ""
+        
         while text.caretGravity.autoskip && !autocompletionStack.isEmpty {
             let skip: Next = autocompletionStack.pop()
             if modifiedString.count == modifiedCaretPosition {
@@ -193,7 +202,13 @@ public class Mask: CustomDebugStringConvertible, CustomStringConvertible {
                     modifiedCaretPosition -= 1
                 }
             }
+            tailState = skip.state
+            if let insert = skip.insert {
+                tail = String(insert)
+            }
         }
+        
+        let tailPlaceholder = appendPlaceholder(withState: tailState, placeholder: tail)
         
         return Result(
             formattedText: CaretString(
@@ -203,7 +218,8 @@ public class Mask: CustomDebugStringConvertible, CustomStringConvertible {
             ),
             extractedValue: extractedValue,
             affinity: affinity,
-            complete: self.noMandatoryCharactersLeftAfterState(state)
+            complete: self.noMandatoryCharactersLeftAfterState(state),
+            tailPlaceholder: tailPlaceholder
         )
     }
     

@@ -24,7 +24,8 @@ import UIKit
     @objc optional func textField(
         _ textField: UITextField,
         didFillMandatoryCharacters complete: Bool,
-        didExtractValue value: String
+        didExtractValue value: String,
+        didComputeTailPlaceholder tailPlaceholder: String
     )
     
 }
@@ -41,7 +42,7 @@ import UIKit
 open class MaskedTextFieldDelegate: NSObject, UITextFieldDelegate {
 
     open weak var listener: MaskedTextFieldDelegateListener?
-    open var onMaskedTextChangedCallback: ((_ textField: UITextField, _ value: String, _ complete: Bool) -> ())?
+    open var onMaskedTextChangedCallback: ((_ textField: UITextField, _ value: String, _ complete: Bool, _ tailPlaceholder: String) -> ())?
 
     @IBInspectable open var primaryMaskFormat:   String
     @IBInspectable open var autocomplete:        Bool
@@ -83,7 +84,7 @@ open class MaskedTextFieldDelegate: NSObject, UITextFieldDelegate {
         affineFormats: [String] = [],
         affinityCalculationStrategy: AffinityCalculationStrategy = .wholeString,
         customNotations: [Notation] = [],
-        onMaskedTextChangedCallback: ((_ textInput: UITextInput, _ value: String, _ complete: Bool) -> ())? = nil,
+        onMaskedTextChangedCallback: ((_ textInput: UITextInput, _ value: String, _ complete: Bool, _ tailPlaceholder: String) -> ())? = nil,
         allowSuggestions: Bool = true
     ) {
         self.primaryMaskFormat = primaryFormat
@@ -325,8 +326,13 @@ open class MaskedTextFieldDelegate: NSObject, UITextFieldDelegate {
     }
     
     open func notifyOnMaskedTextChangedListeners(forTextField textField: UITextField, result: Mask.Result) {
-        listener?.textField?(textField, didFillMandatoryCharacters: result.complete, didExtractValue: result.extractedValue)
-        onMaskedTextChangedCallback?(textField, result.extractedValue, result.complete)
+        listener?.textField?(
+            textField,
+            didFillMandatoryCharacters: result.complete,
+            didExtractValue: result.extractedValue,
+            didComputeTailPlaceholder: result.tailPlaceholder
+        )
+        onMaskedTextChangedCallback?(textField, result.extractedValue, result.complete, result.tailPlaceholder)
     }
 
     private func maskGetOrCreate(withFormat format: String, customNotations: [Notation]) throws -> Mask {

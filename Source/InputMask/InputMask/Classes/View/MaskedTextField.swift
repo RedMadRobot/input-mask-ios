@@ -287,7 +287,7 @@ public struct MaskedTextField: UIViewRepresentable {
             affineFormats: affineFormats,
             affinityCalculationStrategy: affinityCalculationStrategy,
             customNotations: customNotations,
-            onMaskedTextChangedCallback: { input, value, complete in
+            onMaskedTextChangedCallback: { input, value, complete, tailPlaceholder in
                 self.text = input.allText
                 self.value = value
                 self.complete = complete
@@ -311,7 +311,7 @@ public struct MaskedTextField: UIViewRepresentable {
             affineFormats: [String] = [],
             affinityCalculationStrategy: AffinityCalculationStrategy = .wholeString,
             customNotations: [Notation] = [],
-            onMaskedTextChangedCallback: ((UITextInput, String, Bool) -> ())? = nil,
+            onMaskedTextChangedCallback: ((UITextInput, String, Bool, String) -> ())? = nil,
             allowSuggestions: Bool = true,
             onSubmit: UITextFieldEvent? = nil,
             onFocus: UITextFieldEvent? = nil

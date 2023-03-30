@@ -11,7 +11,12 @@ import UIKit
 
 @available(iOS 11, *)
 public protocol OnMaskedTextChangedListener: AnyObject {
-    func textInput(_ textInput: UITextInput, didExtractValue value: String, didFillMandatoryCharacters complete: Bool)
+    func textInput(
+        _ textInput: UITextInput,
+        didExtractValue value: String,
+        didFillMandatoryCharacters complete: Bool,
+        didComputeTailPlaceholder tailPlaceholder: String
+    )
 }
 
 
@@ -20,7 +25,7 @@ public protocol OnMaskedTextChangedListener: AnyObject {
 open class MaskedTextInputListener: NSObject {
 
     open weak var listener: OnMaskedTextChangedListener?
-    open var onMaskedTextChangedCallback: ((_ textInput: UITextInput, _ value: String, _ complete: Bool) -> ())?
+    open var onMaskedTextChangedCallback: ((_ textInput: UITextInput, _ value: String, _ complete: Bool, _ tailPlaceholder: String) -> ())?
 
     @IBInspectable open var primaryMaskFormat:   String
     @IBInspectable open var autocomplete:        Bool
@@ -62,7 +67,7 @@ open class MaskedTextInputListener: NSObject {
         affineFormats: [String] = [],
         affinityCalculationStrategy: AffinityCalculationStrategy = .wholeString,
         customNotations: [Notation] = [],
-        onMaskedTextChangedCallback: ((_ textInput: UITextInput, _ value: String, _ complete: Bool) -> ())? = nil,
+        onMaskedTextChangedCallback: ((_ textInput: UITextInput, _ value: String, _ complete: Bool, _ tailPlaceholder: String) -> ())? = nil,
         allowSuggestions: Bool = true
     ) {
         self.primaryMaskFormat = primaryFormat
@@ -272,8 +277,13 @@ open class MaskedTextInputListener: NSObject {
     }
     
     open func notifyOnMaskedTextChangedListeners(forTextInput textInput: UITextInput, result: Mask.Result) {
-        listener?.textInput(textInput, didExtractValue: result.extractedValue, didFillMandatoryCharacters: result.complete)
-        onMaskedTextChangedCallback?(textInput, result.extractedValue, result.complete)
+        listener?.textInput(
+            textInput,
+            didExtractValue: result.extractedValue,
+            didFillMandatoryCharacters: result.complete,
+            didComputeTailPlaceholder: result.tailPlaceholder
+        )
+        onMaskedTextChangedCallback?(textInput, result.extractedValue, result.complete, result.tailPlaceholder)
     }
 
     private func maskGetOrCreate(withFormat format: String, customNotations: [Notation]) throws -> Mask {
