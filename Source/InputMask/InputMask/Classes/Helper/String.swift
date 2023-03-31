@@ -3,10 +3,11 @@
 // Created by Jeorge Taflanidi
 //
 
-#if !os(macOS) && !os(watchOS)
-
 import Foundation
+
+#if !os(macOS) && !os(watchOS)
 import UIKit
+#endif
 
 
 /**
@@ -94,6 +95,8 @@ public extension String {
         return self.components(separatedBy: CharacterSet.decimalDigits.inverted).joined()
     }
     
+#if !os(macOS) && !os(watchOS)
+    
     /**
      Get a rectangle size to contain this string.
      */
@@ -104,6 +107,6 @@ public extension String {
         return size
     }
     
-}
-
 #endif
+    
+}
