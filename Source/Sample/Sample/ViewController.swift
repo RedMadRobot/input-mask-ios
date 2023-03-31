@@ -9,18 +9,20 @@ import InputMask
 
 
 open class ViewController: UIViewController, OnMaskedTextChangedListener {
-    
-    @IBOutlet weak var phoneListener: PhoneInputListener!
+
     @IBOutlet weak var dateListener: MaskedTextInputListener!
-    @IBOutlet weak var phoneField: UITextField!
     @IBOutlet weak var dateField: UITextField!
-    @IBOutlet weak var textView: UITextView!
-    
     @IBOutlet weak var dateFieldBackground: UIView!
     @IBOutlet weak var dateFieldPlaceholder: UILabel!
     @IBOutlet weak var dateFieldPlaceholderLeadingConstraint: NSLayoutConstraint!
     
+    @IBOutlet weak var phoneListener: PhoneInputListener!
+    @IBOutlet weak var phoneField: UITextField!
+    @IBOutlet weak var phoneFieldBackground: UIView!
+    
     weak var countryFlag: UILabel!
+    
+    @IBOutlet weak var textView: UITextView!
     
     open override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,6 +46,10 @@ open class ViewController: UIViewController, OnMaskedTextChangedListener {
         phoneField.leftView = countryFlagLabel
         phoneField.rightView = completePhoneLabel
         phoneField.placeholder = phoneListener.placeholder
+        
+        phoneFieldBackground.layer.cornerRadius = 6
+        phoneFieldBackground.layer.borderWidth = 0.5
+        phoneFieldBackground.layer.borderColor = UIColor.systemFill.cgColor
         
         dateField.placeholder = dateListener.placeholder
         dateField.rightView = completeDateLabel
