@@ -5,8 +5,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/RedMadRobot/input-mask-ios",
       "state" : {
-        "branch" : "development",
-        "revision" : "5f86403de2d36a7e2a8922fdea122e63091285ed"
+        "branch" : "master",
+        "revision" : "5051524855c590159fb96dc49d8b358d6841607e"
       }
     }
   ],

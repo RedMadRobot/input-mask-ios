@@ -12,7 +12,7 @@
 		8A1C5C8C29CB0EEF00896D32 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A1C5C8B29CB0EEF00896D32 /* ContentView.swift */; };
 		8A1C5C8E29CB0EF000896D32 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8A1C5C8D29CB0EF000896D32 /* Assets.xcassets */; };
 		8A1C5C9129CB0EF000896D32 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8A1C5C9029CB0EF000896D32 /* Preview Assets.xcassets */; };
-		8A7A4C4229CB2DEB0055C075 /* InputMask in Frameworks */ = {isa = PBXBuildFile; productRef = 8A7A4C4129CB2DEB0055C075 /* InputMask */; };
+		8A205E9E29D6EED80019D86E /* InputMask in Frameworks */ = {isa = PBXBuildFile; productRef = 8A205E9D29D6EED80019D86E /* InputMask */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,7 +30,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8A7A4C4229CB2DEB0055C075 /* InputMask in Frameworks */,
+				8A205E9E29D6EED80019D86E /* InputMask in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -91,7 +91,7 @@
 			);
 			name = InputMaskSwiftUI;
 			packageProductDependencies = (
-				8A7A4C4129CB2DEB0055C075 /* InputMask */,
+				8A205E9D29D6EED80019D86E /* InputMask */,
 			);
 			productName = InputMaskSwiftUI;
 			productReference = 8A1C5C8629CB0EEF00896D32 /* InputMaskSwiftUI.app */;
@@ -122,7 +122,7 @@
 			);
 			mainGroup = 8A1C5C7D29CB0EEF00896D32;
 			packageReferences = (
-				8A7A4C4029CB2DEB0055C075 /* XCRemoteSwiftPackageReference "input-mask-ios" */,
+				8A205E9C29D6EED80019D86E /* XCRemoteSwiftPackageReference "input-mask-ios" */,
 			);
 			productRefGroup = 8A1C5C8729CB0EEF00896D32 /* Products */;
 			projectDirPath = "";
@@ -359,20 +359,20 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		8A7A4C4029CB2DEB0055C075 /* XCRemoteSwiftPackageReference "input-mask-ios" */ = {
+		8A205E9C29D6EED80019D86E /* XCRemoteSwiftPackageReference "input-mask-ios" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/RedMadRobot/input-mask-ios";
 			requirement = {
-				branch = development;
+				branch = master;
 				kind = branch;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		8A7A4C4129CB2DEB0055C075 /* InputMask */ = {
+		8A205E9D29D6EED80019D86E /* InputMask */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 8A7A4C4029CB2DEB0055C075 /* XCRemoteSwiftPackageReference "input-mask-ios" */;
+			package = 8A205E9C29D6EED80019D86E /* XCRemoteSwiftPackageReference "input-mask-ios" */;
 			productName = InputMask;
 		};
 /* End XCSwiftPackageProductDependency section */
