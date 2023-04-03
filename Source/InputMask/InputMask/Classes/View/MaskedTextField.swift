@@ -12,7 +12,7 @@ import SwiftUI
  
  A UITextField wrapper for SwiftUI, with a ```MaskedTextInputListener``` attached.
  */
-@available(iOS 13.0, *)
+@available(iOS 13.0, tvOS 13.0, *)
 public struct MaskedTextField: UIViewRepresentable {
     public typealias UITextFieldEvent = (_ textField: UITextField) -> Void
     
@@ -410,7 +410,7 @@ public struct MaskedTextField: UIViewRepresentable {
             field.autocorrectionType = .no
         }
         
-        if #available(iOS 14.0, *) {
+        if #available(iOS 14.0, tvOS 14.0, *) {
             if let textCase = context.environment.textCase {
                 switch textCase {
                     case .uppercase:

@@ -276,17 +276,7 @@ open class MaskedTextViewDelegate: NSObject, UITextViewDelegate {
     open func textView(_ textView: UITextView, shouldInteractWith textAttachment: NSTextAttachment, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
         return listener?.textView?(textView, shouldInteractWith: textAttachment, in: characterRange, interaction: interaction) ?? true
     }
-    
-    @available(iOS, introduced: 7.0, deprecated: 10.0, message: "Use textView:shouldInteractWithURL:inRange:forInteractionType: instead")
-    open func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange) -> Bool {
-        return listener?.textView?(textView, shouldInteractWith: URL, in: characterRange) ?? true
-    }
-    
-    @available(iOS, introduced: 7.0, deprecated: 10.0, message: "Use textView:shouldInteractWithTextAttachment:inRange:forInteractionType: instead")
-    open func textView(_ textView: UITextView, shouldInteractWith textAttachment: NSTextAttachment, in characterRange: NSRange) -> Bool {
-        return listener?.textView?(textView, shouldInteractWith: textAttachment, in: characterRange) ?? true
-    }
-    
+        
     open func replaceCharacters(inText text: String, range: NSRange, withCharacters newText: String) -> String {
         if 0 < range.length {
             let result = NSMutableString(string: text)
