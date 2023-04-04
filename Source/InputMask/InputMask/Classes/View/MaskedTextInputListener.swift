@@ -186,12 +186,11 @@ open class MaskedTextInputListener: NSObject {
         _ textInput: UITextInput,
         isChangingCharactersIn range: NSRange,
         replacementString string: String
-    ) -> Mask.Result {
+    ) -> Result {
         let updatedText: String = replaceCharacters(inText: textInput.allText, range: range, withCharacters: string)
         // https://stackoverflow.com/questions/52131894/shouldchangecharactersin-combined-with-suggested-text
         if (allowSuggestions && string == " " && updatedText == " ") {
-//            TODO:
-//            return true
+            return .fallback
         }
         let isDeletion = isThisDeletion(inRange: range, string: string, field: textInput)
         let useAutocomplete = isDeletion ? false : autocomplete
@@ -220,7 +219,7 @@ open class MaskedTextInputListener: NSObject {
             }
         }
         
-        return result
+        return .notifyListeners(result: result)
     }
     
     open func isThisDeletion(inRange range: NSRange, string: String, field: UITextInput) -> Bool {
@@ -297,6 +296,11 @@ open class MaskedTextInputListener: NSObject {
         let mask: Mask
         let affinity: Int
     }
+    
+    public enum Result {
+        case notifyListeners(result: Mask.Result)
+        case fallback
+    }
 
     /**
      Workaround to support Interface Builder delegate outlets.
@@ -336,9 +340,13 @@ extension MaskedTextInputListener: UITextFieldDelegate {
         shouldChangeCharactersIn range: NSRange,
         replacementString string: String
     ) -> Bool {
-        let result: Mask.Result = textInput(textField, isChangingCharactersIn: range, replacementString: string)
-        notifyOnMaskedTextChangedListeners(forTextInput: textField, result: result)
-        return false
+        switch textInput(textField, isChangingCharactersIn: range, replacementString: string) {
+            case .fallback:
+                return true
+            case .notifyListeners(let result):
+                notifyOnMaskedTextChangedListeners(forTextInput: textField, result: result)
+                return false
+        }
     }
 
     public func textFieldShouldClear(_ textField: UITextField) -> Bool {
@@ -365,9 +373,13 @@ extension MaskedTextInputListener: UITextViewDelegate {
         shouldChangeTextIn range: NSRange,
         replacementText text: String
     ) -> Bool {
-        let result: Mask.Result = textInput(textView, isChangingCharactersIn: range, replacementString: text)
-        notifyOnMaskedTextChangedListeners(forTextInput: textView, result: result)
-        return false
+        switch textInput(textView, isChangingCharactersIn: range, replacementString: text) {
+            case .fallback:
+                return true
+            case .notifyListeners(let result):
+                notifyOnMaskedTextChangedListeners(forTextInput: textView, result: result)
+                return false
+        }
     }
 
 }
