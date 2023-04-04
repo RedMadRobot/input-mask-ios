@@ -1,5 +1,11 @@
 # 𝌡Changelog
 
+## 7.0.1
+
+**🔄 Modified:**
+
+* `spec.platform` → `ios, 15.6`
+
 ## 7.0.0
 
 **⤵️ Added:**
