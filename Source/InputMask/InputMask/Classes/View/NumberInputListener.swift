@@ -19,10 +19,14 @@ open class NumberInputListener: MaskedTextInputListener {
         let decimalSeparator = formatter.decimalSeparator ?? "."
         let currencyDecimalSeparator = formatter.currencyDecimalSeparator ?? "."
         
-        let number = text.string.filter { character in
+        var number = text.string.filter { character in
             let characterStr = String(character)
             let ok = characterStr == decimalSeparator || characterStr == currencyDecimalSeparator || CharacterSet.decimalDigits.isMember(character: character)
             return ok
+        }
+        
+        while number.starts(with: "0") {
+            number = number.truncateFirst()
         }
         
         var suffix = ""
@@ -59,15 +63,31 @@ open class NumberInputListener: MaskedTextInputListener {
             return super.pickMask(forText: text)
         }
         
-        primaryMaskFormat = composeFormat(fromText: maskFormat + suffix)
+        customNotations = [
+            Notation(
+                character: "1",
+                characterSet: CharacterSet(charactersIn: "123456789"),
+                isOptional: false
+            )
+        ]
+        
+        let canHaveLeadingZero = number.compare(NSNumber(value: 0)) == .orderedDescending && number.intValue == 0
+        
+        primaryMaskFormat = composeFormat(fromText: maskFormat + suffix, canHaveLeadingZero: canHaveLeadingZero)
         return super.pickMask(forText: text)
     }
     
-    open func composeFormat(fromText text: String) -> String {
+    open func composeFormat(fromText text: String, canHaveLeadingZero: Bool) -> String {
         var result = ""
+        var first = true
         text.forEach { character in
             if CharacterSet.decimalDigits.isMember(character: character) {
-                result += "[0]"
+                if first && !canHaveLeadingZero {
+                    result += "[1]"
+                    first = false
+                } else {
+                    result += "[0]"
+                }
             } else {
                 result += "{\(character)}"
             }
