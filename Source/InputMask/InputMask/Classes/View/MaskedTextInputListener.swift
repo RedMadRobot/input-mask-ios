@@ -34,7 +34,7 @@ open class MaskedTextInputListener: NSObject {
     @IBInspectable open var rightToLeft:         Bool
     
     /**
-        Allows input suggestions from keyboard
+     Allows input suggestions from keyboard
      */
     @IBInspectable open var allowSuggestions: Bool
     
@@ -207,7 +207,7 @@ open class MaskedTextInputListener: NSObject {
         
         textInput.allText = result.formattedText.string
         
-        if self.atomicCaretMovement {
+        if atomicCaretMovement {
             textInput.caretPosition = result.formattedText.string.distanceFromStartIndex(
                 to: result.formattedText.caretPosition
             )
