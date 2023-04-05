@@ -95,6 +95,13 @@ public extension String {
         return self.components(separatedBy: CharacterSet.decimalDigits.inverted).joined()
     }
     
+    /**
+     Count the number of occurences of a substring.
+     */
+    func numberOfOccurencesOf(_ string: String) -> Int {
+        return self.components(separatedBy: string).count - 1
+    }
+    
 #if !os(macOS) && !os(watchOS)
     
     /**
