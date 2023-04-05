@@ -173,8 +173,9 @@ open class MaskedTextInputListener: NSObject {
         )
 
         field.allText = result.formattedText.string
-        field.caretPosition = result.formattedText.string.distanceFromStartIndex(
-            to: result.formattedText.caretPosition
+        setCaretPosition(
+            result.formattedText.string.distanceFromStartIndex(to: result.formattedText.caretPosition),
+            in: field
         )
 
         notifyOnMaskedTextChangedListeners(forTextInput: field, result: result)
@@ -206,18 +207,10 @@ open class MaskedTextInputListener: NSObject {
         let result: Mask.Result = mask.apply(toText: text)
         
         textInput.allText = result.formattedText.string
-        
-        if atomicCaretMovement {
-            textInput.caretPosition = result.formattedText.string.distanceFromStartIndex(
-                to: result.formattedText.caretPosition
-            )
-        } else {
-            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()) {
-                textInput.caretPosition = result.formattedText.string.distanceFromStartIndex(
-                    to: result.formattedText.caretPosition
-                )
-            }
-        }
+        setCaretPosition(
+            result.formattedText.string.distanceFromStartIndex(to: result.formattedText.caretPosition),
+            in: textInput
+        )
         
         return .notifyListeners(result: result)
     }
@@ -283,6 +276,16 @@ open class MaskedTextInputListener: NSObject {
             didComputeTailPlaceholder: result.tailPlaceholder
         )
         onMaskedTextChangedCallback?(textInput, result.extractedValue, result.complete, result.tailPlaceholder)
+    }
+    
+    open func setCaretPosition(_ position: Int, in textInput: UITextInput) {
+        if atomicCaretMovement {
+            textInput.caretPosition = position
+        } else {
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()) {
+                textInput.caretPosition = position
+            }
+        }
     }
 
     private func maskGetOrCreate(withFormat format: String, customNotations: [Notation]) throws -> Mask {
