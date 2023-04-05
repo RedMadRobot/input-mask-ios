@@ -140,8 +140,15 @@ open class NumberInputListener: MaskedTextInputListener {
         
         let components = digitsAndDecimalSeparators.components(separatedBy: decimalSeparator)
         
-        var intStr = components.first ?? ""
-        var decStr = components.last ?? ""
+        var intStr = ""
+        var decStr = ""
+        
+        if components.count > 1 {
+            intStr = components.first ?? ""
+            decStr = components.last ?? ""
+        } else {
+            intStr = components.first ?? ""
+        }
         
         intStr = intStr.isEmpty ? "0" : intStr
         intStr = String(intStr.prefix(formatter.maximumIntegerDigits))
