@@ -328,14 +328,14 @@ open class MaskedTextInputListener: NSObject {
 @available(iOS 11, *)
 extension MaskedTextInputListener: UITextFieldDelegate {
 
-    public func textFieldDidBeginEditing(_ textField: UITextField) {
+    open func textFieldDidBeginEditing(_ textField: UITextField) {
         if autocompleteOnFocus && (textField.text ?? "").isEmpty {
             let result: Mask.Result = put(text: "", into: textField, autocomplete: true)
             notifyOnMaskedTextChangedListeners(forTextInput: textField, result: result)
         }
     }
 
-    public func textField(
+    open func textField(
         _ textField: UITextField,
         shouldChangeCharactersIn range: NSRange,
         replacementString string: String
@@ -349,7 +349,7 @@ extension MaskedTextInputListener: UITextFieldDelegate {
         }
     }
 
-    public func textFieldShouldClear(_ textField: UITextField) -> Bool {
+    open func textFieldShouldClear(_ textField: UITextField) -> Bool {
         let result: Mask.Result = put(text: "", into: textField, autocomplete: false)
         notifyOnMaskedTextChangedListeners(forTextInput: textField, result: result)
         return true
@@ -361,14 +361,14 @@ extension MaskedTextInputListener: UITextFieldDelegate {
 @available(iOS 11, *)
 extension MaskedTextInputListener: UITextViewDelegate {
 
-    public func textViewDidBeginEditing(_ textView: UITextView) {
+    open func textViewDidBeginEditing(_ textView: UITextView) {
         if autocompleteOnFocus && textView.text.isEmpty {
             let result: Mask.Result = put(text: "", into: textView, autocomplete: true)
             notifyOnMaskedTextChangedListeners(forTextInput: textView, result: result)
         }
     }
 
-    public func textView(
+    open func textView(
         _ textView: UITextView,
         shouldChangeTextIn range: NSRange,
         replacementText text: String
