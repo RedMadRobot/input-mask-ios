@@ -6,63 +6,56 @@
 #if !os(macOS) && !os(watchOS)
 
 import Foundation
+import UIKit
 
+@available(iOS 16.0, *)
 open class NumberInputListener: MaskedTextInputListener {
-    open var numberFormatter: NumberFormatter?
+    open var formatter: NumberFormatter?
     
     open override func pickMask(forText text: CaretString) -> Mask {
-        guard let formatter = numberFormatter
+        guard let formatter = formatter
         else {
-            return super.pickMask(forText: text)
+            return try! Mask.getOrCreate(withFormat: "[…]")
         }
         
-        let decimalSeparator = formatter.decimalSeparator ?? "."
-        let currencyDecimalSeparator = formatter.currencyDecimalSeparator ?? "."
+        let definedDecimalSeparator = formatter.decimalSeparator ?? "."
+        let definedCurrencyDecimalSeparator = formatter.currencyDecimalSeparator ?? "."
         
-        var number = text.string.filter { character in
-            let characterStr = String(character)
-            let ok = characterStr == decimalSeparator || characterStr == currencyDecimalSeparator || CharacterSet.decimalDigits.isMember(character: character)
-            return ok
+        var expectedDecimalSeparator: String = definedDecimalSeparator
+        if text.string.contains(definedCurrencyDecimalSeparator) {
+            expectedDecimalSeparator = definedCurrencyDecimalSeparator
         }
         
-        while number.starts(with: "0") {
-            number = number.truncateFirst()
-        }
-        
-        var suffix = ""
-        if let lastChar = number.last, !CharacterSet.decimalDigits.isMember(character: lastChar) {
-            suffix = String(lastChar) // suffix is a dangling decimal separator
-        }
-        
-        var decimalNumber: String = number
-            .replacingOccurrences(of: decimalSeparator, with: ".")
-            .replacingOccurrences(of: currencyDecimalSeparator, with: ".")
-        
-        if decimalNumber.contains(".") {
-            let components = decimalNumber.components(separatedBy: ".")
-            let intPart = components.first ?? ""
-            var decPart = components.last ?? ""
-            
-            if decPart.count > formatter.maximumFractionDigits {
-                decPart = String(decPart[...decPart.startIndex(offsetBy: formatter.maximumFractionDigits)])
+        var digitsAndDecimalSeparators = text.string
+            .replacingOccurrences(of: definedDecimalSeparator, with: ".")
+            .replacingOccurrences(of: definedCurrencyDecimalSeparator, with: ".")
+            .filter { c in
+                return CharacterSet.decimalDigits.isMember(character: c) || c == "."
             }
-            decimalNumber = "\(intPart).\(decPart)"
+        
+        let numberOfOccurencesOfDecimalSeparator = digitsAndDecimalSeparators.numberOfOccurencesOf(".")
+        if numberOfOccurencesOfDecimalSeparator > 1 {
+            digitsAndDecimalSeparators =
+                digitsAndDecimalSeparators
+                    .reversed
+                    .replacing(".", with: "", maxReplacements: numberOfOccurencesOfDecimalSeparator - 1)
+                    .reversed
         }
         
-        if suffix.isEmpty && decimalNumber.contains(".") {
-            for char in decimalNumber.reversed {
-                if char != "0" && char != "." {
-                    break
-                }
-                suffix = String(char) + suffix
-            }
-        }
+        let components = digitsAndDecimalSeparators.components(separatedBy: ".")
         
-        guard let number = NumberFormatter().number(from: decimalNumber), let maskFormat = formatter.string(from: number)
+        var intStr = components.first ?? ""
+        var decStr = components.last ?? ""
+        
+        intStr = intStr.isEmpty ? "0" : intStr
+        decStr = String(decStr.prefix(formatter.maximumFractionDigits))
+        
+        guard let intNum = NumberFormatter().number(from: intStr), let intMaskFormat = formatter.string(from: intNum)
         else {
-            return super.pickMask(forText: text)
+            return try! Mask.getOrCreate(withFormat: "[…]")
         }
         
+        let intZero: Bool = intNum.isEqual(to: 0)
         customNotations = [
             Notation(
                 character: "1",
@@ -71,28 +64,51 @@ open class NumberInputListener: MaskedTextInputListener {
             )
         ]
         
-        let canHaveLeadingZero = number.compare(NSNumber(value: 0)) == .orderedDescending && number.intValue == 0
+        var maskFormat = ""
+        var first = true
+        intMaskFormat.forEach { char in
+            if CharacterSet.decimalDigits.isMember(character: char) {
+                if first && !intZero {
+                    maskFormat += "[1]"
+                    first = false
+                } else {
+                    maskFormat += "[0]"
+                }
+            } else {
+                maskFormat += "{\(char)}"
+            }
+        }
         
-        primaryMaskFormat = composeFormat(fromText: maskFormat + suffix, canHaveLeadingZero: canHaveLeadingZero)
+        if numberOfOccurencesOfDecimalSeparator > 0 {
+            maskFormat += "{\(expectedDecimalSeparator)}"
+        }
+        
+        decStr.forEach { char in
+            maskFormat += "[0]"
+        }
+        
+        primaryMaskFormat = maskFormat
         return super.pickMask(forText: text)
     }
     
-    open func composeFormat(fromText text: String, canHaveLeadingZero: Bool) -> String {
-        var result = ""
-        var first = true
-        text.forEach { character in
-            if CharacterSet.decimalDigits.isMember(character: character) {
-                if first && !canHaveLeadingZero {
-                    result += "[1]"
-                    first = false
-                } else {
-                    result += "[0]"
-                }
-            } else {
-                result += "{\(character)}"
-            }
+    open override func textFieldDidBeginEditing(_ textField: UITextField) {
+        if autocompleteOnFocus && (textField.text ?? "").isEmpty {
+            let result: Mask.Result = put(text: "0", into: textField, autocomplete: true)
+            notifyOnMaskedTextChangedListeners(forTextInput: textField, result: result)
         }
-        return result
+    }
+    
+    open override func textFieldShouldClear(_ textField: UITextField) -> Bool {
+        let result: Mask.Result = put(text: "0", into: textField, autocomplete: false)
+        notifyOnMaskedTextChangedListeners(forTextInput: textField, result: result)
+        return true
+    }
+    
+    open override func textViewDidBeginEditing(_ textView: UITextView) {
+        if autocompleteOnFocus && textView.text.isEmpty {
+            let result: Mask.Result = put(text: "0", into: textView, autocomplete: true)
+            notifyOnMaskedTextChangedListeners(forTextInput: textView, result: result)
+        }
     }
 }
 
