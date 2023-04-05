@@ -8,9 +8,35 @@
 import Foundation
 import UIKit
 
+/**
+ — Mom, can we have a neural network?
+ — No, we have a neural network at home.
+ 
+ Neural network at home:
+ */
+
+/**
+ ### NumberInputListener
+ 
+ A ```MaskedTextInputListener``` subclass for numbers
+ 
+ N.B. Assign a ```NumberFormatter``` instance to the ```::formatter``` field
+ */
 @available(iOS 16.0, *)
 open class NumberInputListener: MaskedTextInputListener {
     open var formatter: NumberFormatter?
+    
+    open override var placeholder: String {
+        let text = "0"
+        let mask: Mask = pickMask(
+            forText: CaretString(
+                string: text,
+                caretPosition: text.endIndex,
+                caretGravity: CaretString.CaretGravity.forward(autocomplete: autocomplete)
+            )
+        )
+        return mask.placeholder
+    }
     
     open override func pickMask(forText text: CaretString) -> Mask {
         guard let formatter = formatter
@@ -18,58 +44,22 @@ open class NumberInputListener: MaskedTextInputListener {
             return try! Mask.getOrCreate(withFormat: "[…]")
         }
         
-        let definedDecimalSeparator = formatter.decimalSeparator ?? "."
-        let definedCurrencyDecimalSeparator = formatter.currencyDecimalSeparator ?? "."
+        let sanitisedNumberString = extractNumberAndDecimalSeparator(formatter: formatter, text: text.string)
         
-        var expectedDecimalSeparator: String = definedDecimalSeparator
-        if text.string.contains(definedCurrencyDecimalSeparator) {
-            expectedDecimalSeparator = definedCurrencyDecimalSeparator
-        }
-        
-        var digitsAndDecimalSeparators = text.string
-            .replacingOccurrences(of: definedDecimalSeparator, with: ".")
-            .replacingOccurrences(of: definedCurrencyDecimalSeparator, with: ".")
-            .filter { c in
-                return CharacterSet.decimalDigits.isMember(character: c) || c == "."
-            }
-        
-        let numberOfOccurencesOfDecimalSeparator = digitsAndDecimalSeparators.numberOfOccurencesOf(".")
-        if numberOfOccurencesOfDecimalSeparator > 1 {
-            digitsAndDecimalSeparators =
-                digitsAndDecimalSeparators
-                    .reversed
-                    .replacing(".", with: "", maxReplacements: numberOfOccurencesOfDecimalSeparator - 1)
-                    .reversed
-        }
-        
-        let components = digitsAndDecimalSeparators.components(separatedBy: ".")
-        
-        var intStr = components.first ?? ""
-        var decStr = components.last ?? ""
-        
-        intStr = intStr.isEmpty ? "0" : intStr
-        decStr = String(decStr.prefix(formatter.maximumFractionDigits))
-        
-        guard let intNum = NumberFormatter().number(from: intStr), let intMaskFormat = formatter.string(from: intNum)
+        guard let intNum = NumberFormatter().number(from: sanitisedNumberString.intPart), let intMaskFormat = formatter.string(from: intNum)
         else {
             return try! Mask.getOrCreate(withFormat: "[…]")
         }
         
         let intZero: Bool = intNum.isEqual(to: 0)
-        customNotations = [
-            Notation(
-                character: "1",
-                characterSet: CharacterSet(charactersIn: "123456789"),
-                isOptional: false
-            )
-        ]
+        let notationChar = assignNonZeroNumberNotation()
         
         var maskFormat = ""
         var first = true
         intMaskFormat.forEach { char in
             if CharacterSet.decimalDigits.isMember(character: char) {
                 if first && !intZero {
-                    maskFormat += "[1]"
+                    maskFormat += "[\(notationChar)]"
                     first = false
                 } else {
                     maskFormat += "[0]"
@@ -79,11 +69,11 @@ open class NumberInputListener: MaskedTextInputListener {
             }
         }
         
-        if numberOfOccurencesOfDecimalSeparator > 0 {
-            maskFormat += "{\(expectedDecimalSeparator)}"
+        if sanitisedNumberString.numberOfOccurencesOfDecimalSeparator > 0 {
+            maskFormat += "{\(sanitisedNumberString.expectedDecimalSeparator)}"
         }
         
-        decStr.forEach { char in
+        sanitisedNumberString.decPart.forEach { char in
             maskFormat += "[0]"
         }
         
@@ -109,6 +99,72 @@ open class NumberInputListener: MaskedTextInputListener {
             let result: Mask.Result = put(text: "0", into: textView, autocomplete: true)
             notifyOnMaskedTextChangedListeners(forTextInput: textView, result: result)
         }
+    }
+    
+    private struct SanitisedNumberString {
+        let intPart: String
+        let decPart: String
+        let expectedDecimalSeparator: String
+        let numberOfOccurencesOfDecimalSeparator: Int
+    }
+    
+    private func extractNumberAndDecimalSeparator(
+        formatter: NumberFormatter,
+        text: String
+    ) -> SanitisedNumberString {
+        let decimalSeparator = "."
+        
+        let appliedDecimalSeparator = formatter.decimalSeparator ?? decimalSeparator
+        let appliedCurrencyDecimalSeparator = formatter.currencyDecimalSeparator ?? decimalSeparator
+        
+        var expectedDecimalSeparator: String = appliedDecimalSeparator
+        if text.contains(appliedCurrencyDecimalSeparator) {
+            expectedDecimalSeparator = appliedCurrencyDecimalSeparator
+        }
+        
+        var digitsAndDecimalSeparators = text
+            .replacingOccurrences(of: appliedDecimalSeparator, with: decimalSeparator)
+            .replacingOccurrences(of: appliedCurrencyDecimalSeparator, with: decimalSeparator)
+            .filter { c in
+                return CharacterSet.decimalDigits.isMember(character: c) || String(c) == decimalSeparator
+            }
+        
+        let numberOfOccurencesOfDecimalSeparator = digitsAndDecimalSeparators.numberOfOccurencesOf(decimalSeparator)
+        if numberOfOccurencesOfDecimalSeparator > 1 {
+            digitsAndDecimalSeparators =
+                digitsAndDecimalSeparators
+                    .reversed
+                    .replacing(decimalSeparator, with: "", maxReplacements: numberOfOccurencesOfDecimalSeparator - 1)
+                    .reversed
+        }
+        
+        let components = digitsAndDecimalSeparators.components(separatedBy: decimalSeparator)
+        
+        var intStr = components.first ?? ""
+        var decStr = components.last ?? ""
+        
+        intStr = intStr.isEmpty ? "0" : intStr
+        intStr = String(intStr.prefix(formatter.maximumIntegerDigits))
+        decStr = String(decStr.prefix(formatter.maximumFractionDigits))
+        
+        return SanitisedNumberString(
+            intPart: intStr,
+            decPart: decStr,
+            expectedDecimalSeparator: expectedDecimalSeparator,
+            numberOfOccurencesOfDecimalSeparator: numberOfOccurencesOfDecimalSeparator
+        )
+    }
+    
+    private func assignNonZeroNumberNotation() -> Character {
+        let character: Character = "1"
+        customNotations = [
+            Notation(
+                character: character,
+                characterSet: CharacterSet(charactersIn: "123456789"),
+                isOptional: false
+            )
+        ]
+        return character
     }
 }
 
