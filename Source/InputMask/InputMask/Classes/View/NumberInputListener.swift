@@ -24,7 +24,17 @@ import UIKit
  */
 @available(iOS 16.0, *)
 open class NumberInputListener: MaskedTextInputListener {
-    open var formatter: NumberFormatter?
+    private static let decimalSeparator = "."
+    
+    open var formatter: NumberFormatter? = {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        formatter.locale = Locale(identifier: "en_us")
+        formatter.decimalSeparator = Locale.current.decimalSeparator ?? NumberInputListener.decimalSeparator
+        formatter.minimumFractionDigits = 0
+        formatter.roundingMode = .floor
+        return formatter
+    }()
     
     open override var placeholder: String {
         let text = "0"
@@ -112,10 +122,8 @@ open class NumberInputListener: MaskedTextInputListener {
         formatter: NumberFormatter,
         text: String
     ) -> SanitisedNumberString {
-        let decimalSeparator = "."
-        
-        let appliedDecimalSeparator = formatter.decimalSeparator ?? decimalSeparator
-        let appliedCurrencyDecimalSeparator = formatter.currencyDecimalSeparator ?? decimalSeparator
+        let appliedDecimalSeparator = formatter.decimalSeparator ?? NumberInputListener.decimalSeparator
+        let appliedCurrencyDecimalSeparator = formatter.currencyDecimalSeparator ?? NumberInputListener.decimalSeparator
         
         var expectedDecimalSeparator: String = appliedDecimalSeparator
         if text.contains(appliedCurrencyDecimalSeparator) {
@@ -123,22 +131,22 @@ open class NumberInputListener: MaskedTextInputListener {
         }
         
         var digitsAndDecimalSeparators = text
-            .replacingOccurrences(of: appliedDecimalSeparator, with: decimalSeparator)
-            .replacingOccurrences(of: appliedCurrencyDecimalSeparator, with: decimalSeparator)
+            .replacingOccurrences(of: appliedDecimalSeparator, with: NumberInputListener.decimalSeparator)
+            .replacingOccurrences(of: appliedCurrencyDecimalSeparator, with: NumberInputListener.decimalSeparator)
             .filter { c in
-                return CharacterSet.decimalDigits.isMember(character: c) || String(c) == decimalSeparator
+                return CharacterSet.decimalDigits.isMember(character: c) || String(c) == NumberInputListener.decimalSeparator
             }
         
-        let numberOfOccurencesOfDecimalSeparator = digitsAndDecimalSeparators.numberOfOccurencesOf(decimalSeparator)
+        let numberOfOccurencesOfDecimalSeparator = digitsAndDecimalSeparators.numberOfOccurencesOf(NumberInputListener.decimalSeparator)
         if numberOfOccurencesOfDecimalSeparator > 1 {
             digitsAndDecimalSeparators =
                 digitsAndDecimalSeparators
                     .reversed
-                    .replacing(decimalSeparator, with: "", maxReplacements: numberOfOccurencesOfDecimalSeparator - 1)
+                    .replacing(NumberInputListener.decimalSeparator, with: "", maxReplacements: numberOfOccurencesOfDecimalSeparator - 1)
                     .reversed
         }
         
-        let components = digitsAndDecimalSeparators.components(separatedBy: decimalSeparator)
+        let components = digitsAndDecimalSeparators.components(separatedBy: NumberInputListener.decimalSeparator)
         
         var intStr = ""
         var decStr = ""
