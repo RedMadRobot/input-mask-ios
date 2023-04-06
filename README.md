@@ -12,6 +12,7 @@ Check out our [wiki](https://github.com/RedMadRobot/input-mask-ios/wiki) for qui
 - For international phone numbers 
     - guess the country from the entered digits
     - apply corresponding value restrictions (e.g. a 🇺🇸US phone will have a format like `+1 201 456-7890`)
+- Apply number/currency formatting 
 - SwiftUI support
 
 <a name="examples" />
