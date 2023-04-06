@@ -1,5 +1,18 @@
 # 𝌡Changelog
 
+## 7.1.0
+
+**⤵️ Added:**
+
+* `NumberInputListener`: a `MaskedTextInputListener` allowing to enter currencies and other numbers
+* `"".numberOfOccurencesOf(string)`: a helper method to count occurencies of substrings
+
+**🔄 Modified:**
+
+* `CharacterSet.isMember(character:)` made `public`
+* `MaskedTextInputListener`: `UITextFieldDelegate` and `UITextViewDelegate` extensions made `open`
+* `MaskedTextInputListener.atomicCaretMovement` is now applied everywhere
+
 ## 7.0.1
 
 **🔄 Modified:**
