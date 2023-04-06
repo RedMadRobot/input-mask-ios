@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21678"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -19,6 +20,20 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Currency:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WNn-G4-DWS">
+                                <rect key="frame" x="150" y="145" width="75" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="hBz-Bp-DAY" userLabel="Currency">
+                                <rect key="frame" x="20" y="174" width="335" height="34"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
+                                <connections>
+                                    <outlet property="delegate" destination="KQQ-Ws-zL8" id="oFf-px-qks"/>
+                                </connections>
+                            </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a4Z-Rm-zLH">
                                 <rect key="frame" x="167" y="216" width="41" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -79,10 +94,14 @@
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="G3H-PU-FM8" secondAttribute="trailing" constant="26" id="0Os-My-Lfi"/>
                             <constraint firstItem="BKQ-F2-eib" firstAttribute="trailing" secondItem="MtV-1y-GNI" secondAttribute="trailing" constant="6" id="2kZ-OQ-xIf"/>
+                            <constraint firstItem="a4Z-Rm-zLH" firstAttribute="top" secondItem="hBz-Bp-DAY" secondAttribute="bottom" constant="8" id="9Tt-VP-fUY"/>
+                            <constraint firstItem="hBz-Bp-DAY" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="20" id="Ar3-As-mOa"/>
                             <constraint firstItem="Fd3-FZ-g3W" firstAttribute="bottom" secondItem="G3H-PU-FM8" secondAttribute="bottom" id="Bf9-9X-kzj"/>
+                            <constraint firstItem="WNn-G4-DWS" firstAttribute="centerX" secondItem="hBz-Bp-DAY" secondAttribute="centerX" id="Byb-Wg-nun"/>
                             <constraint firstAttribute="trailing" secondItem="MtV-1y-GNI" secondAttribute="trailing" constant="26" id="EBM-nu-6Fk"/>
                             <constraint firstItem="nHp-6r-sbR" firstAttribute="centerX" secondItem="MtV-1y-GNI" secondAttribute="centerX" id="PBs-TK-i7n"/>
                             <constraint firstItem="MtV-1y-GNI" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="Pd3-bb-D6T"/>
+                            <constraint firstAttribute="trailing" secondItem="hBz-Bp-DAY" secondAttribute="trailing" constant="20" id="Q8X-TJ-TJi"/>
                             <constraint firstItem="qSO-kp-EV4" firstAttribute="top" secondItem="MtV-1y-GNI" secondAttribute="bottom" constant="7.5" id="QhA-Jg-Om2"/>
                             <constraint firstItem="qSO-kp-EV4" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="4" id="QpT-FK-Oiz"/>
                             <constraint firstItem="RWg-ox-Yxu" firstAttribute="leading" secondItem="G3H-PU-FM8" secondAttribute="leading" id="T5c-Bw-ybd"/>
@@ -98,6 +117,7 @@
                             <constraint firstItem="a4Z-Rm-zLH" firstAttribute="centerX" secondItem="G3H-PU-FM8" secondAttribute="centerX" id="ifi-7b-jti"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="qSO-kp-EV4" secondAttribute="bottom" constant="20" id="kNV-WZ-Bz7"/>
                             <constraint firstItem="nHp-6r-sbR" firstAttribute="top" secondItem="G3H-PU-FM8" secondAttribute="bottom" constant="8.5" id="kv5-dU-DcV"/>
+                            <constraint firstItem="hBz-Bp-DAY" firstAttribute="top" secondItem="WNn-G4-DWS" secondAttribute="bottom" constant="8" id="pxa-2e-8YC"/>
                             <constraint firstItem="BKQ-F2-eib" firstAttribute="bottom" secondItem="MtV-1y-GNI" secondAttribute="bottom" id="uac-GW-bkD"/>
                             <constraint firstItem="Fd3-FZ-g3W" firstAttribute="trailing" secondItem="G3H-PU-FM8" secondAttribute="trailing" constant="6" id="xXr-lc-djJ"/>
                             <constraint firstItem="MtV-1y-GNI" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="26" id="yEn-VD-eMt"/>
@@ -110,6 +130,8 @@
                         <outlet property="dateFieldPlaceholder" destination="RWg-ox-Yxu" id="HNf-1D-QMt"/>
                         <outlet property="dateFieldPlaceholderLeadingConstraint" destination="T5c-Bw-ybd" id="zfQ-0j-BQx"/>
                         <outlet property="dateListener" destination="0B9-UY-Mlk" id="78X-TQ-l1u"/>
+                        <outlet property="numberField" destination="hBz-Bp-DAY" id="0K6-0M-0Ca"/>
+                        <outlet property="numberListener" destination="KQQ-Ws-zL8" id="GbF-zK-kbp"/>
                         <outlet property="phoneField" destination="MtV-1y-GNI" id="jrd-2g-Iuq"/>
                         <outlet property="phoneFieldBackground" destination="BKQ-F2-eib" id="bKN-DS-WHn"/>
                         <outlet property="phoneListener" destination="Jf8-Lb-6rq" id="e5t-q5-CQz"/>
@@ -133,6 +155,11 @@
                     </userDefinedRuntimeAttributes>
                     <connections>
                         <outlet property="delegate" destination="BYZ-38-t0r" id="E9p-A8-HWl"/>
+                    </connections>
+                </customObject>
+                <customObject id="KQQ-Ws-zL8" customClass="NumberInputListener" customModule="InputMask">
+                    <connections>
+                        <outlet property="delegate" destination="BYZ-38-t0r" id="vLf-wC-gkh"/>
                     </connections>
                 </customObject>
             </objects>

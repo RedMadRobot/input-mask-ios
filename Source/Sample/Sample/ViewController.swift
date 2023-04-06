@@ -9,6 +9,9 @@ import InputMask
 
 
 open class ViewController: UIViewController, OnMaskedTextChangedListener {
+    
+    @IBOutlet weak var numberListener: NumberInputListener!
+    @IBOutlet weak var numberField: UITextField!
 
     @IBOutlet weak var dateListener: MaskedTextInputListener!
     @IBOutlet weak var dateField: UITextField!
@@ -26,6 +29,11 @@ open class ViewController: UIViewController, OnMaskedTextChangedListener {
     
     open override func viewDidLoad() {
         super.viewDidLoad()
+        numberListener.formatter?.numberStyle = .currency
+        numberListener.formatter?.currencySymbol = "€"
+        
+        numberField.placeholder = numberListener.placeholder
+        
         phoneListener.affinityCalculationStrategy = .prefix
         phoneListener.disableCountries = ["🇳🇱"]
         
