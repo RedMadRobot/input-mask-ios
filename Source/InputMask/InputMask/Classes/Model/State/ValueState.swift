@@ -10,24 +10,24 @@ import Foundation
 /**
  ### ValueState
  
- Represents mandatory characters in square brackets [].
+ Represents mandatory characters in square brackets `[]`.
  
- Accepts only characters of own type (see ```StateType```). Puts accepted characters into the result string.
+ Accepts only characters of own type (see ``ValueState/StateType-swift.enum``). Puts accepted characters into the result string.
  
  Returns accepted characters as an extracted value.
  
- - seealso: ```ValueState.StateType```
+ - seealso: ``ValueState/StateType-swift.enum``
  */
 class ValueState: State {
     
     /**
      ### StateType
      
-     * ```numeric``` stands for [9] characters
-     * ```literal``` stands for [a] characters
-     * ```alphaNumeric``` stands for [-] characters
-     * ```ellipsis``` stands for […] characters
-     * ```custom``` stands for characters of custom notation
+     * ``numeric`` stands for [9] characters
+     * ``literal`` stands for [a] characters
+     * ``alphaNumeric`` stands for [-] characters
+     * ``ellipsis`` stands for […] characters
+     * ``custom`` stands for characters of custom notation
      */
     indirect enum StateType {
         case numeric
@@ -83,12 +83,12 @@ class ValueState: State {
     /**
      Constructor.
      
-     - parameter child: next ```State```
+     - parameter child: next ``State``
      - parameter type: type of the accepted characters
      
-     - seealso: ```ValueState.StateType```
+     - seealso: ``ValueState/StateType-swift.enum``
      
-     - returns: Initialized ```ValueState``` instance.
+     - returns: Initialized ``ValueState`` instance.
      */
     init(
         child: State,
@@ -99,7 +99,7 @@ class ValueState: State {
     }
     
     /**
-     Constructor for elliptical ```ValueState```
+     Constructor for elliptical ``ValueState``
      */
     init(inheritedType: StateType) {
         self.type = StateType.ellipsis(inheritedType: inheritedType)

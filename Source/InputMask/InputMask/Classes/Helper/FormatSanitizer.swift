@@ -10,25 +10,25 @@ import Foundation
 /**
  ### FormatSanitizer
  
- Sanitizes given ```formatString``` before it's compilation.
+ Sanitizes given `formatString` before it's compilation.
  
- - complexity: ```O(2*floor(log(n)))```, and switches to ```O(n^2)``` for ```n < 20``` where 
- ```n = formatString.count```
+ - complexity: `O(2*floor(log(n)))`, and switches to `O(n^2)` for `n < 20` where
+ `n = formatString.count`
 
- - requires: Format string to contain only flat groups of symbols in ```[]``` and ```{}``` brackets without nested
- brackets, like ```[[000]99]```. Square bracket ```[]``` groups may contain mixed types of symbols ("0" and "9" with
- "A" and "a" or "_" and "-"), which sanitizer will divide into separate groups. Such that, ```[0000Aa]``` group will 
- be divided in two groups: ```[0000]``` and ```[Aa]```.
+ - requires: Format string to contain only flat groups of symbols in `[]` and `{}` brackets without nested
+ brackets, like `[[000]99]`. Square bracket `[]` groups may contain mixed types of symbols ("0" and "9" with
+ "A" and "a" or "_" and "-"), which sanitizer will divide into separate groups. Such that, `[0000Aa]` group will
+ be divided in two groups: `[0000]` and `[Aa]`.
 
- ```FormatSanitizer``` is used by ```Compiler``` before format string compilation.
+ ``FormatSanitizer`` is used by ``Compiler`` before format string compilation.
  */
 class FormatSanitizer {
     
     /**
-     Sanitize ```formatString``` before compilation.
+     Sanitize `formatString` before compilation.
      
-     In order to do so, sanitizer splits the string into groups of regular symbols, symbols in square brackets [] and
-     symbols in curly brackets {}. Then, characters in square brackets are sorted in a way that mandatory symbols go 
+     In order to do so, sanitizer splits the string into groups of regular symbols, symbols in square brackets `[]` and
+     symbols in curly brackets `{}`. Then, characters in square brackets are sorted in a way that mandatory symbols go
      before optional symbols. For instance,
      ```
      a ([0909]) b
@@ -38,21 +38,21 @@ class FormatSanitizer {
      a ([0099]) b
      ```
      
-     Also, ellipsis in square brackets [] is always placed at the end.
+     Also, ellipsis in square brackets `[]` is always placed at the end.
      
-     - complexity: ```O(2*floor(log(n)))```, and switches to ```O(n^2)``` for ```n < 20``` where
-     ```n = formatString.count```
+     - complexity: `O(2*floor(log(n)))`, and switches to `O(n^2)` for `n < 20` where
+     `n = formatString.count`
      
-     - requires: Format string to contain only flat groups of symbols in ```[]``` and ```{}``` brackets without nested
-     brackets, like ```[[000]99]```. Square bracket ```[]``` groups may contain mixed types of symbols ("0" and "9" with
-     "A" and "a" or "_" and "-"), which sanitizer will divide into separate groups. Such that, ```[0000Aa]``` group will
-     be divided in two groups: ```[0000]``` and ```[Aa]```.
+     - requires: Format string to contain only flat groups of symbols in `[]` and `{}` brackets without nested
+     brackets, like `[[000]99]`. Square bracket `[]` groups may contain mixed types of symbols ("0" and "9" with
+     "A" and "a" or "_" and "-"), which sanitizer will divide into separate groups. Such that, `[0000Aa]` group will
+     be divided in two groups: `[0000]` and `[Aa]`.
      
      - parameter formatString: mask format string.
      
      - returns: Sanitized format string.
      
-     - throws: ```CompilerError``` if ```formatString``` does not conform to the method requirements.
+     - throws: ``Compiler/CompilerError`` if `formatString` does not conform to the method requirements.
      */
     func sanitize(formatString string: String) throws -> String {
         try self.checkOpenBraces(string)

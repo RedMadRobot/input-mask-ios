@@ -34,19 +34,19 @@ open class MaskedTextInputListener: NSObject {
     @IBInspectable open var rightToLeft:         Bool
     
     /**
-        Allows input suggestions from keyboard
+     Allows input suggestions from keyboard
      */
     @IBInspectable open var allowSuggestions: Bool
     
     /**
-     Shortly after new text is being pasted from the clipboard, ```UITextInput``` receives a new value for its
-     `selectedTextRange` property from the system. This new range is not consistent with the formatted text and
-     calculated caret position most of the time, yet it's being assigned just after ```set caretPosition``` call.
+     Shortly after new text is being pasted from the clipboard, ``UITextInput`` receives a new value for its
+     ``UITextInput/`selectedTextRange`` property from the system. This new range is not consistent with the formatted text and
+     calculated caret position most of the time, yet it's being assigned just after `set caretPosition` call.
      
      To ensure correct caret position is set, it is assigned asynchronously (presumably after a vanishingly
      small delay), if caret movement is set to be non-atomic.
      
-     Default is ```false```.
+     Default is `false`.
      */
     @IBInspectable open var atomicCaretMovement: Bool = false
 
@@ -173,8 +173,9 @@ open class MaskedTextInputListener: NSObject {
         )
 
         field.allText = result.formattedText.string
-        field.caretPosition = result.formattedText.string.distanceFromStartIndex(
-            to: result.formattedText.caretPosition
+        setCaretPosition(
+            result.formattedText.string.distanceFromStartIndex(to: result.formattedText.caretPosition),
+            in: field
         )
 
         notifyOnMaskedTextChangedListeners(forTextInput: field, result: result)
@@ -206,18 +207,10 @@ open class MaskedTextInputListener: NSObject {
         let result: Mask.Result = mask.apply(toText: text)
         
         textInput.allText = result.formattedText.string
-        
-        if self.atomicCaretMovement {
-            textInput.caretPosition = result.formattedText.string.distanceFromStartIndex(
-                to: result.formattedText.caretPosition
-            )
-        } else {
-            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()) {
-                textInput.caretPosition = result.formattedText.string.distanceFromStartIndex(
-                    to: result.formattedText.caretPosition
-                )
-            }
-        }
+        setCaretPosition(
+            result.formattedText.string.distanceFromStartIndex(to: result.formattedText.caretPosition),
+            in: textInput
+        )
         
         return .notifyListeners(result: result)
     }
@@ -284,6 +277,16 @@ open class MaskedTextInputListener: NSObject {
         )
         onMaskedTextChangedCallback?(textInput, result.extractedValue, result.complete, result.tailPlaceholder)
     }
+    
+    open func setCaretPosition(_ position: Int, in textInput: UITextInput) {
+        if atomicCaretMovement {
+            textInput.caretPosition = position
+        } else {
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()) {
+                textInput.caretPosition = position
+            }
+        }
+    }
 
     private func maskGetOrCreate(withFormat format: String, customNotations: [Notation]) throws -> Mask {
         if rightToLeft {
@@ -305,10 +308,10 @@ open class MaskedTextInputListener: NSObject {
     /**
      Workaround to support Interface Builder delegate outlets.
 
-     Allows assigning ```MaskedTextFieldDelegate.listener``` within the Interface Builder.
+     Allows assigning ``MaskedTextInputListener/listener`` within the Interface Builder.
 
-     Consider using ```MaskedTextFieldDelegate.listener``` property from your source code instead of
-     ```MaskedTextFieldDelegate.delegate``` outlet.
+     Consider using ``MaskedTextInputListener/listener`` property from your source code instead of
+     ``MaskedTextInputListener/delegate`` outlet.
      */
     @IBOutlet public var delegate: NSObject? {
         get {
@@ -328,14 +331,14 @@ open class MaskedTextInputListener: NSObject {
 @available(iOS 11, *)
 extension MaskedTextInputListener: UITextFieldDelegate {
 
-    public func textFieldDidBeginEditing(_ textField: UITextField) {
+    open func textFieldDidBeginEditing(_ textField: UITextField) {
         if autocompleteOnFocus && (textField.text ?? "").isEmpty {
             let result: Mask.Result = put(text: "", into: textField, autocomplete: true)
             notifyOnMaskedTextChangedListeners(forTextInput: textField, result: result)
         }
     }
 
-    public func textField(
+    open func textField(
         _ textField: UITextField,
         shouldChangeCharactersIn range: NSRange,
         replacementString string: String
@@ -349,7 +352,7 @@ extension MaskedTextInputListener: UITextFieldDelegate {
         }
     }
 
-    public func textFieldShouldClear(_ textField: UITextField) -> Bool {
+    open func textFieldShouldClear(_ textField: UITextField) -> Bool {
         let result: Mask.Result = put(text: "", into: textField, autocomplete: false)
         notifyOnMaskedTextChangedListeners(forTextInput: textField, result: result)
         return true
@@ -361,14 +364,14 @@ extension MaskedTextInputListener: UITextFieldDelegate {
 @available(iOS 11, *)
 extension MaskedTextInputListener: UITextViewDelegate {
 
-    public func textViewDidBeginEditing(_ textView: UITextView) {
+    open func textViewDidBeginEditing(_ textView: UITextView) {
         if autocompleteOnFocus && textView.text.isEmpty {
             let result: Mask.Result = put(text: "", into: textView, autocomplete: true)
             notifyOnMaskedTextChangedListeners(forTextInput: textView, result: result)
         }
     }
 
-    public func textView(
+    open func textView(
         _ textView: UITextView,
         shouldChangeTextIn range: NSRange,
         replacementText text: String

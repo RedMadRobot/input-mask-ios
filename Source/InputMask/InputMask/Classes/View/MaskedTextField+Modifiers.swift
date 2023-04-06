@@ -13,7 +13,7 @@ import SwiftUI
 public extension MaskedTextField {
     
     /**
-     ```UITextField::textColor```
+     ``UITextField/textColor``
      */
     func textColor(_ color: UIColor) -> Self {
         var s = self
@@ -22,7 +22,7 @@ public extension MaskedTextField {
     }
     
     /**
-     ```UITextField::font```
+     ``UITextField/font``
      */
     func fontFromUIFont(_ font: UIFont) -> Self {
         var s = self
@@ -31,7 +31,7 @@ public extension MaskedTextField {
     }
     
     /**
-     ```UITextField::textAlignement```
+     ``UITextField/textAlignement``
      */
     func textAlignement(_ alignment: NSTextAlignment) -> Self {
         var s = self
@@ -40,7 +40,7 @@ public extension MaskedTextField {
     }
     
     /**
-     ```UITextField::borderStyle```
+     ``UITextField/borderStyle``
      */
     func borderStyle(_ borderStyle: UITextField.BorderStyle) -> Self {
         var s = self
@@ -49,7 +49,7 @@ public extension MaskedTextField {
     }
     
     /**
-     ```UITextField::tintColor```
+     ``UITextField/tintColor``
      */
     func tintColor(_ tintColor: UIColor) -> Self {
         var s = self
@@ -58,7 +58,7 @@ public extension MaskedTextField {
     }
     
     /**
-     ```UITextField::clearsOnBeginEditing```
+     ``UITextField/clearsOnBeginEditing``
      */
     func clearsOnBeginEditing(_ clearsOnBeginEditing: Bool) -> Self {
         var s = self
@@ -67,7 +67,7 @@ public extension MaskedTextField {
     }
     
     /**
-     ```UITextField::clearsOnInsertion```
+     ``UITextField/clearsOnInsertion``
      */
     func clearsOnInsertion(_ clearsOnInsertion: Bool) -> Self {
         var s = self
@@ -76,7 +76,7 @@ public extension MaskedTextField {
     }
     
     /**
-     ```UITextField::adjustsFontSizeToFitWidth```
+     ``UITextField/adjustsFontSizeToFitWidth``
      */
     func adjustsFontSizeToFitWidth(_ adjustsFontSizeToFitWidth: Bool) -> Self {
         var s = self
@@ -85,7 +85,7 @@ public extension MaskedTextField {
     }
     
     /**
-     ```UITextField::minimumFontSize```
+     ``UITextField/minimumFontSize``
      */
     func minimumFontSize(_ minimumFontSize: CGFloat) -> Self {
         var s = self
@@ -94,7 +94,7 @@ public extension MaskedTextField {
     }
     
     /**
-     ```UITextField::background```
+     ``UITextField/background``
      */
     func backgroundImage(_ background: UIImage) -> Self {
         var s = self
@@ -103,7 +103,7 @@ public extension MaskedTextField {
     }
     
     /**
-     ```UITextField::disabledBackground```
+     ``UITextField/disabledBackground``
      */
     func disabledBackgroundImage(_ disabledBackground: UIImage) -> Self {
         var s = self
@@ -112,7 +112,7 @@ public extension MaskedTextField {
     }
     
     /**
-     ```UITextField::clearButtonMode```
+     ``UITextField/clearButtonMode``
      */
     func clearButtonMode(_ clearButtonMode: UITextField.ViewMode) -> Self {
         var s = self
@@ -121,7 +121,7 @@ public extension MaskedTextField {
     }
     
     /**
-     ```UITextField::leftView```
+     ``UITextField/leftView``
      */
     func leftView(_ leftView: UIView) -> Self {
         var s = self
@@ -130,7 +130,7 @@ public extension MaskedTextField {
     }
     
     /**
-     ```UITextField::leftViewMode```
+     ``UITextField/leftViewMode``
      */
     func leftViewMode(_ leftViewMode: UITextField.ViewMode) -> Self {
         var s = self
@@ -139,7 +139,7 @@ public extension MaskedTextField {
     }
     
     /**
-     ```UITextField::rightView```
+     ``UITextField/rightView``
      */
     func rightView(_ rightView: UIView) -> Self {
         var s = self
@@ -148,7 +148,7 @@ public extension MaskedTextField {
     }
     
     /**
-     ```UITextField::rightViewMode```
+     ``UITextField/rightViewMode``
      */
     func rightViewMode(_ rightViewMode: UITextField.ViewMode) -> Self {
         var s = self
@@ -157,7 +157,7 @@ public extension MaskedTextField {
     }
     
     /**
-     ```UITextField::inputView```
+     ``UITextField/inputView``
      */
     func inputView(_ inputView: UIView) -> Self {
         var s = self
@@ -166,7 +166,7 @@ public extension MaskedTextField {
     }
     
     /**
-     ```UITextField::inputAccessoryView```
+     ``UITextField/inputAccessoryView``
      */
     func inputAccessoryView(_ inputAccessoryView: UIView) -> Self {
         var s = self
@@ -175,7 +175,7 @@ public extension MaskedTextField {
     }
     
     /**
-     ```UITextField::isUserInteractionEnabled```
+     ``UITextField/isUserInteractionEnabled``
      */
     func isUserInteractionEnabled(_ isUserInteractionEnabled: Bool) -> Self {
         var s = self
@@ -184,7 +184,7 @@ public extension MaskedTextField {
     }
     
     /**
-     ```UITextField::autocapitalizationType```
+     ``UITextField/autocapitalizationType``
      */
     func autocapitalizationType(_ autocapitalizationType: UITextAutocapitalizationType) -> Self {
         var s = self
@@ -193,7 +193,7 @@ public extension MaskedTextField {
     }
     
     /**
-     ```UITextField::autocorrectionType```
+     ``UITextField/autocorrectionType``
      */
     func autocorrectionType(_ autocorrectionType: UITextAutocorrectionType) -> Self {
         var s = self
@@ -202,7 +202,7 @@ public extension MaskedTextField {
     }
     
     /**
-     ```UITextField::spellCheckingType```
+     ``UITextField/spellCheckingType``
      */
     func spellCheckingType(_ spellCheckingType: UITextSpellCheckingType) -> Self {
         var s = self
@@ -211,7 +211,7 @@ public extension MaskedTextField {
     }
     
     /**
-     ```UITextField::smartQuotesType```
+     ``UITextField/smartQuotesType``
      */
     func smartQuotesType(_ smartQuotesType: UITextSmartQuotesType) -> Self {
         var s = self
@@ -220,7 +220,7 @@ public extension MaskedTextField {
     }
     
     /**
-     ```UITextField::smartDashesType```
+     ``UITextField/smartDashesType``
      */
     func smartDashesType(_ smartDashesType: UITextSmartDashesType) -> Self {
         var s = self
@@ -229,7 +229,7 @@ public extension MaskedTextField {
     }
     
     /**
-     ```UITextField::smartInsertDeleteType```
+     ``UITextField/smartInsertDeleteType``
      */
     func smartInsertDeleteType(_ smartInsertDeleteType: UITextSmartInsertDeleteType) -> Self {
         var s = self
@@ -238,7 +238,7 @@ public extension MaskedTextField {
     }
     
     /**
-     ```UITextField::keyboardType```
+     ``UITextField/keyboardType``
      */
     func keyboardType(_ keyboardType: UIKeyboardType) -> Self {
         var s = self
@@ -247,7 +247,7 @@ public extension MaskedTextField {
     }
     
     /**
-     ```UITextField::keyboardAppearance```
+     ``UITextField/keyboardAppearance``
      */
     func keyboardAppearance(_ keyboardAppearance: UIKeyboardAppearance) -> Self {
         var s = self
@@ -256,7 +256,7 @@ public extension MaskedTextField {
     }
     
     /**
-     ```UITextField::returnKeyType```
+     ``UITextField/returnKeyType``
      */
     func returnKeyType(_ returnKeyType: UIReturnKeyType) -> Self {
         var s = self
@@ -265,7 +265,7 @@ public extension MaskedTextField {
     }
     
     /**
-     ```UITextField::enablesReturnKeyAutomatically```
+     ``UITextField/enablesReturnKeyAutomatically``
      */
     func enablesReturnKeyAutomatically(_ enablesReturnKeyAutomatically: Bool) -> Self {
         var s = self
@@ -274,7 +274,7 @@ public extension MaskedTextField {
     }
     
     /**
-     ```UITextField::isSecureTextEntry```
+     ``UITextField/isSecureTextEntry``
      */
     func isSecureTextEntry(_ isSecureTextEntry: Bool) -> Self {
         var s = self
@@ -283,7 +283,7 @@ public extension MaskedTextField {
     }
     
     /**
-     ```UITextField::textContentType```
+     ``UITextField/textContentType``
      */
     func textContentType(_ textContentType: UITextContentType) -> Self {
         var s = self
@@ -292,7 +292,7 @@ public extension MaskedTextField {
     }
     
     /**
-     ```UITextField::passwordRules```
+     ``UITextField/passwordRules``
      */
     func passwordRules(_ passwordRules: UITextInputPasswordRules) -> Self {
         var s = self

@@ -12,7 +12,7 @@ import Foundation
  
  End-of-line state. Serves as mask format terminator character.
  
- Does not accept any character. Always returns ```self``` as the next state, ignoring the child state given during
+ Does not accept any character. Always returns `self` as the next state, ignoring the child state given during
  initialization.
  */
 class EOLState: State {

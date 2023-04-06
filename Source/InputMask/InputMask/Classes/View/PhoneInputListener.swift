@@ -10,23 +10,23 @@ import Foundation
 /**
  ### PhoneInputListener
  
- A ```MaskedTextInputListener``` subclass for guessing a country based on the entered digit sequence
+ A ``MaskedTextInputListener`` subclass for guessing a country based on the entered digit sequence
  
  Computed country dictates the phone formatting
  */
 open class PhoneInputListener: MaskedTextInputListener {
     /**
-     A detected ```Country``` based on the entered digits
+     A detected ``Country`` based on the entered digits
      */
     open private(set) var computedCountry: Country?
     
     /**
-     A list of possible ```Country``` candidates based on the entered digits
+     A list of possible ``Country`` candidates based on the entered digits
      */
     open private(set) var computedCountries: [Country] = []
     
     /**
-     Allowed ```Country``` list. Pre-filters the ```Country::all``` dictionary.
+     Allowed ``Country`` list. Pre-filters the ``Country/all`` dictionary.
      
      May contain country names, native country names, ISO-3166 codes, country emojis, or their mix.
      
@@ -42,7 +42,7 @@ open class PhoneInputListener: MaskedTextInputListener {
     open var enableCountries: [String]?
     
     /**
-     Blocked ```Country``` list. Pre-filters the ```Country::all``` dictionary.
+     Blocked ``Country`` list. Pre-filters the ``Country/all`` dictionary.
      
      May contain country names, native country names, ISO-3166 codes, country emojis, or their mix.
      
@@ -58,7 +58,7 @@ open class PhoneInputListener: MaskedTextInputListener {
     open var disableCountries: [String]?
     
     /**
-     A custom ```Country``` list to be used instead of ```Country::all``` dictionary.
+     A custom ``Country`` list to be used instead of ``Country/all`` dictionary.
      */
     open var customCountries: [Country]?
     

@@ -10,10 +10,10 @@ import Foundation
 /**
  ### CaretStringIterator
  
- Iterates over CaretString.string characters. Each ```next()``` call returns current character and adjusts iterator 
+ Iterates over CaretString.string characters. Each ``CaretStringIterator/next()`` call returns current character and adjusts iterator
  position.
  
- ```CaretStringIterator``` is used by the ```Mask``` instance to iterate over the string that should be formatted.
+ ``CaretStringIterator`` is used by the ``Mask`` instance to iterate over the string that should be formatted.
  */
 class CaretStringIterator {
     
@@ -23,9 +23,9 @@ class CaretStringIterator {
     /**
      Constructor
      
-     - parameter caretString: ```CaretString``` object, over which the iterator is going to iterate.
+     - parameter caretString: ``CaretString`` object, over which the iterator is going to iterate.
      
-     - returns: Initialized ```CaretStringIterator``` pointing at the beginning of provided ```CaretString.string```
+     - returns: Initialized ``CaretStringIterator`` pointing at the beginning of provided ``CaretString/string``
      */
     init(caretString: CaretString) {
         self.caretString  = caretString
@@ -51,11 +51,11 @@ class CaretStringIterator {
     }
     
     /**
-     Iterate over the ```CaretString.string```
+     Iterate over the ``CaretString/string``
      
      - postcondition: Iterator position is moved to the next symbol.
      
-     - returns: Current symbol. If the iterator reached the end of the line, returns ```nil```.
+     - returns: Current symbol. If the iterator reached the end of the line, returns `nil`.
      */
     func next() -> Character? {
         if self.currentIndex >= self.caretString.string.endIndex {

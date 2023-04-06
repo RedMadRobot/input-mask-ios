@@ -10,7 +10,7 @@ import Foundation
 /**
  ### FixedState
  
- Represents characters in curly braces {}.
+ Represents characters in curly braces `{}`.
  
  Accepts every character but does not put it into the result string, unless the character equals the one from the mask
  format. If it's not, inserts the symbol from the mask format into the result.
@@ -51,10 +51,10 @@ class FixedState: State {
     /**
      Constructor.
      
-     - parameter child: next ```State```
-     - parameter ownCharacter: the character in the curly braces {}
+     - parameter child: next ``State``
+     - parameter ownCharacter: the character in the curly braces `{}`
      
-     - returns: Initialized ```FixedState``` instance.
+     - returns: Initialized ``FixedState`` instance.
      */
     init(
         child: State,
