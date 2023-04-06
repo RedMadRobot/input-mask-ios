@@ -10,7 +10,7 @@ import Foundation
 /**
  ### Country
  
- Model object representing a **Country** record operated by the ```PhoneInputListener```.
+ Model object representing a **Country** record operated by the ``PhoneInputListener``.
  */
 public struct Country {
     /**
@@ -44,12 +44,12 @@ public struct Country {
     public let countryCode: String
     
     /**
-     Primary ```Mask``` format for the country phone numbers.
+     Primary ``Mask`` format for the country phone numbers.
      */
     public let primaryFormat: String
     
     /**
-     Affine ```Mask``` formats for the country phone numbers.
+     Affine ``Mask`` formats for the country phone numbers.
      */
     public let affineFormats: [String]
     
@@ -68,8 +68,8 @@ public struct Country {
         - iso3166alpha2: country ISO-3166 code, 2 letters
         - iso3166alpha3: country ISO-3166 code, 3 letters
         - countryCode: country dial code
-        - primaryFormat: primary ```Mask``` format for the country phone numbers
-        - affineFormats: affine ```Mask``` formats for the country phone numbers
+        - primaryFormat: primary ``Mask`` format for the country phone numbers
+        - affineFormats: affine ``Mask`` formats for the country phone numbers
         - phoneRegex: a regular expression to detect whether or not the entered digits correspond to this particular country
      */
     public init(
@@ -95,7 +95,7 @@ public struct Country {
     }
     
     /**
-     Test digits upon this ```Country::phoneRegex```
+     Test digits upon this ``Country/phoneRegex``
      */
     public func phoneStartsWith(digits: String) -> Bool {
         return digits.range(of: self.phoneRegex, options: String.CompareOptions.regularExpression) != nil
@@ -149,7 +149,7 @@ public struct Country {
     }
     
     /**
-     A ```Country``` dictionary.
+     A ``Country`` dictionary.
      
      Feel free to append/correct & file PRs, see https://countrycode.org
      */

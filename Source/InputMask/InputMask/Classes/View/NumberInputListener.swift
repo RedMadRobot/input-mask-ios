@@ -18,9 +18,11 @@ import UIKit
 /**
  ### NumberInputListener
  
- A ```MaskedTextInputListener``` subclass for numbers
+ A ``MaskedTextInputListener`` subclass for numbers.
  
- N.B. Assign a ```NumberFormatter``` instance to the ```::formatter``` field
+ Use with caution, this module is still in development.
+ 
+ - seealso: the ``NumberInputListener/formatter`` field
  */
 @available(iOS 16.0, *)
 open class NumberInputListener: MaskedTextInputListener {

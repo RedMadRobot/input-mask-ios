@@ -10,7 +10,7 @@ import UIKit
 
 
 /**
- Common logic for UITextField and UITextView.
+ Common logic for ``UITextField`` and ``UITextView``.
  */
 @available(iOS 11, *)
 public extension UITextInput {

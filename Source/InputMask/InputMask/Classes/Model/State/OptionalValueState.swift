@@ -10,23 +10,23 @@ import Foundation
 /**
  ### OptionalValueState
  
- Represents optional characters in square brackets [].
+ Represents optional characters in square brackets `[]`.
  
- Accepts any characters, but puts into the result string only the characters of own type (see ```StateType```).
+ Accepts any characters, but puts into the result string only the characters of own type (see ``OptionalValueState/StateType-swift.enum``).
  
  Returns accepted characters of own type as an extracted value.
  
- - seealso: ```OptionalValueState.StateType```
+ - seealso: ``OptionalValueState/StateType-swift.enum``
  */
 class OptionalValueState: State {
     
     /**
      ### StateType
      
-     * ```numeric``` stands for [9] characters
-     * ```literal``` stands for [a] characters
-     * ```alphaNumeric``` stands for [-] characters
-     * ```custom``` stands for characters of custom notation
+     * ``numeric`` stands for [9] characters
+     * ``literal`` stands for [a] characters
+     * ``alphaNumeric`` stands for [-] characters
+     * ``custom`` stands for characters of custom notation
      */
     enum StateType {
         case numeric
@@ -71,12 +71,12 @@ class OptionalValueState: State {
     /**
      Constructor.
      
-     - parameter child: next ```State```
+     - parameter child: next ``State``
      - parameter type: type of the accepted characters
      
-     - seealso: ```OptionalValueState.StateType```
+     - seealso: ``OptionalValueState/StateType-swift.enum``
      
-     - returns: Initialized ```OptionalValueState``` instance.
+     - returns: Initialized ``OptionalValueState`` instance.
      */
     init(
         child: State,

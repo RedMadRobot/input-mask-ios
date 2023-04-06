@@ -10,7 +10,7 @@ import SwiftUI
 /**
  ### MaskedTextField
  
- A UITextField wrapper for SwiftUI, with a ```MaskedTextInputListener``` attached.
+ A ``UITextField`` wrapper for SwiftUI, with a ``MaskedTextInputListener`` attached.
  */
 @available(iOS 13.0, tvOS 13.0, *)
 public struct MaskedTextField: UIViewRepresentable {
@@ -34,167 +34,167 @@ public struct MaskedTextField: UIViewRepresentable {
     // - MARK: UITextField properties
     
     /**
-     ```UITextField::placeholder```
+     ``UITextField/placeholder``
      */
     public var placeholder: String
     
     /**
-     ```UITextField::textColor```
+     ``UITextField/textColor``
      */
     public var textColor: UIColor?
     
     /**
-     ```UITextField::font```
+     ``UITextField/font``
      */
     public var font: UIFont?
     
     /**
-     ```UITextField::textAlignement```
+     ``UITextField/textAlignement``
      */
     public var textAlignement: NSTextAlignment?
     
     /**
-     ```UITextField::borderStyle```
+     ``UITextField/borderStyle``
      */
     public var borderStyle: UITextField.BorderStyle?
     
     /**
-     ```UITextField::tintColor```
+     ``UITextField/tintColor``
      */
     public var tintColor: UIColor?
     
     /**
-     ```UITextField::clearsOnBeginEditing```
+     ``UITextField/clearsOnBeginEditing``
      */
     public var clearsOnBeginEditing: Bool?
     
     /**
-     ```UITextField::clearsOnInsertion```
+     ``UITextField/clearsOnInsertion``
      */
     public var clearsOnInsertion: Bool?
     
     /**
-     ```UITextField::adjustsFontSizeToFitWidth```
+     ``UITextField/adjustsFontSizeToFitWidth``
      */
     public var adjustsFontSizeToFitWidth: Bool?
     
     /**
-     ```UITextField::minimumFontSize```
+     ``UITextField/minimumFontSize``
      */
     public var minimumFontSize: CGFloat?
     
     /**
-     ```UITextField::background```
+     ``UITextField/background``
      */
     public var background: UIImage?
     
     /**
-     ```UITextField::disabledBackground```
+     ``UITextField/disabledBackground``
      */
     public var disabledBackground: UIImage?
     
     /**
-     ```UITextField::clearButtonMode```
+     ``UITextField/clearButtonMode``
      */
     public var clearButtonMode: UITextField.ViewMode?
     
     /**
-     ```UITextField::leftView```
+     ``UITextField/leftView``
      */
     public var leftView: UIView?
     
     /**
-     ```UITextField::leftViewMode```
+     ``UITextField/leftViewMode``
      */
     public var leftViewMode: UITextField.ViewMode?
     
     /**
-     ```UITextField::rightView```
+     ``UITextField/rightView``
      */
     public var rightView: UIView?
     
     /**
-     ```UITextField::rightViewMode```
+     ``UITextField/rightViewMode``
      */
     public var rightViewMode: UITextField.ViewMode?
     
     /**
-     ```UITextField::inputView```
+     ``UITextField/inputView``
      */
     public var inputView: UIView?
     
     /**
-     ```UITextField::inputAccessoryView```
+     ``UITextField/inputAccessoryView``
      */
     public var inputAccessoryView: UIView?
     
     /**
-     ```UITextField::isUserInteractionEnabled```
+     ``UITextField/isUserInteractionEnabled``
      */
     public var isUserInteractionEnabled: Bool?
     
     /**
-     ```UITextField::autocapitalizationType```
+     ``UITextField/autocapitalizationType``
      */
     public var autocapitalizationType: UITextAutocapitalizationType?
     
     /**
-     ```UITextField::autocorrectionType```
+     ``UITextField/autocorrectionType``
      */
     public var autocorrectionType: UITextAutocorrectionType?
     
     /**
-     ```UITextField::spellCheckingType```
+     ``UITextField/spellCheckingType``
      */
     public var spellCheckingType: UITextSpellCheckingType?
     
     /**
-     ```UITextField::smartQuotesType```
+     ``UITextField/smartQuotesType``
      */
     public var smartQuotesType: UITextSmartQuotesType?
     
     /**
-     ```UITextField::smartDashesType```
+     ``UITextField/smartDashesType``
      */
     public var smartDashesType: UITextSmartDashesType?
     
     /**
-     ```UITextField::smartInsertDeleteType```
+     ``UITextField/smartInsertDeleteType``
      */
     public var smartInsertDeleteType: UITextSmartInsertDeleteType?
     
     /**
-     ```UITextField::keyboardType```
+     ``UITextField/keyboardType``
      */
     public var keyboardType: UIKeyboardType?
     
     /**
-     ```UITextField::keyboardAppearance```
+     ``UITextField/keyboardAppearance``
      */
     public var keyboardAppearance: UIKeyboardAppearance?
     
     /**
-     ```UITextField::returnKeyType```
+     ``UITextField/returnKeyType``
      */
     public var returnKeyType: UIReturnKeyType?
     
     /**
-     ```UITextField::enablesReturnKeyAutomatically```
+     ``UITextField/enablesReturnKeyAutomatically``
      */
     public var enablesReturnKeyAutomatically: Bool?
     
     /**
-     ```UITextField::isSecureTextEntry```
+     ``UITextField/isSecureTextEntry``
      */
     public var isSecureTextEntry: Bool?
     
     /**
-     ```UITextField::textContentType```
+     ``UITextField/textContentType``
      */
     public var textContentType: UITextContentType?
     
     /**
-     ```UITextField::passwordRules```
+     ``UITextField/passwordRules``
      */
     public var passwordRules: UITextInputPasswordRules?
     

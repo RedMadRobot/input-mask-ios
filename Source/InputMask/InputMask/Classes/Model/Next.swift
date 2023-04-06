@@ -10,13 +10,13 @@ import Foundation
 /**
  ### Next
  
- Model object that represents a set of actions that should take place when transition from one ```State``` to another 
+ Model object that represents a set of actions that should take place when transition from one ``State`` to another
  occurs.
  */
 struct Next {
     
     /**
-     Next ```State``` of the ```Mask```.
+     Next ``State`` of the ``Mask``.
      */
     let state: State
     

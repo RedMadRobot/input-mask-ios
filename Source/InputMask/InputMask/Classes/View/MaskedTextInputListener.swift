@@ -39,14 +39,14 @@ open class MaskedTextInputListener: NSObject {
     @IBInspectable open var allowSuggestions: Bool
     
     /**
-     Shortly after new text is being pasted from the clipboard, ```UITextInput``` receives a new value for its
-     `selectedTextRange` property from the system. This new range is not consistent with the formatted text and
-     calculated caret position most of the time, yet it's being assigned just after ```set caretPosition``` call.
+     Shortly after new text is being pasted from the clipboard, ``UITextInput`` receives a new value for its
+     ``UITextInput/`selectedTextRange`` property from the system. This new range is not consistent with the formatted text and
+     calculated caret position most of the time, yet it's being assigned just after `set caretPosition` call.
      
      To ensure correct caret position is set, it is assigned asynchronously (presumably after a vanishingly
      small delay), if caret movement is set to be non-atomic.
      
-     Default is ```false```.
+     Default is `false`.
      */
     @IBInspectable open var atomicCaretMovement: Bool = false
 
@@ -308,10 +308,10 @@ open class MaskedTextInputListener: NSObject {
     /**
      Workaround to support Interface Builder delegate outlets.
 
-     Allows assigning ```MaskedTextFieldDelegate.listener``` within the Interface Builder.
+     Allows assigning ``MaskedTextInputListener/listener`` within the Interface Builder.
 
-     Consider using ```MaskedTextFieldDelegate.listener``` property from your source code instead of
-     ```MaskedTextFieldDelegate.delegate``` outlet.
+     Consider using ``MaskedTextInputListener/listener`` property from your source code instead of
+     ``MaskedTextInputListener/delegate`` outlet.
      */
     @IBOutlet public var delegate: NSObject? {
         get {

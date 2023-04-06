@@ -12,7 +12,7 @@ import Foundation
  
  Custom rule for characters inside square brackets.
  
- Internal `Mask` compiler supports a series of symbols which represent letters and numbers in user input.
+ Internal ``Mask`` compiler supports a series of symbols which represent letters and numbers in user input.
  Each symbol stands for its own character set; for instance, `0` and `9` stand for numeric character set.
  This means user can type any digit instead of `0` or `9`, or any letter instead of `A` or `a`.
  

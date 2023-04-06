@@ -10,7 +10,7 @@ import Foundation
 /**
  ### RTLMask
 
- A right-to-left ```Mask``` subclass. Applies format from the string end.
+ A right-to-left ``Mask`` subclass. Applies format from the string end.
  */
 public class RTLMask: Mask {
     private static var cache: [String: RTLMask] = [:]

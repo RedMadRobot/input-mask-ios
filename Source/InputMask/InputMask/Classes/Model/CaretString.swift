@@ -25,9 +25,9 @@ public struct CaretString: CustomDebugStringConvertible, CustomStringConvertible
     public let caretPosition: String.Index
     
     /**
-     When ```Mask``` puts additional characters at caret position, the caret moves in this direction.
+     When ``Mask`` puts additional characters at caret position, the caret moves in this direction.
      
-     Caret usually has a ```.forward``` gravity, unless this ```CaretString``` is a result of deletion/backspacing.
+     Caret usually has a ``CaretGravity-swift.enum/forward(autocomplete:)`` gravity, unless this ``CaretString`` is a result of deletion/backspacing.
      */
     public let caretGravity: CaretGravity
     
@@ -36,7 +36,7 @@ public struct CaretString: CustomDebugStringConvertible, CustomStringConvertible
      
      - parameter string: text from the user.
      - parameter caretPosition: cursor position from the input text field.
-     - parameter caretGravity: caret tends to move in this direction during ```Mask``` insertions at caret position.
+     - parameter caretGravity: caret tends to move in this direction during ``Mask`` insertions at caret position.
      */
     public init(string: String, caretPosition: String.Index, caretGravity: CaretGravity) {
         self.string        = string
@@ -53,7 +53,7 @@ public struct CaretString: CustomDebugStringConvertible, CustomStringConvertible
     }
 
     /**
-     Creates a reversed ```CaretString``` instance with reversed string and corresponding caret position.
+     Creates a reversed ``CaretString`` instance with reversed string and corresponding caret position.
      */
     func reversed() -> CaretString {
         let reversedString:        String       = self.string.reversed
@@ -67,7 +67,7 @@ public struct CaretString: CustomDebugStringConvertible, CustomStringConvertible
     }
     
     /**
-     When ```Mask``` puts additional characters at caret position, the caret moves in this direction.
+     When ``Mask`` puts additional characters at caret position, the caret moves in this direction.
      */
     public enum CaretGravity: Equatable {
         /**

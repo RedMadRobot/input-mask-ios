@@ -11,12 +11,12 @@ import UIKit
 
 
 /**
- Utility extension for commonly used ```Mask``` operations upon strings.
+ Utility extension for commonly used ``Mask`` operations upon strings.
  */
 public extension String {
 
     /**
-     A shortcut for ```String(str.reversed())```.
+     A shortcut for `String(str.reversed())`.
      */
     var reversed: String {
         return String(self.reversed())
@@ -27,7 +27,7 @@ public extension String {
      
      - returns: Current string without first character.
      
-     - throws: EXC_BAD_INSTRUCTION for empty strings.
+     - throws: `EXC_BAD_INSTRUCTION` for empty strings.
      */
     func truncateFirst() -> String {
         return String(self[self.index(after: self.startIndex)...])
@@ -75,14 +75,14 @@ public extension String {
     }
 
     /**
-     A shortcut for ```str.distance(from: str.startIndex, to: index)```.
+     A shortcut for `str.distance(from: str.startIndex, to: index)`.
      */
     func distanceFromStartIndex(to index: String.Index) -> Int {
         return self.distance(from: self.startIndex, to: index)
     }
 
     /**
-     A shortcut for ```str.index(str.startIndex, offsetBy: offset)```.
+     A shortcut for `str.index(str.startIndex, offsetBy: offset)`.
      */
     func startIndex(offsetBy offset: Int) -> String.Index {
         return self.index(self.startIndex, offsetBy: offset)

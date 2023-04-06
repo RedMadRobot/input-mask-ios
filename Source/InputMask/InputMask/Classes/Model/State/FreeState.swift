@@ -15,7 +15,7 @@ import Foundation
  Accepts every character but does not put it into the result string, unless the character equals the one from the mask
  format. If it's not, inserts the symbol from the mask format into the result.
  
- Always returns ```nil``` as an extracted value, does not affect the resulting value.
+ Always returns `nil` as an extracted value, does not affect the resulting value.
  */
 class FreeState: State {
     
@@ -51,10 +51,10 @@ class FreeState: State {
     /**
      Constructor.
      
-     - parameter child: next ```State```
+     - parameter child: next ``State``
      - parameter ownCharacter: represented "free" character
      
-     - returns: Initialized ```FreeState``` instance.
+     - returns: Initialized ``FreeState`` instance.
      */
     init(
         child: State,

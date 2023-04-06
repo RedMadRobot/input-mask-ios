@@ -16,7 +16,7 @@ import Foundation
 class State: CustomDebugStringConvertible, CustomStringConvertible {
     
     /**
-     Next ```State```.
+     Next ``State``.
      */
     let child: State?
     
@@ -28,7 +28,7 @@ class State: CustomDebugStringConvertible, CustomStringConvertible {
      
      - parameter character: character from the user input string.
      
-     - returns: ```Next``` object instance with a set of actions that should take place when the user input character is
+     - returns: ``Next`` object instance with a set of actions that should take place when the user input character is
      accepted.
      
      - throws: Fatal error, if the method is not implemented.
@@ -40,8 +40,8 @@ class State: CustomDebugStringConvertible, CustomStringConvertible {
     /**
      Automatically complete user input.
      
-     - returns: ```Next``` object instance with a set of actions to complete user input. If no autocomplete available,
-     returns ```nil```.
+     - returns: ``Next`` object instance with a set of actions to complete user input. If no autocomplete available,
+     returns `nil`.
      */
     func autocomplete() -> Next? {
         return nil
@@ -50,10 +50,10 @@ class State: CustomDebugStringConvertible, CustomStringConvertible {
     /**
      Obtain the next state. 
      
-     Sometimes it is necessary to override this behavior. For instance, ```State``` may want to return ```self``` as the
+     Sometimes it is necessary to override this behavior. For instance, ``State`` may want to return `self` as the
      next state under certain conditions.
      
-     - returns: ```State``` object.
+     - returns: ``State`` object.
      */
     func nextState() -> State {
         return self.child!
