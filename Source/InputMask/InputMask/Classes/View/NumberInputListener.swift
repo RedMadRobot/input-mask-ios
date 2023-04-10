@@ -81,7 +81,7 @@ open class NumberInputListener: MaskedTextInputListener {
             }
         }
         
-        if sanitisedNumberString.numberOfOccurencesOfDecimalSeparator > 0 {
+        if sanitisedNumberString.numberOfOccurrencesOfDecimalSeparator > 0 {
             maskFormat += "{\(sanitisedNumberString.expectedDecimalSeparator)}"
         }
         
@@ -117,7 +117,7 @@ open class NumberInputListener: MaskedTextInputListener {
         let intPart: String
         let decPart: String
         let expectedDecimalSeparator: String
-        let numberOfOccurencesOfDecimalSeparator: Int
+        let numberOfOccurrencesOfDecimalSeparator: Int
     }
     
     private func extractNumberAndDecimalSeparator(
@@ -139,12 +139,12 @@ open class NumberInputListener: MaskedTextInputListener {
                 return CharacterSet.decimalDigits.isMember(character: c) || String(c) == NumberInputListener.decimalSeparator
             }
         
-        let numberOfOccurencesOfDecimalSeparator = digitsAndDecimalSeparators.numberOfOccurencesOf(NumberInputListener.decimalSeparator)
-        if numberOfOccurencesOfDecimalSeparator > 1 {
+        let numberOfOccurrencesOfDecimalSeparator = digitsAndDecimalSeparators.numberOfOccurrencesOf(NumberInputListener.decimalSeparator)
+        if numberOfOccurrencesOfDecimalSeparator > 1 {
             digitsAndDecimalSeparators =
                 digitsAndDecimalSeparators
                     .reversed
-                    .replacing(NumberInputListener.decimalSeparator, with: "", maxReplacements: numberOfOccurencesOfDecimalSeparator - 1)
+                    .replacing(NumberInputListener.decimalSeparator, with: "", maxReplacements: numberOfOccurrencesOfDecimalSeparator - 1)
                     .reversed
         }
         
@@ -168,7 +168,7 @@ open class NumberInputListener: MaskedTextInputListener {
             intPart: intStr,
             decPart: decStr,
             expectedDecimalSeparator: expectedDecimalSeparator,
-            numberOfOccurencesOfDecimalSeparator: numberOfOccurencesOfDecimalSeparator
+            numberOfOccurrencesOfDecimalSeparator: numberOfOccurrencesOfDecimalSeparator
         )
     }
     

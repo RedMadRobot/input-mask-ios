@@ -5,7 +5,7 @@
 **⤵️ Added:**
 
 * `NumberInputListener`: a `MaskedTextInputListener` allowing to enter currencies and other numbers
-* `"".numberOfOccurencesOf(string)`: a helper method to count occurencies of substrings
+* `"".numberOfOccurrencesOf(string)`: a helper method to count occurencies of substrings
 
 **🔄 Modified:**
 

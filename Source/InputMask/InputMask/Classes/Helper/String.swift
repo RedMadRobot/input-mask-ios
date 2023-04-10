@@ -98,7 +98,7 @@ public extension String {
     /**
      Count the number of occurences of a substring.
      */
-    func numberOfOccurencesOf(_ string: String) -> Int {
+    func numberOfOccurrencesOf(_ string: String) -> Int {
         return self.components(separatedBy: string).count - 1
     }
     
