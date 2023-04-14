@@ -5,7 +5,7 @@
 
 import Foundation
 
-#if !os(macOS) && !os(watchOS)
+#if canImport(UIKit)
 import UIKit
 #endif
 
@@ -102,7 +102,7 @@ public extension String {
         return self.components(separatedBy: string).count - 1
     }
     
-#if !os(macOS) && !os(watchOS)
+#if canImport(UIKit)
     
     /**
      Get a rectangle size to contain this string.

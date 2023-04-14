@@ -3,6 +3,7 @@
 // Created by Jeorge Taflanidi
 //
 
+#if canImport(Foundation)
 
 import Foundation
 
@@ -37,3 +38,5 @@ public class RTLMask: Mask {
         return RTLCaretStringIterator(caretString: text)
     }
 }
+
+#endif

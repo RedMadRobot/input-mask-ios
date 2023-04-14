@@ -3,6 +3,7 @@
 // Created by Jeorge Taflanidi
 //
 
+#if canImport(Foundation)
 
 import Foundation
 
@@ -410,3 +411,5 @@ private extension Mask {
     }
     
 }
+
+#endif
