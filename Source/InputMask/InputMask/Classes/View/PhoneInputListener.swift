@@ -3,7 +3,7 @@
 // Created by Jeorge Taflanidi
 //
 
-#if canImport(UIKit) && canImport(Foundation)
+#if canImport(UIKit) && canImport(Foundation) && !os(watchOS)
 
 import Foundation
 

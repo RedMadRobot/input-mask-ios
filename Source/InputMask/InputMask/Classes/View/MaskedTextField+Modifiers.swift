@@ -3,7 +3,7 @@
 // Created by Jeorge Taflanidi
 //
 
-#if canImport(SwiftUI) && canImport(UIKit)
+#if canImport(SwiftUI) && canImport(UIKit) && !os(watchOS)
 
 import UIKit
 import SwiftUI
