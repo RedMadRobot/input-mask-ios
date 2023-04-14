@@ -24,7 +24,7 @@ import UIKit
  
  - seealso: the ``NumberInputListener/formatter`` field
  */
-@available(iOS 16.0, *)
+@available(iOS 16.0, tvOS 16.0, *)
 open class NumberInputListener: MaskedTextInputListener {
     private static let decimalSeparator = "."
     
