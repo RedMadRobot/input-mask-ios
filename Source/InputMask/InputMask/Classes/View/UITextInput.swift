@@ -63,6 +63,10 @@ public extension UITextInput {
             let newSelectedTextRange = textRange(from: from, to: to)
             
             if oldSelectedTextRange != newSelectedTextRange {
+                /**
+                 Profiling shows that assigning a new `selectedTextRange` is a rather resources-consuming operation.
+                 Thus this sub-optimisation to avoid performance hiccups.
+                 */
                 selectedTextRange = textRange(from: from, to: to)
             }
         }
