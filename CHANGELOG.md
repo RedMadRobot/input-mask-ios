@@ -1,5 +1,10 @@
 # 𝌡Changelog
 
+## 7.1.1
+
+**🔄 Modified:**
+* `UITextInput.caretPosition.setter` now updates caret position only if it changed 
+
 ## 7.1.0
 
 **⤵️ Added:**
