@@ -58,7 +58,7 @@ public extension UITextInput {
             
             let from: UITextPosition = position(from: beginningOfDocument, offset: newPosition)!
             let to:   UITextPosition = position(from: from, offset: 0)!
-//            selectedTextRange = textRange(from: from, to: to)
+            selectedTextRange = textRange(from: from, to: to)
         }
     }
     
