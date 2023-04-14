@@ -58,7 +58,17 @@ public extension UITextInput {
             
             let from: UITextPosition = position(from: beginningOfDocument, offset: newPosition)!
             let to:   UITextPosition = position(from: from, offset: 0)!
-            selectedTextRange = textRange(from: from, to: to)
+            
+            let oldSelectedTextRange = selectedTextRange
+            let newSelectedTextRange = textRange(from: from, to: to)
+            
+            if oldSelectedTextRange != newSelectedTextRange {
+                /**
+                 Profiling shows that assigning a new `selectedTextRange` is a rather resources-consuming operation.
+                 Thus this sub-optimisation to avoid performance hiccups.
+                 */
+                selectedTextRange = textRange(from: from, to: to)
+            }
         }
     }
     
