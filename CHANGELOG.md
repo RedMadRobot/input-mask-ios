@@ -1,5 +1,10 @@
 # 𝌡Changelog
 
+## 7.2.0
+
+**🔄 Modified:**
+* `MaskedTextInputListener.replaceCharacters()`: apply a patch to counter iOS Undo Manager, see https://github.com/RedMadRobot/input-mask-ios/issues/84
+
 ## 7.1.1
 
 **🔄 Modified:**

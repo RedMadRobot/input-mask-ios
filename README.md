@@ -148,6 +148,7 @@ These folks rock:
 * Ivan [vani](https://github.com/vani2) Vavilov
 * Diego [diegotl](https://github.com/diegotl) Trevisan
 * Martin [martintreurnicht](https://github.com/martintreurnicht) Treurnicht
+* Alexander [CFIFok](https://github.com/CFIFok) Kurilovich
 
 <a name="license" />
 
