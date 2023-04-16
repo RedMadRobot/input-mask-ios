@@ -225,13 +225,36 @@ open class MaskedTextInputListener: NSObject {
     }
     
     open func replaceCharacters(inText text: String, range: NSRange, withCharacters newText: String) -> String {
-        if 0 < range.length {
+        /**
+         https://github.com/RedMadRobot/input-mask-ios/issues/84
+         
+         iOS Undo Manager might not consider text adjustments made by the library.
+         Thus, the `range` might be out of bounds compared to the actual text.
+         */
+        var sanitisedRangeLocation = range.location
+        var sanitisedRangeLength = range.length
+        
+        if text.count < sanitisedRangeLocation {
+            sanitisedRangeLocation = text.count
+        }
+        
+        if text.count < sanitisedRangeLocation + sanitisedRangeLength {
+            sanitisedRangeLength = text.count - sanitisedRangeLocation
+        }
+        
+        let sanitisedRange = NSRange(
+            location: sanitisedRangeLocation,
+            length: sanitisedRangeLength
+        )
+        // end
+        
+        if 0 < sanitisedRange.length {
             let result = NSMutableString(string: text)
-            result.replaceCharacters(in: range, with: newText)
+            result.replaceCharacters(in: sanitisedRange, with: newText)
             return result as String
         } else {
             let result = NSMutableString(string: text)
-            result.insert(newText, at: range.location)
+            result.insert(newText, at: sanitisedRange.location)
             return result as String
         }
     }
