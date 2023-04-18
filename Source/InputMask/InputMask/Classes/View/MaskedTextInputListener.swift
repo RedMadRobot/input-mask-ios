@@ -33,6 +33,8 @@ open class MaskedTextInputListener: NSObject {
     @IBInspectable open var autoskip:            Bool
     @IBInspectable open var rightToLeft:         Bool
     
+    @IBInspectable open var nonRemovablePrefix:  Bool
+    
     /**
      Allows input suggestions from keyboard
      */
@@ -68,7 +70,8 @@ open class MaskedTextInputListener: NSObject {
         affinityCalculationStrategy: AffinityCalculationStrategy = .wholeString,
         customNotations: [Notation] = [],
         onMaskedTextChangedCallback: ((_ textInput: UITextInput, _ value: String, _ complete: Bool, _ tailPlaceholder: String) -> ())? = nil,
-        allowSuggestions: Bool = true
+        allowSuggestions: Bool = true,
+        nonRemovablePrefix: Bool = false
     ) {
         self.primaryMaskFormat = primaryFormat
         self.autocomplete = autocomplete
@@ -80,6 +83,7 @@ open class MaskedTextInputListener: NSObject {
         self.customNotations = customNotations
         self.onMaskedTextChangedCallback = onMaskedTextChangedCallback
         self.allowSuggestions = allowSuggestions
+        self.nonRemovablePrefix = nonRemovablePrefix
         super.init()
     }
     
@@ -105,6 +109,7 @@ open class MaskedTextInputListener: NSObject {
         self.customNotations = []
         self.onMaskedTextChangedCallback = nil
         self.allowSuggestions = true
+        self.nonRemovablePrefix = false
         super.init()
     }
     
