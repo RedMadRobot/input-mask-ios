@@ -224,14 +224,19 @@ open class MaskedTextInputListener: NSObject {
         if nonRemovablePrefix
         && resultWithNonRemovablePrefix.formattedText.string.count > result.formattedText.string.count {
             textInput.allText = resultWithNonRemovablePrefix.formattedText.string
+            setCaretPosition(
+                resultWithNonRemovablePrefix.formattedText.string.distanceFromStartIndex(
+                    to: resultWithNonRemovablePrefix.formattedText.caretPosition
+                ),
+                in: textInput
+            )
         } else {
             textInput.allText = result.formattedText.string
+            setCaretPosition(
+                result.formattedText.string.distanceFromStartIndex(to: result.formattedText.caretPosition),
+                in: textInput
+            )
         }
-
-        setCaretPosition(
-            result.formattedText.string.distanceFromStartIndex(to: result.formattedText.caretPosition),
-            in: textInput
-        )
         
         return .notifyListeners(result: result)
     }
