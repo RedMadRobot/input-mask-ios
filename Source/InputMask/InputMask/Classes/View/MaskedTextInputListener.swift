@@ -199,7 +199,7 @@ open class MaskedTextInputListener: NSObject {
             return .fallback
         }
         let isDeletion = isThisDeletion(inRange: range, string: string, field: textInput)
-        let useAutocomplete = isDeletion ? false : autocomplete
+        let useAutocomplete = true // isDeletion ? false : autocomplete
         let useAutoskip = isDeletion ? autoskip : false
         let caretGravity: CaretString.CaretGravity =
             isDeletion ? .backward(autoskip: useAutoskip) : .forward(autocomplete: useAutocomplete)
