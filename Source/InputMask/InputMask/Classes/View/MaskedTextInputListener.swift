@@ -199,7 +199,7 @@ open class MaskedTextInputListener: NSObject {
             return .fallback
         }
         let isDeletion = isThisDeletion(inRange: range, string: string, field: textInput)
-        let useAutocomplete = true // isDeletion ? false : autocomplete
+        let useAutocomplete = isDeletion ? false : autocomplete
         let useAutoskip = isDeletion ? autoskip : false
         let caretGravity: CaretString.CaretGravity =
             isDeletion ? .backward(autoskip: useAutoskip) : .forward(autocomplete: useAutocomplete)
@@ -210,8 +210,24 @@ open class MaskedTextInputListener: NSObject {
         
         let mask: Mask = pickMask(forText: text)
         let result: Mask.Result = mask.apply(toText: text)
+
+        // TODO: refactor
+        let emptyText = ""
+        let emptyCaretString = CaretString(
+            string: emptyText,
+            caretPosition: emptyText.endIndex,
+            caretGravity: CaretString.CaretGravity.forward(autocomplete: true)
+        )
+        let resultWithNonRemovablePrefix = mask.apply(toText: emptyCaretString)
+        // TODO: - end
         
-        textInput.allText = result.formattedText.string
+        if nonRemovablePrefix
+        && resultWithNonRemovablePrefix.formattedText.string.count > result.formattedText.string.count {
+            textInput.allText = resultWithNonRemovablePrefix.formattedText.string
+        } else {
+            textInput.allText = result.formattedText.string
+        }
+
         setCaretPosition(
             result.formattedText.string.distanceFromStartIndex(to: result.formattedText.caretPosition),
             in: textInput
