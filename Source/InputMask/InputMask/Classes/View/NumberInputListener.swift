@@ -24,7 +24,6 @@ import UIKit
  
  - seealso: the ``NumberInputListener/formatter`` field
  */
-@available(iOS 16.0, tvOS 16.0, *)
 open class NumberInputListener: MaskedTextInputListener {
     private static let decimalSeparator = "."
     
@@ -141,11 +140,23 @@ open class NumberInputListener: MaskedTextInputListener {
         
         let numberOfOccurrencesOfDecimalSeparator = digitsAndDecimalSeparators.numberOfOccurrencesOf(NumberInputListener.decimalSeparator)
         if numberOfOccurrencesOfDecimalSeparator > 1 {
-            digitsAndDecimalSeparators =
-                digitsAndDecimalSeparators
-                    .reversed
-                    .replacing(NumberInputListener.decimalSeparator, with: "", maxReplacements: numberOfOccurrencesOfDecimalSeparator - 1)
-                    .reversed
+            if #available(iOS 16.0, *) {
+                digitsAndDecimalSeparators =
+                    digitsAndDecimalSeparators
+                        .reversed
+                        .replacing(NumberInputListener.decimalSeparator, with: "", maxReplacements: numberOfOccurrencesOfDecimalSeparator - 1)
+                        .reversed
+            } else {
+                // TODO: remove
+                digitsAndDecimalSeparators = digitsAndDecimalSeparators.reversed
+                digitsAndDecimalSeparators = replace(
+                    NumberInputListener.decimalSeparator,
+                    in: digitsAndDecimalSeparators,
+                    with: "",
+                    maxReplacements: numberOfOccurrencesOfDecimalSeparator - 1
+                )
+                digitsAndDecimalSeparators = digitsAndDecimalSeparators.reversed
+            }
         }
         
         let components = digitsAndDecimalSeparators.components(separatedBy: NumberInputListener.decimalSeparator)
@@ -182,6 +193,28 @@ open class NumberInputListener: MaskedTextInputListener {
             )
         ]
         return character
+    }
+    
+    private func replace(
+        _ substring: String,
+        in origin: String,
+        with replacementSubstring: String,
+        maxReplacements: Int
+    ) -> String {
+        var string = origin
+        var ranges: [Range<String.Index>] = []
+        var start = string.startIndex
+        while start < string.endIndex,
+            let range = string.range(of: substring, range: start..<string.endIndex) {
+            ranges.append(range)
+            start = range.upperBound
+            if ranges.count == maxReplacements { break }
+        }
+
+        for range in ranges.reversed() {
+            string.replaceSubrange(range, with:  replacementSubstring)
+        }
+        return string
     }
 }
 
