@@ -1,5 +1,10 @@
 # 𝌡Changelog
 
+## 7.2.1
+
+**🔄 Modified:**
+* `NumberInputListener` was made available to iOS 15.6
+
 ## 7.2.0
 
 **🔄 Modified:**
