@@ -140,7 +140,7 @@ open class NumberInputListener: MaskedTextInputListener {
         
         let numberOfOccurrencesOfDecimalSeparator = digitsAndDecimalSeparators.numberOfOccurrencesOf(NumberInputListener.decimalSeparator)
         if numberOfOccurrencesOfDecimalSeparator > 1 {
-            if #available(iOS 16.0, *) {
+            if #available(iOS 16.0, tvOS 16.0, *) {
                 digitsAndDecimalSeparators =
                     digitsAndDecimalSeparators
                         .reversed
