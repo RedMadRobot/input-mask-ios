@@ -111,7 +111,7 @@ public struct Country {
         let excludingTermsLowercased = (excludingTerms ?? []).map { $0.lowercased() }
         let phoneDigits = phone.extractDigits()
         
-        return customCountries ?? all.filter { country in
+        return (customCountries ?? all).filter { country in
             var include: Bool = false
             
             if includingTerms != nil {
