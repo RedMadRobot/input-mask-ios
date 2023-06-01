@@ -412,7 +412,7 @@ extension MaskedTextInputListener: UITextFieldDelegate {
         textFieldDelegate?.textFieldDidEndEditing?(textField, reason: reason)
     }
     
-    @available(tvOS 13.0, *)
+    @available(iOS 13.0, tvOS 13.0, *)
     public func textFieldDidChangeSelection(_ textField: UITextField) {
         textFieldDelegate?.textFieldDidChangeSelection?(textField)
     }
