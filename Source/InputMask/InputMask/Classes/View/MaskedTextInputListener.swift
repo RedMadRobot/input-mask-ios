@@ -421,7 +421,7 @@ extension MaskedTextInputListener: UITextFieldDelegate {
         return textFieldDelegate?.textFieldShouldReturn?(textField) ?? true
     }
     
-    @available(tvOS 16.0, *)
+    @available(iOS 16.0, tvOS 16.0, *)
     public func textField(_ textField: UITextField, editMenuForCharactersIn range: NSRange, suggestedActions: [UIMenuElement]) -> UIMenu? {
         return textFieldDelegate?.textField?(textField, editMenuForCharactersIn: range, suggestedActions: suggestedActions)
     }
@@ -499,7 +499,7 @@ extension MaskedTextInputListener: UITextViewDelegate {
         return textViewDelegate?.textView?(textView, shouldInteractWith: textAttachment, in: characterRange, interaction: interaction) ?? true
     }
     
-    @available(tvOS 16.0, *)
+    @available(iOS 16.0, tvOS 16.0, *)
     public func textView(_ textView: UITextView, editMenuForTextIn range: NSRange, suggestedActions: [UIMenuElement]) -> UIMenu? {
         return textViewDelegate?.textView?(textView, editMenuForTextIn: range, suggestedActions: suggestedActions)
     }
