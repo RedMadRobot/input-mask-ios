@@ -332,9 +332,9 @@ public struct MaskedTextField: UIViewRepresentable {
             )
         }
         
-        public func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        public override func textFieldShouldReturn(_ textField: UITextField) -> Bool {
             onSubmit?(textField)
-            return true
+            return super.textFieldShouldReturn(textField)
         }
 
         public override func textFieldDidBeginEditing(_ textField: UITextField) {

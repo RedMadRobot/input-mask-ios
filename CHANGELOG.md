@@ -1,5 +1,11 @@
 # 𝌡Changelog
 
+## 7.2.7
+
+**⤵️ Added:**
+
+* `MaskedTextInputListener` now provides call forwarding to its corresponding `textFieldDelegate` and `textViewDelegate`
+
 ## 7.2.6
 
 **🔄 Modified:**

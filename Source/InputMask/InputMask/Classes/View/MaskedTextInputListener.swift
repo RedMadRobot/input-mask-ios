@@ -26,6 +26,9 @@ open class MaskedTextInputListener: NSObject {
 
     open weak var listener: OnMaskedTextChangedListener?
     open var onMaskedTextChangedCallback: ((_ textInput: UITextInput, _ value: String, _ complete: Bool, _ tailPlaceholder: String) -> ())?
+  
+    open weak var textFieldDelegate: UITextFieldDelegate?
+    open weak var textViewDelegate: UITextViewDelegate?
 
     @IBInspectable open var primaryMaskFormat:   String
     @IBInspectable open var autocomplete:        Bool
@@ -355,6 +358,7 @@ open class MaskedTextInputListener: NSObject {
 extension MaskedTextInputListener: UITextFieldDelegate {
 
     open func textFieldDidBeginEditing(_ textField: UITextField) {
+        textFieldDelegate?.textFieldDidBeginEditing?(textField)
         if autocompleteOnFocus && (textField.text ?? "").isEmpty {
             let result: Mask.Result = put(text: "", into: textField, autocomplete: true)
             notifyOnMaskedTextChangedListeners(forTextInput: textField, result: result)
@@ -366,6 +370,11 @@ extension MaskedTextInputListener: UITextFieldDelegate {
         shouldChangeCharactersIn range: NSRange,
         replacementString string: String
     ) -> Bool {
+        // NOTE: lib logic depends on controlling the returned value, so no full control forwarding is allowed here
+        if textFieldDelegate?.textField?(textField, shouldChangeCharactersIn: range, replacementString: string) == false {
+            return false
+        }
+        
         switch textInput(textField, isChangingCharactersIn: range, replacementString: string) {
             case .fallback:
                 return true
@@ -376,9 +385,45 @@ extension MaskedTextInputListener: UITextFieldDelegate {
     }
 
     open func textFieldShouldClear(_ textField: UITextField) -> Bool {
+        if textFieldDelegate?.textFieldShouldClear?(textField) == false {
+            return false
+        }
+
         let result: Mask.Result = put(text: "", into: textField, autocomplete: false)
         notifyOnMaskedTextChangedListeners(forTextInput: textField, result: result)
         return true
+    }
+    
+    // MARK: - Call forwarding
+    
+    public func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        return textFieldDelegate?.textFieldShouldBeginEditing?(textField) ?? true
+    }
+    
+    public func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
+        return textFieldDelegate?.textFieldShouldEndEditing?(textField) ?? true
+    }
+    
+    public func textFieldDidEndEditing(_ textField: UITextField) {
+        textFieldDelegate?.textFieldDidEndEditing?(textField)
+    }
+    
+    public func textFieldDidEndEditing(_ textField: UITextField, reason: UITextField.DidEndEditingReason) {
+        textFieldDelegate?.textFieldDidEndEditing?(textField, reason: reason)
+    }
+    
+    @available(tvOS 13.0, *)
+    public func textFieldDidChangeSelection(_ textField: UITextField) {
+        textFieldDelegate?.textFieldDidChangeSelection?(textField)
+    }
+    
+    public func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        return textFieldDelegate?.textFieldShouldReturn?(textField) ?? true
+    }
+    
+    @available(tvOS 16.0, *)
+    public func textField(_ textField: UITextField, editMenuForCharactersIn range: NSRange, suggestedActions: [UIMenuElement]) -> UIMenu? {
+        return textFieldDelegate?.textField?(textField, editMenuForCharactersIn: range, suggestedActions: suggestedActions)
     }
 
 }
@@ -388,6 +433,7 @@ extension MaskedTextInputListener: UITextFieldDelegate {
 extension MaskedTextInputListener: UITextViewDelegate {
 
     open func textViewDidBeginEditing(_ textView: UITextView) {
+        textViewDelegate?.textViewDidBeginEditing?(textView)
         if autocompleteOnFocus && textView.text.isEmpty {
             let result: Mask.Result = put(text: "", into: textView, autocomplete: true)
             notifyOnMaskedTextChangedListeners(forTextInput: textView, result: result)
@@ -399,6 +445,11 @@ extension MaskedTextInputListener: UITextViewDelegate {
         shouldChangeTextIn range: NSRange,
         replacementText text: String
     ) -> Bool {
+        // NOTE: lib logic depends on controlling the returned value, so no full control forwarding is allowed here
+        if textViewDelegate?.textView?(textView, shouldChangeTextIn: range, replacementText: text) == false {
+            return false
+        }
+        
         switch textInput(textView, isChangingCharactersIn: range, replacementString: text) {
             case .fallback:
                 return true
@@ -406,6 +457,51 @@ extension MaskedTextInputListener: UITextViewDelegate {
                 notifyOnMaskedTextChangedListeners(forTextInput: textView, result: result)
                 return false
         }
+    }
+    
+    // MARK: - Call forwarding
+    
+    public func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
+        return textViewDelegate?.textViewShouldBeginEditing?(textView) ?? true
+    }
+    
+    public func textViewShouldEndEditing(_ textView: UITextView) -> Bool {
+        return textViewDelegate?.textViewShouldEndEditing?(textView) ?? true
+    }
+    
+    public func textViewDidEndEditing(_ textView: UITextView) {
+        textViewDelegate?.textViewDidEndEditing?(textView)
+    }
+    
+    public func textViewDidChange(_ textView: UITextView) {
+        textViewDelegate?.textViewDidChange?(textView)
+    }
+    
+    public func textViewDidChangeSelection(_ textView: UITextView) {
+        textViewDelegate?.textViewDidChangeSelection?(textView)
+    }
+    
+    public func textView(
+        _ textView: UITextView,
+        shouldInteractWith URL: URL,
+        in characterRange: NSRange,
+        interaction: UITextItemInteraction
+    ) -> Bool {
+        return textViewDelegate?.textView?(textView, shouldInteractWith: URL, in: characterRange, interaction: interaction) ?? true
+    }
+    
+    public func textView(
+        _ textView: UITextView,
+        shouldInteractWith textAttachment: NSTextAttachment,
+        in characterRange: NSRange,
+        interaction: UITextItemInteraction
+    ) -> Bool {
+        return textViewDelegate?.textView?(textView, shouldInteractWith: textAttachment, in: characterRange, interaction: interaction) ?? true
+    }
+    
+    @available(tvOS 16.0, *)
+    public func textView(_ textView: UITextView, editMenuForTextIn range: NSRange, suggestedActions: [UIMenuElement]) -> UIMenu? {
+        return textViewDelegate?.textView?(textView, editMenuForTextIn: range, suggestedActions: suggestedActions)
     }
 
 }
