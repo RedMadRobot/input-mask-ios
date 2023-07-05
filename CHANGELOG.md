@@ -1,5 +1,11 @@
 # 𝌡Changelog
 
+## 7.3.0
+
+**⤵️ Added:**
+
+* Full **macOS** support: a brand new `TextViewListener` class for `NSTextView` instances 
+
 ## 7.2.8
 
 **⤵️ Added:**
