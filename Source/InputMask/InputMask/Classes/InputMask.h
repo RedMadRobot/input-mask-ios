@@ -3,7 +3,13 @@
 // Created by Jeorge Taflanidi
 //
 
+#if canImport(UIKit)
 #import <UIKit/UIKit.h>
+#endif
+
+#if canImport(AppKit)
+#import <AppKit/AppKit.h>
+#endif
 
 //! Project version number for InputMask.
 FOUNDATION_EXPORT double InputMaskVersionNumber;
