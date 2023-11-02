@@ -42,7 +42,12 @@ public struct MaskedTextField: UIViewRepresentable {
      ``UITextField/textColor``
      */
     public var textColor: UIColor?
-    
+
+    /**
+     ``UITextField/placeholderColor``
+     */
+    public var placeholderColor: UIColor?
+
     /**
      ``UITextField/font``
      */
@@ -348,6 +353,7 @@ public struct MaskedTextField: UIViewRepresentable {
         field.placeholder = placeholder
         
         field.textColor = textColor
+        field.placeholderColor = placeholderColor ?? field.placeholderColor
         field.font = font
         field.textAlignment = textAlignement ?? field.textAlignment
         

@@ -20,7 +20,16 @@ public extension MaskedTextField {
         s.textColor = color
         return s
     }
-    
+
+    /**
+     ``UITextField/placeholderColor``
+     */
+    func placehodelrColor(_ color: UIColor) -> Self {
+        var s = self
+        s.placeholderColor = color
+        return s
+    }
+
     /**
      ``UITextField/font``
      */
