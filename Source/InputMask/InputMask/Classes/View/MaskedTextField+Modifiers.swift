@@ -24,7 +24,7 @@ public extension MaskedTextField {
     /**
      ``UITextField/placeholderColor``
      */
-    func placehodelrColor(_ color: UIColor) -> Self {
+    func placehodlderColor(_ color: UIColor) -> Self {
         var s = self
         s.placeholderColor = color
         return s
