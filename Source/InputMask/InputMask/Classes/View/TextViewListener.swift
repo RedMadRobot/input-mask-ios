@@ -3,7 +3,7 @@
 // Created by Jeorge Taflanidi
 //
 
-#if canImport(AppKit) && canImport(Foundation)
+#if canImport(AppKit) && canImport(Foundation) && !targetEnvironment(macCatalyst)
 
 import Foundation
 import AppKit
